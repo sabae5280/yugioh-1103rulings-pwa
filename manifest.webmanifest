@@ -1,0 +1,24 @@
+{
+  "name": "遊戯王1103環境 裁定集",
+  "short_name": "1103裁定集",
+  "description": "遊戯王OCG 2011年3月環境の裁定検索アプリ",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f5f2e9",
+  "theme_color": "#101a32",
+  "lang": "ja",
+  "icons": [
+    {
+      "src": "./icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "./icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
