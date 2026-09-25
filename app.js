@@ -7,6 +7,9 @@ const emptyState = document.querySelector("#emptyState");
 const filters = document.querySelector("#filters");
 const installButton = document.querySelector("#installButton");
 const iosTip = document.querySelector("#iosTip");
+const imageLightbox = document.querySelector("#imageLightbox");
+const lightboxImage = document.querySelector("#lightboxImage");
+const lightboxClose = document.querySelector("#lightboxClose");
 
 let currentFilter = "all";
 let deferredPrompt = null;
@@ -73,7 +76,11 @@ function cardTitle(item) {
 
 function imagePanel(item) {
   if (item.image) {
-    return `<img class="card-image" src="${escapeHtml(item.image)}" alt="《${escapeHtml(item.name)}》のカード画像" loading="lazy">`;
+    return `
+      <button class="image-zoom-button" type="button" data-image-src="${escapeHtml(item.image)}" data-image-name="${escapeHtml(item.name)}" aria-label="《${escapeHtml(item.name)}》のカード画像を拡大表示">
+        <img class="card-image" src="${escapeHtml(item.image)}" alt="《${escapeHtml(item.name)}》のカード画像" loading="lazy">
+        <span>クリックで拡大</span>
+      </button>`;
   }
   return `<div class="image-placeholder" aria-label="カード画像準備中"><span>IMAGE</span><small>画像準備中</small></div>`;
 }
@@ -86,7 +93,7 @@ function qaPanel(item) {
         <div class="qa-list">
           ${item.qa.map((entry, index) => `
             <details class="qa-item" ${index === 0 ? "open" : ""}>
-              <summary><span>Q</span>${linkedText(entry.question)}</summary>
+              <summary><span class="qa-marker">Q</span><span class="qa-question">${linkedText(entry.question)}</span></summary>
               <div class="answer"><span>A</span><p>${linkedText(entry.answer)}</p></div>
               ${entry.date ? `<p class="qa-date">裁定日：${escapeHtml(entry.date)}</p>` : ""}
             </details>
@@ -146,6 +153,11 @@ function render() {
 }
 
 list.addEventListener("click", (event) => {
+  const imageButton = event.target.closest("[data-image-src]");
+  if (imageButton) {
+    openLightbox(imageButton.dataset.imageSrc, imageButton.dataset.imageName);
+    return;
+  }
   const cardLink = event.target.closest("[data-card]");
   if (cardLink) {
     event.preventDefault();
@@ -158,6 +170,28 @@ list.addEventListener("click", (event) => {
   const open = button.getAttribute("aria-expanded") === "true";
   button.setAttribute("aria-expanded", String(!open));
   body.hidden = open;
+});
+
+function openLightbox(src, name) {
+  lightboxImage.src = src;
+  lightboxImage.alt = `《${name}》の拡大カード画像`;
+  imageLightbox.hidden = false;
+  document.body.classList.add("lightbox-open");
+  lightboxClose.focus();
+}
+
+function closeLightbox() {
+  imageLightbox.hidden = true;
+  lightboxImage.removeAttribute("src");
+  document.body.classList.remove("lightbox-open");
+}
+
+lightboxClose.addEventListener("click", closeLightbox);
+imageLightbox.addEventListener("click", (event) => {
+  if (event.target === imageLightbox) closeLightbox();
+});
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && !imageLightbox.hidden) closeLightbox();
 });
 
 function navigateToCard(name) {
