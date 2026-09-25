@@ -14,10 +14,17 @@ let deferredPrompt = null;
 const typeLabels = { monster: "モンスター", spell: "魔法", trap: "罠" };
 
 function normalize(value) {
-  return String(value || "")
+  const normalized = String(value || "")
     .normalize("NFKC")
-    .toLowerCase()
-    .replace(/[\s・－―ー_]/g, "");
+    .toLowerCase();
+
+  // カタカナをひらがなへ統一し、表記ゆれを吸収する。
+  const hiragana = normalized.replace(/[ァ-ヶ]/g, (character) =>
+    String.fromCharCode(character.charCodeAt(0) - 0x60)
+  );
+
+  // 中黒、空白、長音・ハイフン類の有無を検索結果に影響させない。
+  return hiragana.replace(/[\s・･－―—–ー_＿]/g, "");
 }
 
 function escapeHtml(value) {
