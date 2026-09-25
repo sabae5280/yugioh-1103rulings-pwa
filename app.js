@@ -117,17 +117,12 @@ function relatedPanel(item) {
     </section>`;
 }
 
-function render() {
-  const query = normalize(searchInput.value);
-  const items = window.RULINGS.filter((item) => {
-    const typeMatches = currentFilter === "all" || item.type === currentFilter;
-    const haystack = normalize(searchableText(item));
-    return typeMatches && (!query || haystack.includes(query));
-  });
+function qaSearchableText(item) {
+  return (item.qa || []).flatMap((entry) => [entry.question, entry.answer]).join(" ");
+}
 
-  count.textContent = `${items.length}件`;
-  emptyState.hidden = items.length !== 0;
-  list.innerHTML = items.map((item, index) => `
+function renderCard(item, index) {
+  return `
     <article class="ruling-card">
       <button class="ruling-toggle" type="button" aria-expanded="false" aria-controls="ruling-${index}">
         <span class="type-badge type-${escapeHtml(item.type)}">${escapeHtml(typeLabels[item.type])}</span>
@@ -148,8 +143,55 @@ function render() {
         </div>
         <p class="meta">出典区分：${escapeHtml(item.source)}</p>
       </div>
-    </article>
-  `).join("");
+    </article>`;
+}
+
+function render() {
+  const query = normalize(searchInput.value);
+  const items = window.RULINGS.filter((item) => {
+    const typeMatches = currentFilter === "all" || item.type === currentFilter;
+    const haystack = normalize(searchableText(item));
+    return typeMatches && (!query || haystack.includes(query));
+  });
+
+  count.textContent = `${items.length}件`;
+  emptyState.hidden = items.length !== 0;
+
+  if (!query) {
+    list.innerHTML = items.map(renderCard).join("");
+    return;
+  }
+
+  const nameMatches = items
+    .filter((item) => normalize(item.name).includes(query))
+    .sort((a, b) => {
+      const aExact = normalize(a.name) === query;
+      const bExact = normalize(b.name) === query;
+      if (aExact !== bExact) return bExact - aExact;
+      return a.name.localeCompare(b.name, "ja");
+    });
+  const nameSet = new Set(nameMatches);
+  const qaMatches = items.filter((item) => !nameSet.has(item) && normalize(qaSearchableText(item)).includes(query));
+  const groupedSet = new Set([...nameMatches, ...qaMatches]);
+  const otherMatches = items.filter((item) => !groupedSet.has(item));
+
+  let cardIndex = 0;
+  const groups = [
+    { title: "カード名に該当", items: nameMatches },
+    { title: "Q&Aに該当カードあり", items: qaMatches },
+    { title: "その他の該当カード", items: otherMatches }
+  ];
+
+  list.innerHTML = groups
+    .filter((group) => group.items.length)
+    .map((group) => `
+      <section class="search-group">
+        <h3 class="search-group__title">${group.title}<span>${group.items.length}件</span></h3>
+        <div class="search-group__cards">
+          ${group.items.map((item) => renderCard(item, cardIndex++)).join("")}
+        </div>
+      </section>`)
+    .join("");
 }
 
 list.addEventListener("click", (event) => {
