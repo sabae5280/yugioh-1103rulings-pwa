@@ -280,12 +280,15 @@ h1 {
 .qa-question { min-width: 0; line-height: 1.7; }
 .answer { display: flex; gap: 9px; padding: 11px 12px; border-top: 1px dashed var(--line); }
 .answer > span { background: var(--gold); color: #1c170b; }
-.answer p { margin: 0; }
+.answer p { min-width: 0; margin: 0; overflow-wrap: anywhere; }
 .qa-date { margin: -4px 12px 10px 45px; color: var(--muted); font-size: .74rem; }
 .related-list { display: flex; flex-wrap: wrap; gap: 7px; }
 .card-reference {
   display: inline-block;
-  white-space: nowrap;
+  max-width: 100%;
+  white-space: normal;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
   color: #315f9b;
   font-weight: 700;
   text-decoration: underline;
