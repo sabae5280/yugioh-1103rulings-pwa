@@ -132,14 +132,16 @@ function renderCard(item, index) {
       <div id="ruling-${index}" class="ruling-body" hidden>
         <div class="card-profile">
           <div class="image-column">${imagePanel(item)}</div>
-          <div class="content-column">
+          <div class="overview-column">
             <section class="card-section overview-section">
               <h3>概要</h3>
               <blockquote>${linkedText(item.overview || item.summary)}</blockquote>
             </section>
-            ${qaPanel(item)}
-            ${relatedPanel(item)}
           </div>
+        </div>
+        <div class="full-width-content">
+          ${qaPanel(item)}
+          ${relatedPanel(item)}
         </div>
         <p class="meta">出典区分：${escapeHtml(item.source)}</p>
       </div>

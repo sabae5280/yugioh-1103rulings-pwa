@@ -242,7 +242,9 @@ h1 {
 }
 .image-placeholder span { font-size: .75rem; font-weight: 900; letter-spacing: .18em; }
 .image-placeholder small { font-size: .7rem; }
-.content-column { min-width: 0; }
+.overview-column,
+.full-width-content { min-width: 0; }
+.full-width-content { width: 100%; margin-top: 22px; }
 .card-section + .card-section { margin-top: 22px; }
 .card-section h3 { margin: 0 0 9px; color: var(--navy); font-size: .9rem; letter-spacing: .06em; }
 .overview-section blockquote {
@@ -366,6 +368,6 @@ footer p { margin: 0; }
   .type-badge { min-width: 50px; font-size: .66rem; }
   .ruling-body { padding: 0 15px 16px; }
   .card-profile { grid-template-columns: 88px 1fr; gap: 13px; }
-  .overview-section { grid-column: 1 / -1; }
+  .full-width-content { margin-top: 18px; }
   .card-section h3 { font-size: .84rem; }
 }
