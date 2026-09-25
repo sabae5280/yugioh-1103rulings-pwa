@@ -1,0 +1,15 @@
+遊戯王1103環境 裁定集 PWA 初期版
+
+このフォルダ内のファイルと icons フォルダを、GitHubリポジトリの一番上の階層へアップロードしてください。
+
+アップロード対象：
+- index.html
+- styles.css
+- rulings.js
+- app.js
+- manifest.webmanifest
+- sw.js
+- icons フォルダ
+
+既存の index.html は上書きします。
+UPLOAD_GUIDE.txt と icon.svg は公開に必須ではありません。

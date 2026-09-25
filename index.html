@@ -2,11 +2,66 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#101a32">
+  <meta name="description" content="遊戯王OCG 2011年3月環境の裁定を検索・確認できる非公式データベース">
   <title>遊戯王1103環境 裁定集</title>
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="apple-touch-icon" href="./icons/icon-192.png">
+  <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
-  <h1>遊戯王1103環境 裁定集</h1>
-  <p>PWA版を準備中です。</p>
+  <header class="hero">
+    <div class="hero__inner">
+      <div class="brand-mark" aria-hidden="true">1103</div>
+      <div>
+        <p class="eyebrow">YU-GI-OH! RULINGS ARCHIVE</p>
+        <h1>遊戯王1103環境<br class="mobile-break"> 裁定集</h1>
+        <p class="lead">2011年3月環境を中心に、当時の裁定を素早く検索できます。</p>
+      </div>
+      <button id="installButton" class="install-button" type="button" hidden>ホーム画面に追加</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="search-panel" aria-label="裁定検索">
+      <label for="searchInput">カード名・裁定内容を検索</label>
+      <div class="search-box">
+        <span aria-hidden="true">⌕</span>
+        <input id="searchInput" type="search" placeholder="例：ドラゴン・アイス、エンドフェイズ" autocomplete="off">
+        <button id="clearButton" type="button" aria-label="検索文字を消去">×</button>
+      </div>
+      <div id="filters" class="filters" aria-label="カード種別">
+        <button class="filter is-active" type="button" data-filter="all">すべて</button>
+        <button class="filter" type="button" data-filter="monster">モンスター</button>
+        <button class="filter" type="button" data-filter="spell">魔法</button>
+        <button class="filter" type="button" data-filter="trap">罠</button>
+      </div>
+    </section>
+
+    <section class="result-section" aria-live="polite">
+      <div class="result-heading">
+        <h2>裁定一覧</h2>
+        <p id="resultCount"></p>
+      </div>
+      <div id="rulingList" class="ruling-list"></div>
+      <div id="emptyState" class="empty-state" hidden>
+        <p>該当する裁定が見つかりませんでした。</p>
+        <button id="resetButton" type="button">検索条件をリセット</button>
+      </div>
+    </section>
+
+    <aside id="iosTip" class="ios-tip" hidden>
+      <strong>iPhone・iPadへの追加方法</strong>
+      <span>共有ボタンから「ホーム画面に追加」を選択してください。</span>
+    </aside>
+  </main>
+
+  <footer>
+    <p>非公式の裁定資料です。大会では主催者・ジャッジの判断を優先してください。</p>
+  </footer>
+
+  <script src="./rulings.js"></script>
+  <script src="./app.js"></script>
 </body>
 </html>
