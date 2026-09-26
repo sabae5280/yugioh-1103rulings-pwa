@@ -301,6 +301,35 @@ h1 {
 .card-reference.is-pending { color: #766f62; text-decoration: none; }
 .related-list .card-reference.is-pending { border-color: var(--line); background: #f4f1e9; }
 
+.damage-step-reference__link {
+  display: grid;
+  gap: 7px;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #f7f4eb;
+  color: #315f9b;
+  font-size: .78rem;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+}
+.damage-step-reference__link img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 520px;
+  object-fit: contain;
+  border-radius: 5px;
+  background: #fff;
+}
+.damage-step-reference__link:hover,
+.damage-step-reference__link:focus-visible {
+  border-color: var(--gold);
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
 .image-lightbox {
   position: fixed;
   z-index: 1000;
@@ -370,4 +399,5 @@ footer p { margin: 0; }
   .card-profile { grid-template-columns: 88px 1fr; gap: 13px; }
   .full-width-content { margin-top: 18px; }
   .card-section h3 { font-size: .84rem; }
+  .damage-step-reference__link { padding: 7px; }
 }
