@@ -143,7 +143,6 @@ function renderCard(item, index) {
           ${qaPanel(item)}
           ${relatedPanel(item)}
         </div>
-        <p class="meta">出典区分：${escapeHtml(item.source)}</p>
       </div>
     </article>`;
 }
