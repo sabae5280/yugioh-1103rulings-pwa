@@ -117,6 +117,26 @@ function relatedPanel(item) {
     </section>`;
 }
 
+function damageStepReferencePanel(item) {
+  const text = [
+    item.overview,
+    item.summary,
+    ...(item.details || []),
+    ...(item.qa || []).flatMap((entry) => [entry.question, entry.answer])
+  ].filter(Boolean).join(" ");
+
+  if (!/(?:ダメージステップ|ダメステ)/.test(text)) return "";
+
+  return `
+    <section class="card-section damage-step-reference">
+      <h3>ダメージステップ早見表</h3>
+      <a class="damage-step-reference__link" href="./damage-step-reference.png" target="_blank" rel="noopener" aria-label="ダメージステップ早見表を拡大表示">
+        <img src="./damage-step-reference.png" alt="1103・1209環境 ダメージステップ完全解説マニュアル" loading="lazy">
+        <span>タップして拡大表示</span>
+      </a>
+    </section>`;
+}
+
 function qaSearchableText(item) {
   return (item.qa || []).flatMap((entry) => [entry.question, entry.answer]).join(" ");
 }
@@ -140,6 +160,7 @@ function renderCard(item, index) {
           </div>
         </div>
         <div class="full-width-content">
+          ${damageStepReferencePanel(item)}
           ${qaPanel(item)}
           ${relatedPanel(item)}
         </div>
