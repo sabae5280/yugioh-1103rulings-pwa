@@ -265,18 +265,18 @@ h1 {
   height: 27px;
   display: inline-block;
   flex: 0 0 auto;
-  border-radius: 4px;
-  background-image: url("./spell-trap-effect-icons.jpg");
+  border-radius: 50%;
   background-repeat: no-repeat;
-  background-size: 204px 162px;
-  box-shadow: 0 1px 3px rgba(16,26,50,.24);
+  background-position: center;
+  background-size: contain;
+  filter: drop-shadow(0 1px 2px rgba(16,26,50,.28));
 }
-.effect-icon-equip { background-position: -10px -88px; }
-.effect-icon-field { background-position: -73px -88px; }
-.effect-icon-quick { background-position: -138px -88px; }
-.effect-icon-ritual { background-position: -10px -121px; }
-.effect-icon-continuous { background-position: -73px -121px; }
-.effect-icon-counter { background-position: -138px -121px; }
+.effect-icon-equip { background-image: url("./effect-icon-equip.png"); }
+.effect-icon-field { background-image: url("./effect-icon-field.png"); }
+.effect-icon-quick { background-image: url("./effect-icon-quick.png"); }
+.effect-icon-ritual { background-image: url("./effect-icon-ritual.png"); }
+.effect-icon-continuous { background-image: url("./effect-icon-continuous.png"); }
+.effect-icon-counter { background-image: url("./effect-icon-counter.png"); }
 
 .card-name { font-weight: 900; line-height: 1.45; }
 .card-name ruby { ruby-position: over; }

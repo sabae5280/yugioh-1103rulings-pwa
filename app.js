@@ -25,14 +25,6 @@ const selectedEnvironments = new Set(["1103"]);
 const advancedSelections = new Map();
 
 const typeLabels = { monster: "モンスター", spell: "魔法", trap: "罠", category: "共通効果" };
-const monsterClassLabels = {
-  normal: "通常モンスター",
-  effect: "効果モンスター",
-  ritual: "儀式",
-  fusion: "融合",
-  synchro: "シンクロ",
-  xyz: "エクシーズ"
-};
 
 const filterGroups = [
   {
@@ -156,9 +148,7 @@ function cardTitle(item) {
 }
 
 function typeBadge(item) {
-  const label = item.type === "monster"
-    ? (monsterClassLabels[item.cardClass] || typeLabels.monster)
-    : typeLabels[item.type];
+  const label = typeLabels[item.type];
   const modifier = item.type === "monster" ? ` monster-${item.cardClass || "effect"}` : "";
   return `<span class="type-badge type-${escapeHtml(item.type)}${modifier}">${escapeHtml(label)}</span>`;
 }
