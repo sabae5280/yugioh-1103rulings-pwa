@@ -19,7 +19,12 @@
         <h1>遊戯王1103環境<br class="mobile-break"> 裁定集</h1>
         <p class="lead">2011年3月環境を中心に、当時の裁定を素早く検索できます。</p>
       </div>
-      <button id="installButton" class="install-button" type="button" hidden>ホーム画面に追加</button>
+      <div class="hero-actions">
+        <button id="installButton" class="install-button" type="button" hidden>ホーム画面に追加</button>
+        <button id="menuButton" class="menu-button" type="button" aria-haspopup="dialog" aria-controls="siteMenu">
+          <span aria-hidden="true">☰</span> メニュー
+        </button>
+      </div>
     </div>
   </header>
 
@@ -36,6 +41,23 @@
         <button class="filter" type="button" data-filter="monster">モンスター</button>
         <button class="filter" type="button" data-filter="spell">魔法</button>
         <button class="filter" type="button" data-filter="trap">罠</button>
+        <button class="filter" type="button" data-filter="category">共通効果</button>
+      </div>
+      <div class="advanced-controls">
+        <button id="advancedToggle" class="advanced-toggle" type="button" aria-expanded="false" aria-controls="advancedPanel">
+          詳細検索 <span aria-hidden="true">⌄</span>
+        </button>
+      </div>
+      <div id="advancedPanel" class="advanced-panel" hidden>
+        <fieldset class="environment-filter">
+          <legend>対応環境</legend>
+          <div class="environment-options">
+            <label class="environment-option is-primary"><input type="checkbox" value="1103" checked> <span>1103環境のみ表示（デフォルト）</span></label>
+            <label class="environment-option"><input type="checkbox" value="1209"> <span>1209環境</span></label>
+            <label class="environment-option"><input type="checkbox" value="1402"> <span>1402環境</span></label>
+          </div>
+        </fieldset>
+        <div id="advancedFilters" class="advanced-filter-groups"></div>
       </div>
     </section>
 
@@ -66,6 +88,27 @@
     <img id="lightboxImage" alt="">
   </div>
 
+  <div id="siteMenu" class="site-menu" role="dialog" aria-modal="true" aria-labelledby="menuPageTitle" hidden>
+    <button class="site-menu__backdrop" type="button" data-menu-close aria-label="メニューを閉じる"></button>
+    <section class="site-menu__drawer">
+      <div class="site-menu__header">
+        <strong>メニュー</strong>
+        <button id="menuClose" class="site-menu__close" type="button" aria-label="メニューを閉じる">×</button>
+      </div>
+      <nav class="site-menu__nav" aria-label="サイトメニュー">
+        <button type="button" data-menu-page="about">このサイトについて</button>
+        <button type="button" data-menu-page="guide">使い方</button>
+        <button type="button" data-menu-page="contact">お問い合わせ</button>
+        <button type="button" data-menu-page="links">各種リンク集</button>
+      </nav>
+      <article class="site-menu__page">
+        <h2 id="menuPageTitle">このサイトについて</h2>
+        <p id="menuPageBody">現在準備中です。</p>
+      </article>
+    </section>
+  </div>
+
+  <script src="./card-metadata.js"></script>
   <script src="./rulings.js"></script>
   <script src="./app.js"></script>
 </body>

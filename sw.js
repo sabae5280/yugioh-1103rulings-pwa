@@ -1,11 +1,13 @@
-const CACHE_NAME = "rulings-1103-v12";
+const CACHE_NAME = "rulings-1103-v13";
 const ASSETS = [
   "./",
   "./index.html",
   "./styles.css",
+  "./card-metadata.js",
   "./rulings.js",
   "./app.js",
   "./damage-step-reference.png",
+  "./spell-trap-effect-icons.jpg",
   "./manifest.webmanifest",
   "./icons/icon-192.png",
   "./icons/icon-512.png"

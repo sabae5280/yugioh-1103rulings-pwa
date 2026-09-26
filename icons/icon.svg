@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="100" fill="#101a32"/>
+  <rect x="35" y="35" width="442" height="442" rx="78" fill="none" stroke="#d5a940" stroke-width="14"/>
+  <text x="256" y="245" text-anchor="middle" fill="#f4e6b9" font-family="Arial, sans-serif" font-size="122" font-weight="900">1103</text>
+  <path d="M112 294h288" stroke="#d5a940" stroke-width="10"/>
+  <text x="256" y="365" text-anchor="middle" fill="#ffffff" font-family="sans-serif" font-size="46" font-weight="700">RULINGS</text>
+</svg>
