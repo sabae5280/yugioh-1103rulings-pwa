@@ -72,7 +72,10 @@ function enrichItem(item) {
   };
 }
 
-const allRulings = window.RULINGS.map(enrichItem);
+const japaneseCollator = new Intl.Collator("ja", { numeric: true, sensitivity: "base" });
+const allRulings = window.RULINGS
+  .map(enrichItem)
+  .sort((a, b) => japaneseCollator.compare(a.reading || a.name, b.reading || b.name));
 const referencePopularity = new Map();
 
 for (const item of allRulings) {
@@ -290,6 +293,58 @@ function damageStepReferencePanel(item) {
     </section>`;
 }
 
+function supplementalImagesPanel(item) {
+  const images = item.supplementalImages || [];
+  if (!images.length) return "";
+
+  return `
+    <section class="card-section supplemental-images">
+      <h3>${escapeHtml(item.supplementalImagesTitle || "参考画像")}</h3>
+      <div class="supplemental-images__grid">
+        ${images.map((entry, index) => {
+          const image = typeof entry === "string" ? { src: entry } : entry;
+          const alt = image.alt || `${item.name}の参考画像${index + 1}`;
+          const caption = image.caption ? `<span>${escapeHtml(image.caption)}</span>` : "";
+          return `
+            <button class="supplemental-image" type="button" data-image-src="${escapeHtml(image.src)}" data-image-name="${escapeHtml(alt)}" aria-label="${escapeHtml(alt)}を拡大表示">
+              <img src="${escapeHtml(image.src)}" alt="${escapeHtml(alt)}" loading="lazy">
+              ${caption}
+            </button>`;
+        }).join("")}
+      </div>
+    </section>`;
+}
+
+function externalArticlesPanel(item) {
+  const articles = item.externalArticles || [];
+  if (!articles.length) return "";
+
+  return `
+    <section class="card-section external-articles">
+      <h3>外部記事</h3>
+      <div class="external-article-list">
+        ${articles.map((article) => `
+          <a class="external-article-card" href="${escapeHtml(article.url)}" target="_blank" rel="noopener noreferrer">
+            ${article.image ? `<img src="${escapeHtml(article.image)}" alt="" loading="lazy">` : `<span class="external-article-card__placeholder" aria-hidden="true">ARTICLE</span>`}
+            <span class="external-article-card__content">
+              <strong>${escapeHtml(article.title)}</strong>
+              ${article.description ? `<span>${escapeHtml(article.description)}</span>` : ""}
+              <small>${escapeHtml(article.siteName || new URL(article.url).hostname)}</small>
+            </span>
+          </a>`).join("")}
+      </div>
+    </section>`;
+}
+
+function categoryCoverPanel(item) {
+  if (!item.coverImage) return "";
+  const alt = item.coverImageAlt || `${item.name}のカバー画像`;
+  return `
+    <button class="category-cover" type="button" data-image-src="${escapeHtml(item.coverImage)}" data-image-name="${escapeHtml(alt)}" aria-label="${escapeHtml(alt)}を拡大表示">
+      <img src="${escapeHtml(item.coverImage)}" alt="${escapeHtml(alt)}" loading="lazy">
+    </button>`;
+}
+
 function qaSearchableText(item) {
   return (item.qa || []).flatMap((entry) => [entry.question, entry.answer]).join(" ");
 }
@@ -298,6 +353,7 @@ function renderCard(item, index) {
   const content = item.type === "category"
     ? `
         <div class="category-overview">
+          ${categoryCoverPanel(item)}
           <section class="card-section overview-section">
             <h3>概要</h3>
             <blockquote>${linkedText(item.overview || item.summary)}</blockquote>
@@ -326,8 +382,10 @@ function renderCard(item, index) {
         ${content}
         <div class="full-width-content">
           ${damageStepReferencePanel(item)}
+          ${supplementalImagesPanel(item)}
           ${qaPanel(item)}
           ${relatedPanel(item)}
+          ${externalArticlesPanel(item)}
           ${tagsPanel(item)}
         </div>
       </div>

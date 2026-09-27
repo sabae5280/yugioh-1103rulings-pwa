@@ -1,4 +1,4 @@
-const CACHE_NAME = "rulings-1103-v16";
+const CACHE_NAME = "rulings-1103-v17";
 const ASSETS = [
   "./",
   "./index.html",
@@ -9,6 +9,7 @@ const ASSETS = [
   "./rulings.js",
   "./rulings-a-row-batch-04.js",
   "./rulings-a-row-batch-05.js",
+  "./corrections-a-row.js",
   "./app.js",
   "./damage-step-reference.png",
   "./effect-icon-equip.png",
