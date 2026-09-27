@@ -18,6 +18,7 @@ const siteMenu = document.querySelector("#siteMenu");
 const menuClose = document.querySelector("#menuClose");
 const menuPageTitle = document.querySelector("#menuPageTitle");
 const menuPageBody = document.querySelector("#menuPageBody");
+const homeButton = document.querySelector("#homeButton");
 
 let currentFilter = "all";
 let deferredPrompt = null;
@@ -366,6 +367,22 @@ function resetAdvancedFilters() {
   });
 }
 
+function goHome() {
+  searchInput.value = "";
+  currentFilter = "all";
+  resetAdvancedFilters();
+  filters.querySelectorAll(".filter").forEach((item) => item.classList.toggle("is-active", item.dataset.filter === "all"));
+  advancedToggle.setAttribute("aria-expanded", "false");
+  advancedPanel.hidden = true;
+  if (!siteMenu.hidden) {
+    siteMenu.hidden = true;
+    document.body.classList.remove("menu-open");
+  }
+  history.replaceState(null, "", `${location.pathname}${location.search}`);
+  render();
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
 function openMenu(page = "about") {
   const content = sitePages[page] || sitePages.about;
   menuPageTitle.textContent = content.title;
@@ -539,6 +556,7 @@ advancedPanel.addEventListener("change", (event) => {
 });
 
 menuButton.addEventListener("click", () => openMenu("about"));
+homeButton.addEventListener("click", goHome);
 menuClose.addEventListener("click", closeMenu);
 siteMenu.addEventListener("click", (event) => {
   if (event.target.closest("[data-menu-close]")) {
