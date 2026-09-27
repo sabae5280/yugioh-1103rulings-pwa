@@ -1,0 +1,22 @@
+Object.assign(window.CARD_METADATA, {
+  "ヴァイロン・ディシグマ": { environments: ["1103"], cardClass: "xyz", monsterTags: ["エクシーズ"], race: "天使族", attribute: "光属性", rank: 4, summonRule: false, damageStepGuide: true },
+  "虚無魔人": { environments: ["1103"], cardClass: "effect", monsterTags: ["効果モンスター"], race: "悪魔族", attribute: "闇属性", level: 6, summonRule: false },
+  "V・HERO アドレイション": { environments: ["1103"], cardClass: "fusion", monsterTags: ["融合"], race: "戦士族", attribute: "闇属性", level: 8, summonRule: false },
+  "エヴォルカイザー・ラギア": { environments: ["1103"], cardClass: "xyz", monsterTags: ["エクシーズ"], race: "ドラゴン族", attribute: "炎属性", rank: 4, summonRule: false, damageStepGuide: true },
+  "エヴォルテクター シュバリエ": { environments: ["1103"], cardClass: "effect", monsterTags: ["効果モンスター", "デュアル"], race: "戦士族", attribute: "炎属性", level: 4, summonRule: false },
+  "エフェクト・ヴェーラー": { environments: ["1103"], cardClass: "effect", monsterTags: ["効果モンスター", "チューナー"], race: "魔法使い族", attribute: "光属性", level: 1, summonRule: false },
+  "エレキタリス": { environments: ["1103"], cardClass: "effect", monsterTags: ["効果モンスター"], race: "雷族", attribute: "光属性", level: 3, summonRule: false, damageStepGuide: true },
+  "エレキリン": { environments: ["1103"], cardClass: "effect", monsterTags: ["効果モンスター"], race: "雷族", attribute: "光属性", level: 4, summonRule: false, damageStepGuide: true },
+  "エレクトリック・ワーム": { environments: ["1103"], cardClass: "effect", monsterTags: ["効果モンスター"], race: "雷族", attribute: "光属性", level: 3, summonRule: false },
+  "E・HERO アイスエッジ": { environments: ["1103"], cardClass: "effect", monsterTags: ["効果モンスター"], race: "戦士族", attribute: "水属性", level: 3, summonRule: false },
+  "E・HERO アナザー・ネオス": { environments: ["1103"], cardClass: "effect", monsterTags: ["効果モンスター", "デュアル"], race: "戦士族", attribute: "光属性", level: 4, summonRule: false },
+  "E・HERO アブソルートZero": { environments: ["1103"], cardClass: "fusion", monsterTags: ["融合"], race: "戦士族", attribute: "水属性", level: 8, summonRule: false },
+  "E・HERO エアーマン": { environments: ["1103"], cardClass: "effect", monsterTags: ["効果モンスター"], race: "戦士族", attribute: "風属性", level: 4, summonRule: false },
+  "E・HERO ガイア": { environments: ["1103"], cardClass: "fusion", monsterTags: ["融合"], race: "戦士族", attribute: "地属性", level: 6, summonRule: false },
+  "E・HERO Great TORNADO": { environments: ["1103"], cardClass: "fusion", monsterTags: ["融合"], race: "戦士族", attribute: "風属性", level: 8, summonRule: false },
+  "E・HERO The シャイニング": { environments: ["1103"], cardClass: "fusion", monsterTags: ["融合"], race: "戦士族", attribute: "光属性", level: 8, summonRule: false, damageStepGuide: true },
+  "E・HERO ノヴァマスター": { environments: ["1103"], cardClass: "fusion", monsterTags: ["融合"], race: "戦士族", attribute: "炎属性", level: 8, summonRule: false, damageStepGuide: true },
+  "E・HERO バブルマン": { environments: ["1103"], cardClass: "effect", monsterTags: ["効果モンスター"], race: "戦士族", attribute: "水属性", level: 4, summonRule: false },
+  "E・HERO プリズマー": { environments: ["1103"], cardClass: "effect", monsterTags: ["効果モンスター"], race: "戦士族", attribute: "光属性", level: 4, summonRule: false },
+  "エンシェント・フェアリー・ドラゴン": { environments: ["1103"], cardClass: "synchro", monsterTags: ["シンクロ"], race: "ドラゴン族", attribute: "光属性", level: 7, summonRule: false }
+});
