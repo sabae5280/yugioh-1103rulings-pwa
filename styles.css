@@ -446,6 +446,7 @@ h1 {
 }
 
 .supplemental-images__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr)); gap: 12px; }
+.overview-images { display: grid; gap: 12px; margin-top: 12px; }
 .supplemental-image,
 .category-cover {
   display: grid;
@@ -463,6 +464,7 @@ h1 {
 .supplemental-image img,
 .category-cover img { display: block; width: 100%; height: auto; border-radius: 6px; background: #fff; }
 .supplemental-image img { max-height: 620px; object-fit: contain; }
+.overview-images .supplemental-image img { max-height: none; }
 .category-cover { margin-bottom: 18px; padding: 0; overflow: hidden; }
 .category-cover img { aspect-ratio: 16 / 7; object-fit: cover; border-radius: 9px; }
 .supplemental-image:hover,
