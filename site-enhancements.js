@@ -29,6 +29,14 @@
     }];
   }
 
+  const gozenMatch = find("御前試合");
+  if (gozenMatch) {
+    gozenMatch.overview = gozenMatch.overview.replace(
+      "効果処理時に《群雄割拠》が表側表示で存在する場合",
+      "効果処理時に《御前試合》が表側表示で存在する場合"
+    );
+  }
+
   const articles = {
     mysterySpace: {
       title: "謎空間（召喚無効、魔法罠のカードの発動無効）について",
