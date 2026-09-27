@@ -315,6 +315,24 @@ function supplementalImagesPanel(item) {
     </section>`;
 }
 
+function overviewImagesPanel(item) {
+  const images = item.overviewImages || [];
+  if (!images.length) return "";
+
+  return `
+    <div class="overview-images">
+      ${images.map((entry, index) => {
+        const image = typeof entry === "string" ? { src: entry } : entry;
+        const alt = image.alt || `${item.name}の概要参考画像${index + 1}`;
+        return `
+          <button class="supplemental-image" type="button" data-image-src="${escapeHtml(image.src)}" data-image-name="${escapeHtml(alt)}" aria-label="${escapeHtml(alt)}を拡大表示">
+            <img src="${escapeHtml(image.src)}" alt="${escapeHtml(alt)}" loading="lazy">
+            ${image.caption ? `<span>${escapeHtml(image.caption)}</span>` : ""}
+          </button>`;
+      }).join("")}
+    </div>`;
+}
+
 function externalArticlesPanel(item) {
   const articles = item.externalArticles || [];
   if (!articles.length) return "";
@@ -358,6 +376,7 @@ function renderCard(item, index) {
             <h3>概要</h3>
             <blockquote>${linkedText(item.overview || item.summary)}</blockquote>
           </section>
+          ${overviewImagesPanel(item)}
         </div>`
     : `
         <div class="card-profile">
@@ -367,6 +386,7 @@ function renderCard(item, index) {
               <h3>概要</h3>
               <blockquote>${linkedText(item.overview || item.summary)}</blockquote>
             </section>
+            ${overviewImagesPanel(item)}
           </div>
         </div>`;
 
