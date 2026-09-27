@@ -360,10 +360,10 @@ h1 {
   font-size: .72rem;
   font-weight: 900;
 }
-.qa-question { min-width: 0; line-height: 1.7; }
+.qa-question { min-width: 0; line-height: 1.7; white-space: pre-line; }
 .answer { display: flex; gap: 9px; padding: 11px 12px; border-top: 1px dashed var(--line); }
 .answer > span { background: var(--gold); color: #1c170b; }
-.answer p { min-width: 0; margin: 0; overflow-wrap: anywhere; }
+.answer p { min-width: 0; margin: 0; overflow-wrap: anywhere; white-space: pre-line; }
 .qa-environment { margin: -4px 12px 10px 45px; color: var(--muted); font-size: .74rem; font-weight: 700; }
 .related-list { display: flex; flex-wrap: wrap; gap: 7px; }
 .card-reference {
