@@ -394,7 +394,7 @@ const K_ROW_RULINGS = [
     "reading": "かみのけいこく",
     "type": "trap",
     "image": "./k-06.png",
-    "overview": "▶モンスターの召喚・反転召喚・特殊召喚、またはモンスターを特殊召喚する効果を含む魔法・罠カードの発動を無効にして破壊するカウンター罠。\\n▶墓地などで発動する魔法・罠カードの「効果の発動」には対応しない。",
+    "overview": "▶モンスターの召喚・反転召喚・特殊召喚、またはモンスターを特殊召喚する効果を含む魔法・罠カードの発動を無効にして破壊するカウンター罠。\n▶墓地などで発動する魔法・罠カードの「効果の発動」には対応しない。",
     "qa": [
       {
         "question": "《歯車街》の様な、墓地で発動する魔法カードの効果に対応しますか？",
@@ -509,7 +509,7 @@ const K_ROW_RULINGS = [
     "reading": "かもくなるサイコプリースト",
     "type": "monster",
     "image": "./k-08.png",
-    "overview": "▶手札１枚を墓地へ送る処理はコスト。墓地のサイキック族モンスターを除外する処理は効果。\\n▶自身がフィールドから墓地へ送られた時、自身の効果で除外したモンスターを特殊召喚する。",
+    "overview": "▶手札１枚を墓地へ送る処理はコスト。墓地のサイキック族モンスターを除外する処理は効果。\n▶自身がフィールドから墓地へ送られた時、自身の効果で除外したモンスターを特殊召喚する。",
     "qa": [
       {
         "question": "手札を墓地へ送る処理、除外する処理はそれぞれコストですか？",
@@ -1692,12 +1692,6 @@ const K_ROW_RULINGS = [
     ],
     "spellType": "速攻魔法",
     "damageStepGuide": true,
-    "supplementalImages": [
-      {
-        "src": "./k-26-extra-1.jpg",
-        "alt": "《禁じられた聖杯》の参考画像1"
-      }
-    ],
     "source": "note『裁定まとめ か行』"
   },
   {
@@ -1930,12 +1924,6 @@ const K_ROW_RULINGS = [
     ],
     "spellType": "速攻魔法",
     "damageStepGuide": true,
-    "supplementalImages": [
-      {
-        "src": "./k-27-extra-1.png",
-        "alt": "《禁じられた聖槍》の参考画像1"
-      }
-    ],
     "source": "note『裁定まとめ か行』"
   },
   {
@@ -2921,16 +2909,6 @@ const K_ROW_RULINGS = [
       "1103"
     ],
     "trapType": "永続罠",
-    "supplementalImages": [
-      {
-        "src": "./k-38-extra-1.jpg",
-        "alt": "《群雄割拠》の参考画像1"
-      },
-      {
-        "src": "./k-38-extra-2.jpg",
-        "alt": "《群雄割拠》の参考画像2"
-      }
-    ],
     "source": "note『裁定まとめ か行』"
   },
   {
@@ -2992,12 +2970,6 @@ const K_ROW_RULINGS = [
     ],
     "trapType": "通常罠",
     "damageStepGuide": true,
-    "supplementalImages": [
-      {
-        "src": "./k-39-extra-1.jpg",
-        "alt": "《幻獣の角》の参考画像1"
-      }
-    ],
     "source": "note『裁定まとめ か行』"
   },
   {

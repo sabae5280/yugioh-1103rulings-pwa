@@ -230,7 +230,7 @@ function qaPanel(item) {
         <h3>Q&amp;A</h3>
         <div class="qa-list">
           ${entries.map((entry, index) => `
-            <details class="qa-item" ${index === 0 ? "open" : ""}>
+            <details class="qa-item">
               <summary><span class="qa-marker">Q</span><span class="qa-question">${linkedText(entry.question)}</span></summary>
               <div class="answer"><span>A</span><p>${linkedText(entry.answer)}</p></div>
               <p class="qa-environment">対応：${escapeHtml(environmentLabel(qaEnvironments(entry, item)))}</p>
