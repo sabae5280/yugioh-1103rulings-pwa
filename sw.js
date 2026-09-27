@@ -1,12 +1,14 @@
-const CACHE_NAME = "rulings-1103-v15";
+const CACHE_NAME = "rulings-1103-v16";
 const ASSETS = [
   "./",
   "./index.html",
   "./styles.css",
   "./card-metadata.js",
   "./card-metadata-a-row-batch-04.js",
+  "./card-metadata-a-row-batch-05.js",
   "./rulings.js",
   "./rulings-a-row-batch-04.js",
+  "./rulings-a-row-batch-05.js",
   "./app.js",
   "./damage-step-reference.png",
   "./effect-icon-equip.png",
@@ -35,6 +37,13 @@ const ASSETS = [
   "./elemental-hero-bubbleman.webp",
   "./elemental-hero-prisma.webp",
   "./ancient-fairy-dragon.webp",
+  "./ancient-holy-wyvern.webp",
+  "./royal-decree.webp",
+  "./royal-oppression.webp",
+  "./necrovalley.webp",
+  "./royal-curse.webp",
+  "./obelisk-the-tormentor.webp",
+  "./maxx-c.webp",
   "./manifest.webmanifest",
   "./icons/icon-192.png",
   "./icons/icon-512.png"
