@@ -466,7 +466,7 @@ h1 {
 .supplemental-image img { max-height: 620px; object-fit: contain; }
 .overview-images .supplemental-image img { max-height: none; }
 .category-cover { margin-bottom: 18px; padding: 0; overflow: hidden; }
-.category-cover img { aspect-ratio: 16 / 7; object-fit: cover; border-radius: 9px; }
+.category-cover img { width: 100%; height: auto; max-height: none; object-fit: contain; border-radius: 9px; }
 .supplemental-image:hover,
 .supplemental-image:focus-visible,
 .category-cover:hover,
