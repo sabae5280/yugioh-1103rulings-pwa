@@ -1,4 +1,4 @@
-const CACHE_NAME = "rulings-1103-v21";
+const CACHE_NAME = "rulings-1103-v22";
 const ASSETS = [
   "./",
   "./index.html",
@@ -12,6 +12,7 @@ const ASSETS = [
   "./rulings-k-row.js",
   "./rulings-s-row.js",
   "./rulings-s-row-remaining.js",
+  "./rulings-t-row.js",
   "./s-row-overview-fixes.js",
   "./corrections-a-row.js",
   "./site-enhancements.js",
