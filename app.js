@@ -141,7 +141,7 @@ function cardReference(name) {
 }
 
 function linkedText(value) {
-  return escapeHtml(value || "").replace(/《([^》]+)》/g, (_match, name) => cardReference(name));
+  return escapeHtml(value || "").replace(/《([^》]+)》/g, (_match, name) => cardReference(name)).replace(/\r?\n/g, "<br>");
 }
 
 function cardTitle(item) {
