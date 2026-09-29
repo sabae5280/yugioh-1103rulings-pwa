@@ -19,6 +19,7 @@ const menuClose = document.querySelector("#menuClose");
 const menuPageTitle = document.querySelector("#menuPageTitle");
 const menuPageBody = document.querySelector("#menuPageBody");
 const homeButton = document.querySelector("#homeButton");
+const backToTopButton = document.querySelector("#backToTop");
 const rowNavigation = document.querySelector("#rowNavigation");
 const shareButton = document.querySelector("#shareButton");
 const shareStatus = document.querySelector("#shareStatus");
@@ -46,7 +47,7 @@ const filterGroups = [
   {
     id: "monsterTags",
     label: "モンスター分類",
-    options: ["通常モンスター", "効果モンスター", "リバース効果", "チューナー", "儀式", "融合", "シンクロ", "エクシーズ", "トゥーン", "スピリット", "ユニオン", "デュアル", "召喚ルール"]
+    options: ["通常モンスター", "効果モンスター", "リバース効果", "チューナー", "儀式", "融合", "シンクロ", "エクシーズ", "トゥーン", "スピリット", "ユニオン", "デュアル", "召喚ルール効果", "手札誘発"]
   },
   {
     id: "race",
@@ -67,6 +68,11 @@ const filterGroups = [
     id: "trapType",
     label: "罠分類",
     options: ["通常罠", "永続罠", "カウンター罠"]
+  },
+  {
+    id: "otherTags",
+    label: "その他",
+    options: ["一連の効果", "暫定回答あり", "調整中・ジャッジ案件"]
   }
 ];
 
@@ -77,15 +83,56 @@ const sitePages = {
   links: { title: "各種リンク集", body: "現在準備中です。" }
 };
 
+const handTrapArticle = {
+  title: "〖1103〗TGワーウルフはいつ出せるのか？〖裁定〗",
+  url: "https://oo-arashi.hatenablog.com/entry/2025/03/23/194630",
+  image: "https://cdn-ak.f.st-hatena.com/images/fotolife/o/oo-arashi/20250311/20250311113030.jpg",
+  description: "《TG ワーウルフ》の発動タイミングと、1103当時の手札誘発の扱いを検討する記事。",
+  siteName: "oo-arashi’s blog"
+};
+const mysterySpaceArticle = {
+  title: "謎空間 (召喚無効、魔法罠のカードの発動無効) について",
+  url: "https://andal-po.blog.jp/archives/1079147390.html",
+  image: "./article-mystery-space.png",
+  description: "召喚や魔法・罠カードの発動が無効になった際の処理をまとめた記事。",
+  siteName: "Andal-po Blog"
+};
+const galeArticle = {
+  title: "攻守半減のあれやこれ",
+  url: "https://note.com/lovely_minnow640/n/n3baa1b267485",
+  image: "./article-gale-effect.png",
+  description: "《BF－疾風のゲイル》等の攻守半減効果による数値固定と、関連する裁定をまとめた記事。",
+  siteName: "note"
+};
+
+function articleTextFor(item) {
+  return [item.name, item.overview, item.summary, ...(item.details || []), ...(item.qa || []).flatMap((entry) => [entry.question, entry.answer])]
+    .filter(Boolean).join(" ");
+}
+
+function withMatchingArticles(item) {
+  const text = articleTextFor(item);
+  const articles = [...(item.externalArticles || [])];
+  const appendUnique = (article) => {
+    if (!articles.some((existing) => existing.url === article.url)) articles.push(article);
+  };
+  if (/手札で発動する誘発効果|手札誘発/.test(text) || /TG\s*ワーウルフ/i.test(item.name)) appendUnique(handTrapArticle);
+  if (/謎空間/.test(text)) appendUnique(mysterySpaceArticle);
+  if (/疾風のゲイル|ゲイル効果/.test(text)) appendUnique(galeArticle);
+  return articles;
+}
+
 function enrichItem(item) {
   const metadata = window.CARD_METADATA?.[item.name] || {};
-  return {
+  const enriched = {
     ...metadata,
     ...item,
     reading: item.reading || metadata.reading || window.CARD_READINGS?.[item.name] || "",
     environments: item.environments || metadata.environments || ["1103"],
     monsterTags: item.monsterTags || metadata.monsterTags || []
   };
+  enriched.externalArticles = withMatchingArticles(enriched);
+  return enriched;
 }
 
 const japaneseCollator = new Intl.Collator("ja", { numeric: true, sensitivity: "base" });
@@ -289,17 +336,25 @@ function relatedPanel(item) {
 }
 
 function tagsFor(item) {
-  if (item.type === "category") return ["カテゴリ共通効果"];
+  const articleText = articleTextFor(item);
+  const autoTags = [];
+  if (item.summonRule || /召喚ルール効果|召喚ルールによる特殊召喚/.test(articleText)) autoTags.push("召喚ルール効果");
+  if (/手札で発動する誘発効果|手札誘発/.test(articleText)) autoTags.push("手札誘発");
+  if (/一連の効果/.test(articleText)) autoTags.push("一連の効果");
+  if (/暫定回答/.test(articleText)) autoTags.push("暫定回答あり");
+  if (/調整中|ジャッジ案件/.test(articleText)) autoTags.push("調整中・ジャッジ案件");
+  let baseTags = [];
+  if (item.type === "category") baseTags = ["カテゴリ共通効果"];
   if (item.type === "monster") {
-    const tags = [...(item.monsterTags || [])];
-    if (item.summonRule && !tags.includes("召喚ルール")) tags.push("召喚ルール");
+    const tags = [...(item.monsterTags || [])].map((tag) => tag === "召喚ルール" ? "召喚ルール効果" : tag);
+    if (item.summonRule && !tags.includes("召喚ルール効果")) tags.push("召喚ルール効果");
     if (item.race) tags.push(item.race);
     if (item.attribute) tags.push(item.attribute);
-    return tags;
+    baseTags = tags;
   }
-  if (item.type === "spell") return item.spellType ? [item.spellType] : ["魔法"];
-  if (item.type === "trap") return item.trapType ? [item.trapType] : ["罠"];
-  return [];
+  if (item.type === "spell") baseTags = item.spellType ? [item.spellType] : ["魔法"];
+  if (item.type === "trap") baseTags = item.trapType ? [item.trapType] : ["罠"];
+  return [...new Set([...baseTags, ...autoTags])];
 }
 
 function tagsPanel(item) {
@@ -448,7 +503,7 @@ function advancedFilterMatches(item) {
   for (const group of filterGroups) {
     const selected = advancedSelections.get(group.id);
     if (!selected?.size) continue;
-    const values = group.id === "monsterTags" ? tagsFor(item) : [item[group.id]].filter(Boolean);
+    const values = ["monsterTags", "otherTags"].includes(group.id) ? tagsFor(item) : [item[group.id]].filter(Boolean);
     if (!values.some((value) => selected.has(value))) return false;
   }
   return true;
@@ -752,6 +807,7 @@ advancedPanel.addEventListener("change", (event) => {
 menuButton.addEventListener("click", () => openMenu("about"));
 shareButton.addEventListener("click", shareSite);
 homeButton.addEventListener("click", goHome);
+backToTopButton?.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
 menuClose.addEventListener("click", closeMenu);
 siteMenu.addEventListener("click", (event) => {
   if (event.target.closest("[data-menu-close]")) {
