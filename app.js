@@ -19,6 +19,9 @@ const menuClose = document.querySelector("#menuClose");
 const menuPageTitle = document.querySelector("#menuPageTitle");
 const menuPageBody = document.querySelector("#menuPageBody");
 const homeButton = document.querySelector("#homeButton");
+const rowNavigation = document.querySelector("#rowNavigation");
+const shareButton = document.querySelector("#shareButton");
+const shareStatus = document.querySelector("#shareStatus");
 
 let currentFilter = "all";
 let deferredPrompt = null;
@@ -26,6 +29,18 @@ const selectedEnvironments = new Set(["1103"]);
 const advancedSelections = new Map();
 
 const typeLabels = { monster: "モンスター", spell: "魔法", trap: "罠", category: "共通効果" };
+const kanaRows = [
+  { id: "a", label: "ア行", pattern: /^[あいうえおぁぃぅぇぉ]/ },
+  { id: "ka", label: "カ行", pattern: /^[かきくけこがぎぐげご]/ },
+  { id: "sa", label: "サ行", pattern: /^[さしすせそざじずぜぞ]/ },
+  { id: "ta", label: "タ行", pattern: /^[たちつてとだぢづでど]/ },
+  { id: "na", label: "ナ行", pattern: /^[なにぬねの]/ },
+  { id: "ha", label: "ハ行", pattern: /^[はひふへほばびぶべぼぱぴぷぺぽ]/ },
+  { id: "ma", label: "マ行", pattern: /^[まみむめも]/ },
+  { id: "ya", label: "ヤ行", pattern: /^[やゆよゃゅょ]/ },
+  { id: "ra", label: "ラ行", pattern: /^[らりるれろ]/ },
+  { id: "wa", label: "ワ行", pattern: /^[わをん]/ }
+];
 
 const filterGroups = [
   {
@@ -67,6 +82,7 @@ function enrichItem(item) {
   return {
     ...metadata,
     ...item,
+    reading: item.reading || metadata.reading || window.CARD_READINGS?.[item.name] || "",
     environments: item.environments || metadata.environments || ["1103"],
     monsterTags: item.monsterTags || metadata.monsterTags || []
   };
@@ -126,6 +142,21 @@ function searchableText(item) {
     item.trapType,
     ...(item.environments || []).map((environment) => `${environment}環境`)
   ].join(" ");
+}
+
+function kanaRowFor(item) {
+  let source = item.reading || item.name || "";
+  if (item.type === "category") source = source.match(/《([^》]+)》/)?.[1] || source;
+  const first = normalize(source).slice(0, 1).replace("ゔ", "う");
+  return kanaRows.find((row) => row.pattern.test(first)) || null;
+}
+
+function renderKanaNavigation(items) {
+  const availableRows = new Set(items.map(kanaRowFor).filter(Boolean).map((row) => row.id));
+  rowNavigation.innerHTML = kanaRows.map((row) => availableRows.has(row.id)
+    ? `<a href="#row-${row.id}">${row.label}</a>`
+    : `<span aria-disabled="true">${row.label}</span>`).join("");
+  rowNavigation.hidden = false;
 }
 
 function findCard(name) {
@@ -493,9 +524,20 @@ function render() {
   emptyState.hidden = items.length !== 0;
 
   if (!query) {
-    list.innerHTML = items.map(renderCard).join("");
+    renderKanaNavigation(items);
+    let rowCardIndex = 0;
+    list.innerHTML = kanaRows.map((row) => {
+      const rowItems = items.filter((item) => kanaRowFor(item)?.id === row.id);
+      if (!rowItems.length) return "";
+      return `<section id="row-${row.id}" class="row-section" aria-labelledby="row-title-${row.id}">
+        <h3 id="row-title-${row.id}" class="row-section__title">${row.label}</h3>
+        <div class="row-section__cards">${rowItems.map((item) => renderCard(item, rowCardIndex++)).join("")}</div>
+      </section>`;
+    }).join("");
     return;
   }
+
+  rowNavigation.hidden = true;
 
   const nameMatches = items
     .filter((item) => normalize(item.name).includes(query))
@@ -584,6 +626,15 @@ list.addEventListener("click", async (event) => {
   body.hidden = open;
 });
 
+rowNavigation.addEventListener("click", (event) => {
+  const link = event.target.closest("a[href^='#row-']");
+  if (!link) return;
+  const target = document.querySelector(link.getAttribute("href"));
+  if (!target) return;
+  event.preventDefault();
+  target.scrollIntoView({ behavior: "smooth", block: "start" });
+});
+
 function openLightbox(src, name) {
   lightboxImage.src = src;
   lightboxImage.alt = `《${name}》の拡大カード画像`;
@@ -621,6 +672,35 @@ function navigateToCard(name) {
     body.hidden = false;
     button.scrollIntoView({ behavior: "smooth", block: "start" });
   });
+}
+
+async function shareSite() {
+  const siteUrl = new URL(location.href);
+  siteUrl.search = "";
+  siteUrl.hash = "";
+  const url = siteUrl.toString();
+  const shareData = { title: document.title, text: "遊戯王1103環境 裁定集", url };
+  try {
+    if (navigator.share) {
+      await navigator.share(shareData);
+      shareStatus.textContent = "共有メニューを開きました。";
+      return;
+    }
+    await navigator.clipboard.writeText(url);
+    shareStatus.textContent = "共有リンクをコピーしました。";
+  } catch (error) {
+    if (error?.name === "AbortError") return;
+    const helper = document.createElement("textarea");
+    helper.value = url;
+    helper.style.position = "fixed";
+    helper.style.opacity = "0";
+    document.body.append(helper);
+    helper.select();
+    let copied = false;
+    try { copied = document.execCommand("copy"); } catch (_error) { copied = false; }
+    helper.remove();
+    shareStatus.textContent = copied ? "共有リンクをコピーしました。" : "共有リンクをコピーできませんでした。";
+  }
 }
 
 searchInput.addEventListener("input", render);
@@ -670,6 +750,7 @@ advancedPanel.addEventListener("change", (event) => {
 });
 
 menuButton.addEventListener("click", () => openMenu("about"));
+shareButton.addEventListener("click", shareSite);
 homeButton.addEventListener("click", goHome);
 menuClose.addEventListener("click", closeMenu);
 siteMenu.addEventListener("click", (event) => {

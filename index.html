@@ -21,6 +21,10 @@
         </h1>
         <p class="lead">2011年3月環境を中心に、当時の裁定を素早く検索できます。</p>
       </div>
+      <button id="shareButton" class="share-button" type="button" aria-label="このサイトを共有">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8a3 3 0 1 0-2.83-4H15a3 3 0 0 0 .16 1l-7.1 4.14a3.5 3.5 0 1 0 0 5.72l7.1 4.14A3 3 0 1 0 16 17.2l-7.1-4.14a3.5 3.5 0 0 0 0-2.12L16 6.8A3 3 0 0 0 18 8Z"/></svg>
+        <span>共有</span>
+      </button>
       <div class="hero-actions">
         <button id="installButton" class="install-button" type="button" hidden>ホーム画面に追加</button>
         <button id="menuButton" class="menu-button" type="button" aria-haspopup="dialog" aria-controls="siteMenu">
@@ -45,6 +49,8 @@
         <button class="filter" type="button" data-filter="trap">罠</button>
         <button class="filter" type="button" data-filter="category">共通効果</button>
       </div>
+      <nav id="rowNavigation" class="row-navigation" aria-label="五十音順の行へ移動"></nav>
+      <p id="shareStatus" class="visually-hidden" aria-live="polite"></p>
       <div class="advanced-controls">
         <button id="advancedToggle" class="advanced-toggle" type="button" aria-expanded="false" aria-controls="advancedPanel">
           詳細検索 <span aria-hidden="true">⌄</span>
@@ -113,6 +119,7 @@
   <script src="./card-metadata.js"></script>
   <script src="./card-metadata-a-row-batch-04.js"></script>
   <script src="./card-metadata-a-row-batch-05.js"></script>
+  <script src="./card-readings.js"></script>
   <script src="./rulings.js"></script>
   <script src="./rulings-a-row-batch-04.js"></script>
   <script src="./rulings-a-row-batch-05.js"></script>
