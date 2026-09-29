@@ -16,12 +16,12 @@
       entry.environments = entry.environments || ["1103"];
     }
   };
-  const addQa = (name, question, answer) => {
+  const addQa = (name, question, answer, managementId) => {
     const item = find(name);
     if (!item) return;
     item.qa = item.qa || [];
     if (!item.qa.some((entry) => entry.question === question)) {
-      item.qa.push({ question, answer, environments: ["1103"] });
+      item.qa.push({ question, answer, environments: ["1103"], managementId });
     }
   };
 
@@ -78,13 +78,14 @@
 
   const electricVirusQuestion = "《群雄割拠》や《御前試合》適用中、自分の場にすでに地属性・恐竜族モンスター（特定の種族や属性のモンスター）が表側表示で存在する際、このカードを発動して、自分の場に固定された種族や属性以外の相手の場のモンスターのコントロールを得ることは可能ですか？\nまた、可能な場合、処理はどうなりますか？";
   const electricVirusAnswer = "はい、発動し、コントロールを得ることが可能です。その場合、自分の場にコントロールが移った時点で、ＣＢを組まずに《群雄割拠》や《御前試合》の効果が適用され、そのモンスターは持ち主の墓地に送られます。そのため、実質的な除去として機能します。\n※類似カードとして、《パペット・プラント》《傀儡虫》が存在。それらも同様の裁定となります。";
-  addQa("エレクトリック・ワーム", electricVirusQuestion, electricVirusAnswer);
+  addQa("エレクトリック・ワーム", electricVirusQuestion, electricVirusAnswer, "R-NUPZ6A6S87");
   const electricVirus = find("エレクトリック・ワーム");
   if (electricVirus) electricVirus.related = [...new Set([...(electricVirus.related || []), "群雄割拠", "御前試合", "パペット・プラント", "傀儡虫"])];
   addQa(
     "群雄割拠",
     "このカードの適用中、自分フィールドにすでに特定の種族のモンスターが表側表示で存在する場合、《エレクトリック・ワーム》で異なる種族の相手モンスターのコントロールを得ることはできますか？",
-    "はい、できます。コントロールが移った時点でチェーンブロックを組まずにこのカードの効果が適用され、コントロールを得たモンスターは持ち主の墓地へ送られます。"
+    "はい、できます。コントロールが移った時点でチェーンブロックを組まずにこのカードの効果が適用され、コントロールを得たモンスターは持ち主の墓地へ送られます。",
+    "R-FDFAMP3KF9"
   );
 
   replaceQa(
