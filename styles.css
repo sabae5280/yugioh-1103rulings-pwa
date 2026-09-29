@@ -629,6 +629,32 @@ body.menu-open { overflow: hidden; }
 footer { padding: 24px 20px 38px; background: var(--navy); color: #bfc6d5; text-align: center; font-size: .78rem; }
 footer p { margin: 0; }
 
+.back-to-top {
+  position: fixed;
+  z-index: 900;
+  right: 18px;
+  bottom: calc(18px + env(safe-area-inset-bottom));
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  width: 52px;
+  height: 52px;
+  padding: 4px;
+  border: 1px solid rgba(255,255,255,.42);
+  border-radius: 50%;
+  background: rgba(16,26,50,.72);
+  color: #fff;
+  box-shadow: 0 3px 14px rgba(15,25,45,.24);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  cursor: pointer;
+  transition: background-color .18s ease, transform .18s ease;
+}
+.back-to-top:hover { background: rgba(16,26,50,.92); transform: translateY(-2px); }
+.back-to-top:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
+.back-to-top > span { font-size: 1.35rem; font-weight: 800; line-height: 1; }
+.back-to-top small { font-size: .55rem; font-weight: 800; line-height: 1.1; letter-spacing: .08em; }
+
 @media (max-width: 680px) {
   .hero__inner { min-height: 230px; grid-template-columns: auto 1fr; gap: 15px; padding-top: 82px; }
   .brand-mark { width: 68px; border-radius: 17px; font-size: 1.15rem; }
@@ -655,4 +681,5 @@ footer p { margin: 0; }
   .site-menu { grid-template-columns: 1fr; }
   .site-menu__backdrop { position: absolute; inset: 0; }
   .site-menu__drawer { position: relative; width: min(92vw, 420px); height: 100%; justify-self: end; }
+  .back-to-top { right: 14px; bottom: calc(14px + env(safe-area-inset-bottom)); width: 48px; height: 48px; }
 }
