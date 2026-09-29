@@ -110,7 +110,7 @@ function escapeHtml(value) {
 }
 
 function searchableText(item) {
-  const qaText = (item.qa || []).flatMap((entry) => [entry.question, entry.answer]);
+  const qaText = (item.qa || []).flatMap((entry) => [entry.question, entry.answer, entry.managementId]);
   return [
     item.name,
     item.reading,
@@ -234,6 +234,7 @@ function qaPanel(item) {
               <summary><span class="qa-marker">Q</span><span class="qa-question">${linkedText(entry.question)}</span></summary>
               <div class="answer"><span>A</span><p>${linkedText(entry.answer)}</p></div>
               <p class="qa-environment">対応：${escapeHtml(environmentLabel(qaEnvironments(entry, item)))}</p>
+              ${entry.managementId ? `<p class="qa-management-id"><span>管理ID：${escapeHtml(entry.managementId)}</span><button class="qa-copy-id" type="button" data-copy-text="${escapeHtml(`【ID：${entry.managementId}～】`)}" aria-label="管理IDをコピー">コピー</button></p>` : ""}
             </details>
           `).join("")}
         </div>
@@ -364,7 +365,7 @@ function categoryCoverPanel(item) {
 }
 
 function qaSearchableText(item) {
-  return (item.qa || []).flatMap((entry) => [entry.question, entry.answer]).join(" ");
+  return (item.qa || []).flatMap((entry) => [entry.question, entry.answer, entry.managementId]).join(" ");
 }
 
 function renderCard(item, index) {
@@ -528,7 +529,32 @@ function render() {
     .join("");
 }
 
-list.addEventListener("click", (event) => {
+list.addEventListener("click", async (event) => {
+  const copyButton = event.target.closest("[data-copy-text]");
+  if (copyButton) {
+    event.preventDefault();
+    event.stopPropagation();
+    const copyText = copyButton.dataset.copyText;
+    let copied = false;
+    try {
+      if (navigator.clipboard?.writeText) { await navigator.clipboard.writeText(copyText); copied = true; }
+    } catch (_error) { copied = false; }
+    if (!copied) {
+      const helper = document.createElement("textarea");
+      helper.value = copyText;
+      helper.setAttribute("readonly", "");
+      helper.style.position = "fixed";
+      helper.style.opacity = "0";
+      document.body.append(helper);
+      helper.select();
+      try { copied = document.execCommand("copy"); } catch (_error) { copied = false; }
+      helper.remove();
+    }
+    copyButton.textContent = copied ? "コピー済み" : "コピー失敗";
+    copyButton.classList.toggle("is-copied", copied);
+    window.setTimeout(() => { if (copyButton.isConnected) { copyButton.textContent = "コピー"; copyButton.classList.remove("is-copied"); } }, 1600);
+    return;
+  }
   const imageButton = event.target.closest("[data-image-src]");
   if (imageButton) {
     openLightbox(imageButton.dataset.imageSrc, imageButton.dataset.imageName);
