@@ -537,8 +537,13 @@ list.addEventListener("click", async (event) => {
     const copyText = copyButton.dataset.copyText;
     let copied = false;
     try {
-      if (navigator.clipboard?.writeText) { await navigator.clipboard.writeText(copyText); copied = true; }
-    } catch (_error) { copied = false; }
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(copyText);
+        copied = true;
+      }
+    } catch (_error) {
+      copied = false;
+    }
     if (!copied) {
       const helper = document.createElement("textarea");
       helper.value = copyText;
@@ -552,7 +557,12 @@ list.addEventListener("click", async (event) => {
     }
     copyButton.textContent = copied ? "コピー済み" : "コピー失敗";
     copyButton.classList.toggle("is-copied", copied);
-    window.setTimeout(() => { if (copyButton.isConnected) { copyButton.textContent = "コピー"; copyButton.classList.remove("is-copied"); } }, 1600);
+    window.setTimeout(() => {
+      if (copyButton.isConnected) {
+        copyButton.textContent = "コピー";
+        copyButton.classList.remove("is-copied");
+      }
+    }, 1600);
     return;
   }
   const imageButton = event.target.closest("[data-image-src]");
