@@ -387,6 +387,10 @@ h1 {
 .answer > span { background: var(--gold); color: #1c170b; }
 .answer p { min-width: 0; margin: 0; overflow-wrap: anywhere; white-space: pre-line; }
 .qa-environment { margin: -4px 12px 10px 45px; color: var(--muted); font-size: .74rem; font-weight: 700; }
+.qa-management-id { display: flex; align-items: center; justify-content: flex-end; gap: 7px; margin: -7px 12px 9px; color: #9298a5; font-size: .61rem; font-weight: 500; line-height: 1.2; text-align: right; }
+.qa-copy-id { padding: 2px 6px; border: 1px solid #e3e5e9; border-radius: 5px; background: #f7f8fa; color: #747c8b; font-size: .59rem; line-height: 1.4; }
+.qa-copy-id:hover, .qa-copy-id:focus-visible { border-color: #aeb5c1; color: var(--navy); }
+.qa-copy-id.is-copied { border-color: #b8d9c0; background: #eff8f1; color: #287542; }
 .related-list { display: flex; flex-wrap: wrap; gap: 7px; }
 .card-reference {
   display: inline-block;
