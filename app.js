@@ -234,7 +234,7 @@ function qaPanel(item) {
               <summary><span class="qa-marker">Q</span><span class="qa-question">${linkedText(entry.question)}</span></summary>
               <div class="answer"><span>A</span><p>${linkedText(entry.answer)}</p></div>
               <p class="qa-environment">対応：${escapeHtml(environmentLabel(qaEnvironments(entry, item)))}</p>
-              ${entry.managementId ? `<p class="qa-management-id"><span>管理ID：${escapeHtml(entry.managementId)}</span><button class="qa-copy-id" type="button" data-copy-text="${escapeHtml(`【ID：${entry.managementId}～】`)}" aria-label="管理IDをコピー">コピー</button></p>` : ""}
+              ${entry.managementId ? `<p class="qa-management-id"><span>管理ID：${escapeHtml(entry.managementId)}</span><button class="qa-copy-id" type="button" data-copy-text="${escapeHtml(`ID：${entry.managementId}`)}" aria-label="管理IDをコピー">コピー</button></p>` : ""}
             </details>
           `).join("")}
         </div>
