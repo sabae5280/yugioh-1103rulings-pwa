@@ -1,26 +1,20 @@
-遊戯王1103環境 裁定集 更新パッチ
-サイト共有ボタン・五十音ナビ更新
+遊戯王1103環境 裁定集 更新パッチ（な行・TG共通効果）
 
 【反映方法】
-このZIPを展開し、含まれる5つのファイルをGitHubリポジトリのトップ階層へ上書き・追加してください。
-追加ファイル：card-readings.js
-上書きファイル：index.html / app.js / styles.css / sw.js
+ZIPを展開し、含まれるファイルをGitHubリポジトリのトップ階層へ配置してください。同名ファイルは上書きし、新しい rulings-n-row.js は追加します。その後、GitHub Desktopでコミット・Pushしてください。
 
-今回の変更
-・トップ左上に共有ボタンを追加。カードを開いているかどうかに関係なく、サイトのトップURLを共有します。対応ブラウザでは共有メニューを開き、それ以外はトップURLをコピーします。検索条件やカード表示状態は共有URLに含めません。
-・検索欄の「共通効果」の下に五十音10行のナビを1列で表示します。該当カードがない行は無効表示です。
-・カード一覧を五十音の行ごとに見出しで区切り、ナビから見出しへ移動できます。検索中は行ナビを隠します。
-・英字・数字や読みの未設定だったカードに読みを追加し、行の先頭に誤表示される状態を解消します。
-・Service Workerのキャッシュ番号を v28 に更新します。
+【今回の更新】
+・Note「な行」の内容を反映。新規10項目を追加し、既存の《No.39 希望皇ホープ》《ニュードリュア》を更新。
+・新規な行データ65件と《ＴＧ》共通効果への追加裁定4件に、重複のない管理IDを付与。
+・管理ID「R-XXSUF5PFLT」の質問・回答を指定内容に差し替え、既存IDを維持。
+・《連鎖除外》のルビを「チェーン・ロスト」に変更。
+・No.16、No.30、No.39、《N・グラン・モール》の正式表記と読みを公式カードデータベースに合わせて整理。
+・共有ボタン、五十音ナビ、検索、カード表示を含む app.js / index.html / styles.css を反映し、キャッシュを更新。
 
-この更新パッチは、既存のカードデータ（ア行～は行）を置き換えません。GitHub Pages反映後、ブラウザを再読み込みしてください。
+【確認結果】
+・カードデータ読み込み後260項目。
+・Q&A合計1,466件、管理ID1,466件すべて一意。
+・JavaScript構文確認済み。
 
-【読みの確認に使用したKONAMI公式カードデータベース】
-XX－セイバー ガトムズ：https://www.db.yugioh-card.com/yugiohdb/card_search.action?cid=8334&ope=2&request_locale=ja
-D.D.クロウ：https://www.db.yugioh-card.com/yugiohdb/card_search.action?cid=6980&ope=2&request_locale=ja
-W星雲隕石：https://www.db.yugioh-card.com/yugiohdb/card_search.action?cid=9551&ope=2&request_locale=ja
-TGX1－HL：https://www.db.yugioh-card.com/yugiohdb/card_search.action?cid=9524&ope=2&request_locale=ja
-TG1－EM1：https://www.db.yugioh-card.com/yugiohdb/card_search.action?cid=9541&ope=2&request_locale=ja
-TGカード名の読み：https://www.db.yugioh-card.com/yugiohdb/faq_search.action?fid=24000&keyword=&ope=5&request_locale=ja
-
-TGX1－HLおよびTG1－EM1は公式DBが独立したルビを表示しないため、TGの公式読み「テックジーナス」を反映し、後続の英字・数字を文字読みで補っています。
+【カード画像】
+添付されたWordから、カード名の直後に置かれているカード画像12枚を取り出し、対応するな行カードに設定しています。Service Workerの先読みキャッシュにも追加しました。
