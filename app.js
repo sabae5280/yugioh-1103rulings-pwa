@@ -127,7 +127,7 @@ function enrichItem(item) {
   const enriched = {
     ...metadata,
     ...item,
-    reading: item.reading || metadata.reading || window.CARD_READINGS?.[item.name] || "",
+    reading: window.CARD_READINGS?.[item.name] || item.reading || metadata.reading || "",
     environments: item.environments || metadata.environments || ["1103"],
     monsterTags: item.monsterTags || metadata.monsterTags || []
   };
