@@ -683,3 +683,5 @@ footer p { margin: 0; }
   .site-menu__drawer { position: relative; width: min(92vw, 420px); height: 100%; justify-self: end; }
   .back-to-top { right: 14px; bottom: calc(14px + env(safe-area-inset-bottom)); width: 48px; height: 48px; }
 }
+
+.overview-management-id { margin: 8px 0 0; }
