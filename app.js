@@ -159,8 +159,41 @@ function normalize(value) {
     String.fromCharCode(character.charCodeAt(0) - 0x60)
   );
 
-  // 中黒、空白、長音・ハイフン類の有無を検索結果に影響させない。
-  return hiragana.replace(/[\s・･－―—–ー_＿]/g, "");
+  // 中黒、空白、長音・ハイフン、カード名を囲う記号の差を吸収する。
+  return hiragana.replace(/[\s・･－―—–ー_＿《》「」『』【】]/g, "");
+}
+
+// 追加の略称は必要に応じてここへ登録できます。正式名自体は検索対象に含めません。
+const builtInCardAliases = {
+  "ダーク・アームド・ドラゴン": ["ダムド"],
+  "魂を削る死霊": ["たけし"]
+};
+
+function aliasesFor(item) {
+  const metadata = window.CARD_METADATA?.[item.name] || {};
+  const aliases = [
+    ...(metadata.aliases || []),
+    ...(item.aliases || []),
+    ...(builtInCardAliases[item.name] || [])
+  ];
+  return [...new Set(aliases.filter(Boolean))];
+}
+
+// 裁定文中の《カード名》を拾い、参照先と参照元の両方に関連リンクを作る。
+const relatedCardsByName = new Map(allRulings.map((item) => [normalize(item.name), new Map()]));
+function addRelatedPair(source, targetName) {
+  const target = allRulings.find((candidate) => normalize(candidate.name) === normalize(targetName));
+  if (!target || target === source) return;
+  relatedCardsByName.get(normalize(source.name)).set(normalize(target.name), target);
+  relatedCardsByName.get(normalize(target.name)).set(normalize(source.name), source);
+}
+for (const item of allRulings) {
+  const text = [
+    item.overview, item.summary, ...(item.details || []),
+    ...(item.qa || []).flatMap((entry) => [entry.question, entry.answer])
+  ].filter(Boolean).join(" ");
+  for (const match of text.matchAll(/《([^》]+)》/g)) addRelatedPair(item, match[1]);
+  for (const relatedName of item.related || []) addRelatedPair(item, relatedName);
 }
 
 function escapeHtml(value) {
@@ -177,6 +210,7 @@ function searchableText(item) {
   return [
     item.name,
     item.reading,
+    ...aliasesFor(item),
     item.overview,
     item.summary,
     ...(item.details || []),
@@ -327,11 +361,13 @@ function qaPanel(item) {
 }
 
 function relatedPanel(item) {
-  if (!item.related?.length) return "";
+  const inferredNames = [...(relatedCardsByName.get(normalize(item.name))?.values() || [])].map((related) => related.name);
+  const relatedNames = [...new Map([...(item.related || []), ...inferredNames].map((name) => [normalize(name), name])).values()];
+  if (!relatedNames.length) return "";
   return `
     <section class="card-section">
-      <h3>関連カード</h3>
-      <div class="related-list">${item.related.map(cardReference).join("")}</div>
+      <h3>関連カード・裁定</h3>
+      <div class="related-list">${relatedNames.map(cardReference).join("")}</div>
     </section>`;
 }
 
@@ -603,13 +639,25 @@ function render() {
       return a.name.localeCompare(b.name, "ja");
     });
   const nameSet = new Set(nameMatches);
-  const qaMatches = items.filter((item) => !nameSet.has(item) && normalize(qaSearchableText(item)).includes(query));
-  const groupedSet = new Set([...nameMatches, ...qaMatches]);
+  const aliasMatches = items.filter((item) =>
+    !nameSet.has(item) && aliasesFor(item).some((alias) => normalize(alias).includes(query))
+  );
+  const aliasSet = new Set(aliasMatches);
+  const readingMatches = items.filter((item) =>
+    !nameSet.has(item) && !aliasSet.has(item) && normalize(item.reading).includes(query)
+  );
+  const readingSet = new Set(readingMatches);
+  const qaMatches = items.filter((item) =>
+    !nameSet.has(item) && !aliasSet.has(item) && !readingSet.has(item) && normalize(qaSearchableText(item)).includes(query)
+  );
+  const groupedSet = new Set([...nameMatches, ...aliasMatches, ...readingMatches, ...qaMatches]);
   const otherMatches = items.filter((item) => !groupedSet.has(item));
 
   let cardIndex = 0;
   const groups = [
     { title: "カード名に該当", items: nameMatches },
+    { title: "略称に該当", items: aliasMatches },
+    { title: "読みがなに該当", items: readingMatches },
     { title: "Q&Aに該当カードあり", items: qaMatches },
     { title: "その他の該当カード", items: otherMatches }
   ];
