@@ -1,13 +1,12 @@
-遊戯王1103環境 裁定集 更新パッケージ（ら行）
+遊戯王1103環境 裁定集 更新パッケージ（2026-10-01修正版）
 
-このパッケージには、ら行34項目・Q&A144件・カード画像34枚と、今回の検索／関連カード改善、概要管理ID表示を含みます。
+カオス・ソーサラーの管理ID「R-W79LJTECPZ」のQ&Aを、優先順による並べ替え後も一番下に表示する修正を含む更新パッケージです。ら行のカード・裁定・画像の追加と修正、カード名・概要IDのコピー機能、Q&A内画像表示、iPhoneホーム画面版の共有ボタン表示修正も含みます。
 
-GitHub Desktopで反映する手順
+反映手順（GitHub Desktop）
 1. ZIPを展開します。
-2. 展開した中の app.js、index.html、styles.css、sw.js を、リポジトリ直下にある同名ファイルへ上書きします。
-3. rulings-r-row.js をリポジトリ直下へ追加します。
-4. images/r-row フォルダーを、リポジトリ直下の images フォルダー内へ追加します。フォルダー階層とファイル名は変更しません。
-5. GitHub Desktopで変更を確認し、コミットしてPushします。
+2. 展開したフォルダーの中身を、リポジトリ直下へコピーします。外側のフォルダーごと配置しないでください。
+3. app.js、index.html、styles.css、sw.js、rulings-r-row.js はリポジトリ直下の同名ファイルへ上書きします。
+4. images/r-row 内の画像を、リポジトリ直下の images/r-row へ追加します。同名ファイルは上書きします。
+5. GitHub DesktopのChangesで app.js、sw.js、rulings-r-row.js と追加画像が表示されることを確認し、コミットしてPush originします。
 
-ファイルはリポジトリ直下を基準に配置してください。ZIP内のREADME.txtはアップロード不要です。
-Push後、GitHub Pagesの反映を待ってからサイトを再読み込みしてください。キャッシュ更新用にService Workerはv35へ更新済みです。
+サイトが読み込むのはリポジトリ直下の app.js です。app.js.js ではありません。ZIP内のREADME.txtはアップロード不要です。Service Workerのキャッシュ名はv36です。

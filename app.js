@@ -140,13 +140,16 @@ const allRulings = window.RULINGS
   .map(enrichItem)
   .sort((a, b) => japaneseCollator.compare(a.reading || a.name, b.reading || b.name));
 
-// Keep management IDs stable across reloads and reserve IDs already assigned to Q&A entries.
+// Keep Q&A IDs stable across reloads and reserve IDs already assigned to entries.
 const usedManagementIds = new Set();
+const usedQaIds = new Set();
 for (const item of allRulings) {
   for (const entry of item.qa || []) {
     if (entry.managementId) {
-      const existingNumber = String(entry.managementId).match(/\d{5}/)?.[0];
-      if (existingNumber) usedManagementIds.add(existingNumber);
+      const rawId = String(entry.managementId).replace(/^ID\s*:\s*/i, "");
+      const normalizedId = rawId.startsWith("R-") ? rawId : `R-${rawId}`;
+      entry.managementId = normalizedId;
+      usedQaIds.add(normalizedId.slice(2).toUpperCase());
     }
   }
 }
@@ -167,11 +170,37 @@ function managementIdFor(key) {
   return id;
 }
 
+function qaManagementIdFor(key) {
+  const alphabet = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  let hash = 2166136261;
+  for (const character of key) {
+    hash ^= character.codePointAt(0);
+    hash = Math.imul(hash, 16777619);
+  }
+  let value = (hash >>> 0) % (36 ** 5);
+  let id = "";
+  for (let index = 0; index < 5; index += 1) {
+    id = alphabet[value % 36] + id;
+    value = Math.floor(value / 36);
+  }
+  while (usedQaIds.has(id)) {
+    value = (value + 1) % (36 ** 5);
+    let next = value;
+    id = "";
+    for (let index = 0; index < 5; index += 1) {
+      id = alphabet[next % 36] + id;
+      next = Math.floor(next / 36);
+    }
+  }
+  usedQaIds.add(id);
+  return `R-${id}`;
+}
+
 const missingQaIds = allRulings.flatMap((item) => (item.qa || [])
-  .map((entry, index) => ({ item, entry, key: `qa:${item.name}:${index + 1}` }))
+  .map((entry, index) => ({ entry, key: `qa:${item.name}:${index + 1}` }))
   .filter(({ entry }) => !entry.managementId))
   .sort((a, b) => a.key.localeCompare(b.key, "ja"));
-for (const { entry, key } of missingQaIds) entry.managementId = managementIdFor(key);
+for (const { entry, key } of missingQaIds) entry.managementId = qaManagementIdFor(key);
 
 for (const item of [...allRulings].sort((a, b) => a.name.localeCompare(b.name, "ja"))) {
   item.overviewManagementId = item.overviewManagementId || managementIdFor(`overview:${item.name}`);
@@ -364,12 +393,27 @@ function orderedQa(item) {
   return (item.qa || [])
     .map((entry, index) => ({ entry, index }))
     .filter(({ entry }) => environmentMatches(qaEnvironments(entry, item)))
-    .sort((a, b) => qaBasePriority(a.entry, item) - qaBasePriority(b.entry, item) || a.index - b.index)
+    .sort((a, b) => {
+      const aPinnedLast = a.entry.managementId === "R-W79LJTECPZ";
+      const bPinnedLast = b.entry.managementId === "R-W79LJTECPZ";
+      if (aPinnedLast !== bPinnedLast) return aPinnedLast ? 1 : -1;
+      return qaBasePriority(a.entry, item) - qaBasePriority(b.entry, item) || a.index - b.index;
+    })
     .map(({ entry }) => entry);
 }
 
 function environmentLabel(environments) {
   return environments.map((environment) => `${environment}環境`).join("・");
+}
+
+function qaImagesPanel(entry, item) {
+  const images = entry.images || [];
+  if (!images.length) return "";
+  return `<div class="qa-supplemental-images">${images.map((source, index) => {
+    const image = typeof source === "string" ? { src: source } : source;
+    const alt = image.alt || `${item.name}のQ&A参考画像${index + 1}`;
+    return `<button class="supplemental-image qa-supplemental-image" type="button" data-image-src="${escapeHtml(image.src)}" data-image-name="${escapeHtml(alt)}" aria-label="${escapeHtml(alt)}を拡大表示"><img src="${escapeHtml(image.src)}" alt="${escapeHtml(alt)}" loading="lazy">${image.caption ? `<span>${escapeHtml(image.caption)}</span>` : ""}</button>`;
+  }).join("")}</div>`;
 }
 
 function qaPanel(item) {
@@ -383,6 +427,7 @@ function qaPanel(item) {
             <details class="qa-item">
               <summary><span class="qa-marker">Q</span><span class="qa-question">${linkedText(entry.question)}</span></summary>
               <div class="answer"><span>A</span><p>${linkedText(entry.answer)}</p></div>
+              ${qaImagesPanel(entry, item)}
               <p class="qa-environment">対応：${escapeHtml(environmentLabel(qaEnvironments(entry, item)))}</p>
               ${entry.managementId ? `<p class="qa-management-id"><span>管理ID：${escapeHtml(entry.managementId)}</span><button class="qa-copy-id" type="button" data-copy-text="${escapeHtml(`ID: ${entry.managementId}`)}" aria-label="管理IDをコピー">コピー</button></p>` : ""}
             </details>
@@ -527,7 +572,7 @@ function categoryCoverPanel(item) {
 function overviewManagementIdLine(item) {
   const id = item.overviewManagementId;
   if (!id) return "";
-  return `<p class="qa-management-id overview-management-id"><span>管理ID：${escapeHtml(id)}</span><button class="qa-copy-id" type="button" data-copy-text="${escapeHtml(`ID: ${id}`)}" aria-label="概要の管理IDをコピー">コピー</button></p>`;
+  return `<p class="qa-management-id overview-management-id"><button class="qa-copy-id" type="button" data-copy-text="${escapeHtml(`《${item.name}》`)}" aria-label="《${escapeHtml(item.name)}》をコピー">コピー</button><span>管理ID：${escapeHtml(id)}</span><button class="qa-copy-id" type="button" data-copy-text="${escapeHtml(`ID: ${id}`)}" aria-label="概要の管理IDをコピー">コピー</button></p>`;
 }
 
 function qaSearchableText(item) {
