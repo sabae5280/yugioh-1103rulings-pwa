@@ -127,7 +127,7 @@ function enrichItem(item) {
   const enriched = {
     ...metadata,
     ...item,
-    reading: window.CARD_READINGS?.[item.name] || item.reading || metadata.reading || "",
+    reading: item.reading || window.CARD_READINGS?.[item.name] || metadata.reading || "",
     environments: item.environments || metadata.environments || ["1103"],
     monsterTags: item.monsterTags || metadata.monsterTags || []
   };
@@ -139,6 +139,43 @@ const japaneseCollator = new Intl.Collator("ja", { numeric: true, sensitivity: "
 const allRulings = window.RULINGS
   .map(enrichItem)
   .sort((a, b) => japaneseCollator.compare(a.reading || a.name, b.reading || b.name));
+
+// Keep management IDs stable across reloads and reserve IDs already assigned to Q&A entries.
+const usedManagementIds = new Set();
+for (const item of allRulings) {
+  for (const entry of item.qa || []) {
+    if (entry.managementId) {
+      const existingNumber = String(entry.managementId).match(/\d{5}/)?.[0];
+      if (existingNumber) usedManagementIds.add(existingNumber);
+    }
+  }
+}
+
+function managementIdFor(key) {
+  let hash = 2166136261;
+  for (const character of key) {
+    hash ^= character.codePointAt(0);
+    hash = Math.imul(hash, 16777619);
+  }
+  const range = 90000;
+  let candidate = 10000 + (hash >>> 0) % range;
+  while (usedManagementIds.has(String(candidate).padStart(5, "0"))) {
+    candidate = 10000 + ((candidate - 10000 + 1) % range);
+  }
+  const id = String(candidate).padStart(5, "0");
+  usedManagementIds.add(id);
+  return id;
+}
+
+const missingQaIds = allRulings.flatMap((item) => (item.qa || [])
+  .map((entry, index) => ({ item, entry, key: `qa:${item.name}:${index + 1}` }))
+  .filter(({ entry }) => !entry.managementId))
+  .sort((a, b) => a.key.localeCompare(b.key, "ja"));
+for (const { entry, key } of missingQaIds) entry.managementId = managementIdFor(key);
+
+for (const item of [...allRulings].sort((a, b) => a.name.localeCompare(b.name, "ja"))) {
+  item.overviewManagementId = item.overviewManagementId || managementIdFor(`overview:${item.name}`);
+}
 const referencePopularity = new Map();
 
 for (const item of allRulings) {
@@ -215,6 +252,7 @@ function searchableText(item) {
     item.summary,
     ...(item.details || []),
     ...qaText,
+    item.overviewManagementId,
     ...(item.related || []),
     ...(item.monsterTags || []),
     item.race,
@@ -346,7 +384,7 @@ function qaPanel(item) {
               <summary><span class="qa-marker">Q</span><span class="qa-question">${linkedText(entry.question)}</span></summary>
               <div class="answer"><span>A</span><p>${linkedText(entry.answer)}</p></div>
               <p class="qa-environment">対応：${escapeHtml(environmentLabel(qaEnvironments(entry, item)))}</p>
-              ${entry.managementId ? `<p class="qa-management-id"><span>管理ID：${escapeHtml(entry.managementId)}</span><button class="qa-copy-id" type="button" data-copy-text="${escapeHtml(`ID：${entry.managementId}`)}" aria-label="管理IDをコピー">コピー</button></p>` : ""}
+              ${entry.managementId ? `<p class="qa-management-id"><span>管理ID：${escapeHtml(entry.managementId)}</span><button class="qa-copy-id" type="button" data-copy-text="${escapeHtml(`ID: ${entry.managementId}`)}" aria-label="管理IDをコピー">コピー</button></p>` : ""}
             </details>
           `).join("")}
         </div>
@@ -486,6 +524,12 @@ function categoryCoverPanel(item) {
     </button>`;
 }
 
+function overviewManagementIdLine(item) {
+  const id = item.overviewManagementId;
+  if (!id) return "";
+  return `<p class="qa-management-id overview-management-id"><span>管理ID：${escapeHtml(id)}</span><button class="qa-copy-id" type="button" data-copy-text="${escapeHtml(`ID: ${id}`)}" aria-label="概要の管理IDをコピー">コピー</button></p>`;
+}
+
 function qaSearchableText(item) {
   return (item.qa || []).flatMap((entry) => [entry.question, entry.answer, entry.managementId]).join(" ");
 }
@@ -498,6 +542,7 @@ function renderCard(item, index) {
           <section class="card-section overview-section">
             <h3>概要</h3>
             <blockquote>${linkedText(item.overview || item.summary)}</blockquote>
+            ${overviewManagementIdLine(item)}
           </section>
           ${overviewImagesPanel(item)}
         </div>`
@@ -508,6 +553,7 @@ function renderCard(item, index) {
             <section class="card-section overview-section">
               <h3>概要</h3>
               <blockquote>${linkedText(item.overview || item.summary)}</blockquote>
+              ${overviewManagementIdLine(item)}
             </section>
             ${overviewImagesPanel(item)}
           </div>
