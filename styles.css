@@ -694,3 +694,9 @@ footer p { margin: 0; }
 }
 
 .overview-management-id { margin: 8px 0 0; }
+
+@media (max-width: 680px) {
+  .hero__inner { padding-top: calc(82px + env(safe-area-inset-top, 0px)); }
+  .hero .share-button,
+  .hero .hero-actions { top: calc(18px + env(safe-area-inset-top, 0px)); }
+}
