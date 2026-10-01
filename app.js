@@ -28,6 +28,13 @@ let currentFilter = "all";
 let deferredPrompt = null;
 const selectedEnvironments = new Set(["1103"]);
 const advancedSelections = new Map();
+const cardNavigationStack = [];
+const backToCardButton = document.querySelector("#backToCard");
+
+const isStandaloneDisplay = (typeof window.matchMedia === "function" && (
+  window.matchMedia("(display-mode: standalone)").matches || window.matchMedia("(display-mode: fullscreen)").matches
+)) || navigator.standalone === true;
+document.documentElement.classList.toggle("is-standalone", Boolean(isStandaloneDisplay));
 
 const typeLabels = { monster: "モンスター", spell: "魔法", trap: "罠", category: "共通効果" };
 const kanaRows = [
@@ -595,7 +602,7 @@ function scheduleSearchRender(delay = 140) {
   }, delay);
 }
 
-function renderCard(item, index) {
+function renderCardBody(item) {
   const content = item.type === "category"
     ? `
         <div class="category-overview">
@@ -621,26 +628,68 @@ function renderCard(item, index) {
           </div>
         </div>`;
 
+  return `${content}
+    <div class="full-width-content">
+      ${damageStepReferencePanel(item)}
+      ${supplementalImagesPanel(item)}
+      ${qaPanel(item)}
+      ${relatedPanel(item)}
+      ${externalArticlesPanel(item)}
+      ${tagsPanel(item)}
+    </div>`;
+}
+
+function renderCard(item, index) {
   return `
-    <article class="ruling-card">
+    <article class="ruling-card" data-card-name="${escapeHtml(item.name)}">
       <button class="ruling-toggle" type="button" aria-expanded="false" aria-controls="ruling-${index}">
         ${typeBadge(item)}
         <span class="card-name">${cardTitle(item)}</span>
         ${effectIcon(item)}
         <span class="chevron" aria-hidden="true">⌄</span>
       </button>
-      <div id="ruling-${index}" class="ruling-body" hidden>
-        ${content}
-        <div class="full-width-content">
-          ${damageStepReferencePanel(item)}
-          ${supplementalImagesPanel(item)}
-          ${qaPanel(item)}
-          ${relatedPanel(item)}
-          ${externalArticlesPanel(item)}
-          ${tagsPanel(item)}
-        </div>
-      </div>
+      <div id="ruling-${index}" class="ruling-body" data-card-name="${escapeHtml(item.name)}" hidden></div>
     </article>`;
+}
+
+function populateCardBody(body) {
+  if (body.dataset.loaded === "true") return;
+  const item = findCard(body.dataset.cardName);
+  if (!item) return;
+  body.innerHTML = renderCardBody(item);
+  body.dataset.loaded = "true";
+}
+
+function syncBackToCardButton() {
+  if (backToCardButton) backToCardButton.hidden = cardNavigationStack.length === 0;
+}
+
+function clearCardNavigation() {
+  cardNavigationStack.length = 0;
+  syncBackToCardButton();
+}
+
+function goBackToCard() {
+  const previous = cardNavigationStack.pop();
+  if (!previous) return;
+  currentFilter = previous.filter;
+  searchInput.value = previous.query;
+  filters.querySelectorAll(".filter").forEach((item) => item.classList.toggle("is-active", item.dataset.filter === currentFilter));
+  render();
+  const hash = previous.cardName ? `#card=${encodeURIComponent(previous.cardName)}` : "";
+  history.replaceState(null, "", `${location.pathname}${location.search}${hash}`);
+  syncBackToCardButton();
+  requestAnimationFrame(() => {
+    const article = [...list.querySelectorAll(".ruling-card")].find((item) => item.dataset.cardName === previous.cardName);
+    if (article) {
+      const toggle = article.querySelector(".ruling-toggle");
+      const body = document.getElementById(toggle.getAttribute("aria-controls"));
+      populateCardBody(body);
+      toggle.setAttribute("aria-expanded", "true");
+      body.hidden = false;
+    }
+    window.scrollTo({ top: previous.scrollY, behavior: "auto" });
+  });
 }
 
 function advancedFilterMatches(item) {
@@ -677,6 +726,7 @@ function resetAdvancedFilters() {
 }
 
 function goHome() {
+  clearCardNavigation();
   searchInput.value = "";
   currentFilter = "all";
   resetAdvancedFilters();
@@ -826,13 +876,15 @@ list.addEventListener("click", async (event) => {
   const cardLink = event.target.closest("[data-card]");
   if (cardLink) {
     event.preventDefault();
-    navigateToCard(cardLink.dataset.card);
+    const sourceCardName = cardLink.closest(".ruling-card")?.dataset.cardName || "";
+    navigateToCard(cardLink.dataset.card, sourceCardName);
     return;
   }
   const button = event.target.closest(".ruling-toggle");
   if (!button) return;
   const body = document.getElementById(button.getAttribute("aria-controls"));
   const open = button.getAttribute("aria-expanded") === "true";
+  if (!open) populateCardBody(body);
   button.setAttribute("aria-expanded", String(!open));
   body.hidden = open;
 });
@@ -869,7 +921,16 @@ document.addEventListener("keydown", (event) => {
   if (event.key === "Escape" && !siteMenu.hidden) closeMenu();
 });
 
-function navigateToCard(name) {
+function navigateToCard(name, sourceCardName = "") {
+  if (sourceCardName && normalize(sourceCardName) !== normalize(name)) {
+    cardNavigationStack.push({
+      cardName: sourceCardName,
+      query: searchInput.value,
+      filter: currentFilter,
+      scrollY: window.scrollY
+    });
+  }
+  syncBackToCardButton();
   currentFilter = "all";
   searchInput.value = name;
   filters.querySelectorAll(".filter").forEach((item) => item.classList.toggle("is-active", item.dataset.filter === "all"));
@@ -879,6 +940,7 @@ function navigateToCard(name) {
     const button = list.querySelector(".ruling-toggle");
     if (!button) return;
     const body = document.getElementById(button.getAttribute("aria-controls"));
+    populateCardBody(body);
     button.setAttribute("aria-expanded", "true");
     body.hidden = false;
     button.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -915,11 +977,13 @@ async function shareSite() {
 }
 
 searchInput.addEventListener("input", (event) => {
+  clearCardNavigation();
   if (event.isComposing) return;
   scheduleSearchRender();
 });
 searchInput.addEventListener("compositionend", () => scheduleSearchRender(80));
 clearButton.addEventListener("click", () => {
+  clearCardNavigation();
   searchInput.value = "";
   searchInput.focus();
   render();
@@ -928,12 +992,14 @@ clearButton.addEventListener("click", () => {
 filters.addEventListener("click", (event) => {
   const button = event.target.closest("[data-filter]");
   if (!button) return;
+  clearCardNavigation();
   currentFilter = button.dataset.filter;
   filters.querySelectorAll(".filter").forEach((item) => item.classList.toggle("is-active", item === button));
   render();
 });
 
 resetButton.addEventListener("click", () => {
+  clearCardNavigation();
   searchInput.value = "";
   currentFilter = "all";
   resetAdvancedFilters();
@@ -950,6 +1016,7 @@ advancedToggle.addEventListener("click", () => {
 advancedPanel.addEventListener("change", (event) => {
   const input = event.target.closest("input[type='checkbox']");
   if (!input) return;
+  clearCardNavigation();
 
   if (input.closest(".environment-filter")) {
     if (input.checked) selectedEnvironments.add(input.value);
@@ -968,6 +1035,7 @@ menuButton.addEventListener("click", () => openMenu("about"));
 shareButton.addEventListener("click", shareSite);
 homeButton.addEventListener("click", goHome);
 backToTopButton?.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+backToCardButton?.addEventListener("click", goBackToCard);
 menuClose.addEventListener("click", closeMenu);
 siteMenu.addEventListener("click", (event) => {
   if (event.target.closest("[data-menu-close]")) {
@@ -994,8 +1062,7 @@ installButton.addEventListener("click", async () => {
 });
 
 const isIos = /iphone|ipad|ipod/i.test(navigator.userAgent);
-const isStandalone = window.matchMedia("(display-mode: standalone)").matches || navigator.standalone;
-iosTip.hidden = !(isIos && !isStandalone);
+iosTip.hidden = !(isIos && !isStandaloneDisplay);
 
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => navigator.serviceWorker.register("./sw.js"));
