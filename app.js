@@ -229,22 +229,6 @@ function normalize(value) {
   return hiragana.replace(/[\s・･－―—–ー_＿《》「」『』【】]/g, "");
 }
 
-// 追加の略称は必要に応じてここへ登録できます。正式名自体は検索対象に含めません。
-const builtInCardAliases = {
-  "ダーク・アームド・ドラゴン": ["ダムド"],
-  "魂を削る死霊": ["たけし"]
-};
-
-function aliasesFor(item) {
-  const metadata = window.CARD_METADATA?.[item.name] || {};
-  const aliases = [
-    ...(metadata.aliases || []),
-    ...(item.aliases || []),
-    ...(builtInCardAliases[item.name] || [])
-  ];
-  return [...new Set(aliases.filter(Boolean))];
-}
-
 // 裁定文中の《カード名》を拾い、参照先と参照元の両方に関連リンクを作る。
 const relatedCardsByName = new Map(allRulings.map((item) => [normalize(item.name), new Map()]));
 function addRelatedPair(source, targetName) {
@@ -276,7 +260,6 @@ function searchableText(item) {
   return [
     item.name,
     item.reading,
-    ...aliasesFor(item),
     item.overview,
     item.summary,
     ...(item.details || []),
@@ -592,6 +575,26 @@ function qaSearchableText(item) {
   return (item.qa || []).flatMap((entry) => [entry.question, entry.answer, entry.managementId]).join(" ");
 }
 
+// Search strings are large; normalize them once instead of rebuilding them on every keystroke.
+const rulingSearchIndex = new WeakMap();
+for (const item of allRulings) {
+  rulingSearchIndex.set(item, {
+    all: normalize(searchableText(item)),
+    name: normalize(item.name),
+    reading: normalize(item.reading),
+    qa: normalize(qaSearchableText(item))
+  });
+}
+
+let searchRenderTimer = 0;
+function scheduleSearchRender(delay = 140) {
+  window.clearTimeout(searchRenderTimer);
+  searchRenderTimer = window.setTimeout(() => {
+    searchRenderTimer = 0;
+    render();
+  }, delay);
+}
+
 function renderCard(item, index) {
   const content = item.type === "category"
     ? `
@@ -708,11 +711,13 @@ function closeMenu() {
 }
 
 function render() {
+  window.clearTimeout(searchRenderTimer);
+  searchRenderTimer = 0;
   const query = normalize(searchInput.value);
   const items = allRulings.filter((item) => {
     const typeMatches = currentFilter === "all" || item.type === currentFilter;
     const environmentMatchesItem = environmentMatches(item.environments);
-    const haystack = normalize(searchableText(item));
+    const haystack = rulingSearchIndex.get(item).all;
     return typeMatches && environmentMatchesItem && advancedFilterMatches(item) && (!query || haystack.includes(query));
   });
 
@@ -736,32 +741,27 @@ function render() {
   rowNavigation.hidden = true;
 
   const nameMatches = items
-    .filter((item) => normalize(item.name).includes(query))
+    .filter((item) => rulingSearchIndex.get(item).name.includes(query))
     .sort((a, b) => {
-      const aExact = normalize(a.name) === query;
-      const bExact = normalize(b.name) === query;
+      const aExact = rulingSearchIndex.get(a).name === query;
+      const bExact = rulingSearchIndex.get(b).name === query;
       if (aExact !== bExact) return bExact - aExact;
       return a.name.localeCompare(b.name, "ja");
     });
   const nameSet = new Set(nameMatches);
-  const aliasMatches = items.filter((item) =>
-    !nameSet.has(item) && aliasesFor(item).some((alias) => normalize(alias).includes(query))
-  );
-  const aliasSet = new Set(aliasMatches);
   const readingMatches = items.filter((item) =>
-    !nameSet.has(item) && !aliasSet.has(item) && normalize(item.reading).includes(query)
+    !nameSet.has(item) && rulingSearchIndex.get(item).reading.includes(query)
   );
   const readingSet = new Set(readingMatches);
   const qaMatches = items.filter((item) =>
-    !nameSet.has(item) && !aliasSet.has(item) && !readingSet.has(item) && normalize(qaSearchableText(item)).includes(query)
+    !nameSet.has(item) && !readingSet.has(item) && rulingSearchIndex.get(item).qa.includes(query)
   );
-  const groupedSet = new Set([...nameMatches, ...aliasMatches, ...readingMatches, ...qaMatches]);
+  const groupedSet = new Set([...nameMatches, ...readingMatches, ...qaMatches]);
   const otherMatches = items.filter((item) => !groupedSet.has(item));
 
   let cardIndex = 0;
   const groups = [
     { title: "カード名に該当", items: nameMatches },
-    { title: "略称に該当", items: aliasMatches },
     { title: "読みがなに該当", items: readingMatches },
     { title: "Q&Aに該当カードあり", items: qaMatches },
     { title: "その他の該当カード", items: otherMatches }
@@ -914,7 +914,11 @@ async function shareSite() {
   }
 }
 
-searchInput.addEventListener("input", render);
+searchInput.addEventListener("input", (event) => {
+  if (event.isComposing) return;
+  scheduleSearchRender();
+});
+searchInput.addEventListener("compositionend", () => scheduleSearchRender(80));
 clearButton.addEventListener("click", () => {
   searchInput.value = "";
   searchInput.focus();
