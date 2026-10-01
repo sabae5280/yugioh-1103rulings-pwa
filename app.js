@@ -320,7 +320,20 @@ function cardReference(name) {
 }
 
 function linkedText(value) {
-  return escapeHtml(value || "").replace(/《([^》]+)》/g, (_match, name) => cardReference(name)).replace(/\r?\n/g, "<br>");
+  // Rendering-only spacing: keep source wording and punctuation untouched.
+  const readable = String(value || "").replace(/\r\n?/g, "\n").replace(
+    /(?<!\n)\n(?!\n)(?=(?:▶|■|◆|●|★|①|②|③|④|⑤|⑥|⑦|⑧|⑨|⑩|※|・))/g,
+    "\n\n"
+  );
+  return escapeHtml(readable).replace(/《([^》]+)》/g, (_match, name) => cardReference(name)).replace(/\n/g, "<br>");
+}
+
+function copyIconButton(copyText, ariaLabel) {
+  return `<button class="qa-copy-id copy-icon" type="button" data-copy-text="${escapeHtml(copyText)}" aria-label="${escapeHtml(ariaLabel)}" title="${escapeHtml(ariaLabel)}"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"></path></svg></button>`;
+}
+
+function cardNameCopyButton(item) {
+  return `<button class="card-name-copy" type="button" data-copy-text="${escapeHtml(`《${item.name}》`)}" aria-label="《${escapeHtml(item.name)}》をコピー">カード名コピー</button>`;
 }
 
 function cardTitle(item) {
@@ -429,7 +442,7 @@ function qaPanel(item) {
               <div class="answer"><span>A</span><p>${linkedText(entry.answer)}</p></div>
               ${qaImagesPanel(entry, item)}
               <p class="qa-environment">対応：${escapeHtml(environmentLabel(qaEnvironments(entry, item)))}</p>
-              ${entry.managementId ? `<p class="qa-management-id"><span>管理ID：${escapeHtml(entry.managementId)}</span><button class="qa-copy-id" type="button" data-copy-text="${escapeHtml(`ID: ${entry.managementId}`)}" aria-label="管理IDをコピー">コピー</button></p>` : ""}
+              ${entry.managementId ? `<p class="qa-management-id"><span>管理ID：${escapeHtml(entry.managementId)}</span>${copyIconButton(`ID: ${entry.managementId}`, "管理IDをコピー")}</p>` : ""}
             </details>
           `).join("")}
         </div>
@@ -572,7 +585,7 @@ function categoryCoverPanel(item) {
 function overviewManagementIdLine(item) {
   const id = item.overviewManagementId;
   if (!id) return "";
-  return `<p class="qa-management-id overview-management-id"><button class="qa-copy-id" type="button" data-copy-text="${escapeHtml(`《${item.name}》`)}" aria-label="《${escapeHtml(item.name)}》をコピー">コピー</button><span>管理ID：${escapeHtml(id)}</span><button class="qa-copy-id" type="button" data-copy-text="${escapeHtml(`ID: ${id}`)}" aria-label="概要の管理IDをコピー">コピー</button></p>`;
+  return `<p class="qa-management-id overview-management-id"><span>管理ID：${escapeHtml(id)}</span>${copyIconButton(`ID: ${id}`, "概要の管理IDをコピー")}</p>`;
 }
 
 function qaSearchableText(item) {
@@ -584,6 +597,7 @@ function renderCard(item, index) {
     ? `
         <div class="category-overview">
           ${categoryCoverPanel(item)}
+          ${cardNameCopyButton(item)}
           <section class="card-section overview-section">
             <h3>概要</h3>
             <blockquote>${linkedText(item.overview || item.summary)}</blockquote>
@@ -593,7 +607,7 @@ function renderCard(item, index) {
         </div>`
     : `
         <div class="card-profile">
-          <div class="image-column">${imagePanel(item)}</div>
+          <div class="image-column">${imagePanel(item)}${cardNameCopyButton(item)}</div>
           <div class="overview-column">
             <section class="card-section overview-section">
               <h3>概要</h3>
@@ -791,11 +805,14 @@ list.addEventListener("click", async (event) => {
       try { copied = document.execCommand("copy"); } catch (_error) { copied = false; }
       helper.remove();
     }
-    copyButton.textContent = copied ? "コピー済み" : "コピー失敗";
+    const originalLabel = copyButton.getAttribute("aria-label") || "コピー";
+    copyButton.setAttribute("aria-label", copied ? "コピーしました" : "コピーできませんでした");
+    copyButton.title = copied ? "コピーしました" : "コピーできませんでした";
     copyButton.classList.toggle("is-copied", copied);
     window.setTimeout(() => {
       if (copyButton.isConnected) {
-        copyButton.textContent = "コピー";
+        copyButton.setAttribute("aria-label", originalLabel);
+        copyButton.title = originalLabel;
         copyButton.classList.remove("is-copied");
       }
     }, 1600);
