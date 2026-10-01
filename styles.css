@@ -663,6 +663,31 @@ footer p { margin: 0; }
 .back-to-top:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
 .back-to-top > span { font-size: 1.35rem; font-weight: 800; line-height: 1; }
 .back-to-top small { font-size: .55rem; font-weight: 800; line-height: 1.1; letter-spacing: .08em; }
+.back-to-card {
+  position: fixed;
+  z-index: 900;
+  right: calc(18px + 52px + 8px);
+  bottom: calc(18px + env(safe-area-inset-bottom));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  min-width: 76px;
+  height: 52px;
+  padding: 0 12px;
+  border: 1px solid rgba(255,255,255,.42);
+  border-radius: 26px;
+  background: rgba(16,26,50,.78);
+  color: #fff;
+  box-shadow: 0 3px 14px rgba(15,25,45,.24);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  cursor: pointer;
+}
+.back-to-card[hidden] { display: none; }
+.back-to-card > span { font-size: 1.2rem; font-weight: 800; line-height: 1; }
+.back-to-card small { font-size: .68rem; font-weight: 800; line-height: 1.1; }
+.back-to-card:hover, .back-to-card:focus-visible { background: rgba(16,26,50,.96); }
 
 @media (max-width: 680px) {
   .hero__inner { min-height: 230px; grid-template-columns: auto 1fr; gap: 15px; padding-top: 82px; }
@@ -693,10 +718,33 @@ footer p { margin: 0; }
   .site-menu__backdrop { position: absolute; inset: 0; }
   .site-menu__drawer { position: relative; width: min(92vw, 420px); height: 100%; justify-self: end; }
   .back-to-top { right: 14px; bottom: calc(14px + env(safe-area-inset-bottom)); width: 48px; height: 48px; }
+  .back-to-card { right: calc(14px + 48px + 8px); bottom: calc(14px + env(safe-area-inset-bottom)); min-width: 70px; height: 48px; }
 }
 
 @media (display-mode: standalone), (display-mode: fullscreen), (display-mode: minimal-ui) {
-  .hero .share-button { display: inline-flex !important; visibility: visible !important; opacity: 1 !important; z-index: 10; }
+  .hero .share-button {
+    position: fixed !important;
+    top: calc(12px + env(safe-area-inset-top, 0px)) !important;
+    left: calc(12px + env(safe-area-inset-left, 0px)) !important;
+    z-index: 1200 !important;
+    display: inline-flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    background: rgba(16,26,50,.92);
+    box-shadow: 0 3px 14px rgba(15,25,45,.24);
+  }
+}
+
+html.is-standalone .hero .share-button {
+  position: fixed !important;
+  top: calc(12px + env(safe-area-inset-top, 0px)) !important;
+  left: calc(12px + env(safe-area-inset-left, 0px)) !important;
+  z-index: 1200 !important;
+  display: inline-flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  background: rgba(16,26,50,.92);
+  box-shadow: 0 3px 14px rgba(15,25,45,.24);
 }
 
 .overview-management-id { margin: 8px 0 0; }

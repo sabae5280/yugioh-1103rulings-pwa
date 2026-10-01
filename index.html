@@ -36,10 +36,10 @@
 
   <main class="container">
     <section class="search-panel" aria-label="裁定検索">
-      <label for="searchInput">カード名・ルビ・略称・裁定内容を検索</label>
+      <label for="searchInput">カード名・ルビ・裁定内容を検索</label>
       <div class="search-box">
         <span aria-hidden="true">⌕</span>
-        <input id="searchInput" type="search" placeholder="例：ドラゴン・アイス、ダムド、エンドフェイズ" autocomplete="off">
+        <input id="searchInput" type="search" placeholder="例：ドラゴン・アイス、エンドフェイズ" autocomplete="off">
         <button id="clearButton" type="button" aria-label="検索文字を消去">×</button>
       </div>
       <div id="filters" class="filters" aria-label="カード種別">
@@ -91,6 +91,9 @@
     <p>非公式の裁定資料です。<br>大会では主催者・ジャッジの判断を優先してください。</p>
   </footer>
 
+  <button id="backToCard" class="back-to-card" type="button" aria-label="前のカードに戻る" title="前のカードに戻る" hidden>
+    <span aria-hidden="true">←</span><small>Back</small>
+  </button>
   <button id="backToTop" class="back-to-top" type="button" aria-label="ページの先頭へ戻る" title="ページの先頭へ戻る">
     <span aria-hidden="true">↑</span><small>TOP</small>
   </button>
