@@ -360,7 +360,8 @@ h1 {
 .effect-icon-continuous { background-image: url("./effect-icon-continuous.png"); }
 .effect-icon-counter { background-image: url("./effect-icon-counter.png"); }
 
-.card-name { font-weight: 900; line-height: 1.45; }
+.card-name { min-width: 0; overflow-wrap: anywhere; font-weight: 900; line-height: 1.45; }
+.card-name--future-fusion { font-size: .86em; letter-spacing: -.035em; }
 .card-name ruby { ruby-position: over; }
 .card-name rt { color: var(--muted); font-size: .55em; font-weight: 600; letter-spacing: .03em; }
 .chevron { color: var(--muted); font-size: 1.3rem; transition: transform .2s ease; }

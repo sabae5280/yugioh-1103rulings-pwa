@@ -302,9 +302,9 @@ function findCard(name) {
   return allRulings.find((item) => normalize(item.name) === target);
 }
 
-function cardReference(name) {
+function cardReference(name, displayName = `《${name}》`) {
   const target = findCard(name);
-  const label = `《${escapeHtml(name)}》`;
+  const label = escapeHtml(displayName);
   if (!target) return `<span class="card-reference is-pending" title="カードページ準備中">${label}</span>`;
   return `<a class="card-reference" href="#card=${encodeURIComponent(target.name)}" data-card="${escapeHtml(target.name)}">${label}</a>`;
 }
@@ -315,7 +315,10 @@ function linkedText(value) {
     /(?<!\n)\n(?!\n)(?=(?:▶|■|◆|●|★|①|②|③|④|⑤|⑥|⑦|⑧|⑨|⑩|※|・))/g,
     "\n\n"
   );
-  return escapeHtml(readable).replace(/《([^》]+)》/g, (_match, name) => cardReference(name)).replace(/\n/g, "<br>");
+  return escapeHtml(readable).replace(/《甲虫装機》の共通効果|《([^》]+)》/g, (match, name) => {
+    if (match === "《甲虫装機》の共通効果") return cardReference("【甲虫装機】共通効果", match);
+    return cardReference(name);
+  }).replace(/\n/g, "<br>");
 }
 
 function copyIconButton(copyText, ariaLabel) {
@@ -640,11 +643,14 @@ function renderCardBody(item) {
 }
 
 function renderCard(item, index) {
+  const titleModifier = normalize(item.name) === normalize("未来融合－フューチャー・フュージョン")
+    ? " card-name--future-fusion"
+    : "";
   return `
     <article class="ruling-card" data-card-name="${escapeHtml(item.name)}">
       <button class="ruling-toggle" type="button" aria-expanded="false" aria-controls="ruling-${index}">
         ${typeBadge(item)}
-        <span class="card-name">${cardTitle(item)}</span>
+        <span class="card-name${titleModifier}">${cardTitle(item)}</span>
         ${effectIcon(item)}
         <span class="chevron" aria-hidden="true">⌄</span>
       </button>
