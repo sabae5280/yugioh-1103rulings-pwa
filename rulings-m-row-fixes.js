@@ -36,6 +36,20 @@
     else frog.qa.push(frogQa);
   }
 
+  // 「諸刃の活人剣術」の旧データに他カードのQ&Aが連結されていたため、
+  // 他カードにも登録されている同一質問を除去する。混入していた《鬼ガエル》の質問も対象。
+  const morohito = window.RULINGS.find((item) => normalize(item.name) === normalize("諸刃の活人剣術"));
+  if (morohito) {
+    const otherQuestions = new Set(
+      window.RULINGS
+        .filter((item) => item !== morohito)
+        .flatMap((item) => item.qa || [])
+        .map((entry) => normalize(entry.question))
+    );
+    otherQuestions.add(normalize(frogQa.question));
+    morohito.qa = (morohito.qa || []).filter((entry) => !otherQuestions.has(normalize(entry.question)));
+  }
+
   const virus = window.RULINGS.find((item) => normalize(item.name) === normalize("魔のデッキ破壊ウイルス"));
   const virusOverview = [
     "▶残存効果を残すカード",
