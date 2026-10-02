@@ -7,10 +7,12 @@
       window.RULINGS.push(source);
       return;
     }
-    for (const key of ["reading", "type", "spellType", "trapType", "image", "coverImage", "cardClass", "monsterTags", "environments"]) {
+    for (const key of ["reading", "type", "spellType", "trapType", "cardClass", "monsterTags", "environments"]) {
       if (source[key] !== undefined) existing[key] = source[key];
     }
-    if (source.overview !== undefined && (!source.overviewGenerated || !existing.overview)) existing.overview = source.overview;
+    if (!existing.overview && source.overview) existing.overview = source.overview;
+    if (!existing.image && source.image) existing.image = source.image;
+    if (!existing.coverImage && source.coverImage) existing.coverImage = source.coverImage;
     existing.qa ||= [];
     for (const entry of source.qa || []) {
       const prior = existing.qa.find((item) => normalize(item.question) === normalize(entry.question));
