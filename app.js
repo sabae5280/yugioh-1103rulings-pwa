@@ -321,12 +321,33 @@ function linkedText(value) {
   }).replace(/\n/g, "<br>");
 }
 
-function copyIconButton(copyText, ariaLabel) {
-  return `<button class="qa-copy-id copy-icon" type="button" data-copy-text="${escapeHtml(copyText)}" aria-label="${escapeHtml(ariaLabel)}" title="${escapeHtml(ariaLabel)}"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"></path></svg></button>`;
+function cleanQaText(value) {
+  const cardNames = [];
+  let cleaned = String(value || "").replace(/《[^》]+》/g, (name) => {
+    const token = `\u0000CARD_NAME_${cardNames.length}\u0000`;
+    cardNames.push(name);
+    return token;
+  });
+  cleaned = cleaned
+    .replace(/[ \t]{2,}/g, " ")
+    .replace(/[ \t]+([、。，．！？：；）】])/g, "$1")
+    .replace(/([（「『]) +/g, "$1")
+    .replace(/([ぁ-んァ-ヶ一-龯々]) +([ぁ-んァ-ヶ一-龯々、。，．！？：；「」『』（）])/g, "$1$2")
+    .replace(/([0-9０-９]) +(?=[ぁ-んァ-ヶ一-龯々])/g, "$1")
+    .replace(/([ぁ-んァ-ヶ一-龯々]) +(?=[0-9０-９])/g, "$1");
+  return cleaned
+    .replace(/\u0000CARD_NAME_(\d+)\u0000/g, (_match, index) => cardNames[Number(index)])
+    .replace(/([、。，．！？：；]) +/g, "$1")
+    .replace(/》 +(?=[ぁ-んァ-ヶ一-龯々])/g, "》")
+    .replace(/([ぁ-んァ-ヶ一-龯々]) +(?=《)/g, "$1");
 }
 
-function cardNameCopyButton(item) {
-  return `<button class="card-name-copy" type="button" data-copy-text="${escapeHtml(`《${item.name}》`)}" aria-label="《${escapeHtml(item.name)}》をコピー">カード名コピー</button>`;
+function linkedQaText(value) {
+  return linkedText(cleanQaText(value));
+}
+
+function copyIconButton(copyText, ariaLabel) {
+  return `<button class="qa-copy-id copy-icon" type="button" data-copy-text="${escapeHtml(copyText)}" aria-label="${escapeHtml(ariaLabel)}" title="${escapeHtml(ariaLabel)}"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"></path></svg></button>`;
 }
 
 function cardTitle(item) {
@@ -431,8 +452,8 @@ function qaPanel(item) {
         <div class="qa-list">
           ${entries.map((entry, index) => `
             <details class="qa-item">
-              <summary><span class="qa-marker">Q</span><span class="qa-question">${linkedText(entry.question)}</span></summary>
-              <div class="answer"><span>A</span><p>${linkedText(entry.answer)}</p></div>
+              <summary><span class="qa-marker">Q</span><span class="qa-question">${linkedQaText(entry.question)}</span></summary>
+              <div class="answer"><span>A</span><p>${linkedQaText(entry.answer)}</p></div>
               ${qaImagesPanel(entry, item)}
               <p class="qa-environment">対応：${escapeHtml(environmentLabel(qaEnvironments(entry, item)))}</p>
               ${entry.managementId ? `<p class="qa-management-id"><span>管理ID：${escapeHtml(entry.managementId)}</span>${copyIconButton(`ID: ${entry.managementId}`, "管理IDをコピー")}</p>` : ""}
@@ -449,14 +470,65 @@ function qaPanel(item) {
     </section>`;
 }
 
+function containsCardReference(text, card) {
+  const target = normalize(card.name);
+  return [...String(text || "").matchAll(/《([^》]+)》/g)].some((match) => normalize(match[1]) === target);
+}
+
+function relatedRulings(source, target) {
+  const entries = [];
+  const seen = new Set();
+  if (!environmentMatches(source.environments)) return entries;
+  const addOverview = (text, label = "概要") => {
+    const blocks = String(text || "").split(/\n\s*\n/).map((block) => block.trim()).filter(Boolean);
+    for (const block of blocks) {
+      if (!containsCardReference(block, target)) continue;
+      const key = `overview:${normalize(block)}`;
+      if (seen.has(key)) continue;
+      seen.add(key);
+      entries.push({ type: "overview", label, text: block });
+    }
+  };
+
+  addOverview(source.overview || source.summary);
+  for (const detail of source.details || []) addOverview(detail, "裁定メモ");
+  for (const qa of source.qa || []) {
+    if (!environmentMatches(qaEnvironments(qa, source))) continue;
+    if (!containsCardReference(`${qa.question || ""}\n${qa.answer || ""}`, target)) continue;
+    const key = `qa:${normalize(qa.question)}`;
+    if (seen.has(key)) continue;
+    seen.add(key);
+    entries.push({ type: "qa", question: qa.question, answer: qa.answer });
+  }
+  return entries;
+}
+
 function relatedPanel(item) {
   const inferredNames = [...(relatedCardsByName.get(normalize(item.name))?.values() || [])].map((related) => related.name);
   const relatedNames = [...new Map([...(item.related || []), ...inferredNames].map((name) => [normalize(name), name])).values()];
   if (!relatedNames.length) return "";
+
+  const cards = relatedNames.map((name) => ({ card: findCard(name), name }))
+    .filter((entry) => entry.card && environmentMatches(entry.card.environments))
+    .map(({ card }) => ({ card, rulings: relatedRulings(card, item) }));
+  if (!cards.length) return "";
+
   return `
     <section class="card-section">
       <h3>関連カード・裁定</h3>
-      <div class="related-list">${relatedNames.map((name) => cardReference(name)).join("")}</div>
+      <div class="related-list related-ruling-list">${cards.map(({ card, rulings }) => `
+        <div class="related-ruling-card">
+          <div class="related-ruling-card__name">${cardReference(card.name)}</div>
+          ${rulings.length ? `<div class="related-ruling-card__items">${rulings.map((ruling) => ruling.type === "qa" ? `
+            <details class="related-ruling">
+              <summary><span class="qa-marker">Q</span><span>${linkedQaText(ruling.question)}</span></summary>
+              <div class="answer"><span>A</span><p>${linkedQaText(ruling.answer)}</p></div>
+            </details>` : `
+            <details class="related-ruling related-ruling--overview">
+              <summary>${escapeHtml(ruling.label)}内の関連記述</summary>
+              <blockquote>${linkedText(ruling.text)}</blockquote>
+            </details>`).join("")}</div>` : `<p class="related-ruling-card__empty">このカードに関連する個別裁定はありません。</p>`}
+        </div>`).join("")}</div>
     </section>`;
 }
 
@@ -489,6 +561,17 @@ function tagsPanel(item) {
     <section class="card-section tag-section">
       <h3>関連タグ</h3>
       <div class="tag-list">${tags.map((tag) => `<span class="tag-chip">#${escapeHtml(tag)}</span>`).join("")}</div>
+    </section>`;
+}
+
+function inquiryPanel(item) {
+  if (item.type === "category") return "";
+  return `
+    <section class="card-section card-inquiry">
+      <button class="card-inquiry__button" type="button" data-card-inquiry="${escapeHtml(item.name)}" disabled>
+        このカードについて問い合わせる
+      </button>
+      <span class="card-inquiry__status">問い合わせ先は準備中です</span>
     </section>`;
 }
 
@@ -581,6 +664,67 @@ function overviewManagementIdLine(item) {
   return `<p class="qa-management-id overview-management-id"><span>管理ID：${escapeHtml(id)}</span>${copyIconButton(`ID: ${id}`, "概要の管理IDをコピー")}</p>`;
 }
 
+function overviewSections(text) {
+  const lines = String(text || "").split("\n");
+  const hasSectionHeadings = lines.some((line) => /^(?:■|◆|●|★|【[^】]+】)/.test(line.trim()));
+  const startsSection = hasSectionHeadings
+    ? (line) => /^(?:■|◆|●|★|【[^】]+】)/.test(line.trim())
+    : (line) => /^▶/.test(line.trim());
+  const sections = [];
+  let current = [];
+  for (const line of lines) {
+    if (startsSection(line) && current.some((part) => part.trim())) {
+      sections.push(current.join("\n").trim());
+      current = [];
+    }
+    current.push(line);
+  }
+  if (current.some((part) => part.trim())) sections.push(current.join("\n").trim());
+
+  if (!hasSectionHeadings && sections.length < 2) {
+    return String(text || "").split(/\n\s*\n/).map((part) => part.trim()).filter(Boolean);
+  }
+  return sections;
+}
+
+function overviewDisclosureTitle(section, index, total) {
+  const firstLine = String(section || "").split("\n").map((line) => line.trim()).find(Boolean) || "";
+  const heading = firstLine.replace(/^(?:■|◆|●|★|▶|・)+\s*/, "").trim();
+  if (heading && /^(?:■|◆|●|★|【)/.test(firstLine)) return heading;
+  const sentence = firstLine.split(/(?<=[。！？])/)[0] || firstLine;
+  const excerpt = sentence.length > 58 ? `${sentence.slice(0, 58)}…` : sentence;
+  return excerpt || `概要 ${index + 1}/${total}`;
+}
+
+function overviewPanel(item) {
+  const text = item.overview || item.summary || "";
+  const nonemptyLines = text.split("\n").filter((line) => line.trim());
+  const headingCount = nonemptyLines.filter((line) => /^(?:■|◆|●|★|【[^】]+】)/.test(line.trim())).length;
+  const bulletCount = nonemptyLines.filter((line) => /^▶/.test(line.trim())).length;
+  const complex = text.length > 280 || headingCount > 1 || bulletCount >= 4 || nonemptyLines.length >= 6 || (headingCount === 1 && text.length > 180);
+  const sections = complex ? overviewSections(text) : [];
+  const overviewHtml = !complex
+    ? `<blockquote>${linkedText(text)}</blockquote>`
+    : sections.length > 1
+      ? `<div class="overview-disclosures">${sections.map((section, index) => `
+          <details class="overview-disclosure">
+            <summary>${linkedText(overviewDisclosureTitle(section, index, sections.length))}</summary>
+            <blockquote>${linkedText(section)}</blockquote>
+          </details>`).join("")}</div>`
+      : `<details class="overview-disclosure overview-disclosure--single">
+          <summary>${sections[0] && /^(?:■|◆|●|★|【[^】]+】)/.test(sections[0].trim()) ? linkedText(overviewDisclosureTitle(sections[0], 0, 1)) : "概要を開く"}</summary>
+          <blockquote>${linkedText(text)}</blockquote>
+        </details>`;
+
+  return `
+    <section class="card-section overview-section">
+      <h3>概要</h3>
+      ${overviewHtml}
+      ${overviewManagementIdLine(item)}
+      ${overviewImagesPanel(item)}
+    </section>`;
+}
+
 function qaSearchableText(item) {
   return (item.qa || []).flatMap((entry) => [entry.question, entry.answer, entry.managementId]).join(" ");
 }
@@ -610,25 +754,12 @@ function renderCardBody(item) {
     ? `
         <div class="category-overview">
           ${categoryCoverPanel(item)}
-          ${cardNameCopyButton(item)}
-          <section class="card-section overview-section">
-            <h3>概要</h3>
-            <blockquote>${linkedText(item.overview || item.summary)}</blockquote>
-            ${overviewManagementIdLine(item)}
-          </section>
-          ${overviewImagesPanel(item)}
+          ${overviewPanel(item)}
         </div>`
     : `
         <div class="card-profile">
-          <div class="image-column">${imagePanel(item)}${cardNameCopyButton(item)}</div>
-          <div class="overview-column">
-            <section class="card-section overview-section">
-              <h3>概要</h3>
-              <blockquote>${linkedText(item.overview || item.summary)}</blockquote>
-              ${overviewManagementIdLine(item)}
-            </section>
-            ${overviewImagesPanel(item)}
-          </div>
+          <div class="image-column">${imagePanel(item)}</div>
+          ${overviewPanel(item)}
         </div>`;
 
   return `${content}
@@ -639,6 +770,7 @@ function renderCardBody(item) {
       ${relatedPanel(item)}
       ${externalArticlesPanel(item)}
       ${tagsPanel(item)}
+      ${inquiryPanel(item)}
     </div>`;
 }
 
