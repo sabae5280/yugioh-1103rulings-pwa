@@ -362,6 +362,9 @@ h1 {
 
 .card-name { min-width: 0; overflow-wrap: anywhere; font-weight: 900; line-height: 1.45; }
 .card-name--future-fusion { font-size: .86em; letter-spacing: -.035em; }
+@media (max-width: 560px) {
+  .card-name--long { font-size: clamp(.72rem, 3.5vw, .9rem); letter-spacing: -.035em; }
+}
 .card-name ruby { ruby-position: over; }
 .card-name rt { color: var(--muted); font-size: .55em; font-weight: 600; letter-spacing: .03em; }
 .chevron { color: var(--muted); font-size: 1.3rem; transition: transform .2s ease; }
@@ -491,6 +494,8 @@ h1 {
 }
 .related-list .card-reference { padding: 5px 9px; border: 1px solid #b9c8dc; border-radius: 999px; background: #f2f6fb; text-decoration: none; font-size: .82rem; }
 .related-ruling-card__name .card-reference { padding: 0; border: 0; border-radius: 0; background: transparent; text-decoration: underline; text-decoration-color: #a9bad0; text-underline-offset: 3px; font-size: .82rem; }
+.related-ruling-card__items .card-reference { display: inline; padding: 0; border: 0; border-radius: 0; background: transparent; color: #315f9b; text-decoration: underline; text-decoration-color: #a9bad0; text-underline-offset: 3px; font: inherit; }
+.qa-difficult-badge { display: inline-grid; flex: 0 0 18px; width: 18px; height: 18px; place-items: center; border-radius: 50%; background: #9b5b12; color: #fff; font-size: .7rem; font-weight: 900; line-height: 1; box-shadow: 0 0 0 2px #f4e8cc; }
 .card-reference.is-pending { color: #766f62; text-decoration: none; }
 .related-list .card-reference.is-pending { border-color: var(--line); background: #f4f1e9; }
 .category-overview { padding-top: 18px; }

@@ -1,4 +1,4 @@
-const CACHE_NAME = "rulings-1103-v49";
+const CACHE_NAME = "rulings-1103-v50";
 const ASSETS = [
   "./",
   "./index.html",
@@ -386,6 +386,7 @@ const ASSETS = [
   "./icons/icon-192.png",
   "./icons/icon-512.png",
   "./rulings-update-20261004.js",
+  "./rulings-instructions-20261004.js",
   "./images/additional-20261004/01.png",
   "./images/additional-20261004/02.png",
   "./images/additional-20261004/03.png",

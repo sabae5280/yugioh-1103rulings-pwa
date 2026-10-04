@@ -25,6 +25,8 @@ const shareButton = document.querySelector("#shareButton");
 const shareStatus = document.querySelector("#shareStatus");
 
 let currentFilter = "all";
+let activeQaSearchItem = null;
+let activeQaSearchId = null;
 let deferredPrompt = null;
 const selectedEnvironments = new Set(["1103"]);
 const advancedSelections = new Map();
@@ -229,6 +231,13 @@ function rulingByManagementId(value) {
     for (const entry of card.qa || []) {
       if (normalizedManagementId(entry.managementId) === wanted) return { item: card, entry };
     }
+  }
+  return null;
+}
+function directManagementIdQuery(value) {
+  const raw = String(value || "").trim();
+  if (/^(?:ID\s*:\s*)?R-[A-Z0-9-]{5,}$/i.test(raw) || /^\d{5}$/.test(raw)) {
+    return rulingByManagementId(raw);
   }
   return null;
 }
@@ -504,6 +513,9 @@ function orderedQa(item) {
     .map((entry, index) => ({ entry, index }))
     .filter(({ entry }) => environmentMatches(qaEnvironments(entry, item)))
     .sort((a, b) => {
+      const aPinnedFirst = Boolean(a.entry.pinFirst);
+      const bPinnedFirst = Boolean(b.entry.pinFirst);
+      if (aPinnedFirst !== bPinnedFirst) return aPinnedFirst ? -1 : 1;
       const aPinnedLast = a.entry.managementId === "R-W79LJTECPZ";
       const bPinnedLast = b.entry.managementId === "R-W79LJTECPZ";
       if (aPinnedLast !== bPinnedLast) return aPinnedLast ? 1 : -1;
@@ -527,15 +539,18 @@ function qaImagesPanel(entry, item) {
 }
 
 function qaPanel(item) {
-  const entries = orderedQa(item);
+  let entries = orderedQa(item);
+  if (activeQaSearchItem === item && activeQaSearchId) {
+    entries = entries.filter((entry) => normalizedManagementId(entry.managementId) === activeQaSearchId);
+  }
   if (entries.length) {
     return `
       <section class="card-section">
         <h3>Q&amp;A</h3>
         <div class="qa-list">
           ${entries.map((entry, index) => `
-            <details class="qa-item">
-              <summary><span class="qa-marker">Q</span><span class="qa-question">${linkedQaText(entry.question)}</span></summary>
+            <details class="qa-item"${activeQaSearchItem === item && activeQaSearchId ? " open" : ""}>
+              <summary><span class="qa-marker">Q</span>${entry.difficult ? '<span class="qa-difficult-badge" title="難解な裁定" aria-label="難解な裁定">!</span>' : ""}<span class="qa-question">${linkedQaText(entry.question)}</span></summary>
               <div class="answer"><span>A</span><p>${linkedQaText(entry.answer)}</p></div>
               ${qaImagesPanel(entry, item)}
               <p class="qa-environment">対応：${escapeHtml(environmentLabel(qaEnvironments(entry, item)))}</p>
@@ -634,7 +649,7 @@ function tagsFor(item) {
   }
   if (item.type === "spell") baseTags = item.spellType ? [item.spellType] : ["魔法"];
   if (item.type === "trap") baseTags = item.trapType ? [item.trapType] : ["罠"];
-  return [...new Set([...baseTags, ...autoTags])];
+  return [...new Set([...baseTags, ...(item.specialTags || []), ...autoTags])];
 }
 
 function tagsPanel(item) {
@@ -822,6 +837,9 @@ function scheduleSearchRender(delay = 140) {
 }
 
 function renderCardBody(item) {
+  if (activeQaSearchItem === item && activeQaSearchId) {
+    return `<div class="full-width-content id-search-qa-only">${qaPanel(item)}</div>`;
+  }
   const content = item.type === "category"
     ? `
         <div class="category-overview">
@@ -847,6 +865,7 @@ function renderCardBody(item) {
 }
 
 function renderCard(item, index) {
+  const longTitleModifier = [...String(item.name || "")].length >= 15 ? " card-name--long" : "";
   const titleModifier = normalize(item.name) === normalize("未来融合－フューチャー・フュージョン")
     ? " card-name--future-fusion"
     : "";
@@ -854,7 +873,7 @@ function renderCard(item, index) {
     <article class="ruling-card" data-card-name="${escapeHtml(item.name)}">
       <button class="ruling-toggle" type="button" aria-expanded="false" aria-controls="ruling-${index}">
         ${typeBadge(item)}
-        <span class="card-name${titleModifier}">${cardTitle(item)}</span>
+        <span class="card-name${titleModifier}${longTitleModifier}">${cardTitle(item)}</span>
         ${effectIcon(item)}
         <span class="chevron" aria-hidden="true">⌄</span>
       </button>
@@ -974,11 +993,16 @@ function render() {
   window.clearTimeout(searchRenderTimer);
   searchRenderTimer = 0;
   const query = normalize(searchInput.value);
+  const directIdMatch = directManagementIdQuery(searchInput.value);
+  activeQaSearchItem = directIdMatch?.entry ? directIdMatch.item : null;
+  activeQaSearchId = directIdMatch?.entry ? normalizedManagementId(directIdMatch.entry.managementId) : null;
   const items = allRulings.filter((item) => {
     const typeMatches = currentFilter === "all" || item.type === currentFilter;
     const environmentMatchesItem = environmentMatches(item.environments);
     const haystack = rulingSearchIndex.get(item).all;
-    return typeMatches && environmentMatchesItem && advancedFilterMatches(item) && (!query || haystack.includes(query));
+    return typeMatches && environmentMatchesItem && advancedFilterMatches(item)
+      && (!directIdMatch || item === directIdMatch.item)
+      && (!query || haystack.includes(query));
   });
 
   count.textContent = `${items.length}件`;
