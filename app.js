@@ -456,7 +456,7 @@ function relatedPanel(item) {
   return `
     <section class="card-section">
       <h3>関連カード・裁定</h3>
-      <div class="related-list">${relatedNames.map(cardReference).join("")}</div>
+      <div class="related-list">${relatedNames.map((name) => cardReference(name)).join("")}</div>
     </section>`;
 }
 
