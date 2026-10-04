@@ -376,7 +376,7 @@ h1 {
 .details li + li { margin-top: 5px; }
 .meta { margin: 12px 0 0; color: var(--muted); font-size: .8rem; }
 
-.card-profile { display: grid; grid-template-columns: minmax(0, 1fr); gap: 18px; padding-top: 18px; }
+.card-profile { display: grid; grid-template-columns: minmax(0, 1fr); gap: 6px; padding-top: 10px; }
 .image-column { width: 140px; max-width: 100%; min-width: 0; justify-self: center; }
 .card-image { display: block; width: 100%; height: auto; border-radius: 7px; box-shadow: 0 7px 16px rgba(16,26,50,.2); }
 .image-zoom-button {
@@ -418,6 +418,10 @@ h1 {
   font-weight: 700;
   white-space: pre-line;
 }
+.overview-inline-disclosure { margin: 8px 0; padding: 8px 10px; border: 1px solid #e5dcc1; border-radius: 7px; background: #fffdf7; white-space: normal; }
+.overview-inline-disclosure > summary { color: var(--navy); cursor: pointer; font-weight: 800; }
+.overview-inline-disclosure > div { margin-top: 8px; }
+.overview-divider { margin: 12px 0; border: 0; border-top: 1px solid #d9cda9; }
 .overview-disclosures { display: grid; gap: 7px; }
 .overview-disclosure { overflow: hidden; border: 1px solid #e5dcc1; border-radius: 8px; background: #fffdf7; }
 .overview-disclosure > summary { padding: 9px 12px; color: var(--navy); cursor: pointer; font-size: .86rem; font-weight: 800; line-height: 1.55; }
@@ -471,6 +475,7 @@ h1 {
 .related-ruling > summary { display: flex; align-items: flex-start; gap: 7px; padding: 7px 9px; cursor: pointer; line-height: 1.55; }
 .related-ruling .qa-marker { flex: 0 0 19px; width: 19px; height: 19px; font-size: .62rem; }
 .related-ruling .answer { padding: 8px 9px; font-size: .78rem; line-height: 1.6; }
+.related-ruling .card-reference { padding: 0; border: 0; border-radius: 0; background: transparent; color: #315f9b; text-decoration: underline; text-decoration-color: #a9bad0; text-underline-offset: 3px; font-size: inherit; }
 .related-ruling--overview blockquote { margin: 0 8px 8px; padding: 8px 10px; font-size: .78rem; font-weight: 500; line-height: 1.6; }
 .card-reference {
   display: inline-block;
@@ -723,7 +728,7 @@ footer p { margin: 0; }
   .environment-option { min-height: 40px; }
   .effect-icon { width: 25px; height: 25px; }
   .ruling-body { padding: 0 15px 16px; }
-  .card-profile { gap: 14px; }
+  .card-profile { gap: 6px; }
   .image-column { width: 88px; }
   .full-width-content { margin-top: 18px; }
   .card-section h3 { font-size: .84rem; }
