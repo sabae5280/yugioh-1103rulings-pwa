@@ -27,6 +27,7 @@ const shareStatus = document.querySelector("#shareStatus");
 let currentFilter = "all";
 let activeQaSearchItem = null;
 let activeQaSearchId = null;
+let activeDifficultSearch = false;
 let deferredPrompt = null;
 const selectedEnvironments = new Set(["1103"]);
 const advancedSelections = new Map();
@@ -349,7 +350,7 @@ function escapeHtml(value) {
 }
 
 function searchableText(item) {
-  const qaText = (item.qa || []).flatMap((entry) => [entry.question, entry.answer, entry.managementId]);
+  const qaText = (item.qa || []).flatMap((entry) => [entry.question, entry.answer, entry.managementId, entry.difficult ? "難解" : ""]);
   return [
     item.name,
     item.reading,
@@ -360,6 +361,7 @@ function searchableText(item) {
     item.overviewManagementId,
     ...(item.related || []),
     ...(item.monsterTags || []),
+    ...(item.specialTags || []),
     item.race,
     item.attribute,
     item.spellType,
@@ -388,14 +390,15 @@ function findCard(name) {
   return allRulings.find((item) => normalize(item.name) === target);
 }
 
-function cardReference(name, displayName = `《${name}》`) {
+function cardReference(name, displayName = `《${name}》`, highlightCurrent = false) {
   const target = findCard(name);
   const label = escapeHtml(displayName);
   if (!target) return `<span class="card-reference is-pending" title="カードページ準備中">${label}</span>`;
-  return `<a class="card-reference" href="#card=${encodeURIComponent(target.name)}" data-card="${escapeHtml(target.name)}">${label}</a>`;
+  const modifier = highlightCurrent ? " card-reference--current" : "";
+  return `<a class="card-reference${modifier}" href="#card=${encodeURIComponent(target.name)}" data-card="${escapeHtml(target.name)}">${label}</a>`;
 }
 
-function linkedText(value) {
+function linkedText(value, currentCardName = null) {
   // Rendering-only spacing: keep source wording and punctuation untouched.
   const readable = String(value || "").replace(/\r\n?/g, "\n").replace(
     /(?<!\n)\n(?!\n)(?=(?:▶|■|◆|●|★|①|②|③|④|⑤|⑥|⑦|⑧|⑨|⑩|※|・))/g,
@@ -408,7 +411,9 @@ function linkedText(value) {
   ]);
   return escapeHtml(readable).replace(/《甲虫装機》の共通効果|《アーティファクト》の共通効果|《征竜》の共通効果|《([^》]+)》/g, (match, name) => {
     const category = categoryReferences.get(match);
-    return category ? cardReference(category, match) : cardReference(name);
+    if (category) return cardReference(category, match);
+    const isCurrentCard = Boolean(currentCardName && normalize(name) === normalize(currentCardName));
+    return cardReference(name, undefined, isCurrentCard);
   }).replace(/\n/g, "<br>");
 }
 
@@ -433,8 +438,8 @@ function cleanQaText(value) {
     .replace(/([ぁ-んァ-ヶ一-龯々]) +(?=《)/g, "$1");
 }
 
-function linkedQaText(value) {
-  return linkedText(cleanQaText(value));
+function linkedQaText(value, currentCardName = null) {
+  return linkedText(cleanQaText(value), currentCardName);
 }
 
 function copyIconButton(copyText, ariaLabel) {
@@ -540,6 +545,7 @@ function qaImagesPanel(entry, item) {
 
 function qaPanel(item) {
   let entries = orderedQa(item);
+  if (activeDifficultSearch) entries = entries.filter((entry) => entry.difficult);
   if (activeQaSearchItem === item && activeQaSearchId) {
     entries = entries.filter((entry) => normalizedManagementId(entry.managementId) === activeQaSearchId);
   }
@@ -619,12 +625,12 @@ function relatedPanel(item) {
           <div class="related-ruling-card__name">${cardReference(card.name)}</div>
           ${rulings.length ? `<div class="related-ruling-card__items">${rulings.map((ruling) => ruling.type === "qa" ? `
             <details class="related-ruling">
-              <summary><span class="qa-marker">Q</span><span>${linkedQaText(ruling.question)}</span></summary>
-              <div class="answer"><span>A</span><p>${linkedQaText(ruling.answer)}</p></div>
+              <summary><span class="qa-marker">Q</span><span>${linkedQaText(ruling.question, item.name)}</span></summary>
+              <div class="answer"><span>A</span><p>${linkedQaText(ruling.answer, item.name)}</p></div>
             </details>` : `
             <details class="related-ruling related-ruling--overview">
               <summary>${escapeHtml(ruling.label)}内の関連記述</summary>
-              <blockquote>${linkedText(ruling.text)}</blockquote>
+              <blockquote>${linkedText(ruling.text, item.name)}</blockquote>
             </details>`).join("")}</div>` : `<p class="related-ruling-card__empty">このカードに関連する個別裁定はありません。</p>`}
         </div>`).join("")}</div>
     </section>`;
@@ -762,19 +768,46 @@ function overviewManagementIdLine(item) {
   return `<p class="qa-management-id overview-management-id"><span>管理ID：${escapeHtml(id)}</span>${copyIconButton(`ID: ${id}`, "概要の管理IDをコピー")}</p>`;
 }
 
+function renderOverviewBlock(text) {
+  const lines = String(text || "").split("\n");
+  const output = [];
+  let visible = [];
+  const flush = () => {
+    if (visible.length) output.push(linkedText(visible.join("\n")));
+    visible = [];
+  };
+  for (let index = 0; index < lines.length; index += 1) {
+    const match = lines[index].trim().match(/^【(.+?)】$/);
+    if (!match) { visible.push(lines[index]); continue; }
+    flush();
+    let firstBulletIndex = index + 1;
+    while (firstBulletIndex < lines.length && !lines[firstBulletIndex].trim()) firstBulletIndex += 1;
+    const firstBullet = lines[firstBulletIndex]?.trim() || "";
+    const title = `<span class="overview-heading-label"><span class="overview-heading-icon" aria-hidden="true">◆</span>${escapeHtml(match[1])}</span>`;
+    if (/^(?:▶|▷)/.test(firstBullet)) {
+      output.push(`<div class="overview-heading-row">${title}<span class="overview-heading-lead">${linkedText(firstBullet)}</span></div>`);
+      index = firstBulletIndex;
+    } else {
+      output.push(`<div class="overview-heading-row">${title}</div>`);
+    }
+  }
+  flush();
+  return output.join("\n");
+}
+
 function renderOverviewText(text) {
   const lines = String(text || "").split("\n");
   const output = [];
   let visible = [];
   let disclosure = null;
   const flushVisible = () => {
-    if (visible.length) output.push(linkedText(visible.join("\n")));
+    if (visible.length) output.push(renderOverviewBlock(visible.join("\n")));
     visible = [];
   };
   const flushDisclosure = () => {
     if (!disclosure) return;
     const body = disclosure.lines.join("\n").trim();
-    output.push(`<details class="overview-inline-disclosure"><summary>${linkedText(disclosure.title || "詳細を開く")}</summary><div>${linkedText(body)}</div></details>`);
+    output.push(`<details class="overview-inline-disclosure"><summary>${linkedText(disclosure.title || "詳細を開く")}</summary><div>${renderOverviewBlock(body)}</div></details>`);
     disclosure = null;
   };
 
@@ -813,7 +846,7 @@ function overviewPanel(item) {
 }
 
 function qaSearchableText(item) {
-  return (item.qa || []).flatMap((entry) => [entry.question, entry.answer, entry.managementId]).join(" ");
+  return (item.qa || []).flatMap((entry) => [entry.question, entry.answer, entry.managementId, entry.difficult ? "難解" : ""]).join(" ");
 }
 
 // Search strings are large; normalize them once instead of rebuilding them on every keystroke.
@@ -994,6 +1027,7 @@ function render() {
   searchRenderTimer = 0;
   const query = normalize(searchInput.value);
   const directIdMatch = directManagementIdQuery(searchInput.value);
+  activeDifficultSearch = query === normalize("難解");
   activeQaSearchItem = directIdMatch?.entry ? directIdMatch.item : null;
   activeQaSearchId = directIdMatch?.entry ? normalizedManagementId(directIdMatch.entry.managementId) : null;
   const items = allRulings.filter((item) => {
