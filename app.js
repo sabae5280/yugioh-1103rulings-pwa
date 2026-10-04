@@ -212,6 +212,83 @@ for (const { entry, key } of missingQaIds) entry.managementId = qaManagementIdFo
 for (const item of [...allRulings].sort((a, b) => a.name.localeCompare(b.name, "ja"))) {
   item.overviewManagementId = item.overviewManagementId || managementIdFor(`overview:${item.name}`);
 }
+
+function normalizedManagementId(value) {
+  return String(value || "").replace(/^ID\s*:\s*/i, "").replace(/^R-/i, "").replace(/[^a-z0-9]/gi, "").toUpperCase();
+}
+function itemByManagementId(value) {
+  const wanted = normalizedManagementId(value);
+  return allRulings.find((item) => [item.id, item.managementId, item.overviewManagementId]
+    .some((id) => normalizedManagementId(id) === wanted)) || null;
+}
+function rulingByManagementId(value) {
+  const item = itemByManagementId(value);
+  if (item) return { item, entry: null };
+  const wanted = normalizedManagementId(value);
+  for (const card of allRulings) {
+    for (const entry of card.qa || []) {
+      if (normalizedManagementId(entry.managementId) === wanted) return { item: card, entry };
+    }
+  }
+  return null;
+}
+function appendUniqueQa(item, qa) {
+  item.qa ||= [];
+  const prior = item.qa.find((entry) => normalize(entry.question) === normalize(qa.question));
+  if (prior) Object.assign(prior, qa);
+  else item.qa.push(qa);
+}
+function applyAttachedDataCorrections() {
+  const patch = window.CARD_DATA_CORRECTIONS || {};
+  const replaceAnswerStar = (target) => {
+    if (!target?.entry) return false;
+    const answer = String(target.entry.answer || "");
+    if (/^.*★.*$/m.test(answer)) target.entry.answer = answer.replace(/^.*★.*$/m, patch.answerSentence);
+    else target.entry.answer = `${answer}${answer ? "\n" : ""}${patch.answerSentence}`;
+    return true;
+  };
+  const answerTarget = rulingByManagementId("R-VVG6M");
+  if (!replaceAnswerStar(answerTarget)) {
+    const fallback = allRulings.flatMap((item) => (item.qa || []).map((entry) => ({ item, entry })))
+      .find(({ entry }) => /王宮の弾圧/.test(entry.answer || "") && /⑤/.test(entry.answer || "") && /★/.test(entry.answer || ""));
+    if (fallback) replaceAnswerStar(fallback);
+  }
+
+  const 露払い = allRulings.find((item) => normalize(item.name) === normalize("六武衆の露払い"));
+  if (露払い) {
+    露払い.overview = [露払い.overview || "", "▶このカードは発動時に他に表側表示の《六武衆》名称モンスターがあればよい。効果処理時の他の《六武衆》名称モンスターの所在は問わない。※他の旧《六武衆》モンスターは、発動時及び効果処理時まで《六武衆》名称が他に表側表示で存在しないと不発となるため注意."].filter(Boolean).join("\n");
+    const target = rulingByManagementId("R-GSVXI");
+    if (target?.entry) {
+      target.entry.question = patch.yaitaQuestion;
+      target.entry.answer = patch.yaitaAnswer;
+    } else appendUniqueQa(露払い, { question: patch.yaitaQuestion, answer: patch.yaitaAnswer });
+  }
+
+  let targetCard = itemByManagementId("65733") || allRulings.find((item) => /装備ユニオン|ジュラック・グアイバ/.test(item.overview || ""));
+  if (targetCard) targetCard.overview = patch["65733Overview"];
+
+  const idTarget = rulingByManagementId("R-I75NP");
+  if (idTarget?.entry) idTarget.entry.answer = patch.rI75npAnswer;
+  else {
+    const fallback = allRulings.flatMap((item) => (item.qa || []).map((entry) => ({ item, entry })))
+      .find(({ entry }) => /墓地の《六武衆》モンスターを２体対象/.test(entry.question || ""));
+    if (fallback) fallback.entry.answer = patch.rI75npAnswer;
+  }
+
+  const sixShield = allRulings.find((item) => normalize(item.name) === normalize("六尺瓊勾玉"));
+  if (sixShield) appendUniqueQa(sixShield, { question: patch.sixShieldQuestion, answer: patch.sixShieldAnswer });
+
+  const ultimate = allRulings.find((item) => normalize(item.name) === normalize("究極・背水の陣"));
+  if (ultimate) {
+    ultimate.overview = patch.ultimateOverview;
+    for (const qa of patch.ultimateQas || []) appendUniqueQa(ultimate, qa);
+  }
+
+  targetCard = itemByManagementId("32650") || allRulings.find((item) => item.type === "category" && /六武衆/.test(item.name) && /身代わり効果/.test(item.overview || ""));
+  if (targetCard) targetCard.overview = patch["32650Overview"];
+}
+applyAttachedDataCorrections();
+
 const referencePopularity = new Map();
 
 for (const item of allRulings) {
@@ -315,9 +392,14 @@ function linkedText(value) {
     /(?<!\n)\n(?!\n)(?=(?:▶|■|◆|●|★|①|②|③|④|⑤|⑥|⑦|⑧|⑨|⑩|※|・))/g,
     "\n\n"
   );
-  return escapeHtml(readable).replace(/《甲虫装機》の共通効果|《([^》]+)》/g, (match, name) => {
-    if (match === "《甲虫装機》の共通効果") return cardReference("【甲虫装機】共通効果", match);
-    return cardReference(name);
+  const categoryReferences = new Map([
+    ["《甲虫装機》の共通効果", "【甲虫装機】共通効果"],
+    ["《アーティファクト》の共通効果", "【アーティファクト】共通効果"],
+    ["《征竜》の共通効果", "【征竜】共通効果"]
+  ]);
+  return escapeHtml(readable).replace(/《甲虫装機》の共通効果|《アーティファクト》の共通効果|《征竜》の共通効果|《([^》]+)》/g, (match, name) => {
+    const category = categoryReferences.get(match);
+    return category ? cardReference(category, match) : cardReference(name);
   }).replace(/\n/g, "<br>");
 }
 
@@ -390,7 +472,8 @@ function imagePanel(item) {
 }
 
 function environmentMatches(environments) {
-  return (environments || ["1103"]).some((environment) => selectedEnvironments.has(environment));
+  if (!environments || environments.length === 0) return true;
+  return environments.some((environment) => selectedEnvironments.has(environment));
 }
 
 function qaEnvironments(entry, item) {
@@ -430,7 +513,7 @@ function orderedQa(item) {
 }
 
 function environmentLabel(environments) {
-  return environments.map((environment) => `${environment}環境`).join("・");
+  return !environments || environments.length === 0 ? "全環境" : environments.map((environment) => `${environment}環境`).join("・");
 }
 
 function qaImagesPanel(entry, item) {
@@ -664,62 +747,51 @@ function overviewManagementIdLine(item) {
   return `<p class="qa-management-id overview-management-id"><span>管理ID：${escapeHtml(id)}</span>${copyIconButton(`ID: ${id}`, "概要の管理IDをコピー")}</p>`;
 }
 
-function overviewSections(text) {
+function renderOverviewText(text) {
   const lines = String(text || "").split("\n");
-  const hasSectionHeadings = lines.some((line) => /^(?:■|◆|●|★|【[^】]+】)/.test(line.trim()));
-  const startsSection = hasSectionHeadings
-    ? (line) => /^(?:■|◆|●|★|【[^】]+】)/.test(line.trim())
-    : (line) => /^▶/.test(line.trim());
-  const sections = [];
-  let current = [];
+  const output = [];
+  let visible = [];
+  let disclosure = null;
+  const flushVisible = () => {
+    if (visible.length) output.push(linkedText(visible.join("\n")));
+    visible = [];
+  };
+  const flushDisclosure = () => {
+    if (!disclosure) return;
+    const body = disclosure.lines.join("\n").trim();
+    output.push(`<details class="overview-inline-disclosure"><summary>${linkedText(disclosure.title || "詳細を開く")}</summary><div>${linkedText(body)}</div></details>`);
+    disclosure = null;
+  };
+
   for (const line of lines) {
-    if (startsSection(line) && current.some((part) => part.trim())) {
-      sections.push(current.join("\n").trim());
-      current = [];
+    const trimmed = line.trim();
+    if (trimmed === "－区切り線－") {
+      flushDisclosure();
+      flushVisible();
+      output.push('<hr class="overview-divider">');
+      continue;
     }
-    current.push(line);
+    if (trimmed.startsWith("【タップで開く】")) {
+      flushDisclosure();
+      flushVisible();
+      disclosure = { title: trimmed.slice("【タップで開く】".length).trim() || "詳細を開く", lines: [] };
+      continue;
+    }
+    if (disclosure) disclosure.lines.push(line);
+    else visible.push(line);
   }
-  if (current.some((part) => part.trim())) sections.push(current.join("\n").trim());
-
-  if (!hasSectionHeadings && sections.length < 2) {
-    return String(text || "").split(/\n\s*\n/).map((part) => part.trim()).filter(Boolean);
-  }
-  return sections;
-}
-
-function overviewDisclosureTitle(section, index, total) {
-  const firstLine = String(section || "").split("\n").map((line) => line.trim()).find(Boolean) || "";
-  const heading = firstLine.replace(/^(?:■|◆|●|★|▶|・)+\s*/, "").trim();
-  if (heading && /^(?:■|◆|●|★|【)/.test(firstLine)) return heading;
-  const sentence = firstLine.split(/(?<=[。！？])/)[0] || firstLine;
-  const excerpt = sentence.length > 58 ? `${sentence.slice(0, 58)}…` : sentence;
-  return excerpt || `概要 ${index + 1}/${total}`;
+  flushDisclosure();
+  flushVisible();
+  return output.join("\n");
 }
 
 function overviewPanel(item) {
   const text = item.overview || item.summary || "";
-  const nonemptyLines = text.split("\n").filter((line) => line.trim());
-  const headingCount = nonemptyLines.filter((line) => /^(?:■|◆|●|★|【[^】]+】)/.test(line.trim())).length;
-  const bulletCount = nonemptyLines.filter((line) => /^▶/.test(line.trim())).length;
-  const complex = text.length > 280 || headingCount > 1 || bulletCount >= 4 || nonemptyLines.length >= 6 || (headingCount === 1 && text.length > 180);
-  const sections = complex ? overviewSections(text) : [];
-  const overviewHtml = !complex
-    ? `<blockquote>${linkedText(text)}</blockquote>`
-    : sections.length > 1
-      ? `<div class="overview-disclosures">${sections.map((section, index) => `
-          <details class="overview-disclosure">
-            <summary>${linkedText(overviewDisclosureTitle(section, index, sections.length))}</summary>
-            <blockquote>${linkedText(section)}</blockquote>
-          </details>`).join("")}</div>`
-      : `<details class="overview-disclosure overview-disclosure--single">
-          <summary>${sections[0] && /^(?:■|◆|●|★|【[^】]+】)/.test(sections[0].trim()) ? linkedText(overviewDisclosureTitle(sections[0], 0, 1)) : "概要を開く"}</summary>
-          <blockquote>${linkedText(text)}</blockquote>
-        </details>`;
-
+  if (!text) return "";
   return `
     <section class="card-section overview-section">
       <h3>概要</h3>
-      ${overviewHtml}
+      <blockquote class="overview-copy">${renderOverviewText(text)}</blockquote>
       ${overviewManagementIdLine(item)}
       ${overviewImagesPanel(item)}
     </section>`;
