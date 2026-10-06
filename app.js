@@ -415,7 +415,7 @@ function linkedText(value, currentCardName = null, preserveSingleLines = false) 
     if (category) return cardReference(category, match);
     const isCurrentCard = Boolean(currentCardName && normalize(name) === normalize(currentCardName));
     return cardReference(name, undefined, isCurrentCard);
-  }).replace(/\n/g, "<br>");
+  }).replace(/\*\*([\s\S]+?)\*\*/g, "<strong>$1</strong>").replace(/\n/g, "<br>");
 }
 
 function cleanQaText(value) {
@@ -515,19 +515,16 @@ function qaBasePriority(entry, item) {
 }
 
 function orderedQa(item) {
-  return (item.qa || [])
-    .map((entry, index) => ({ entry, index }))
-    .filter(({ entry }) => environmentMatches(qaEnvironments(entry, item)))
-    .sort((a, b) => {
-      const aPinnedFirst = Boolean(a.entry.pinFirst);
-      const bPinnedFirst = Boolean(b.entry.pinFirst);
-      if (aPinnedFirst !== bPinnedFirst) return aPinnedFirst ? -1 : 1;
-      const aPinnedLast = a.entry.managementId === "R-W79LJTECPZ";
-      const bPinnedLast = b.entry.managementId === "R-W79LJTECPZ";
-      if (aPinnedLast !== bPinnedLast) return aPinnedLast ? 1 : -1;
-      return qaBasePriority(a.entry, item) - qaBasePriority(b.entry, item) || a.index - b.index;
-    })
-    .map(({ entry }) => entry);
+  const entries = (item.qa || []).filter((entry) => environmentMatches(qaEnvironments(entry, item)));
+  const pinnedFirst = entries.filter((entry) => entry.pinFirst);
+  const pinnedLast = entries.filter((entry) => entry.managementId === "R-W79LJTECPZ" && !entry.pinFirst);
+  const pinnedFirstSet = new Set(pinnedFirst);
+  const pinnedLastSet = new Set(pinnedLast);
+  return [
+    ...pinnedFirst,
+    ...entries.filter((entry) => !pinnedFirstSet.has(entry) && !pinnedLastSet.has(entry)),
+    ...pinnedLast
+  ];
 }
 
 function environmentLabel(environments) {
@@ -899,10 +896,10 @@ function renderOverviewText(value) {
     details = segments;
   }
   if (!basicText) basicText = "後日追加予定";
-  const basic = `<section class="overview-basic"><div class="overview-heading-row"><span class="overview-heading-label"><span class="overview-heading-icon" aria-hidden="true">◆</span>基本情報</span></div><div class="overview-basic__body">${renderOverviewBody(basicText)}</div></section>`;
+  const basic = `<section class="overview-basic"><div class="overview-heading-row"><span class="overview-heading-label"><span class="overview-heading-icon" aria-hidden="true">◆</span><span class="overview-heading-text">基本情報</span></span></div><div class="overview-basic__body">${renderOverviewBody(basicText)}</div></section>`;
   const folded = details.filter((segment) => segment.title !== "基本情報").map((segment) => `
     <details class="overview-disclosure">
-      <summary><span class="overview-heading-icon" aria-hidden="true">◆</span><span>${escapeHtml(segment.title || "詳細")}</span></summary>
+      <summary><span class="overview-heading-icon" aria-hidden="true">◆</span><span class="overview-heading-text">${escapeHtml(segment.title || "詳細")}</span></summary>
       <div class="overview-disclosure__body">${renderOverviewBody(segment.lines)}</div>
     </details>`).join("");
   return `${basic}${folded}`;

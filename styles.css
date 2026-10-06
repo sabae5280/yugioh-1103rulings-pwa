@@ -422,17 +422,18 @@ h1 {
   line-height: 1.75;
   white-space: pre-line;
 }
-.overview-heading-row { display: block; margin: 4px 0 9px; }
-.overview-heading-label { display: inline-flex; align-items: center; gap: 6px; padding: 3px 9px; border: 1px solid #b8cbe2; border-radius: 999px; background: #eaf1fa; color: #24466e; font-size: 1.08em; font-weight: 900; line-height: 1.5; }
+.overview-heading-row { display: block; margin: 4px 0 3px; }
+.overview-heading-label { display: inline-flex; align-items: center; gap: 6px; color: #24466e; font-size: 1.12em; font-weight: 900; line-height: 1.5; }
+.overview-heading-text { text-decoration: underline; text-decoration-thickness: 1.5px; text-underline-offset: .16em; text-decoration-skip-ink: auto; }
 .overview-heading-icon { display: inline-grid; width: 15px; height: 15px; place-items: center; border-radius: 50%; background: var(--gold); color: #fff; font-size: .64rem; line-height: 1; }
-.overview-basic__body { margin-top: 1px; }
+.overview-basic__body { margin-top: 0; }
 .overview-disclosure { margin-top: .42em; }
-.overview-disclosure > summary { display: flex; align-items: center; gap: 7px; padding: 9px 2px 7px; color: #24466e; cursor: pointer; font-size: 1.03em; font-weight: 900; line-height: 1.55; list-style: none; }
+.overview-disclosure > summary { display: flex; align-items: center; gap: 7px; padding: 3px 2px 1px; color: #24466e; cursor: pointer; font-size: 1.08em; font-weight: 900; line-height: 1.55; list-style: none; }
 .overview-disclosure > summary::-webkit-details-marker { display: none; }
 .overview-disclosure > summary::after { content: "＋"; margin-left: auto; color: #526b8a; font-size: .9em; font-weight: 700; }
 .overview-disclosure[open] > summary::after { content: "－"; }
 .overview-disclosure > summary .overview-heading-icon { flex: 0 0 15px; }
-.overview-disclosure__body { padding: 2px 0 10px; }
+.overview-disclosure__body { padding: 0 0 10px; }
 .overview-point { display: grid; grid-template-columns: 1.15em minmax(0, 1fr); column-gap: .12em; align-items: start; margin-top: .46em; line-height: 1.75; }
 .overview-point:first-child { margin-top: 0; }
 .overview-point__marker { font-weight: 900; }
