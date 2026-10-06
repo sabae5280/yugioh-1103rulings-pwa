@@ -398,9 +398,10 @@ function cardReference(name, displayName = `《${name}》`, highlightCurrent = f
   return `<a class="card-reference${modifier}" href="#card=${encodeURIComponent(target.name)}" data-card="${escapeHtml(target.name)}">${label}</a>`;
 }
 
-function linkedText(value, currentCardName = null) {
+function linkedText(value, currentCardName = null, preserveSingleLines = false) {
   // Rendering-only spacing: keep source wording and punctuation untouched.
-  const readable = String(value || "").replace(/\r\n?/g, "\n").replace(
+  const source = String(value || "").replace(/\r\n?/g, "\n");
+  const readable = preserveSingleLines ? source : source.replace(
     /(?<!\n)\n(?!\n)(?=(?:▶|■|◆|●|★|①|②|③|④|⑤|⑥|⑦|⑧|⑨|⑩|※|・))/g,
     "\n\n"
   );
@@ -768,69 +769,143 @@ function overviewManagementIdLine(item) {
   return `<p class="qa-management-id overview-management-id"><span>管理ID：${escapeHtml(id)}</span>${copyIconButton(`ID: ${id}`, "概要の管理IDをコピー")}</p>`;
 }
 
-function renderOverviewBlock(text) {
-  const lines = String(text || "").split("\n");
-  const output = [];
-  let visible = [];
+function convertOverviewToPlainStyle(value) {
+  const protectedParts = [];
+  let text = String(value || "").replace(/『選び』ます/g, "『選ぶ』");
+  text = text.replace(/「[^」]*」|『[^』]*』|《[^》]*》/g, (part) => {
+    const token = `\u0000OVERVIEW_PROTECTED_${protectedParts.length}\u0000`;
+    protectedParts.push(part);
+    return token;
+  });
+  const fixed = [
+    ["ではありませんでした", "ではなかった"], ["じゃありませんでした", "ではなかった"],
+    ["ありませんでした", "なかった"], ["できませんでした", "できなかった"],
+    ["ではありません", "ではない"], ["じゃありません", "ではない"],
+    ["できません", "できない"], ["しません", "しない"], ["行いません", "行わない"],
+    ["なりません", "ならない"], ["されません", "されない"], ["られません", "られない"],
+    ["ありません", "ない"], ["行われます", "行われる"], ["行います", "行う"],
+    ["できました", "できた"], ["できています", "できている"], ["できています", "できている"],
+    ["できます", "できる"], ["なります", "なる"], ["あります", "ある"],
+    ["されています", "されている"], ["していました", "していた"], ["ています", "ている"],
+    ["されます", "される"], ["られます", "られる"], ["します", "する"],
+    ["可能です", "可能である"], ["ですので", "であるため"], ["ですが", "だが"],
+    ["ですけど", "だが"], ["でした", "であった"], ["でしょう", "だろう"],
+    ["してください", "する"], ["ください", "する"]
+  ];
+  for (const [from, to] of fixed) text = text.replaceAll(from, to);
+  text = text.replace(/のです(?=([。、！？\n）)]|$))/g, "のだ");
+  text = text.replace(/([ぁ-ん]+)ませんでした/g, (_match, stem) => {
+    const negativePast = {い:"わ",き:"か",ぎ:"が",し:"さ",ち:"た",に:"な",び:"ば",み:"ま",り:"ら"};
+    if (stem.endsWith("し")) return `${stem.slice(0, -1)}しなかった`;
+    const kana = stem.slice(-1);
+    return `${negativePast[kana] ? stem.slice(0, -1) + negativePast[kana] : stem}なかった`;
+  });
+  text = text.replace(/([ぁ-ん]+)ません/g, (_match, stem) => {
+    const negative = {い:"わ",き:"か",ぎ:"が",し:"さ",ち:"た",に:"な",び:"ば",み:"ま",り:"ら"};
+    if (stem.endsWith("し")) return `${stem.slice(0, -1)}しない`;
+    const kana = stem.slice(-1);
+    return `${negative[kana] ? stem.slice(0, -1) + negative[kana] : stem}ない`;
+  });
+  text = text.replace(/([ぁ-ん])ました/g, (_match, kana) => {
+    const past = {い:"った",き:"いた",ぎ:"いだ",し:"した",ち:"った",に:"んだ",び:"んだ",み:"んだ",り:"った"};
+    return past[kana] || `${kana}た`;
+  });
+  text = text.replace(/([ぁ-ん])ます/g, (_match, kana) => {
+    const plain = {い:"う",き:"く",ぎ:"ぐ",し:"す",ち:"つ",に:"ぬ",び:"ぶ",み:"む",り:"る",え:"える",け:"ける",せ:"せる",て:"てる",ね:"ねる",へ:"へる",め:"める",れ:"れる"};
+    return plain[kana] || kana;
+  });
+  text = text.replace(/ですか(?=([？?。、！？\n）)]|$))/g, "であるか")
+    .replace(/です(?=([。、！？\n）)]|$))/g, "である")
+    .replace(/いである(?=([。、！？\n）)]|$))/g, "い")
+    .replace(/ ([、。，．！？])/g, "$1");
+  return text.replace(/\u0000OVERVIEW_PROTECTED_(\d+)\u0000/g, (_match, index) => protectedParts[Number(index)]);
+}
+
+function overviewSegments(value) {
+  const lines = String(value || "").replace(/\r\n?/g, "\n").split("\n");
+  const segments = [];
+  let current = { title: null, lines: [] };
   const flush = () => {
-    if (visible.length) output.push(linkedText(visible.join("\n")));
-    visible = [];
+    current.lines = current.lines.join("\n").trim();
+    if (current.title !== null || current.lines) segments.push(current);
+    current = { title: null, lines: [] };
   };
-  for (let index = 0; index < lines.length; index += 1) {
-    const match = lines[index].trim().match(/^【(.+?)】$/);
-    if (!match) { visible.push(lines[index]); continue; }
-    flush();
-    let firstBulletIndex = index + 1;
-    while (firstBulletIndex < lines.length && !lines[firstBulletIndex].trim()) firstBulletIndex += 1;
-    const firstBullet = lines[firstBulletIndex]?.trim() || "";
-    const title = `<span class="overview-heading-label"><span class="overview-heading-icon" aria-hidden="true">◆</span>${escapeHtml(match[1])}</span>`;
-    if (/^(?:▶|▷)/.test(firstBullet)) {
-      output.push(`<div class="overview-heading-row">${title}<span class="overview-heading-lead">${linkedText(firstBullet)}</span></div>`);
-      index = firstBulletIndex;
+  for (const line of lines) {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed === "－区切り線－" || /^[─━—–－ｰー_=]{3,}$/.test(trimmed)) continue;
+    const tap = trimmed.match(/^【タップで開く】\s*(.*)$/);
+    const heading = trimmed.match(/^【([^】]+)】\s*(.*)$/);
+    if (tap || heading) {
+      flush();
+      current = { title: tap ? (tap[1] || "詳細") : heading[1], lines: [] };
+      const remainder = tap ? "" : heading[2];
+      if (remainder) current.lines.push(remainder);
     } else {
-      output.push(`<div class="overview-heading-row">${title}</div>`);
+      current.lines.push(line.trim());
     }
   }
   flush();
-  return output.join("\n");
+  return segments;
 }
 
-function renderOverviewText(text) {
-  const lines = String(text || "").split("\n");
+function renderOverviewBody(value) {
+  const text = convertOverviewToPlainStyle(value).replace(/▶/g, "■");
+  const lines = text.split("\n");
   const output = [];
-  let visible = [];
-  let disclosure = null;
-  const flushVisible = () => {
-    if (visible.length) output.push(renderOverviewBlock(visible.join("\n")));
-    visible = [];
+  let point = null;
+  let prose = [];
+  const flushPoint = () => {
+    if (!point) return;
+    const marker = point.marker;
+    output.push(`<div class="overview-point overview-point--${marker === "▷" ? "sub" : "main"}"><span class="overview-point__marker">${escapeHtml(marker)}</span><span class="overview-point__text">${linkedText(point.lines.join("\n"), null, true)}</span></div>`);
+    point = null;
   };
-  const flushDisclosure = () => {
-    if (!disclosure) return;
-    const body = disclosure.lines.join("\n").trim();
-    output.push(`<details class="overview-inline-disclosure"><summary>${linkedText(disclosure.title || "詳細を開く")}</summary><div>${renderOverviewBlock(body)}</div></details>`);
-    disclosure = null;
+  const flushProse = () => {
+    const body = prose.join("\n").trim();
+    if (body) output.push(`<div class="overview-prose">${linkedText(body, null, true)}</div>`);
+    prose = [];
   };
-
   for (const line of lines) {
     const trimmed = line.trim();
-    if (trimmed === "－区切り線－") {
-      flushDisclosure();
-      flushVisible();
-      output.push('<hr class="overview-divider">');
-      continue;
+    if (!trimmed) { flushPoint(); flushProse(); continue; }
+    const marker = trimmed.match(/^(■|▷|◆|●|★|▼|▽|※|①|②|③|④|⑤|⑥|⑦|⑧|⑨|⑩|→)\s*(.*)$/);
+    if (marker) {
+      flushProse();
+      flushPoint();
+      point = { marker: marker[1], lines: [marker[2]] };
+    } else if (point) {
+      point.lines.push(trimmed);
+    } else {
+      prose.push(trimmed);
     }
-    if (trimmed.startsWith("【タップで開く】")) {
-      flushDisclosure();
-      flushVisible();
-      disclosure = { title: trimmed.slice("【タップで開く】".length).trim() || "詳細を開く", lines: [] };
-      continue;
-    }
-    if (disclosure) disclosure.lines.push(line);
-    else visible.push(line);
   }
-  flushDisclosure();
-  flushVisible();
-  return output.join("\n");
+  flushPoint();
+  flushProse();
+  return output.join("");
+}
+
+function renderOverviewText(value) {
+  const segments = overviewSegments(value);
+  const basicIndex = segments.findIndex((segment) => segment.title === "基本情報");
+  let basicText = "";
+  let details = [];
+  if (basicIndex >= 0) {
+    basicText = [...segments.slice(0, basicIndex).filter((segment) => segment.title === null).map((segment) => segment.lines), segments[basicIndex].lines].filter(Boolean).join("\n");
+    details = segments.slice(basicIndex + 1);
+  } else if (segments.length && segments[0].title === null) {
+    basicText = segments[0].lines;
+    details = segments.slice(1);
+  } else {
+    details = segments;
+  }
+  if (!basicText) basicText = "後日追加予定";
+  const basic = `<section class="overview-basic"><div class="overview-heading-row"><span class="overview-heading-label"><span class="overview-heading-icon" aria-hidden="true">◆</span>基本情報</span></div><div class="overview-basic__body">${renderOverviewBody(basicText)}</div></section>`;
+  const folded = details.filter((segment) => segment.title !== "基本情報").map((segment) => `
+    <details class="overview-disclosure">
+      <summary><span class="overview-heading-icon" aria-hidden="true">◆</span><span>${escapeHtml(segment.title || "詳細")}</span></summary>
+      <div class="overview-disclosure__body">${renderOverviewBody(segment.lines)}</div>
+    </details>`).join("");
+  return `${basic}${folded}`;
 }
 
 function overviewPanel(item) {
