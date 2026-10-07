@@ -248,6 +248,9 @@ h1 {
 .environment-filter legend,
 .advanced-filter-group legend { margin-bottom: 8px; color: var(--navy); font-size: .88rem; font-weight: 900; }
 .environment-options { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.environment-descriptions { margin-top: 10px; }
+.environment-descriptions[hidden] { display: none; }
+.environment-descriptions p { margin: 0; color: var(--muted); font-size: .8rem; line-height: 1.65; }
 .environment-option {
   display: flex;
   align-items: center;
@@ -428,12 +431,13 @@ h1 {
 .overview-heading-icon { display: inline-grid; width: 15px; height: 15px; place-items: center; border-radius: 50%; background: var(--gold); color: #fff; font-size: .64rem; line-height: 1; }
 .overview-basic__body { margin-top: 0; }
 .overview-disclosure { margin-top: .42em; }
-.overview-disclosure > summary { display: flex; align-items: center; gap: 7px; padding: 3px 2px 1px; color: #24466e; cursor: pointer; font-size: 1.08em; font-weight: 900; line-height: 1.55; list-style: none; }
+.overview-disclosure > summary { display: flex; align-items: center; gap: 7px; padding: 2px 2px 0; color: #24466e; cursor: pointer; font-size: 1.08em; font-weight: 900; line-height: 1.4; list-style: none; }
 .overview-disclosure > summary::-webkit-details-marker { display: none; }
 .overview-disclosure > summary::after { content: "＋"; margin-left: auto; color: #526b8a; font-size: .9em; font-weight: 700; }
 .overview-disclosure[open] > summary::after { content: "－"; }
 .overview-disclosure > summary .overview-heading-icon { flex: 0 0 15px; }
-.overview-disclosure__body { padding: 0 0 10px; }
+.overview-disclosure__body { margin-top: 0; padding: 0 0 6px; }
+.overview-disclosure__body > :first-child { margin-top: 0; }
 .overview-point { display: grid; grid-template-columns: 1.15em minmax(0, 1fr); column-gap: .12em; align-items: start; margin-top: .46em; line-height: 1.75; }
 .overview-point:first-child { margin-top: 0; }
 .overview-point__marker { font-weight: 900; }
@@ -503,7 +507,7 @@ h1 {
   text-underline-offset: 3px;
 }
 .related-list .card-reference { padding: 5px 9px; border: 1px solid #b9c8dc; border-radius: 999px; background: #f2f6fb; text-decoration: none; font-size: .82rem; }
-.related-ruling-card__name .card-reference { padding: 5px 9px; border: 1px solid #b9c8dc; border-radius: 999px; background: #f2f6fb; color: #315f9b; font-size: .82rem; font-weight: 800; text-decoration: none; }
+.related-ruling-card__name .card-reference { padding: 0; border: 0; border-radius: 0; background: transparent; color: #315f9b; font-size: .82rem; font-weight: 800; text-decoration: underline; text-decoration-color: #a9bad0; text-underline-offset: 3px; }
 .related-ruling-card__items .card-reference { display: inline; padding: 0; border: 0; border-radius: 0; background: transparent; color: #315f9b; text-decoration: underline; text-decoration-color: #a9bad0; text-underline-offset: 3px; font: inherit; }
 .related-ruling-card__items .card-reference.card-reference--current { padding: 1px 6px; border: 1px solid #b9c8dc; border-radius: 999px; background: #f2f6fb; text-decoration: none; color: #315f9b; font: inherit; font-weight: 800; }
 .qa-difficult-badge { display: grid; width: 18px; height: 18px; place-items: center; border-radius: 50%; background: #9b5b12; color: #fff; font-size: .7rem; font-weight: 900; line-height: 1; box-shadow: 0 0 0 2px #f4e8cc; }

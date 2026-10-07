@@ -60,16 +60,6 @@ const filterGroups = [
     options: ["通常モンスター", "効果モンスター", "リバース効果", "チューナー", "儀式", "融合", "シンクロ", "エクシーズ", "トゥーン", "スピリット", "ユニオン", "デュアル", "召喚ルール効果", "手札誘発"]
   },
   {
-    id: "race",
-    label: "種族",
-    options: ["獣戦士族", "海竜族", "岩石族", "植物族", "幻神獣族", "創造神族", "アンデット族", "恐竜族", "爬虫類族", "魚族", "天使族", "悪魔族", "サイキック族", "ドラゴン族", "魔法使い族", "戦士族", "鳥獣族", "炎族", "獣族", "機械族", "昆虫族", "雷族", "水族"]
-  },
-  {
-    id: "attribute",
-    label: "属性",
-    options: ["闇属性", "光属性", "地属性", "水属性", "炎属性", "風属性", "神属性"]
-  },
-  {
     id: "spellType",
     label: "魔法分類",
     options: ["通常魔法", "速攻魔法", "装備魔法", "永続魔法", "フィールド魔法", "儀式魔法"]
@@ -132,6 +122,17 @@ function withMatchingArticles(item) {
   return articles;
 }
 
+function cleanOverviewText(value) {
+  if (value === undefined || value === null) return value;
+  return String(value)
+    .replace(/^【基本情報】/gm, "【基本情報 ＋ 補足】")
+    .split(/\r?\n/)
+    .filter((line) => !/^[■◾◾️]\s*効果補足\s*$/.test(line.trim()))
+    .join("\n")
+    .replace(/\n{3,}/g, "\n\n")
+    .trim();
+}
+
 function enrichItem(item) {
   const metadata = window.CARD_METADATA?.[item.name] || {};
   const enriched = {
@@ -141,6 +142,9 @@ function enrichItem(item) {
     environments: item.environments || metadata.environments || ["1103"],
     monsterTags: item.monsterTags || metadata.monsterTags || []
   };
+  enriched.overview = cleanOverviewText(enriched.overview);
+  enriched.summary = cleanOverviewText(enriched.summary);
+  enriched.details = (enriched.details || []).map(cleanOverviewText);
   enriched.externalArticles = withMatchingArticles(enriched);
   return enriched;
 }
@@ -830,6 +834,7 @@ function overviewSegments(value) {
   for (const line of lines) {
     const trimmed = line.trim();
     if (!trimmed || trimmed === "－区切り線－" || /^[─━—–－ｰー_=]{3,}$/.test(trimmed)) continue;
+    if (/^[■◾◾️]\s*効果補足\s*$/.test(trimmed)) continue;
     const tap = trimmed.match(/^【タップで開く】\s*(.*)$/);
     const heading = trimmed.match(/^【([^】]+)】\s*(.*)$/);
     if (tap || heading) {
@@ -883,7 +888,8 @@ function renderOverviewBody(value) {
 
 function renderOverviewText(value) {
   const segments = overviewSegments(value);
-  const basicIndex = segments.findIndex((segment) => segment.title === "基本情報");
+  const isBasicHeading = (title) => /^基本情報(?:\s*[＋+]\s*補足)?$/.test(String(title || "").trim());
+  const basicIndex = segments.findIndex((segment) => isBasicHeading(segment.title));
   let basicText = "";
   let details = [];
   if (basicIndex >= 0) {
@@ -896,8 +902,8 @@ function renderOverviewText(value) {
     details = segments;
   }
   if (!basicText) basicText = "後日追加予定";
-  const basic = `<section class="overview-basic"><div class="overview-heading-row"><span class="overview-heading-label"><span class="overview-heading-icon" aria-hidden="true">◆</span><span class="overview-heading-text">基本情報</span></span></div><div class="overview-basic__body">${renderOverviewBody(basicText)}</div></section>`;
-  const folded = details.filter((segment) => segment.title !== "基本情報").map((segment) => `
+  const basic = `<section class="overview-basic"><div class="overview-heading-row"><span class="overview-heading-label"><span class="overview-heading-icon" aria-hidden="true">◆</span><span class="overview-heading-text">基本情報 ＋ 補足</span></span></div><div class="overview-basic__body">${renderOverviewBody(basicText)}</div></section>`;
+  const folded = details.filter((segment) => !isBasicHeading(segment.title)).map((segment) => `
     <details class="overview-disclosure">
       <summary><span class="overview-heading-icon" aria-hidden="true">◆</span><span class="overview-heading-text">${escapeHtml(segment.title || "詳細")}</span></summary>
       <div class="overview-disclosure__body">${renderOverviewBody(segment.lines)}</div>
