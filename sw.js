@@ -1,4 +1,4 @@
-const CACHE_NAME = "rulings-1103-v54";
+const CACHE_NAME = "rulings-1103-v55";
 const ASSETS = [
   "./",
   "./index.html",
@@ -389,6 +389,7 @@ const ASSETS = [
   "./rulings-instructions-20261004.js",
   "./rulings-instructions-20261007.js",
   "./rulings-instructions-20261007-04.js",
+  "./rulings-instructions-20261007-05.js",
   "./images/additional-20261004/01.png",
   "./images/additional-20261004/02.png",
   "./images/additional-20261004/03.png",
@@ -435,6 +436,7 @@ const ASSETS = [
   "./images/additional-20261007-04/10.png",
   "./images/additional-20261007-04/11.png",
   "./images/additional-20261007-04/12.png",
+  "./images/additional-20261007-05/01.png",
 ];
 
 self.addEventListener("install", (event) => {
