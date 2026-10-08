@@ -1,5 +1,26 @@
-const CACHE_NAME = "rulings-1103-v55";
+const CACHE_NAME = "rulings-1103-v56";
 const ASSETS = [
+  "./rulings-instructions-20261009.js",
+  "./images/additional-20261009/01-1.png",
+  "./images/additional-20261009/02-1.png",
+  "./images/additional-20261009/02-2.png",
+  "./images/additional-20261009/02-3.png",
+  "./images/additional-20261009/03-1.png",
+  "./images/additional-20261009/04-1.png",
+  "./images/additional-20261009/05-1.png",
+  "./images/additional-20261009/06-1.png",
+  "./images/additional-20261009/07-1.png",
+  "./images/additional-20261009/08-1.png",
+  "./images/additional-20261009/09-1.png",
+  "./images/additional-20261009/10-1.png",
+  "./images/additional-20261009/11-1.png",
+  "./images/additional-20261009/12-1.png",
+  "./images/additional-20261009/13-1.png",
+  "./images/additional-20261009/14-1.png",
+  "./images/environments/1103.png",
+  "./images/environments/1209.png",
+  "./images/environments/1402.png",
+
   "./",
   "./index.html",
   "./styles.css",

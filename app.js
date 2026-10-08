@@ -30,6 +30,31 @@ let activeQaSearchId = null;
 let activeDifficultSearch = false;
 let deferredPrompt = null;
 const selectedEnvironments = new Set(["1103"]);
+const environmentModes = {
+  '1103': ['1103'], '1209': ['1103', '1209'], '1209-only': ['1209'],
+  '1402': ['1103', '1209', '1402'], '1402-only': ['1402']
+};
+let environmentMode = '1103';
+try {
+  const saved = localStorage.getItem('rulings-environment-mode');
+  if (Object.hasOwn(environmentModes, saved)) environmentMode = saved;
+} catch (_) { /* Storage may be disabled; keep a usable default. */ }
+function setEnvironmentMode(mode) {
+  environmentMode = Object.hasOwn(environmentModes, mode) ? mode : '1103';
+  selectedEnvironments.clear();
+  environmentModes[environmentMode].forEach(e => selectedEnvironments.add(e));
+  document.querySelectorAll('[data-environment-mode]').forEach(button => {
+    button.setAttribute('aria-pressed', String(button.dataset.environmentMode === environmentMode.split('-')[0]));
+  });
+  document.querySelectorAll('input[name="environmentMode"]').forEach(input => {
+    input.checked = input.value === environmentMode;
+    input.closest('label').classList.toggle('is-primary', input.checked);
+  });
+  document.querySelector('#environmentModeStatus').textContent = environmentMode.endsWith('-only')
+    ? `${environmentMode.split('-')[0]}環境から新しく登場したカードのみ表示中`
+    : `${environmentMode}環境の使用可能カードを表示中`;
+  try { localStorage.setItem('rulings-environment-mode', environmentMode); } catch (_) {}
+}
 const advancedSelections = new Map();
 const cardNavigationStack = [];
 const backToCardButton = document.querySelector("#backToCard");
@@ -354,7 +379,7 @@ function escapeHtml(value) {
 }
 
 function searchableText(item) {
-  const qaText = (item.qa || []).flatMap((entry) => [entry.question, entry.answer, entry.managementId, entry.difficult ? "難解" : ""]);
+  const qaText = (item.qa || []).filter(entry => environmentMatches(qaEnvironments(entry, item))).flatMap((entry) => [entry.question, entry.answer, entry.managementId, entry.difficult ? "難解" : ""]);
   return [
     item.name,
     item.reading,
@@ -491,8 +516,8 @@ function imagePanel(item) {
 }
 
 function environmentMatches(environments) {
-  if (!environments || environments.length === 0) return true;
-  return environments.some((environment) => selectedEnvironments.has(environment));
+  const values = environments?.length ? environments : ['1103'];
+  return values.some((environment) => selectedEnvironments.has(environment));
 }
 
 function qaEnvironments(entry, item) {
@@ -682,6 +707,7 @@ function inquiryPanel(item) {
 }
 
 function damageStepReferencePanel(item) {
+  if (item.hideDamageStepReference) return '';
   if (!item.damageStepGuide) return "";
 
   return `
@@ -756,6 +782,7 @@ function externalArticlesPanel(item) {
 }
 
 function categoryCoverPanel(item) {
+  if (item.cardImages?.length) return `<div class="category-card-images">${item.cardImages.map(image => imagePanel({...item, image})).join('')}</div>`;
   if (!item.coverImage) return "";
   const alt = item.coverImageAlt || `${item.name}のカバー画像`;
   return `
@@ -924,11 +951,13 @@ function overviewPanel(item) {
 }
 
 function qaSearchableText(item) {
-  return (item.qa || []).flatMap((entry) => [entry.question, entry.answer, entry.managementId, entry.difficult ? "難解" : ""]).join(" ");
+  return (item.qa || []).filter(entry => environmentMatches(qaEnvironments(entry, item))).flatMap((entry) => [entry.question, entry.answer, entry.managementId, entry.difficult ? "難解" : ""]).join(" ");
 }
 
 // Search strings are large; normalize them once instead of rebuilding them on every keystroke.
 const rulingSearchIndex = new WeakMap();
+let indexedEnvironmentMode = null;
+function rebuildEnvironmentSearchIndex() {
 for (const item of allRulings) {
   rulingSearchIndex.set(item, {
     all: normalize(searchableText(item)),
@@ -936,6 +965,8 @@ for (const item of allRulings) {
     reading: normalize(item.reading),
     qa: normalize(qaSearchableText(item))
   });
+}
+indexedEnvironmentMode = environmentMode;
 }
 
 let searchRenderTimer = 0;
@@ -1057,8 +1088,6 @@ function buildAdvancedFilters() {
 }
 
 function resetAdvancedFilters() {
-  selectedEnvironments.clear();
-  selectedEnvironments.add("1103");
   advancedSelections.clear();
   advancedPanel.querySelectorAll("input[type='checkbox']").forEach((input) => {
     input.checked = input.closest(".environment-filter") ? input.value === "1103" : false;
@@ -1101,6 +1130,7 @@ function closeMenu() {
 }
 
 function render() {
+  if (indexedEnvironmentMode !== environmentMode) rebuildEnvironmentSearchIndex();
   window.clearTimeout(searchRenderTimer);
   searchRenderTimer = 0;
   const query = normalize(searchInput.value);
@@ -1114,6 +1144,7 @@ function render() {
     const haystack = rulingSearchIndex.get(item).all;
     return typeMatches && environmentMatchesItem && advancedFilterMatches(item)
       && (!directIdMatch || item === directIdMatch.item)
+      && (!directIdMatch?.entry || environmentMatches(qaEnvironments(directIdMatch.entry, item)))
       && (!query || haystack.includes(query));
   });
 
@@ -1360,13 +1391,12 @@ advancedToggle.addEventListener("click", () => {
 });
 
 advancedPanel.addEventListener("change", (event) => {
-  const input = event.target.closest("input[type='checkbox']");
+  const input = event.target.closest("input[type='checkbox'], input[name='environmentMode']");
   if (!input) return;
   clearCardNavigation();
 
   if (input.closest(".environment-filter")) {
-    if (input.checked) selectedEnvironments.add(input.value);
-    else selectedEnvironments.delete(input.value);
+    setEnvironmentMode(input.value);
   } else {
     const groupId = input.dataset.filterGroup;
     if (!advancedSelections.has(groupId)) advancedSelections.set(groupId, new Set());
@@ -1414,5 +1444,13 @@ if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => navigator.serviceWorker.register("./sw.js"));
 }
 
+document.querySelector('#environmentButtons').addEventListener('click', event => {
+  const button = event.target.closest('[data-environment-mode]');
+  if (!button) return;
+  clearCardNavigation();
+  setEnvironmentMode(button.dataset.environmentMode);
+  render();
+});
+setEnvironmentMode(environmentMode);
 buildAdvancedFilters();
 render();

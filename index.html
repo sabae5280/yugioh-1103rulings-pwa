@@ -19,7 +19,7 @@
         <h1>
           <button id="homeButton" class="home-button" type="button" aria-label="初期トップ画面に戻る">遊戯王1103環境<br class="mobile-break"> 裁定集</button>
         </h1>
-        <p class="lead">2011年3月環境を中心に、当時の裁定を素早く検索できます。</p>
+        <p class="lead">1103環境を中心に、マスタールール２での当時裁定を徹底解説！<small class="lead-note">※メニューから注意点等を確認の上、自己責任でご活用ください。</small></p>
       </div>
       <button id="shareButton" class="share-button" type="button" aria-label="このサイトを共有">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8a3 3 0 1 0-2.83-4H15a3 3 0 0 0 .16 1l-7.1 4.14a3.5 3.5 0 1 0 0 5.72l7.1 4.14A3 3 0 1 0 16 17.2l-7.1-4.14a3.5 3.5 0 0 0 0-2.12L16 6.8A3 3 0 0 0 18 8Z"/></svg>
@@ -36,6 +36,15 @@
 
   <main class="container">
     <section class="search-panel" aria-label="裁定検索">
+      <div class="environment-picker">
+        <p id="environmentPickerLabel">プレイする環境を選択してください</p>
+        <div id="environmentButtons" class="environment-buttons" role="group" aria-labelledby="environmentPickerLabel">
+          <button type="button" data-environment-mode="1103" aria-label="1103環境を選択" aria-pressed="true"><img src="./images/environments/1103.png" alt="1103環境（デフォルト）"></button>
+          <button type="button" data-environment-mode="1209" aria-label="1209環境を選択" aria-pressed="false"><img src="./images/environments/1209.png" alt="1209環境"></button>
+          <button type="button" data-environment-mode="1402" aria-label="1402環境を選択" aria-pressed="false"><img src="./images/environments/1402.png" alt="1402環境"></button>
+        </div>
+        <p id="environmentModeStatus" class="environment-mode-status" aria-live="polite"></p>
+      </div>
       <label for="searchInput">カード名・ルビ・裁定内容を検索</label>
       <div class="search-box">
         <span aria-hidden="true">⌕</span>
@@ -60,14 +69,11 @@
         <fieldset class="environment-filter">
           <legend>対応環境</legend>
           <div class="environment-options">
-            <label class="environment-option is-primary"><input type="checkbox" value="1103" checked> <span>1103環境のみ表示（デフォルト）</span></label>
-            <label class="environment-option"><input type="checkbox" value="1209"> <span>1209環境</span></label>
-            <label class="environment-option"><input type="checkbox" value="1402"> <span>1402環境</span></label>
-          </div>
-          <div id="environmentDescriptions" class="environment-descriptions" aria-label="環境の説明" hidden>
-            <p data-environment-description="1103"></p>
-            <p data-environment-description="1209"></p>
-            <p data-environment-description="1402"></p>
+            <label class="environment-option is-primary"><input type="radio" name="environmentMode" value="1103" checked><span>1103環境の使用可能カードのみ表示<small>※ 寒波亭ルール対応（～ 2011年8月31日 までに登場したカード）</small></span></label>
+            <label class="environment-option"><input type="radio" name="environmentMode" value="1209"><span>1209環境の使用可能カードのみ表示<small>※ 熱波亭-LIMITED- ルール対応（～ 2012年12月21日 までに登場したカード）</small></span></label>
+            <label class="environment-option"><input type="radio" name="environmentMode" value="1209-only"><span>1209環境から新しく登場したカードのみ表示<small>※ 2011年9月1日 ～ 2012年12月21日 までに登場したカード</small></span></label>
+            <label class="environment-option"><input type="radio" name="environmentMode" value="1402"><span>1402環境で使用できる全てのカードを表示<small>※ 当サイト設立メンバーがイベント企画中♪（～ 2014年2月28日 までに登場したカード）</small></span></label>
+            <label class="environment-option"><input type="radio" name="environmentMode" value="1402-only"><span>1402環境から新しく登場したカードのみ表示<small>※ 2012年12月22日 ～ 2014年2月28日 までに登場したカード</small></span></label>
           </div>
         </fieldset>
         <div id="advancedFilters" class="advanced-filter-groups"></div>
@@ -154,6 +160,7 @@
   <script src="./rulings-instructions-20261007.js"></script>
   <script src="./rulings-instructions-20261007-04.js"></script>
   <script src="./rulings-instructions-20261007-05.js"></script>
+  <script src="./rulings-instructions-20261009.js"></script>
   <script src="./app.js"></script>
 </body>
 </html>
