@@ -818,3 +818,44 @@ html.is-standalone .hero .share-button {
   .hero .share-button,
   .hero .hero-actions { top: calc(18px + env(safe-area-inset-top, 0px)); }
 }
+
+/* Compact navigation, with the environment always visible as text. */
+.hero__inner { min-height: 150px; padding: 58px 0 25px; }
+.environment-picker { margin-bottom: 12px; }
+.environment-picker-toggle { min-height: 44px; padding: 6px 10px; border: 1px solid #b9c8dc; border-radius: 8px; background: #f2f6fb; color: var(--navy); font-weight: 800; font-size: .84rem; }
+#environmentPickerChoices[hidden] { display: none; }
+#environmentPickerLabel { margin: 8px 0 10px; font-size: .85rem; font-weight: 700; }
+.environment-buttons button { color: #fff; min-height: 44px; }
+.environment-buttons button > span { display: block; padding: 3px 0; font-size: .85rem; font-weight: 800; }
+.environment-selected { visibility: hidden; }
+[aria-pressed="true"] .environment-selected { visibility: visible; color: #ffe697; }
+.reference-notice { padding: 12px; border: 1px solid var(--gold); background: #fff7d9; border-radius: 10px; font-size: .86rem; }
+.reference-notice button { display: block; min-height: 44px; margin-top: 8px; padding: 5px 12px; background: #fff; color: #24466e; border: 1px solid #b9c8dc; border-radius: 8px; font-weight: 700; }
+.qa-search-previews { display: grid; gap: 7px; margin: 0 12px 12px; }
+.qa-search-preview { display: grid; gap: 5px; width: 100%; padding: 10px 12px; border: 1px solid #ccd7e4; border-radius: 8px; background: #f4f7fb; color: var(--ink); text-align: left; font-size: .85rem; line-height: 1.65; overflow-wrap: anywhere; }
+.qa-search-preview small { color: #526077; font-size: .8rem; }
+.qa-search-preview strong { color: #315f9b; font-size: .76rem; }
+.qa-search-preview:focus-visible { outline: 3px solid var(--gold); }
+.qa-item { scroll-margin-top: 12px; }
+.site-menu__page p { white-space: pre-line; }
+@media (max-width: 680px) {
+  .hero__inner { min-height: 0; grid-template-columns: 1fr auto; gap: 4px 8px; padding: calc(6px + env(safe-area-inset-top, 0px)) 0 12px; }
+  .brand-mark, .eyebrow { display: none; }
+  .hero-copy { grid-column: 1 / -1; grid-row: 2; }
+  .hero h1 { font-size: clamp(1.1rem, 5vw, 1.5rem); line-height: 1.4; }
+  .mobile-break { display: none; }
+  .hero .share-button, .is-standalone .hero .share-button { position: static !important; grid-column: 1; grid-row: 1; justify-self: start; min-height: 36px; padding: 4px 9px; font-size: .76rem; box-shadow: none; }
+  .hero .hero-actions { position: static; grid-column: 2; grid-row: 1; }
+  .menu-button, .install-button { padding: 5px 9px; min-height: 36px; font-size: .76rem; }
+  .container { margin: 10px auto 80px; }
+  .search-panel { padding: 12px; border-radius: 12px; }
+  .search-panel > label { margin-bottom: 5px; font-size: .82rem; }
+  .filters { flex-wrap: nowrap; overflow-x: auto; gap: 6px; margin-top: 10px; padding-bottom: 3px; }
+  .filter { flex: 0 0 auto; min-height: 40px; padding: 6px 10px; font-size: .8rem; }
+  .row-navigation { grid-template-columns: repeat(10, minmax(40px, 1fr)); overflow-x: auto; margin-top: 8px; padding-bottom: 3px; }
+  .row-navigation a, .row-navigation span { min-height: 40px; font-size: .75rem; }
+  .advanced-controls { margin-top: 4px; }
+  .advanced-toggle { min-height: 40px; font-size: .83rem; }
+  .result-section { margin-top: 18px; }
+  .ruling-toggle { padding: 12px 10px; }
+}

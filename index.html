@@ -19,7 +19,6 @@
         <h1>
           <button id="homeButton" class="home-button" type="button" aria-label="初期トップ画面に戻る">遊戯王1103環境<br class="mobile-break"> 裁定集</button>
         </h1>
-        <p class="lead">1103環境を中心に、マスタールール２での当時裁定を徹底解説！<small class="lead-note">※メニューから注意点等を確認の上、自己責任でご活用ください。</small></p>
       </div>
       <button id="shareButton" class="share-button" type="button" aria-label="このサイトを共有">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8a3 3 0 1 0-2.83-4H15a3 3 0 0 0 .16 1l-7.1 4.14a3.5 3.5 0 1 0 0 5.72l7.1 4.14A3 3 0 1 0 16 17.2l-7.1-4.14a3.5 3.5 0 0 0 0-2.12L16 6.8A3 3 0 0 0 18 8Z"/></svg>
@@ -37,13 +36,16 @@
   <main class="container">
     <section class="search-panel" aria-label="裁定検索">
       <div class="environment-picker">
+        <button id="environmentPickerToggle" class="environment-picker-toggle" type="button" aria-expanded="true" aria-controls="environmentPickerChoices">現在：1103環境　変更</button>
+        <div id="environmentPickerChoices">
         <p id="environmentPickerLabel">プレイする環境を選択してください</p>
         <div id="environmentButtons" class="environment-buttons" role="group" aria-labelledby="environmentPickerLabel">
-          <button type="button" data-environment-mode="1103" aria-label="1103環境を選択" aria-pressed="true"><img src="./images/environments/1103.png" alt="1103環境（デフォルト）"></button>
-          <button type="button" data-environment-mode="1209" aria-label="1209環境を選択" aria-pressed="false"><img src="./images/environments/1209.png" alt="1209環境"></button>
-          <button type="button" data-environment-mode="1402" aria-label="1402環境を選択" aria-pressed="false"><img src="./images/environments/1402.png" alt="1402環境"></button>
+          <button type="button" data-environment-mode="1103" aria-label="1103環境を選択" aria-pressed="true"><img src="./images/environments/1103.png" alt=""><span>1103<span class="environment-selected" aria-hidden="true"> ✓</span></span></button>
+          <button type="button" data-environment-mode="1209" aria-label="1209環境を選択" aria-pressed="false"><img src="./images/environments/1209.png" alt=""><span>1209<span class="environment-selected" aria-hidden="true"> ✓</span></span></button>
+          <button type="button" data-environment-mode="1402" aria-label="1402環境を選択" aria-pressed="false"><img src="./images/environments/1402.png" alt=""><span>1402<span class="environment-selected" aria-hidden="true"> ✓</span></span></button>
         </div>
         <p id="environmentModeStatus" class="environment-mode-status" aria-live="polite"></p>
+        </div>
       </div>
       <label for="searchInput">カード名・ルビ・裁定内容を検索</label>
       <div class="search-box">
@@ -161,6 +163,7 @@
   <script src="./rulings-instructions-20261007-04.js"></script>
   <script src="./rulings-instructions-20261007-05.js"></script>
   <script src="./rulings-instructions-20261009.js"></script>
+  <script src="./rulings-instructions-20261009-2.js"></script>
   <script src="./app.js"></script>
 </body>
 </html>

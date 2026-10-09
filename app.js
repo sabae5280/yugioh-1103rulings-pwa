@@ -29,6 +29,8 @@ let activeQaSearchItem = null;
 let activeQaSearchId = null;
 let activeDifficultSearch = false;
 let deferredPrompt = null;
+let referencedCardName = null;
+let environmentPickerExpanded = false;
 const selectedEnvironments = new Set(["1103"]);
 const environmentModes = {
   '1103': ['1103'], '1209': ['1103', '1209'], '1209-only': ['1209'],
@@ -38,7 +40,8 @@ let environmentMode = '1103';
 try {
   const saved = localStorage.getItem('rulings-environment-mode');
   if (Object.hasOwn(environmentModes, saved)) environmentMode = saved;
-} catch (_) { /* Storage may be disabled; keep a usable default. */ }
+  environmentPickerExpanded = !Object.hasOwn(environmentModes, saved);
+} catch (_) { environmentPickerExpanded = true; }
 function setEnvironmentMode(mode) {
   environmentMode = Object.hasOwn(environmentModes, mode) ? mode : '1103';
   selectedEnvironments.clear();
@@ -53,7 +56,15 @@ function setEnvironmentMode(mode) {
   document.querySelector('#environmentModeStatus').textContent = environmentMode.endsWith('-only')
     ? `${environmentMode.split('-')[0]}環境から新しく登場したカードのみ表示中`
     : `${environmentMode}環境の使用可能カードを表示中`;
+  syncEnvironmentPicker();
   try { localStorage.setItem('rulings-environment-mode', environmentMode); } catch (_) {}
+}
+function syncEnvironmentPicker() {
+  const control = document.querySelector('#environmentPickerToggle');
+  if (!control) return;
+  control.setAttribute('aria-expanded', String(environmentPickerExpanded));
+  control.textContent = `現在：${environmentMode.split('-')[0]}環境${environmentMode.endsWith('-only') ? '（新規のみ）' : ''}　${environmentPickerExpanded ? '閉じる' : '変更'}`;
+  document.querySelector('#environmentPickerChoices').hidden = !environmentPickerExpanded;
 }
 const advancedSelections = new Map();
 const cardNavigationStack = [];
@@ -102,7 +113,7 @@ const filterGroups = [
 ];
 
 const sitePages = {
-  about: { title: "このサイトについて", body: "現在準備中です。" },
+  about: { title: "このサイトについて", body: "1103環境を中心に、マスタールール２での当時裁定を徹底解説！\n※メニューから注意点等を確認の上、自己責任でご活用ください。\n\n環境外のカードへのリンクは、選択中の環境を変えずに一時表示します。「元の裁定へ戻る」で直前の閲覧位置に戻れます。" },
   guide: { title: "使い方", body: "現在準備中です。" },
   contact: { title: "お問い合わせ", body: "現在準備中です。" },
   links: { title: "各種リンク集", body: "現在準備中です。" }
@@ -544,7 +555,8 @@ function qaBasePriority(entry, item) {
 }
 
 function orderedQa(item) {
-  const entries = (item.qa || []).filter((entry) => environmentMatches(qaEnvironments(entry, item)));
+  const outsideReference = referencedCardName === item.name && !environmentMatches(item.environments);
+  const entries = (item.qa || []).filter((entry) => outsideReference || environmentMatches(qaEnvironments(entry, item)));
   const pinnedFirst = entries.filter((entry) => entry.pinFirst);
   const pinnedLast = entries.filter((entry) => entry.managementId === "R-W79LJTECPZ" && !entry.pinFirst);
   const pinnedFirstSet = new Set(pinnedFirst);
@@ -582,7 +594,7 @@ function qaPanel(item) {
         <h3>Q&amp;A</h3>
         <div class="qa-list">
           ${entries.map((entry, index) => `
-            <details class="qa-item"${activeQaSearchItem === item && activeQaSearchId ? " open" : ""}>
+            <details class="qa-item" data-qa-id="${escapeHtml(entry.managementId || '')}"${activeQaSearchItem === item && activeQaSearchId ? " open" : ""}>
               <summary><span class="qa-marker">Q</span>${entry.difficult ? '<span class="qa-difficult-badge" title="難解な裁定" aria-label="難解な裁定">!</span>' : ""}<span class="qa-question">${linkedQaText(entry.question)}</span></summary>
               <div class="answer"><span>A</span><p>${linkedQaText(entry.answer)}</p></div>
               ${qaImagesPanel(entry, item)}
@@ -609,7 +621,6 @@ function containsCardReference(text, card) {
 function relatedRulings(source, target) {
   const entries = [];
   const seen = new Set();
-  if (!environmentMatches(source.environments)) return entries;
   const addOverview = (text, label = "概要") => {
     const blocks = String(text || "").split(/\n\s*\n/).map((block) => block.trim()).filter(Boolean);
     for (const block of blocks) {
@@ -640,7 +651,7 @@ function relatedPanel(item) {
   if (!relatedNames.length) return "";
 
   const cards = relatedNames.map((name) => ({ card: findCard(name), name }))
-    .filter((entry) => entry.card && environmentMatches(entry.card.environments))
+    .filter((entry) => entry.card)
     .map(({ card }) => ({ card, rulings: relatedRulings(card, item) }));
   if (!cards.length) return "";
 
@@ -1006,6 +1017,20 @@ function renderCardBody(item) {
     </div>`;
 }
 
+function qaSearchPreviews(item) {
+  const query = normalize(searchInput.value);
+  if (referencedCardName || !query || normalize(item.name).includes(query) || normalize(item.reading).includes(query)) return '';
+  const matches = orderedQa(item).filter(entry => normalize(`${entry.question} ${entry.answer}`).includes(query));
+  if (!matches.length) return '';
+  const excerpt = (value) => {
+    const text = cleanQaText(value).replace(/\s+/g, ' ');
+    const position = normalize(text).indexOf(query);
+    const start = Math.max(0, position - 35);
+    return `${start ? '…' : ''}${text.slice(start, start + 180)}${text.length > start + 180 ? '…' : ''}`;
+  };
+  return `<div class="qa-search-previews" aria-label="検索に該当するQ&A">${matches.map(entry => `<button class="qa-search-preview" type="button" data-qa-jump="${escapeHtml(entry.managementId)}"><span>Q ${escapeHtml(excerpt(entry.question))}</span>${normalize(entry.answer).includes(query) ? `<small>回答：${escapeHtml(excerpt(entry.answer))}</small>` : ''}<strong>このQ&Aを開く →</strong></button>`).join('')}</div>`;
+}
+
 function renderCard(item, index) {
   const longTitleModifier = [...String(item.name || "")].length >= 15 ? " card-name--long" : "";
   const titleModifier = normalize(item.name) === normalize("未来融合－フューチャー・フュージョン")
@@ -1019,6 +1044,7 @@ function renderCard(item, index) {
         ${effectIcon(item)}
         <span class="chevron" aria-hidden="true">⌄</span>
       </button>
+      ${qaSearchPreviews(item)}
       <div id="ruling-${index}" class="ruling-body" data-card-name="${escapeHtml(item.name)}" hidden></div>
     </article>`;
 }
@@ -1036,6 +1062,8 @@ function syncBackToCardButton() {
 }
 
 function clearCardNavigation() {
+  referencedCardName = null;
+  if (location.hash.startsWith('#card=')) history.replaceState(null, '', `${location.pathname}${location.search}`);
   cardNavigationStack.length = 0;
   syncBackToCardButton();
 }
@@ -1044,6 +1072,7 @@ function goBackToCard() {
   const previous = cardNavigationStack.pop();
   if (!previous) return;
   currentFilter = previous.filter;
+  referencedCardName = previous.reference;
   searchInput.value = previous.query;
   filters.querySelectorAll(".filter").forEach((item) => item.classList.toggle("is-active", item.dataset.filter === currentFilter));
   render();
@@ -1051,13 +1080,15 @@ function goBackToCard() {
   history.replaceState(null, "", `${location.pathname}${location.search}${hash}`);
   syncBackToCardButton();
   requestAnimationFrame(() => {
-    const article = [...list.querySelectorAll(".ruling-card")].find((item) => item.dataset.cardName === previous.cardName);
-    if (article) {
+    for (const saved of previous.openCards || []) {
+      const article = [...list.querySelectorAll('.ruling-card')].find(item => item.dataset.cardName === saved.name);
+      if (!article) continue;
       const toggle = article.querySelector(".ruling-toggle");
       const body = document.getElementById(toggle.getAttribute("aria-controls"));
       populateCardBody(body);
       toggle.setAttribute("aria-expanded", "true");
       body.hidden = false;
+      body.querySelectorAll('details').forEach((detail, index) => { detail.open = saved.details.includes(index); });
     }
     window.scrollTo({ top: previous.scrollY, behavior: "auto" });
   });
@@ -1133,6 +1164,18 @@ function render() {
   if (indexedEnvironmentMode !== environmentMode) rebuildEnvironmentSearchIndex();
   window.clearTimeout(searchRenderTimer);
   searchRenderTimer = 0;
+  if (referencedCardName) {
+    activeQaSearchItem = null;
+    activeQaSearchId = null;
+    activeDifficultSearch = false;
+    rowNavigation.hidden = true;
+    emptyState.hidden = true;
+    const target = findCard(referencedCardName);
+    count.textContent = target ? 'カード参照中' : '未掲載';
+    const outside = target && !environmentMatches(target.environments);
+    list.innerHTML = `<div class="reference-notice" role="status">${outside ? `このカードは選択中の${escapeHtml(environmentMode.split('-')[0])}環境${environmentMode.endsWith('-only') ? '（新規のみ）' : ''}の表示対象外です。参考として表示しています。` : '選択中の環境を維持してカードを参照しています。'}<button type="button" data-reference-back>元の裁定へ戻る</button></div>` + (target ? renderCard(target, 'reference') : '<p>このカードは未掲載です。</p>');
+    return;
+  }
   const query = normalize(searchInput.value);
   const directIdMatch = directManagementIdQuery(searchInput.value);
   activeDifficultSearch = query === normalize("難解");
@@ -1207,6 +1250,22 @@ function render() {
 }
 
 list.addEventListener("click", async (event) => {
+  if (event.target.closest('[data-reference-back]')) {
+    if (cardNavigationStack.length) goBackToCard(); else goHome();
+    return;
+  }
+  const qaJump = event.target.closest('[data-qa-jump]');
+  if (qaJump) {
+    const article = qaJump.closest('.ruling-card');
+    const toggle = article.querySelector('.ruling-toggle');
+    const body = article.querySelector('.ruling-body');
+    populateCardBody(body);
+    body.hidden = false;
+    toggle.setAttribute('aria-expanded', 'true');
+    const qa = [...body.querySelectorAll('[data-qa-id]')].find(el => el.dataset.qaId === qaJump.dataset.qaJump);
+    if (qa) { qa.open = true; qa.scrollIntoView({behavior:'smooth', block:'start'}); qa.querySelector('summary').focus({preventScroll:true}); }
+    return;
+  }
   const copyButton = event.target.closest("[data-copy-text]");
   if (copyButton) {
     event.preventDefault();
@@ -1299,8 +1358,11 @@ document.addEventListener("keydown", (event) => {
 });
 
 function navigateToCard(name, sourceCardName = "") {
-  if (sourceCardName && normalize(sourceCardName) !== normalize(name)) {
+  if (sourceCardName && normalize(sourceCardName) === normalize(name)) return;
+  if (normalize(sourceCardName) !== normalize(name)) {
     cardNavigationStack.push({
+      reference: referencedCardName,
+      openCards: [...list.querySelectorAll('.ruling-card')].filter(article => !article.querySelector('.ruling-body').hidden).map(article => ({name: article.dataset.cardName, details: [...article.querySelectorAll('.ruling-body details')].flatMap((el,i) => el.open ? [i] : [])})),
       cardName: sourceCardName,
       query: searchInput.value,
       filter: currentFilter,
@@ -1308,19 +1370,23 @@ function navigateToCard(name, sourceCardName = "") {
     });
   }
   syncBackToCardButton();
-  currentFilter = "all";
-  searchInput.value = name;
-  filters.querySelectorAll(".filter").forEach((item) => item.classList.toggle("is-active", item.dataset.filter === "all"));
+  const target = findCard(name);
+  referencedCardName = target?.name || name;
   render();
   history.replaceState(null, "", `#card=${encodeURIComponent(name)}`);
   requestAnimationFrame(() => {
-    const button = list.querySelector(".ruling-toggle");
+    if (referencedCardName !== (target?.name || name)) return;
+    const article = [...list.querySelectorAll('.ruling-card')].find(el => el.dataset.cardName === target?.name);
+    const button = article?.querySelector(".ruling-toggle");
     if (!button) return;
     const body = document.getElementById(button.getAttribute("aria-controls"));
     populateCardBody(body);
     button.setAttribute("aria-expanded", "true");
     body.hidden = false;
-    button.scrollIntoView({ behavior: "smooth", block: "start" });
+    article.previousElementSibling?.classList.contains('reference-notice')
+      ? article.previousElementSibling.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      : button.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    button.focus({preventScroll:true});
   });
 }
 
@@ -1448,9 +1514,17 @@ document.querySelector('#environmentButtons').addEventListener('click', event =>
   const button = event.target.closest('[data-environment-mode]');
   if (!button) return;
   clearCardNavigation();
+  environmentPickerExpanded = false;
   setEnvironmentMode(button.dataset.environmentMode);
   render();
+});
+document.querySelector('#environmentPickerToggle').addEventListener('click', () => {
+  environmentPickerExpanded = !environmentPickerExpanded;
+  syncEnvironmentPicker();
 });
 setEnvironmentMode(environmentMode);
 buildAdvancedFilters();
 render();
+if (location.hash.startsWith('#card=')) {
+  try { navigateToCard(decodeURIComponent(location.hash.slice(6))); } catch (_) { /* Ignore malformed external fragments. */ }
+}
