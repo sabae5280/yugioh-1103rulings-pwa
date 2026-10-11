@@ -12,6 +12,8 @@
 </head>
 <body>
   <header class="hero">
+    <div class="hero-slides" aria-hidden="true"><div class="hero-slide hero-slide--1103"></div><div class="hero-slide hero-slide--1209"></div><div class="hero-slide hero-slide--1402"></div></div>
+    <button id="heroMotion" class="hero-motion" type="button" aria-label="背景の切り替えを一時停止" aria-pressed="false">Ⅱ</button>
     <div class="hero__inner">
       <div class="hero-copy">
         <h1>
@@ -40,6 +42,19 @@
         <input id="searchInput" type="search" placeholder="例：ライオウ、禁じられた、ダメステ" autocomplete="off">
         <button id="clearButton" type="button" aria-label="検索文字を消去">×</button>
       </div>
+        <details id="formatPicker" class="filter-section environment-section">
+          <summary>フォーマット： <span id="environmentSummary" class="selection-summary">すべての掲載カード</span></summary>
+          <fieldset class="environment-filter">
+            <legend class="visually-hidden">対応環境</legend>
+            <div class="environment-options">
+              <label class="environment-option" data-format="all"><input type="radio" name="environmentMode" value="all" checked><span><strong>すべての掲載カード</strong><small>『マスタールール2』の対象カード</small></span></label>
+              <label class="environment-option" data-format="1103"><input type="radio" name="environmentMode" value="1103"><span><strong>1103環境</strong><small>『寒波亭ルール』対応：〜2011/8/31</small></span></label>
+              <label class="environment-option" data-format="1209"><input type="radio" name="environmentMode" value="1209"><span><strong>1209環境</strong><small>『熱波亭-LIMITED-ルール』対応：〜2012/12/21</small></span></label>
+              <label class="environment-option" data-format="1209-only"><input type="radio" name="environmentMode" value="1209-only"><span><strong>1209新規カード・新規裁定を含む既存カード</strong><small>対象：2011/9/1〜2012/12/21</small></span></label>
+              <label class="environment-option" data-format="1402-only"><input type="radio" name="environmentMode" value="1402-only"><span><strong>1402新規カード・新規裁定を含む既存カード</strong><small>対象：2012/12/22〜2014/2/28</small></span></label>
+            </div>
+          </fieldset>
+        </details>
       <p id="shareStatus" class="visually-hidden" aria-live="polite"></p>
       <div class="advanced-controls">
         <button id="advancedToggle" class="advanced-toggle" type="button" aria-expanded="false" aria-controls="advancedPanel">
@@ -56,19 +71,7 @@
         <button class="filter" type="button" data-filter="trap">罠</button>
         <button class="filter" type="button" data-filter="category">テーマ共通効果</button>
       </div>
-        <details class="filter-section environment-section">
-          <summary>対応環境 <span id="environmentSummary" class="selection-summary">すべて</span></summary>
-          <fieldset class="environment-filter">
-            <legend class="visually-hidden">対応環境</legend>
-            <div class="environment-options">
-              <label class="environment-option"><input type="radio" name="environmentMode" value="all" checked><span><strong>すべての掲載カード</strong><small>『マスタールール2』の対象カード</small></span></label>
-              <label class="environment-option"><input type="radio" name="environmentMode" value="1103"><span><strong>1103環境</strong><small>『寒波亭ルール』対応：〜2011/8/31</small></span></label>
-              <label class="environment-option"><input type="radio" name="environmentMode" value="1209"><span><strong>1209環境</strong><small>『熱波亭-LIMITED-ルール』対応：〜2012/12/21</small></span></label>
-              <label class="environment-option"><input type="radio" name="environmentMode" value="1209-only"><span><strong>1209新規カード・新規裁定を含む既存カード</strong><small>対象：2011/9/1〜2012/12/21</small></span></label>
-              <label class="environment-option"><input type="radio" name="environmentMode" value="1402-only"><span><strong>1402新規カード・新規裁定を含む既存カード</strong><small>対象：2012/12/22〜2014/2/28</small></span></label>
-            </div>
-          </fieldset>
-        </details>
+
         <div id="advancedFilters" class="advanced-filter-groups"></div>
         <div class="filter-actions"><button id="clearConditions" type="button">条件をクリア</button><button id="showResults" type="button">結果を見る</button></div>
       </div>

@@ -35,7 +35,7 @@ const environmentModes = {
   'all': ['1103', '1209', '1402'], '1103': ['1103'],
   '1209': ['1103', '1209'], '1209-only': ['1209'], '1402-only': ['1402']
 };
-const environmentNames = { all: 'すべて', '1103': '1103環境', '1209': '1209環境', '1209-only': '1209新規カード・新規裁定', '1402-only': '1402新規カード・新規裁定' };
+const environmentNames = { all: 'すべての掲載カード', '1103': '1103環境', '1209': '1209環境', '1209-only': '1209新規カード・新規裁定', '1402-only': '1402新規カード・新規裁定' };
 // Each new visit starts with all cards; old saved environment filters must not hide results.
 let environmentMode = 'all';
 function setEnvironmentMode(mode) {
@@ -1139,7 +1139,7 @@ function firstCardEnvironment(item) {
 
 function newRulingsFor(item, environment) {
   return (item.qa || []).filter(entry => {
-    const marked = [...(entry.newInEnvironments || []), ...(searchConfig.newRulings?.[entry.managementId] || [])];
+    const marked = [...(entry.newInEnvironments || []), ...(searchConfig.newRulings?.[entry.managementId] || []), ...(entry.environments || [])];
     return marked.includes(environment);
   });
 }
@@ -1488,13 +1488,15 @@ advancedToggle.addEventListener("click", () => {
   advancedPanel.hidden = open;
 });
 
-advancedPanel.addEventListener("change", (event) => {
+document.querySelector(".search-panel").addEventListener("change", (event) => {
   const input = event.target.closest("input[type='checkbox'], input[name='environmentMode']");
   if (!input) return;
   clearCardNavigation();
 
   if (input.closest(".environment-filter")) {
     setEnvironmentMode(input.value);
+    document.querySelector("#formatPicker").open = false;
+    document.querySelector("#formatPicker summary").focus();
   } else {
     const groupId = input.dataset.filterGroup;
     if (!advancedSelections.has(groupId)) advancedSelections.set(groupId, new Set());
@@ -1750,3 +1752,24 @@ render();
 if (location.hash.startsWith('#card=')) {
   try { navigateToCard(decodeURIComponent(location.hash.slice(6))); } catch (_) { /* Ignore malformed external fragments. */ }
 }
+
+// Keep sharing available in browsers and installed PWAs alike.
+shareButton.hidden = false;
+const heroMotion = document.querySelector('#heroMotion');
+heroMotion.addEventListener('click', () => {
+  const paused = heroMotion.getAttribute('aria-pressed') !== 'true';
+  heroMotion.setAttribute('aria-pressed', String(paused));
+  heroMotion.setAttribute('aria-label', paused ? '背景の切り替えを再開' : '背景の切り替えを一時停止');
+  heroMotion.textContent = paused ? '▶' : 'Ⅱ';
+  document.querySelector('.hero').classList.toggle('motion-paused', paused);
+});
+document.addEventListener('visibilitychange', () => {
+  document.querySelector('.hero').classList.toggle('page-hidden', document.hidden);
+});
+
+document.querySelector('#formatPicker').addEventListener('click', event => {
+  if (event.target.matches('input[name="environmentMode"]')) {
+    document.querySelector('#formatPicker').open = false;
+    document.querySelector('#formatPicker summary').focus();
+  }
+});
