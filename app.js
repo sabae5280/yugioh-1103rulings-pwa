@@ -30,41 +30,23 @@ let activeQaSearchId = null;
 let activeDifficultSearch = false;
 let deferredPrompt = null;
 let referencedCardName = null;
-let environmentPickerExpanded = false;
-const selectedEnvironments = new Set(["1103"]);
+const selectedEnvironments = new Set(['1103', '1209', '1402']);
 const environmentModes = {
-  '1103': ['1103'], '1209': ['1103', '1209'], '1209-only': ['1209'],
-  '1402': ['1103', '1209', '1402'], '1402-only': ['1402']
+  'all': ['1103', '1209', '1402'], '1103': ['1103'],
+  '1209': ['1103', '1209'], '1209-only': ['1209'], '1402-only': ['1402']
 };
-let environmentMode = '1103';
-try {
-  const saved = localStorage.getItem('rulings-environment-mode');
-  if (Object.hasOwn(environmentModes, saved)) environmentMode = saved;
-  environmentPickerExpanded = !Object.hasOwn(environmentModes, saved);
-} catch (_) { environmentPickerExpanded = true; }
+const environmentNames = { all: 'すべて', '1103': '1103環境', '1209': '1209環境', '1209-only': '1209新規カード', '1402-only': '1402新規カード' };
+// Each new visit starts with all cards; old saved environment filters must not hide results.
+let environmentMode = 'all';
 function setEnvironmentMode(mode) {
-  environmentMode = Object.hasOwn(environmentModes, mode) ? mode : '1103';
+  environmentMode = Object.hasOwn(environmentModes, mode) ? mode : 'all';
   selectedEnvironments.clear();
   environmentModes[environmentMode].forEach(e => selectedEnvironments.add(e));
-  document.querySelectorAll('[data-environment-mode]').forEach(button => {
-    button.setAttribute('aria-pressed', String(button.dataset.environmentMode === environmentMode.split('-')[0]));
-  });
   document.querySelectorAll('input[name="environmentMode"]').forEach(input => {
     input.checked = input.value === environmentMode;
     input.closest('label').classList.toggle('is-primary', input.checked);
   });
-  document.querySelector('#environmentModeStatus').textContent = environmentMode.endsWith('-only')
-    ? `${environmentMode.split('-')[0]}環境から新しく登場したカードのみ表示中`
-    : `${environmentMode}環境の使用可能カードを表示中`;
-  syncEnvironmentPicker();
-  try { localStorage.setItem('rulings-environment-mode', environmentMode); } catch (_) {}
-}
-function syncEnvironmentPicker() {
-  const control = document.querySelector('#environmentPickerToggle');
-  if (!control) return;
-  control.setAttribute('aria-expanded', String(environmentPickerExpanded));
-  control.textContent = `現在：${environmentMode.split('-')[0]}環境${environmentMode.endsWith('-only') ? '（新規のみ）' : ''}　${environmentPickerExpanded ? '閉じる' : '変更'}`;
-  document.querySelector('#environmentPickerChoices').hidden = !environmentPickerExpanded;
+  document.querySelector('#environmentSummary').textContent = environmentNames[environmentMode];
 }
 const advancedSelections = new Map();
 const cardNavigationStack = [];
@@ -75,7 +57,7 @@ const isStandaloneDisplay = (typeof window.matchMedia === "function" && (
 )) || navigator.standalone === true;
 document.documentElement.classList.toggle("is-standalone", Boolean(isStandaloneDisplay));
 
-const typeLabels = { monster: "モンスター", spell: "魔法", trap: "罠", category: "共通効果" };
+const typeLabels = { monster: "モンスター", spell: "魔法", trap: "罠", category: "テーマ共通効果" };
 const kanaRows = [
   { id: "a", label: "ア行", pattern: /^[あいうえおぁぃぅぇぉ]/ },
   { id: "ka", label: "カ行", pattern: /^[かきくけこがぎぐげご]/ },
@@ -89,32 +71,18 @@ const kanaRows = [
   { id: "wa", label: "ワ行", pattern: /^[わをん]/ }
 ];
 
+const searchConfig = window.RULING_SEARCH_CONFIG || { terms: [], aliases: {}, cardTags: {}, qaTags: {} };
 const filterGroups = [
-  {
-    id: "monsterTags",
-    label: "モンスター分類",
-    options: ["通常モンスター", "効果モンスター", "リバース効果", "チューナー", "儀式", "融合", "シンクロ", "エクシーズ", "トゥーン", "スピリット", "ユニオン", "デュアル", "召喚ルール効果", "手札誘発"]
-  },
-  {
-    id: "spellType",
-    label: "魔法分類",
-    options: ["通常魔法", "速攻魔法", "装備魔法", "永続魔法", "フィールド魔法", "儀式魔法"]
-  },
-  {
-    id: "trapType",
-    label: "罠分類",
-    options: ["通常罠", "永続罠", "カウンター罠"]
-  },
-  {
-    id: "otherTags",
-    label: "その他",
-    options: ["一連の効果", "暫定回答あり", "調整中・ジャッジ案件"]
-  }
+  { id: 'rulingTerms', label: '裁定関連用語（非公式含む）', options: searchConfig.terms.map(term => term.label) },
+  { id: 'monsterTags', label: 'モンスターの分類', options: ['通常モンスター', '効果モンスター', 'リバース効果', 'チューナー', '儀式', '融合', 'シンクロ', 'エクシーズ', 'トゥーン', 'スピリット', 'ユニオン', 'デュアル'] },
+  { id: 'spellType', label: '魔法の分類', options: ['通常魔法', '速攻魔法', '装備魔法', '永続魔法', 'フィールド魔法', '儀式魔法'] },
+  { id: 'trapType', label: '罠の分類', options: ['通常罠', '永続罠', 'カウンター罠'] },
+  { id: 'otherTags', label: 'その他', options: ['難解な裁定・暫定回答', 'ジャッジ確認案件'] }
 ];
 
 const sitePages = {
   about: { title: "このサイトについて", body: "1103環境を中心に、マスタールール２での当時裁定を徹底解説！\n※メニューから注意点等を確認の上、自己責任でご活用ください。\n\n環境外のカードへのリンクは、選択中の環境を変えずに一時表示します。「元の裁定へ戻る」で直前の閲覧位置に戻れます。" },
-  guide: { title: "使い方", body: "現在準備中です。" },
+  guide: { title: "使い方", body: "カード名・読みがな・裁定の内容で検索できます。ひらがな／カタカナ、全角／半角の違いを吸収し、「ダメステ」でも「ダメージステップ」を検索できます。\n\n複数の語はスペースで区切ってください。例えば「コピー・プラント 強化蘇生」で、両方が関係するQ&Aや基本情報を探せます。入力例の「、」は別々の検索例です。\n\n詳細検索には五十音、カード種類、対応環境、用語・分類があります。各分類は個別に開閉でき、閉じても条件は維持されます。同じ分類内では選択した項目のいずれかに一致するカードを、異なる分類間では両方の条件に一致するカードを表示します。\n\n用語のチェックボックスは絞り込み、用語名は説明の表示です。用語は登録済みのタグに基づきます。説明未登録の項目は準備中と表示します。\n\n条件は検索欄の下の「×」または「条件をクリア」で解除できます。新しくサイトを開いたときは全環境の掲載カードを表示します。" },
   contact: { title: "お問い合わせ", body: "現在準備中です。" },
   links: { title: "各種リンク集", body: "現在準備中です。" }
 };
@@ -360,13 +328,18 @@ function normalize(value) {
   );
 
   // 中黒、空白、長音・ハイフン、カード名を囲う記号の差を吸収する。
-  return hiragana.replace(/[\s・･－―—–ー_＿《》「」『』【】]/g, "");
+  return hiragana.replace(/[\s・･•·－―—–ー_＿《》「」『』【】-]/g, "");
 }
 
 // 裁定文中の《カード名》を拾い、参照先と参照元の両方に関連リンクを作る。
 const relatedCardsByName = new Map(allRulings.map((item) => [normalize(item.name), new Map()]));
+const cardsByNormalizedName = new Map();
+for (const item of allRulings) {
+  const key = normalize(item.name);
+  if (!cardsByNormalizedName.has(key)) cardsByNormalizedName.set(key, item);
+}
 function addRelatedPair(source, targetName) {
-  const target = allRulings.find((candidate) => normalize(candidate.name) === normalize(targetName));
+  const target = cardsByNormalizedName.get(normalize(targetName));
   if (!target || target === source) return;
   relatedCardsByName.get(normalize(source.name)).set(normalize(target.name), target);
   relatedCardsByName.get(normalize(target.name)).set(normalize(source.name), source);
@@ -427,7 +400,7 @@ function renderKanaNavigation(items) {
 
 function findCard(name) {
   const target = normalize(name);
-  return allRulings.find((item) => normalize(item.name) === target);
+  return cardsByNormalizedName.get(target);
 }
 
 function cardReference(name, displayName = `《${name}》`, highlightCurrent = false) {
@@ -527,6 +500,7 @@ function imagePanel(item) {
 }
 
 function environmentMatches(environments) {
+  if (environmentMode === "all") return true;
   const values = environments?.length ? environments : ['1103'];
   return values.some((environment) => selectedEnvironments.has(environment));
 }
@@ -971,10 +945,12 @@ let indexedEnvironmentMode = null;
 function rebuildEnvironmentSearchIndex() {
 for (const item of allRulings) {
   rulingSearchIndex.set(item, {
-    all: normalize(searchableText(item)),
+    all: expandSearchText(searchableText(item)),
     name: normalize(item.name),
     reading: normalize(item.reading),
-    qa: normalize(qaSearchableText(item))
+    qa: expandSearchText(qaSearchableText(item)),
+    qaEntries: new Map(orderedQa(item).map(entry => [entry, expandSearchText([item.name, item.reading, entry.question, entry.answer, ...(entry.tags || [])].join(" "))])),
+    overview: expandSearchText([item.name, item.reading, item.overview, item.summary, ...(item.details || [])].join(" "))
   });
 }
 indexedEnvironmentMode = environmentMode;
@@ -1018,17 +994,11 @@ function renderCardBody(item) {
 }
 
 function qaSearchPreviews(item) {
-  const query = normalize(searchInput.value);
-  if (referencedCardName || !query || normalize(item.name).includes(query) || normalize(item.reading).includes(query)) return '';
-  const matches = orderedQa(item).filter(entry => normalize(`${entry.question} ${entry.answer}`).includes(query));
+  const tokens = searchTokens(searchInput.value);
+  if (referencedCardName || !tokens.length || nameMatchesTokens(item, tokens)) return '';
+  const matches = matchingQa(item, tokens);
   if (!matches.length) return '';
-  const excerpt = (value) => {
-    const text = cleanQaText(value).replace(/\s+/g, ' ');
-    const position = normalize(text).indexOf(query);
-    const start = Math.max(0, position - 35);
-    return `${start ? '…' : ''}${text.slice(start, start + 180)}${text.length > start + 180 ? '…' : ''}`;
-  };
-  return `<div class="qa-search-previews" aria-label="検索に該当するQ&A">${matches.map(entry => `<button class="qa-search-preview" type="button" data-qa-jump="${escapeHtml(entry.managementId)}"><span>Q ${escapeHtml(excerpt(entry.question))}</span>${normalize(entry.answer).includes(query) ? `<small>回答：${escapeHtml(excerpt(entry.answer))}</small>` : ''}<strong>このQ&Aを開く →</strong></button>`).join('')}</div>`;
+  return `<div class="qa-search-previews" aria-label="検索に該当するQ&A">${matches.map(entry => `<button class="qa-search-preview" type="button" data-qa-jump="${escapeHtml(entry.managementId)}"><span>Q ${searchSnippet(cleanQaText(entry.question), tokens)}</span><small>回答：${searchSnippet(cleanQaText(entry.answer), tokens)}</small><strong>このQ&Aを開く →</strong></button>`).join('')}</div>`;
 }
 
 function renderCard(item, index) {
@@ -1098,31 +1068,32 @@ function advancedFilterMatches(item) {
   for (const group of filterGroups) {
     const selected = advancedSelections.get(group.id);
     if (!selected?.size) continue;
-    const values = ["monsterTags", "otherTags"].includes(group.id) ? tagsFor(item) : [item[group.id]].filter(Boolean);
-    if (!values.some((value) => selected.has(value))) return false;
+    const values = ['rulingTerms', 'monsterTags', 'otherTags'].includes(group.id) ? filterTagsFor(item) : [item[group.id]].filter(Boolean);
+    if (!values.some(value => selected.has(value))) return false;
   }
   return true;
 }
 
 function buildAdvancedFilters() {
-  advancedFilters.innerHTML = filterGroups.map((group) => `
-    <fieldset class="advanced-filter-group">
-      <legend>${escapeHtml(group.label)}</legend>
-      <div class="advanced-filter-options">
-        ${group.options.map((option) => `
-          <label>
-            <input type="checkbox" data-filter-group="${escapeHtml(group.id)}" value="${escapeHtml(option)}">
-            <span>${escapeHtml(option)}</span>
-          </label>`).join("")}
-      </div>
-    </fieldset>`).join("");
+  advancedFilters.innerHTML = filterGroups.map(group => `
+    <details class="filter-section filter-section--${group.id}">
+      <summary>${escapeHtml(group.label)} <span class="selection-summary" data-group-summary="${group.id}">指定なし</span></summary>
+      <fieldset class="advanced-filter-group"><legend class="visually-hidden">${escapeHtml(group.label)}</legend>
+      <p class="filter-help">複数選択時は、いずれかに該当するカードを表示します。</p>
+      <div class="advanced-filter-options">${group.options.map((option, index) => {
+        const id = `filter-${group.id}-${index}`;
+        const term = searchConfig.terms.find(term => term.label === option);
+        return `<div class="filter-option"><input id="${id}" type="checkbox" data-filter-group="${group.id}" value="${escapeHtml(option)}" aria-label="${escapeHtml(option)}で絞り込む">${term
+          ? `<button type="button" class="term-help" aria-expanded="false" aria-controls="${id}-help">${escapeHtml(option)} <span aria-hidden="true">ⓘ</span></button><span id="${id}-help" class="term-tooltip" role="tooltip" hidden>${escapeHtml(term.description || '説明準備中です。')}</span>`
+          : `<label for="${id}">${escapeHtml(option)}${effectIcon({spellType: group.id === 'spellType' ? option : '', trapType: group.id === 'trapType' ? option : ''})}</label>`}</div>`;
+      }).join('')}</div></fieldset>
+    </details>`).join('');
 }
 
 function resetAdvancedFilters() {
   advancedSelections.clear();
-  advancedPanel.querySelectorAll("input[type='checkbox']").forEach((input) => {
-    input.checked = input.closest(".environment-filter") ? input.value === "1103" : false;
-  });
+  advancedPanel.querySelectorAll("input[type='checkbox']").forEach(input => { input.checked = false; });
+  setEnvironmentMode('all');
 }
 
 function goHome() {
@@ -1161,6 +1132,7 @@ function closeMenu() {
 }
 
 function render() {
+  syncFilterSummary();
   if (indexedEnvironmentMode !== environmentMode) rebuildEnvironmentSearchIndex();
   window.clearTimeout(searchRenderTimer);
   searchRenderTimer = 0;
@@ -1176,7 +1148,8 @@ function render() {
     list.innerHTML = `<div class="reference-notice" role="status">${outside ? `このカードは選択中の${escapeHtml(environmentMode.split('-')[0])}環境${environmentMode.endsWith('-only') ? '（新規のみ）' : ''}の表示対象外です。参考として表示しています。` : '選択中の環境を維持してカードを参照しています。'}<button type="button" data-reference-back>元の裁定へ戻る</button></div>` + (target ? renderCard(target, 'reference') : '<p>このカードは未掲載です。</p>');
     return;
   }
-  const query = normalize(searchInput.value);
+  const tokens = searchTokens(searchInput.value);
+  const query = tokens.join('');
   const directIdMatch = directManagementIdQuery(searchInput.value);
   activeDifficultSearch = query === normalize("難解");
   activeQaSearchItem = directIdMatch?.entry ? directIdMatch.item : null;
@@ -1188,10 +1161,11 @@ function render() {
     return typeMatches && environmentMatchesItem && advancedFilterMatches(item)
       && (!directIdMatch || item === directIdMatch.item)
       && (!directIdMatch?.entry || environmentMatches(qaEnvironments(directIdMatch.entry, item)))
-      && (!query || haystack.includes(query));
+      && (!tokens.length || matchesSearch(item, tokens));
   });
 
   count.textContent = `${items.length}件`;
+  document.querySelector('#showResults').textContent = `${items.length}件の結果を見る`;
   emptyState.hidden = items.length !== 0;
 
   if (!query) {
@@ -1211,7 +1185,7 @@ function render() {
   rowNavigation.hidden = true;
 
   const nameMatches = items
-    .filter((item) => rulingSearchIndex.get(item).name.includes(query))
+    .filter((item) => tokens.every(token => rulingSearchIndex.get(item).name.includes(token)))
     .sort((a, b) => {
       const aExact = rulingSearchIndex.get(a).name === query;
       const bExact = rulingSearchIndex.get(b).name === query;
@@ -1220,11 +1194,11 @@ function render() {
     });
   const nameSet = new Set(nameMatches);
   const readingMatches = items.filter((item) =>
-    !nameSet.has(item) && rulingSearchIndex.get(item).reading.includes(query)
+    !nameSet.has(item) && tokens.every(token => rulingSearchIndex.get(item).reading.includes(token))
   );
   const readingSet = new Set(readingMatches);
   const qaMatches = items.filter((item) =>
-    !nameSet.has(item) && !readingSet.has(item) && rulingSearchIndex.get(item).qa.includes(query)
+    !nameSet.has(item) && !readingSet.has(item) && matchingQa(item, tokens).length > 0
   );
   const groupedSet = new Set([...nameMatches, ...readingMatches, ...qaMatches]);
   const otherMatches = items.filter((item) => !groupedSet.has(item));
@@ -1331,6 +1305,8 @@ rowNavigation.addEventListener("click", (event) => {
   const target = document.querySelector(link.getAttribute("href"));
   if (!target) return;
   event.preventDefault();
+  advancedPanel.hidden = true;
+  advancedToggle.setAttribute('aria-expanded', 'false');
   target.scrollIntoView({ behavior: "smooth", block: "start" });
 });
 
@@ -1395,7 +1371,7 @@ async function shareSite() {
   siteUrl.search = "";
   siteUrl.hash = "";
   const url = siteUrl.toString();
-  const shareData = { title: document.title, text: "遊戯王1103環境 裁定集", url };
+  const shareData = { title: document.title, text: "遊戯王 GB 裁定アーカイブ", url };
   try {
     if (navigator.share) {
       await navigator.share(shareData);
@@ -1510,18 +1486,208 @@ if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => navigator.serviceWorker.register("./sw.js"));
 }
 
-document.querySelector('#environmentButtons').addEventListener('click', event => {
-  const button = event.target.closest('[data-environment-mode]');
+// This is deliberately separate from card-name identity normalization.
+function searchTokens(value) {
+  return [...String(value || '').normalize('NFKC').matchAll(/"([^"]+)"|([^\s]+)/g)]
+    .map(match => {
+      let token = normalize(match[1] || match[2]);
+      for (const [alias, full] of Object.entries(searchConfig.aliases)) token = token.replaceAll(normalize(alias), normalize(full));
+      return token;
+    }).filter(Boolean);
+}
+
+function expandSearchText(value) {
+  let text = normalize(value);
+  for (const [alias, full] of Object.entries(searchConfig.aliases)) text = text.replaceAll(normalize(alias), normalize(full));
+  // Add the registered reading of mentioned cards, including references in Q&A.
+  if (!expandSearchText.names) {
+    const names = new Map();
+    for (const card of allRulings) {
+      const name = normalize(card.name), reading = normalize(card.reading);
+      if (name && reading) { names.set(name, name + ' ' + reading); names.set(reading, name + ' ' + reading); }
+    }
+    expandSearchText.names = names;
+    expandSearchText.pattern = new RegExp([...names.keys()].sort((a,b) => b.length-a.length).map(name => name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|'), 'g');
+  }
+  const additions = new Set();
+  for (const match of text.matchAll(expandSearchText.pattern)) additions.add(expandSearchText.names.get(match[0]));
+  return [text, ...additions].join(' ');
+}
+
+function nameMatchesTokens(item, tokens) {
+  return tokens.every(token => normalize(item.name).includes(token) || normalize(item.reading).includes(token));
+}
+
+function matchingQa(item, tokens) {
+  const indexed = rulingSearchIndex.get(item);
+  return orderedQa(item).filter(entry => {
+    const text = indexed?.qaEntries.get(entry) || expandSearchText([item.name, item.reading, entry.question, entry.answer].join(' '));
+    return tokens.every(token => text.includes(token));
+  });
+}
+
+function matchesSearch(item, tokens) {
+  const indexed = rulingSearchIndex.get(item);
+  if (nameMatchesTokens(item, tokens)) return true;
+  // Multiple terms must occur in one Q&A (including its owning card) or overview.
+  // Never combine unrelated Q&As into a false A+B match.
+  if (tokens.length > 1) return matchingQa(item, tokens).length > 0 || tokens.every(token => indexed.overview.includes(token));
+  return tokens.every(token => indexed.all.includes(token));
+}
+
+function searchSnippet(value, tokens) {
+  const text = String(value || '').replace(/\s+/g, ' ');
+  let flat = '';
+  const positions = [];
+  for (let i = 0; i < text.length; i++) {
+    const chars = normalize(text[i]);
+    flat += chars;
+    for (let j = 0; j < chars.length; j++) positions.push(i);
+  }
+  const needles = new Set(tokens);
+  for (const [alias, full] of Object.entries(searchConfig.aliases)) {
+    if (tokens.some(token => normalize(full).includes(token))) needles.add(normalize(alias));
+  }
+  for (const card of allRulings) {
+    if (tokens.some(token => normalize(card.reading).includes(token))) needles.add(normalize(card.name));
+  }
+  const spans = [];
+  for (const needle of needles) {
+    if (!needle) continue;
+    for (let at = flat.indexOf(needle); at >= 0; at = flat.indexOf(needle, at + needle.length)) {
+      spans.push([positions[at], positions[at + needle.length - 1] + 1]);
+    }
+  }
+  spans.sort((a,b) => a[0] - b[0]);
+  const start = Math.max(0, (spans[0]?.[0] || 0) - 30), end = Math.min(text.length, start + 150);
+  const merged = [];
+  for (const [from,to] of spans) {
+    if (to <= start || from >= end) continue;
+    const last = merged.at(-1);
+    if (last && from <= last[1]) last[1] = Math.max(last[1], Math.min(end,to));
+    else merged.push([Math.max(start,from),Math.min(end,to)]);
+  }
+  let out = start ? '…' : '', cursor = start;
+  for (const [from,to] of merged) {
+    out += escapeHtml(text.slice(cursor,from)) + '<mark>' + escapeHtml(text.slice(from,to)) + '</mark>';
+    cursor = to;
+  }
+  return out + escapeHtml(text.slice(cursor,end)) + (end < text.length ? '…' : '');
+}
+
+function filterTagsFor(item) {
+  const tags = new Set([...tagsFor(item), ...(item.tags || []), ...(item.rulingTags || []), ...(searchConfig.cardTags[item.name] || [])]);
+  for (const entry of orderedQa(item)) {
+    for (const tag of [...(entry.tags || []), ...(entry.specialTags || []), ...(searchConfig.qaTags[entry.managementId] || [])]) tags.add(tag);
+    if (entry.difficult || entry.provisional) tags.add('難解な裁定・暫定回答');
+    if (entry.judgeConfirmation) tags.add('ジャッジ確認案件');
+  }
+  for (const term of searchConfig.terms) {
+    if ((term.aliases || []).some(alias => tags.has(alias))) tags.add(term.label);
+  }
+  if (tags.has('暫定回答あり') || tags.has('暫定回答') || tags.has('難解')) tags.add('難解な裁定・暫定回答');
+  if (tags.has('調整中・ジャッジ案件')) tags.add('ジャッジ確認案件');
+  return [...tags];
+}
+
+function syncFilterSummary() {
+  filters.querySelectorAll('.filter').forEach(button => {
+    const selected = button.dataset.filter === currentFilter;
+    button.classList.toggle('is-active', selected);
+    button.setAttribute('aria-pressed', String(selected));
+  });
+  const chips = [];
+  if (currentFilter !== 'all') chips.push(`<button type="button" data-clear-type>${escapeHtml(typeLabels[currentFilter])} ×</button>`);
+  if (environmentMode !== 'all') chips.push(`<button type="button" data-clear-environment>${escapeHtml(environmentNames[environmentMode])} ×</button>`);
+  for (const group of filterGroups) {
+    const selected = advancedSelections.get(group.id) || new Set();
+    const summary = document.querySelector(`[data-group-summary="${group.id}"]`);
+    if (summary) summary.textContent = selected.size ? `${selected.size}件選択` : '指定なし';
+    for (const value of selected) chips.push(`<button type="button" data-clear-group="${group.id}" data-clear-value="${escapeHtml(value)}">${escapeHtml(value)} ×</button>`);
+  }
+  const active = document.querySelector('#activeConditions');
+  active.innerHTML = chips.join('');
+  active.hidden = !chips.length;
+}
+
+function clearConditions() {
+  clearCardNavigation();
+  currentFilter = 'all';
+  resetAdvancedFilters();
+  render();
+}
+
+document.querySelector('#clearConditions').addEventListener('click', clearConditions);
+document.querySelector('#showResults').addEventListener('click', () => {
+  advancedPanel.hidden = true;
+  advancedToggle.setAttribute('aria-expanded', 'false');
+  document.querySelector('.result-heading').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  advancedToggle.focus({ preventScroll: true });
+});
+document.querySelector('#activeConditions').addEventListener('click', event => {
+  const button = event.target.closest('button');
   if (!button) return;
   clearCardNavigation();
-  environmentPickerExpanded = false;
-  setEnvironmentMode(button.dataset.environmentMode);
+  if (button.hasAttribute('data-clear-type')) currentFilter = 'all';
+  if (button.hasAttribute('data-clear-environment')) setEnvironmentMode('all');
+  if (button.dataset.clearGroup) {
+    advancedSelections.get(button.dataset.clearGroup)?.delete(button.dataset.clearValue);
+    advancedPanel.querySelectorAll('input[type="checkbox"]').forEach(input => {
+      input.checked = advancedSelections.get(input.dataset.filterGroup)?.has(input.value) || false;
+    });
+  }
   render();
 });
-document.querySelector('#environmentPickerToggle').addEventListener('click', () => {
-  environmentPickerExpanded = !environmentPickerExpanded;
-  syncEnvironmentPicker();
+
+let activeTermButton = null;
+let pinnedTermButton = null;
+function closeTermHelp() {
+  if (!activeTermButton) return;
+  document.getElementById(activeTermButton.getAttribute('aria-controls')).hidden = true;
+  activeTermButton.setAttribute('aria-expanded', 'false');
+  activeTermButton = pinnedTermButton = null;
+}
+function openTermHelp(button) {
+  if (activeTermButton !== button) closeTermHelp();
+  activeTermButton = button;
+  const tip = document.getElementById(button.getAttribute('aria-controls'));
+  tip.hidden = false;
+  button.setAttribute('aria-expanded', 'true');
+  const box = button.getBoundingClientRect();
+  const width = Math.min(300, window.innerWidth - 24);
+  tip.style.width = `${width}px`;
+  tip.style.left = `${Math.max(12, Math.min(box.left, window.innerWidth - width - 12))}px`;
+  tip.style.top = `${Math.max(8, Math.min(box.bottom + 6, window.innerHeight - tip.offsetHeight - 12))}px`;
+}
+advancedFilters.addEventListener('click', event => {
+  const button = event.target.closest('.term-help');
+  if (!button) return;
+  if (pinnedTermButton === button) closeTermHelp();
+  else { openTermHelp(button); pinnedTermButton = button; }
 });
+advancedFilters.addEventListener('pointerover', event => {
+  if (event.pointerType !== 'mouse') return;
+  const button = event.target.closest('.term-help');
+  if (button && !pinnedTermButton) openTermHelp(button);
+});
+advancedFilters.addEventListener('pointerout', event => {
+  if (pinnedTermButton || !activeTermButton) return;
+  if (!event.target.closest('.filter-option')?.contains(event.relatedTarget)) closeTermHelp();
+});
+advancedFilters.addEventListener('focusin', event => {
+  const button = event.target.closest('.term-help');
+  if (button) openTermHelp(button);
+});
+advancedFilters.addEventListener('focusout', event => {
+  if (!event.target.closest('.filter-option')?.contains(event.relatedTarget)) closeTermHelp();
+});
+document.addEventListener('click', event => {
+  if (!event.target.closest('.term-help, .term-tooltip')) closeTermHelp();
+});
+document.addEventListener('keydown', event => { if (event.key === 'Escape') closeTermHelp(); });
+window.addEventListener('resize', closeTermHelp);
+window.addEventListener('scroll', closeTermHelp, { passive: true });
+
 setEnvironmentMode(environmentMode);
 buildAdvancedFilters();
 render();
