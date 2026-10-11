@@ -21,7 +21,7 @@ window.RULING_SEARCH_CONFIG = {
   // Explicit additions can be keyed by card name or Q&A management ID.
   cardTags: {},
   qaTags: {},
-  // Only explicitly reviewed new/changed rulings belong here.
+  // Optional additional overrides; Q&A environment tags also select later-environment rulings.
   // Keys: Q&A management IDs; values: ['1209'] and/or ['1402'].
   newRulings: {}
 };

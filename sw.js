@@ -1,5 +1,14 @@
-const CACHE_NAME = "rulings-1103-v60";
+const CACHE_NAME = "rulings-1103-v61";
 const ASSETS = [
+  "./images/ui-20261011/hero-1103.webp",
+  "./images/ui-20261011/hero-1209.webp",
+  "./images/ui-20261011/hero-1402.webp",
+  "./images/ui-20261011/format-all.webp",
+  "./images/ui-20261011/format-1103.webp",
+  "./images/ui-20261011/format-1209.webp",
+  "./images/ui-20261011/format-1209-only.webp",
+  "./images/ui-20261011/format-1402-only.webp",
+
   "./images/yugioh-gb-logo.png",
   "./search-config.js",
   "./fonts/gb-title.woff2",
