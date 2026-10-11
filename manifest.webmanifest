@@ -1,7 +1,7 @@
 {
-  "name": "遊戯王1103環境 裁定集",
-  "short_name": "1103裁定集",
-  "description": "遊戯王OCG 2011年3月環境の裁定検索アプリ",
+  "name": "遊戯王 GB 裁定アーカイブ",
+  "short_name": "GB裁定",
+  "description": "1103・1209・1402環境の裁定検索アーカイブ",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
