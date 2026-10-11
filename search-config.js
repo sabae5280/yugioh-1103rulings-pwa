@@ -14,9 +14,14 @@ window.RULING_SEARCH_CONFIG = {
     { label: '分類されない効果' },
     { label: '妥協召喚' },
     { label: '対象を選ぶ（対象を取らない効果）', aliases: ['対象を選ぶ', '対象を取らない効果'] },
-    { label: '複数のモンスターを特殊召喚する効果' }
+    { label: '複数のモンスターを特殊召喚する効果' },
+    { label: 'ダメージステップ', aliases: ['ダメステ'] },
+    { label: 'エンドフェイズの処理', aliases: ['エンドフェイズ'] }
   ],
   // Explicit additions can be keyed by card name or Q&A management ID.
   cardTags: {},
-  qaTags: {}
+  qaTags: {},
+  // Only explicitly reviewed new/changed rulings belong here.
+  // Keys: Q&A management IDs; values: ['1209'] and/or ['1402'].
+  newRulings: {}
 };
