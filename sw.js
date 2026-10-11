@@ -1,5 +1,6 @@
-const CACHE_NAME = "rulings-1103-v59";
+const CACHE_NAME = "rulings-1103-v60";
 const ASSETS = [
+  "./images/yugioh-gb-logo.png",
   "./search-config.js",
   "./fonts/gb-title.woff2",
   "./rulings-instructions-20261009-2.js",

@@ -862,10 +862,12 @@ html.is-standalone .hero .share-button {
 /* October 11: compact header and two-level search controls. */
 @font-face { font-family: 'GB Dot'; src: url('./fonts/gb-title.woff2') format('woff2'); font-display: swap; font-weight: 400; }
 .hero { background: #101a32; border-bottom: 3px solid #e9bf54; }
-.hero__inner { display: grid; grid-template-columns: 1fr auto; gap: 8px 12px; min-height: 0; padding: calc(10px + env(safe-area-inset-top, 0px)) 0 20px; }
+.hero__inner { display: grid; grid-template-columns: 1fr auto auto; gap: 8px 12px; min-height: 0; padding: calc(10px + env(safe-area-inset-top, 0px)) 0 20px; }
 .hero-copy { grid-column: 1 / -1; grid-row: 2; min-width: 0; }
 .hero h1 { margin: 2px 0 4px; font-family: 'GB Dot', sans-serif; font-size: clamp(20px, 4.6vw, 38px); font-weight: 400; line-height: 1.5; letter-spacing: 0; }
-.home-button { font: inherit; white-space: nowrap; text-shadow: 1px 1px 0 #395273; }
+.home-button { display: inline-flex; align-items: center; gap: clamp(8px,2vw,20px); max-width: 100%; font: inherit; white-space: nowrap; text-shadow: none; }
+.header-logo { display: block; width: clamp(110px,30vw,205px); height: auto; flex: 0 0 auto; }
+.archive-title { font-family: "Yu Gothic", "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif; font-weight: 700; font-size: clamp(18px,4.8vw,34px); letter-spacing: .015em; color: #fff; }
 .home-button:hover, .home-button:focus-visible { color: #fff; }
 .title-gb {
   position: relative;
@@ -886,8 +888,8 @@ html.is-standalone .hero .share-button {
   vertical-align: .02em;
 }
 .hero-subtitle { margin: 0; color: #dce5f5; font-size: clamp(11px, 2.9vw, 16px); letter-spacing: .04em; }
-.hero .share-button, html.is-standalone .hero .share-button { position: static !important; grid-column: 1; grid-row: 1; justify-self: start; min-height: 44px; padding: 6px 10px; box-shadow: none; }
-.hero .hero-actions { position: static; grid-column: 2; grid-row: 1; }
+.hero .share-button, html.is-standalone .hero .share-button { position: static !important; grid-column: 2; grid-row: 1; justify-self: end; min-height: 44px; padding: 6px 10px; box-shadow: none; }
+.hero .hero-actions { position: static; grid-column: 3; grid-row: 1; }
 .hero .menu-button, .hero .install-button { min-height: 44px; padding: 6px 10px; }
 .container { margin-top: 14px; }
 .search-panel { padding: 16px; }
@@ -938,6 +940,12 @@ html.is-standalone .hero .share-button {
 .filter-actions #showResults { background: #17243d; color: #fff; }
 .result-section { margin-top: 18px; }
 .qa-search-preview mark { background: #fff0aa; color: #17243d; border-radius: 2px; }
+.existing-rulings-section { margin-top: 24px; display: grid; gap: 12px; }
+.existing-rulings-section .row-section__title { margin-bottom: 0; }
+.existing-rulings-section .row-section__title small { font-size: .75rem; color: #536179; font-weight: 500; }
+.existing-ruling .ruling-body { padding: 0 12px 12px; }
+.existing-ruling .card-section { margin-top: 12px; }
+.existing-rulings-empty { margin: 0; padding: 12px; background: #f5f7fa; border-radius: 8px; color: #536179; font-size: .83rem; }
 button:focus-visible, summary:focus-visible, input:focus-visible, a:focus-visible { outline: 3px solid #b48616; outline-offset: 3px; }
 @media (max-width: 680px) {
   .search-panel { padding: 12px; }

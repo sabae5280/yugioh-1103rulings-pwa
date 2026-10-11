@@ -35,7 +35,7 @@ const environmentModes = {
   'all': ['1103', '1209', '1402'], '1103': ['1103'],
   '1209': ['1103', '1209'], '1209-only': ['1209'], '1402-only': ['1402']
 };
-const environmentNames = { all: 'すべて', '1103': '1103環境', '1209': '1209環境', '1209-only': '1209新規カード', '1402-only': '1402新規カード' };
+const environmentNames = { all: 'すべて', '1103': '1103環境', '1209': '1209環境', '1209-only': '1209新規カード・新規裁定', '1402-only': '1402新規カード・新規裁定' };
 // Each new visit starts with all cards; old saved environment filters must not hide results.
 let environmentMode = 'all';
 function setEnvironmentMode(mode) {
@@ -556,8 +556,8 @@ function qaImagesPanel(entry, item) {
   }).join("")}</div>`;
 }
 
-function qaPanel(item) {
-  let entries = orderedQa(item);
+function qaPanel(item, entriesOverride = null) {
+  let entries = entriesOverride ?? orderedQa(item);
   if (activeDifficultSearch) entries = entries.filter((entry) => entry.difficult);
   if (activeQaSearchItem === item && activeQaSearchId) {
     entries = entries.filter((entry) => normalizedManagementId(entry.managementId) === activeQaSearchId);
@@ -654,6 +654,8 @@ function tagsFor(item) {
   if (item.summonRule || /召喚ルール効果|召喚ルールによる特殊召喚/.test(articleText)) autoTags.push("召喚ルール効果");
   if (/手札で発動する誘発効果|手札誘発/.test(articleText)) autoTags.push("手札誘発");
   if (/一連の効果/.test(articleText)) autoTags.push("一連の効果");
+  if (/ダメージステップ|ダメステ|DS表/.test(articleText)) autoTags.push("ダメージステップ");
+  if (/エンドフェイズ/.test(articleText)) autoTags.push("エンドフェイズの処理");
   if (/暫定回答/.test(articleText)) autoTags.push("暫定回答あり");
   if (/調整中|ジャッジ案件/.test(articleText)) autoTags.push("調整中・ジャッジ案件");
   let baseTags = [];
@@ -1131,6 +1133,55 @@ function closeMenu() {
   menuButton.focus();
 }
 
+function firstCardEnvironment(item) {
+  return ['1103', '1209', '1402'].find(env => (item.environments || ['1103']).includes(env)) || '1103';
+}
+
+function newRulingsFor(item, environment) {
+  return (item.qa || []).filter(entry => {
+    const marked = [...(entry.newInEnvironments || []), ...(searchConfig.newRulings?.[entry.managementId] || [])];
+    return marked.includes(environment);
+  });
+}
+
+function existingNewRulingGroups(tokens, directIdMatch) {
+  if (!environmentMode.endsWith('-only')) return [];
+  const environment = environmentMode.split('-')[0];
+  const rank = { '1103': 0, '1209': 1, '1402': 2 };
+  return allRulings.flatMap(item => {
+    if (rank[firstCardEnvironment(item)] >= rank[environment]) return [];
+    if (currentFilter !== 'all' && item.type !== currentFilter) return [];
+    if (directIdMatch && directIdMatch.item !== item) return [];
+    const entries = newRulingsFor(item, environment).filter(entry => {
+      if (directIdMatch?.entry && directIdMatch.entry !== entry) return false;
+      if (activeDifficultSearch && !entry.difficult) return false;
+      if (!tokens.length) return true;
+      const text = expandSearchText([item.name, item.reading, entry.question, entry.answer, entry.managementId, entry.difficult ? '難解' : ''].join(' '));
+      return tokens.every(token => text.includes(token));
+    });
+    if (!entries.length) return [];
+    // Restrict Q&A tags to the entries that will actually be shown in this section.
+    const scoped = { ...item, qa: entries.map(entry => ({ ...entry, environments: [environment] })) };
+    if (!advancedFilterMatches(scoped)) return [];
+    return [{ item, entries }];
+  });
+}
+
+function renderExistingNewRulings(groups) {
+  if (!environmentMode.endsWith('-only')) return '';
+  const environment = environmentMode.split('-')[0];
+  return `<section class="existing-rulings-section" aria-labelledby="existing-rulings-title">
+    <h3 id="existing-rulings-title" class="row-section__title">既存カードの新規裁定 <small>${environment}環境</small></h3>
+    ${groups.length ? groups.map(({item, entries}, index) => `
+      <article class="ruling-card existing-ruling" data-card-name="${escapeHtml(item.name)}">
+        <button class="ruling-toggle" type="button" aria-expanded="true" aria-controls="existing-ruling-${index}">
+          ${typeBadge(item)}<span class="card-name">${cardTitle(item)}</span>${effectIcon(item)}<span class="chevron" aria-hidden="true">⌄</span>
+        </button>
+        <div id="existing-ruling-${index}" class="ruling-body" data-loaded="true" data-card-name="${escapeHtml(item.name)}">${qaPanel(item, entries)}</div>
+      </article>`).join('') : '<p class="existing-rulings-empty">この表示条件に該当する新規裁定は、まだ登録されていません。</p>'}
+  </section>`;
+}
+
 function render() {
   syncFilterSummary();
   if (indexedEnvironmentMode !== environmentMode) rebuildEnvironmentSearchIndex();
@@ -1156,7 +1207,9 @@ function render() {
   activeQaSearchId = directIdMatch?.entry ? normalizedManagementId(directIdMatch.entry.managementId) : null;
   const items = allRulings.filter((item) => {
     const typeMatches = currentFilter === "all" || item.type === currentFilter;
-    const environmentMatchesItem = environmentMatches(item.environments);
+    const environmentMatchesItem = environmentMode.endsWith('-only')
+      ? firstCardEnvironment(item) === environmentMode.split('-')[0]
+      : environmentMatches(item.environments);
     const haystack = rulingSearchIndex.get(item).all;
     return typeMatches && environmentMatchesItem && advancedFilterMatches(item)
       && (!directIdMatch || item === directIdMatch.item)
@@ -1164,9 +1217,12 @@ function render() {
       && (!tokens.length || matchesSearch(item, tokens));
   });
 
-  count.textContent = `${items.length}件`;
-  document.querySelector('#showResults').textContent = `${items.length}件の結果を見る`;
-  emptyState.hidden = items.length !== 0;
+  const existingGroups = existingNewRulingGroups(tokens, directIdMatch);
+  const existingCount = existingGroups.reduce((total, group) => total + group.entries.length, 0);
+  const existingHtml = renderExistingNewRulings(existingGroups);
+  count.textContent = `${items.length}件${existingCount ? ` ＋ 既存カードの新規裁定 ${existingCount}件` : ''}`;
+  document.querySelector('#showResults').textContent = `${items.length + existingCount}件の結果を見る`;
+  emptyState.hidden = items.length + existingCount !== 0;
 
   if (!query) {
     renderKanaNavigation(items);
@@ -1178,7 +1234,7 @@ function render() {
         <h3 id="row-title-${row.id}" class="row-section__title">${row.label}</h3>
         <div class="row-section__cards">${rowItems.map((item) => renderCard(item, rowCardIndex++)).join("")}</div>
       </section>`;
-    }).join("");
+    }).join("") + existingHtml;
     return;
   }
 
@@ -1220,7 +1276,7 @@ function render() {
           ${group.items.map((item) => renderCard(item, cardIndex++)).join("")}
         </div>
       </section>`)
-    .join("");
+    .join("") + existingHtml;
 }
 
 list.addEventListener("click", async (event) => {
