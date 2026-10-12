@@ -1031,3 +1031,11 @@ button:focus-visible, summary:focus-visible, input:focus-visible, a:focus-visibl
 .reference-image img { display:block;width:100%;height:auto; }
 .reference-image.is-zoomed img { width:180%;max-width:none; }
 @media(max-width:680px){ .reference-dialog { width:100%;margin:auto 0 0;max-height:94dvh;border-radius:16px 16px 0 0; } .reference-dialog h2{font-size:14px;} .reference-dialog header button{font-size:12px;} }
+.menu-guide { display:flex;align-items:center;gap:4px;margin-top:18px;padding-bottom:12px; }
+.menu-guide__portrait { position:relative;flex:0 0 140px;width:140px;aspect-ratio:512/696; }
+.menu-guide__portrait img { position:absolute;inset:0;display:block;width:100%;height:auto;object-fit:contain;visibility:hidden; }
+.menu-guide__portrait img.is-current { visibility:visible; }
+.menu-guide__bubble { position:relative;flex:1;min-width:0;padding:12px 10px;background:white;border:2px solid #d5a940;border-radius:16px;font-size:13px;font-weight:700;line-height:1.8;white-space:pre-line; }
+.menu-guide__bubble::after { content:'';position:absolute;right:-8px;top:50%;width:12px;height:12px;background:white;border-top:2px solid #d5a940;border-right:2px solid #d5a940;transform:rotate(45deg); }
+.menu-guide__typed { display:block;min-height:10.8em; }
+@media(max-width:360px){.site-menu__drawer{padding:14px;} .menu-guide__bubble{font-size:12px;padding:9px 7px;} }

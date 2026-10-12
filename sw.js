@@ -1,5 +1,11 @@
-const CACHE_NAME = "rulings-1103-v68";
+const CACHE_NAME = "rulings-1103-v69";
 const ASSETS = [
+"./menu-guide.js",
+"./images/guide/death-guide-00-idle-site.webp",
+"./images/guide/death-guide-01-blink-site.webp",
+"./images/guide/death-guide-02-wave-in-site.webp",
+"./images/guide/death-guide-03-wave-smile-site.webp",
+
  "./reference-library.js",
  "./damage-step-reference.pdf",
  "./pot-of-duality-flowchart.pdf",
