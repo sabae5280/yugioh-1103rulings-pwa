@@ -977,3 +977,18 @@ button:focus-visible, summary:focus-visible, input:focus-visible, a:focus-visibl
 #formatPicker input[type="radio"]:checked { background:#245b91; border-color:#245b91; }
 #formatPicker input[type="radio"]:checked::after { content:'✓'; color:white; font-size:13px; line-height:1; }
 #formatPicker input[type="radio"]:focus-visible { outline:2px solid #245b91; outline-offset:3px; }
+/* October 12: borderless art, gentle motion, and readable format artwork. */
+.hero-frame { position:absolute; inset:0; opacity:0; transition:opacity .8s ease; }
+.hero-frame.is-visible { opacity:1; }
+.hero-frame > div { position:absolute; inset:0; background-size:cover; background-position:center; transform:scale(1.05); }
+.overview-point.overview-point--section { margin-top:1.05em; }
+#formatPicker .environment-option { min-height:88px; padding:10px 10px 10px 104px; }
+#formatPicker .environment-option::before { inset:0 auto 0 0; width:100px; background-image:var(--format-image); background-size:auto 160%; background-position:50% 40%; opacity:.9; mask-image:linear-gradient(90deg,#000 70%,transparent); }
+#formatPicker .environment-option span { margin-left:0; }
+#formatPicker .environment-option input { position:absolute; left:7px; bottom:7px; box-shadow:0 0 0 2px #fff; }
+#formatPicker [data-format="all"]::before { background-position:50% 25%; }
+#formatPicker [data-format="1209-only"]::before { background-position:20% 40%; }
+#formatPicker [data-format="1402-only"]::before { background-position:55% 55%; }
+@media (prefers-reduced-motion:reduce) { .hero-frame { transition:none; } .hero-frame > div { transform:none; } }
+.hero .hero-copy { grid-column:1 / -1; grid-row:2; min-width:0; }
+@media (max-width:680px) { .hero .archive-title { font-size:clamp(16px,4.4vw,25px); } }
