@@ -869,11 +869,13 @@ function renderOverviewBody(value) {
   const lines = text.split("\n");
   const output = [];
   let point = null;
+  let headingCount = 0;
   let prose = [];
   const flushPoint = () => {
     if (!point) return;
     const marker = point.marker;
-    output.push(`<div class="overview-point overview-point--${marker === "▷" ? "sub" : "main"}"><span class="overview-point__marker">${escapeHtml(marker)}</span><span class="overview-point__text">${linkedText(point.lines.join("\n"), null, true)}</span></div>`);
+    const section = marker === "■" && headingCount++ > 0 ? " overview-point--section" : "";
+    output.push(`<div class="overview-point overview-point--${marker === "▷" ? "sub" : "main"}${section}"><span class="overview-point__marker">${escapeHtml(marker)}</span><span class="overview-point__text">${linkedText(point.lines.join("\n"), null, true)}</span></div>`);
     point = null;
   };
   const flushProse = () => {
@@ -1755,18 +1757,6 @@ if (location.hash.startsWith('#card=')) {
 
 // Keep sharing available in browsers and installed PWAs alike.
 shareButton.hidden = false;
-const heroMotion = document.querySelector('#heroMotion');
-heroMotion.addEventListener('click', () => {
-  const paused = heroMotion.getAttribute('aria-pressed') !== 'true';
-  heroMotion.setAttribute('aria-pressed', String(paused));
-  heroMotion.setAttribute('aria-label', paused ? '背景の切り替えを再開' : '背景の切り替えを一時停止');
-  heroMotion.textContent = paused ? '▶' : 'Ⅱ';
-  document.querySelector('.hero').classList.toggle('motion-paused', paused);
-});
-document.addEventListener('visibilitychange', () => {
-  document.querySelector('.hero').classList.toggle('page-hidden', document.hidden);
-});
-
 document.querySelector('#formatPicker').addEventListener('click', event => {
   if (event.target.matches('input[name="environmentMode"]')) {
     document.querySelector('#formatPicker').open = false;
