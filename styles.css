@@ -1010,7 +1010,8 @@ button:focus-visible, summary:focus-visible, input:focus-visible, a:focus-visibl
 @media (max-width:680px) { .advanced-panel .filter { font-size:clamp(10px,3vw,13px); } }
 #formatPicker .environment-option::before { width:74%; background-position:calc(50% + 55px) 40%; -webkit-mask-image:linear-gradient(90deg,transparent,rgba(0,0,0,.12) 18%,rgba(0,0,0,.3) 48%,#000 90%); mask-image:linear-gradient(90deg,transparent,rgba(0,0,0,.12) 18%,rgba(0,0,0,.3) 48%,#000 90%); }
 #formatPicker [data-format="all"]::before { background-position:calc(50% + 55px) 25%; }
-#formatPicker [data-format="1209-only"]::before { background-position:calc(20% + 100px) 40%; }
+#formatPicker [data-format="1209-only"]::before { background-size:cover; background-position:center; }
 #formatPicker [data-format="1402-only"]::before { background-position:calc(55% + 55px) 55%; }
 .overview-section blockquote { white-space:normal; }
 .overview-disclosure__body { margin-top:3px; }
+
