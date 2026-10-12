@@ -1,4 +1,4 @@
-const CACHE_NAME = "rulings-1103-v63";
+const CACHE_NAME = "rulings-1103-v64";
 const ASSETS = [
   "./rulings-ta-20261012.js",
   "./images/cards-ta-20261012/card-01.png",
@@ -581,3 +581,4 @@ self.addEventListener("fetch", (event) => {
       .catch(() => caches.match(event.request).then((cached) => cached || (event.request.mode === 'navigate' ? caches.match("./index.html") : Response.error())))
   );
 });
+

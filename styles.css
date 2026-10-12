@@ -1004,3 +1004,13 @@ button:focus-visible, summary:focus-visible, input:focus-visible, a:focus-visibl
 .answer-point > span { font-weight:inherit; color:inherit; }
 .answer-line { min-height:1em; }
 .answer-point > div { white-space:pre-line; }
+/* Mobile filter row and continuous format artwork. */
+.advanced-panel .filters { display:flex; flex-wrap:nowrap; gap:4px; overflow:visible; }
+.advanced-panel .filter { flex:1 1 auto; min-width:0; padding:8px 4px; white-space:nowrap; }
+@media (max-width:680px) { .advanced-panel .filter { font-size:clamp(10px,3vw,13px); } }
+#formatPicker .environment-option::before { width:74%; background-position:calc(50% + 55px) 40%; -webkit-mask-image:linear-gradient(90deg,transparent,rgba(0,0,0,.12) 18%,rgba(0,0,0,.3) 48%,#000 90%); mask-image:linear-gradient(90deg,transparent,rgba(0,0,0,.12) 18%,rgba(0,0,0,.3) 48%,#000 90%); }
+#formatPicker [data-format="all"]::before { background-position:calc(50% + 55px) 25%; }
+#formatPicker [data-format="1209-only"]::before { background-position:calc(20% + 100px) 40%; }
+#formatPicker [data-format="1402-only"]::before { background-position:calc(55% + 55px) 55%; }
+.overview-section blockquote { white-space:normal; }
+.overview-disclosure__body { margin-top:3px; }
