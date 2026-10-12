@@ -332,6 +332,12 @@ function normalize(value) {
 }
 
 // 裁定文中の《カード名》を拾い、参照先と参照元の両方に関連リンクを作る。
+// Strip answer/check stamps from the runtime data as well as rendered text.
+for (const card of allRulings) for (const entry of card.qa || []) {
+  entry.question = stripQaDates(entry.question);
+  entry.answer = stripQaDates(entry.answer);
+}
+
 const relatedCardsByName = new Map(allRulings.map((item) => [normalize(item.name), new Map()]));
 const cardsByNormalizedName = new Map();
 for (const item of allRulings) {
@@ -431,9 +437,25 @@ function linkedText(value, currentCardName = null, preserveSingleLines = false) 
   }).replace(/\*\*([\s\S]+?)\*\*/g, "<strong>$1</strong>").replace(/\n/g, "<br>");
 }
 
+function stripQaDates(value) {
+  return String(value || '').replace(/[（(]\s*(?:(?:回答|確認|更新)日?[：:]?\s*)?\d{2,4}[\/．.]\d{1,2}[\/．.]\d{1,2}\s*[）)](?=\s*(?:$|※))/gm, '')
+    .replace(/^(?:回答|確認|更新)日[：:]\s*\d{2,4}(?:年|[\/.-])\d{1,2}(?:月|[\/.-])\d{1,2}日?\s*$/gm, '');
+}
+function renderAnswer(value, currentCardName = null) {
+  const blocks = [];
+  for (const line of cleanQaText(value).split('\n')) {
+    const marked = line.match(/^\s*([①②③④⑤⑥⑦⑧⑨⑩▷■])\s*(.*)$/);
+    if (marked) blocks.push({marker:marked[1],text:marked[2]});
+    else if (line.trim() && blocks.at(-1)?.marker) blocks.at(-1).text += '\n' + line;
+    else blocks.push({text:line});
+  }
+  return blocks.map(block => block.marker
+    ? `<div class="answer-point"><span>${block.marker}</span><div>${linkedText(block.text,currentCardName)}</div></div>`
+    : `<div class="answer-line">${linkedText(block.text,currentCardName) || '<br>'}</div>`).join('');
+}
 function cleanQaText(value) {
   const cardNames = [];
-  let cleaned = String(value || "").replace(/《[^》]+》/g, (name) => {
+  let cleaned = stripQaDates(String(value || "")).replace(/《[^》]+》/g, (name) => {
     const token = `\u0000CARD_NAME_${cardNames.length}\u0000`;
     cardNames.push(name);
     return token;
@@ -570,7 +592,7 @@ function qaPanel(item, entriesOverride = null) {
           ${entries.map((entry, index) => `
             <details class="qa-item" data-qa-id="${escapeHtml(entry.managementId || '')}"${activeQaSearchItem === item && activeQaSearchId ? " open" : ""}>
               <summary><span class="qa-marker">Q</span>${entry.difficult ? '<span class="qa-difficult-badge" title="難解な裁定" aria-label="難解な裁定">!</span>' : ""}<span class="qa-question">${linkedQaText(entry.question)}</span></summary>
-              <div class="answer"><span>A</span><p>${linkedQaText(entry.answer)}</p></div>
+              <div class="answer"><span>A</span><div class="answer-body">${renderAnswer(entry.answer)}</div></div>
               ${qaImagesPanel(entry, item)}
               <p class="qa-environment">対応：${escapeHtml(environmentLabel(qaEnvironments(entry, item)))}</p>
               ${entry.managementId ? `<p class="qa-management-id"><span>管理ID：${escapeHtml(entry.managementId)}</span>${copyIconButton(`ID: ${entry.managementId}`, "管理IDをコピー")}</p>` : ""}
@@ -638,7 +660,7 @@ function relatedPanel(item) {
           ${rulings.length ? `<div class="related-ruling-card__items">${rulings.map((ruling) => ruling.type === "qa" ? `
             <details class="related-ruling">
               <summary><span class="qa-marker">Q</span><span>${linkedQaText(ruling.question, item.name)}</span></summary>
-              <div class="answer"><span>A</span><p>${linkedQaText(ruling.answer, item.name)}</p></div>
+              <div class="answer"><span>A</span><div class="answer-body">${renderAnswer(ruling.answer, item.name)}</div></div>
             </details>` : `
             <details class="related-ruling related-ruling--overview">
               <summary>${escapeHtml(ruling.label)}内の関連記述</summary>
@@ -1543,7 +1565,15 @@ const isIos = /iphone|ipad|ipod/i.test(navigator.userAgent);
 iosTip.hidden = !(isIos && !isStandaloneDisplay);
 
 if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => navigator.serviceWorker.register("./sw.js"));
+  window.addEventListener("load", async () => {
+    try {
+      const registration = await navigator.serviceWorker.register("./sw.js", { updateViaCache: "none" });
+      await registration.update();
+      document.addEventListener('visibilitychange', () => {
+        if (!document.hidden) registration.update().catch(() => {});
+      });
+    } catch (_) { /* Offline use continues with the installed worker. */ }
+  });
 }
 
 // This is deliberately separate from card-name identity normalization.

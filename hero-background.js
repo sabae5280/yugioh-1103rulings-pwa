@@ -9,7 +9,7 @@
   const running = () => !paused && !document.hidden && visible && !reduced.matches;
   function next() {
     if (!bag.length) {
-      bag = Array.from({length:18}, (_, i) => i + 1);
+      bag = Array.from({length:19}, (_, i) => i + 1);
       for (let i = bag.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [bag[i], bag[j]] = [bag[j], bag[i]];
@@ -22,7 +22,7 @@
     const url = `./images/heroes-20261012/hero-${String(id).padStart(2,'0')}.webp`;
     return new Promise(resolve => {
       const img = new Image();
-      img.onload = () => resolve({id,url});
+      img.onload = async () => { try { await img.decode(); } catch (_) {} resolve({id,url}); };
       img.onerror = () => resolve(null);
       img.src = url;
     });
@@ -40,7 +40,7 @@
       animations[active] = inner.animate([
         {transform:`scale(1.05) translate(${-x}%,${-y * .5}%)`},
         {transform:`scale(1.09) translate(${x}%,${y * .5}%)`}
-      ], {duration:7200,fill:'forwards',easing:'linear'});
+      ], {duration:9000,fill:'forwards',easing:'linear'});
       if (!running()) animations[active].pause();
     }
   }
@@ -55,7 +55,7 @@
       pending = null;
       if (art) show(art);
       schedule();
-    },6000);
+    },7000);
   }
   function sync() {
     animations.forEach(a => running() ? a?.play() : a?.pause());
