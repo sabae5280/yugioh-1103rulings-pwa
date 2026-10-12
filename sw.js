@@ -1,5 +1,8 @@
-const CACHE_NAME = "rulings-1103-v65";
+const CACHE_NAME = "rulings-1103-v67";
 const ASSETS = [
+ "./reference-library.js",
+ "./damage-step-reference.pdf",
+ "./pot-of-duality-flowchart.pdf",
   "./rulings-ta-20261012.js",
   "./images/cards-ta-20261012/card-01.png",
   "./images/cards-ta-20261012/card-02.png",
@@ -581,5 +584,6 @@ self.addEventListener("fetch", (event) => {
       .catch(() => caches.match(event.request).then((cached) => cached || (event.request.mode === 'navigate' ? caches.match("./index.html") : Response.error())))
   );
 });
+
 
 
