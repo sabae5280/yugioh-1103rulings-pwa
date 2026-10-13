@@ -2556,7 +2556,7 @@ const K_ROW_RULINGS = [
   },
   {
     "name": "剣闘獣の戦車",
-    "reading": "グラディアルビーストのせんしゃ",
+    "reading": "グラディアルビースト・チャリオット",
     "type": "trap",
     "image": "./k-33.png",
     "overview": "※《天罰》の項目を参照してください。",
