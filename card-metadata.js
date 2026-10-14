@@ -436,7 +436,7 @@ window.CARD_METADATA = {
     ],
     "trapType": "永続罠"
   },
-  "Ｓｉｎ スターダスト・ドラゴン": {
+  "Sin スターダスト・ドラゴン": {
     "environments": [
       "1103"
     ],
