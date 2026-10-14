@@ -594,9 +594,11 @@ function qaPanel(item, entriesOverride = null) {
           ${entries.map((entry, index) => `
             <details class="qa-item" data-qa-id="${escapeHtml(entry.managementId || '')}"${activeQaSearchItem === item && activeQaSearchId ? " open" : ""}>
               <summary><span class="qa-marker">Q</span>${entry.difficult ? '<span class="qa-difficult-badge" title="難解な裁定" aria-label="難解な裁定">!</span>' : ""}<span class="qa-question">${linkedQaText(entry.question)}</span></summary>
-              <div class="answer"><span>A</span><div class="answer-body">${renderAnswer(entry.answer)}</div></div>
+              ${(entry.answers && entry.answers.length ? entry.answers : [entry]).map((answerEntry) => `
+                <div class="answer"><span>A</span><div class="answer-body">${renderAnswer(answerEntry.answer)}</div></div>
+                <p class="qa-environment">対応：${escapeHtml(environmentLabel(qaEnvironments(answerEntry, item)))}</p>
+              `).join("")}
               ${qaImagesPanel(entry, item)}
-              <p class="qa-environment">対応：${escapeHtml(environmentLabel(qaEnvironments(entry, item)))}</p>
               ${entry.managementId ? `<p class="qa-management-id"><span>管理ID：${escapeHtml(entry.managementId)}</span>${copyIconButton(`ID: ${entry.managementId}`, "管理IDをコピー")}</p>` : ""}
             </details>
           `).join("")}
