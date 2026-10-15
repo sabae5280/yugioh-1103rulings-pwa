@@ -472,11 +472,11 @@ window.RULINGS = [
       {
         question: "自身の方法による特殊召喚はチェーンブロックを作りますか？",
         answer: "作りません。"
-      , managementId: "R-KVX6UKH9KC"},
+      , managementId: "R-OYIW9W59"},
       {
         question: "特殊召喚を《王宮の弾圧》で無効にされた場合、そのデュエル中にもう一度自身の方法で特殊召喚できますか？",
         answer: "できます。特殊召喚を無効にされているため、デュエル中に1度の特殊召喚を行った扱いになりません。\n※この裁定は難解なルールを含むため、大会当日のジャッジの判断を優先してください。"
-      , managementId: "R-78WVQCYMP7"}
+      , managementId: "R-PMPW2MEA"}
     ],
     related: ["王宮の弾圧"],
     source: "note『1103環境 主要カード 裁定まとめ』"
