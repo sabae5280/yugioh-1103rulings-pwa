@@ -1,5 +1,6 @@
-const CACHE_NAME = "rulings-1103-v69";
+const CACHE_NAME = "rulings-1103-v70";
 const ASSETS = [
+  "./caius-the-shadow-monarch.jpg",
 "./menu-guide.js",
 "./images/guide/death-guide-00-idle-site.webp",
 "./images/guide/death-guide-01-blink-site.webp",
