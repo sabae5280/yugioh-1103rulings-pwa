@@ -513,6 +513,13 @@ function effectIcon(item) {
 }
 
 function imagePanel(item) {
+  if (item.imageVariants?.length) {
+    return `<div class="card-image-variants">${item.imageVariants.map(image => `
+      <figure class="card-image-variant">
+        ${imagePanel({ ...item, imageVariants: null, image: image.src })}
+        <figcaption>${escapeHtml(image.caption || "")}</figcaption>
+      </figure>`).join("")}</div>`;
+  }
   if (item.image) {
     return `
       <button class="image-zoom-button" type="button" data-image-src="${escapeHtml(item.image)}" data-image-name="${escapeHtml(item.name)}" aria-label="《${escapeHtml(item.name)}》のカード画像を拡大表示">
@@ -928,7 +935,16 @@ function renderOverviewBody(value) {
   return output.join("");
 }
 
-function renderOverviewText(value) {
+function errataNoticePanel(notice) {
+  if (!notice) return "";
+  return `<aside class="errata-notice" aria-label="エラッタに関する注意">
+    <strong class="errata-notice__title"><span aria-hidden="true">⚠</span> エラッタに関する注意</strong>
+    <p>${escapeHtml(notice.text)}</p>
+    ${notice.detail ? `<p class="errata-notice__detail">▷${escapeHtml(notice.detail)}</p>` : ""}
+  </aside>`;
+}
+
+function renderOverviewText(value, errataNotice = null) {
   const segments = overviewSegments(value);
   const isBasicHeading = (title) => /^基本情報(?:\s*[＋+]\s*補足)?$/.test(String(title || "").trim());
   const basicIndex = segments.findIndex((segment) => isBasicHeading(segment.title));
@@ -943,8 +959,8 @@ function renderOverviewText(value) {
   } else {
     details = segments;
   }
-  if (!basicText) basicText = "後日追加予定";
-  const basic = `<section class="overview-basic"><div class="overview-heading-row"><span class="overview-heading-label"><span class="overview-heading-icon" aria-hidden="true">◆</span><span class="overview-heading-text">基本情報 ＋ 補足</span></span></div><div class="overview-basic__body">${renderOverviewBody(basicText)}</div></section>`;
+  if (!basicText && !errataNotice) basicText = "後日追加予定";
+  const basic = `<section class="overview-basic"><div class="overview-heading-row"><span class="overview-heading-label"><span class="overview-heading-icon" aria-hidden="true">◆</span><span class="overview-heading-text">基本情報 ＋ 補足</span></span></div><div class="overview-basic__body">${errataNoticePanel(errataNotice)}${renderOverviewBody(basicText)}</div></section>`;
   const folded = details.filter((segment) => !isBasicHeading(segment.title)).map((segment) => `
     <details class="overview-disclosure">
       <summary><span class="overview-heading-icon" aria-hidden="true">◆</span><span class="overview-heading-text">${escapeHtml(segment.title || "詳細")}</span></summary>
@@ -959,7 +975,7 @@ function overviewPanel(item) {
   return `
     <section class="card-section overview-section">
       <h3>概要</h3>
-      <blockquote class="overview-copy">${renderOverviewText(text)}</blockquote>
+      <blockquote class="overview-copy">${renderOverviewText(text, item.errataNotice)}</blockquote>
       ${overviewManagementIdLine(item)}
       ${overviewImagesPanel(item)}
     </section>`;
@@ -1007,7 +1023,7 @@ function renderCardBody(item) {
         </div>`
     : `
         <div class="card-profile">
-          <div class="image-column">${imagePanel(item)}</div>
+          <div class="image-column${item.imageVariants?.length ? " image-column--variants" : ""}">${imagePanel(item)}</div>
           ${overviewPanel(item)}
         </div>`;
 
