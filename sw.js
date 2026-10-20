@@ -1,4 +1,4 @@
-const CACHE_NAME = "rulings-1103-v74";
+const CACHE_NAME = "rulings-1103-v75";
 const ASSETS = [
   "./judgment-dragon-1103.jpg",
   "./judgment-dragon-1402.jpg",
