@@ -1041,8 +1041,8 @@ button:focus-visible, summary:focus-visible, input:focus-visible, a:focus-visibl
 @media(max-width:360px){.site-menu__drawer{padding:14px;} .menu-guide__bubble{font-size:12px;padding:9px 7px;} }
 
 /* Optional errata comparison; only cards with explicit data use these styles. */
-.image-column--variants { width: 296px; }
-.card-image-variants { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; align-items: start; }
+.card-profile > .image-column.image-column--variants { width: 100%; justify-self: stretch; display: flex; justify-content: center; }
+.card-image-variants { width: 296px; max-width: 100%; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; align-items: start; }
 .card-image-variant { margin: 0; min-width: 0; }
 .card-image-variant figcaption { margin-top: 8px; color: var(--muted); font-size: .75rem; line-height: 1.6; text-align: center; overflow-wrap: anywhere; }
 .errata-notice { margin: 6px 0 14px; padding: 14px 16px; border: 1px solid #d5a83f; border-radius: 10px; background: #fff7d9; color: #59420f; }

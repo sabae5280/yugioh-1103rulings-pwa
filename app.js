@@ -77,7 +77,7 @@ const filterGroups = [
   { id: 'monsterTags', label: 'モンスターの分類', options: ['通常モンスター', '効果モンスター', 'リバース効果', 'チューナー', '儀式', '融合', 'シンクロ', 'エクシーズ', 'トゥーン', 'スピリット', 'ユニオン', 'デュアル'] },
   { id: 'spellType', label: '魔法の分類', options: ['通常魔法', '速攻魔法', '装備魔法', '永続魔法', 'フィールド魔法', '儀式魔法'] },
   { id: 'trapType', label: '罠の分類', options: ['通常罠', '永続罠', 'カウンター罠'] },
-  { id: 'otherTags', label: 'その他', options: ['難解な裁定・暫定回答', 'ジャッジ確認案件'] }
+  { id: 'otherTags', label: 'その他', options: ['難解な裁定・暫定回答', 'ジャッジ確認案件', 'エラッタ'] }
 ];
 
 const sitePages = {
@@ -1687,6 +1687,7 @@ function searchSnippet(value, tokens) {
 
 function filterTagsFor(item) {
   const tags = new Set([...tagsFor(item), ...(item.tags || []), ...(item.rulingTags || []), ...(searchConfig.cardTags[item.name] || [])]);
+  if (item.errataNotice) tags.add('エラッタ');
   for (const entry of orderedQa(item)) {
     for (const tag of [...(entry.tags || []), ...(entry.specialTags || []), ...(searchConfig.qaTags[entry.managementId] || [])]) tags.add(tag);
     if (entry.difficult || entry.provisional) tags.add('難解な裁定・暫定回答');
