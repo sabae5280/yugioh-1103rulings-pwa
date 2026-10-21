@@ -448,11 +448,12 @@ function renderAnswer(value, currentCardName = null) {
   const pattern = /\[\[補足:([^\]\n]+)\]\]([\s\S]*?)\[\[\/補足\]\]/g;
   let html = "", cursor = 0;
   for (const match of text.matchAll(pattern)) {
-    html += renderAnswerBody(text.slice(cursor, match.index), currentCardName);
+    const before = text.slice(cursor, match.index);
+    html += renderAnswerBody((cursor ? before.trimStart() : before).trimEnd(), currentCardName);
     html += `<details class="answer-disclosure"><summary>${escapeHtml(match[1])}</summary><div class="answer-disclosure__body">${renderAnswerBody(match[2].trim(), currentCardName)}</div></details>`;
     cursor = match.index + match[0].length;
   }
-  return html + renderAnswerBody(text.slice(cursor), currentCardName);
+  return html + renderAnswerBody(cursor ? text.slice(cursor).trimStart() : text, currentCardName);
 }
 
 function renderAnswerBody(value, currentCardName = null) {
