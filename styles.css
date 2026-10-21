@@ -1049,3 +1049,7 @@ button:focus-visible, summary:focus-visible, input:focus-visible, a:focus-visibl
 .errata-notice__title { display: block; font-size: 1.08rem; line-height: 1.5; font-weight: 800; }
 .errata-notice p { margin: 9px 0 0; line-height: 1.8; }
 .errata-notice__detail { font-size: .9em; }
+
+.answer-disclosure { margin: 12px 0; border: 1px solid var(--line); border-radius: 8px; background: #f7f8fa; }
+.qa-item .answer-disclosure > summary { display: list-item; padding: 10px 12px; font-size: .9em; font-weight: 700; line-height: 1.6; cursor: pointer; }
+.answer-disclosure__body { padding: 4px 12px 12px; border-top: 1px solid var(--line); }
