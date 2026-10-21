@@ -444,6 +444,18 @@ function stripQaDates(value) {
     .replace(/^(?:回答|確認|更新)日[：:]\s*\d{2,4}(?:年|[\/.-])\d{1,2}(?:月|[\/.-])\d{1,2}日?\s*$/gm, '');
 }
 function renderAnswer(value, currentCardName = null) {
+  const text = String(value || "");
+  const pattern = /\[\[補足:([^\]\n]+)\]\]([\s\S]*?)\[\[\/補足\]\]/g;
+  let html = "", cursor = 0;
+  for (const match of text.matchAll(pattern)) {
+    html += renderAnswerBody(text.slice(cursor, match.index), currentCardName);
+    html += `<details class="answer-disclosure"><summary>${escapeHtml(match[1])}</summary><div class="answer-disclosure__body">${renderAnswerBody(match[2].trim(), currentCardName)}</div></details>`;
+    cursor = match.index + match[0].length;
+  }
+  return html + renderAnswerBody(text.slice(cursor), currentCardName);
+}
+
+function renderAnswerBody(value, currentCardName = null) {
   const blocks = [];
   for (const line of cleanQaText(value).split('\n')) {
     const marked = line.match(/^\s*([①②③④⑤⑥⑦⑧⑨⑩▷■])\s*(.*)$/);
@@ -463,6 +475,8 @@ function cleanQaText(value) {
     return token;
   });
   cleaned = cleaned
+    .replace(/\[\[補足:([^\]\n]+)\]\]/g, "$1")
+    .replace(/\[\[\/補足\]\]/g, "")
     .replace(/[ \t]{2,}/g, " ")
     .replace(/[ \t]+([、。，．！？：；）】])/g, "$1")
     .replace(/([（「『]) +/g, "$1")
