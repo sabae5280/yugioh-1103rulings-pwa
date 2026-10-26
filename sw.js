@@ -1,5 +1,7 @@
-const CACHE_NAME = "rulings-1103-v103";
+const CACHE_NAME = "rulings-1103-v104";
 const ASSETS = [
+  "./torrential-qa-order-20261026.js",
+  "./torrential-tribute-1103.jpg",
   "./get-ride-1103.jpg",
   "./swap-frog-1103.jpg",
   "./rulings-galaxy-20261026.js",
