@@ -373,7 +373,7 @@ function searchableText(item) {
   const qaText = (item.qa || []).filter(entry => environmentMatches(qaEnvironments(entry, item))).flatMap((entry) => [entry.question, entry.answer, entry.managementId, entry.difficult ? "難解" : ""]);
   return [
     item.name,
-    item.reading,
+    ...cardSearchReadings(item),
     item.overview,
     item.summary,
     ...(item.details || []),
@@ -499,11 +499,20 @@ function copyIconButton(copyText, ariaLabel) {
   return `<button class="qa-copy-id copy-icon" type="button" data-copy-text="${escapeHtml(copyText)}" aria-label="${escapeHtml(ariaLabel)}" title="${escapeHtml(ariaLabel)}"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"></path></svg></button>`;
 }
 
+function cardSearchReadings(item) {
+  return [...new Set([item.reading, window.CARD_TITLE_READINGS?.[item.name]].filter(Boolean))];
+}
+
 function cardTitle(item) {
   if (item.type === "category") return escapeHtml(item.name);
-  const name = `《${escapeHtml(item.name)}》`;
-  if (!item.reading) return name;
-  return `<ruby>${name}<rt>${escapeHtml(item.reading)}</rt></ruby>`;
+  const parts = window.CARD_TITLE_RUBY?.[item.name];
+  // 未登録の名前を機械的に分割せず、誤ったルビや名前の欠落を防ぐ。
+  if (!Array.isArray(parts) || parts.map(part => part[0]).join("") !== item.name) {
+    return `《${escapeHtml(item.name)}》`;
+  }
+  return `《${parts.map(([text, reading]) => reading
+    ? `<ruby>${escapeHtml(text)}<rt>${escapeHtml(reading)}</rt></ruby>`
+    : escapeHtml(text)).join("")}》`;
 }
 
 function typeBadge(item) {
@@ -1008,10 +1017,10 @@ for (const item of allRulings) {
   rulingSearchIndex.set(item, {
     all: expandSearchText(searchableText(item)),
     name: normalize(item.name),
-    reading: normalize(item.reading),
+    reading: normalize(cardSearchReadings(item).join(" ")),
     qa: expandSearchText(qaSearchableText(item)),
-    qaEntries: new Map(orderedQa(item).map(entry => [entry, expandSearchText([item.name, item.reading, entry.question, entry.answer, ...(entry.tags || [])].join(" "))])),
-    overview: expandSearchText([item.name, item.reading, item.overview, item.summary, ...(item.details || [])].join(" "))
+    qaEntries: new Map(orderedQa(item).map(entry => [entry, expandSearchText([item.name, ...cardSearchReadings(item), entry.question, entry.answer, ...(entry.tags || [])].join(" "))])),
+    overview: expandSearchText([item.name, ...cardSearchReadings(item), item.overview, item.summary, ...(item.details || [])].join(" "))
   });
 }
 indexedEnvironmentMode = environmentMode;
@@ -1215,7 +1224,7 @@ function existingNewRulingGroups(tokens, directIdMatch) {
       if (directIdMatch?.entry && directIdMatch.entry !== entry) return false;
       if (activeDifficultSearch && !entry.difficult) return false;
       if (!tokens.length) return true;
-      const text = expandSearchText([item.name, item.reading, entry.question, entry.answer, entry.managementId, entry.difficult ? '難解' : ''].join(' '));
+      const text = expandSearchText([item.name, ...cardSearchReadings(item), entry.question, entry.answer, entry.managementId, entry.difficult ? '難解' : ''].join(' '));
       return tokens.every(token => text.includes(token));
     });
     if (!entries.length) return [];
@@ -1628,8 +1637,10 @@ function expandSearchText(value) {
   if (!expandSearchText.names) {
     const names = new Map();
     for (const card of allRulings) {
-      const name = normalize(card.name), reading = normalize(card.reading);
-      if (name && reading) { names.set(name, name + ' ' + reading); names.set(reading, name + ' ' + reading); }
+      const name = normalize(card.name), readings = cardSearchReadings(card).map(normalize);
+      const aliases = [name, ...readings].filter(Boolean);
+      const expanded = aliases.join(' ');
+      for (const alias of aliases) names.set(alias, expanded);
     }
     expandSearchText.names = names;
     expandSearchText.pattern = new RegExp([...names.keys()].sort((a,b) => b.length-a.length).map(name => name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|'), 'g');
@@ -1640,13 +1651,13 @@ function expandSearchText(value) {
 }
 
 function nameMatchesTokens(item, tokens) {
-  return tokens.every(token => normalize(item.name).includes(token) || normalize(item.reading).includes(token));
+  return tokens.every(token => normalize(item.name).includes(token) || cardSearchReadings(item).some(reading => normalize(reading).includes(token)));
 }
 
 function matchingQa(item, tokens) {
   const indexed = rulingSearchIndex.get(item);
   return orderedQa(item).filter(entry => {
-    const text = indexed?.qaEntries.get(entry) || expandSearchText([item.name, item.reading, entry.question, entry.answer].join(' '));
+    const text = indexed?.qaEntries.get(entry) || expandSearchText([item.name, ...cardSearchReadings(item), entry.question, entry.answer].join(' '));
     return tokens.every(token => text.includes(token));
   });
 }
@@ -1674,7 +1685,7 @@ function searchSnippet(value, tokens) {
     if (tokens.some(token => normalize(full).includes(token))) needles.add(normalize(alias));
   }
   for (const card of allRulings) {
-    if (tokens.some(token => normalize(card.reading).includes(token))) needles.add(normalize(card.name));
+    if (tokens.some(token => cardSearchReadings(card).some(reading => normalize(reading).includes(token)))) needles.add(normalize(card.name));
   }
   const spans = [];
   for (const needle of needles) {
