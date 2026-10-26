@@ -370,6 +370,9 @@ h1 {
 }
 .card-name ruby { ruby-position: over; }
 .card-name rt { color: var(--muted); font-size: .55em; font-weight: 600; letter-spacing: .03em; }
+/* 全角・半角、長いタイトルの縮小にかかわらずTG略称を同じ表示にする。 */
+.card-name ruby.card-title-tg { font-family: inherit; font-size: 1rem; font-weight: 900; letter-spacing: normal; ruby-align: center; white-space: nowrap; }
+.card-title-tg-base { display: inline-block; letter-spacing: normal; white-space: nowrap; }
 .chevron { color: var(--muted); font-size: 1.3rem; transition: transform .2s ease; }
 .ruling-toggle[aria-expanded="true"] .chevron { transform: rotate(180deg); }
 

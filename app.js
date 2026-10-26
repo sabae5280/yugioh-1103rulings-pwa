@@ -510,9 +510,15 @@ function cardTitle(item) {
   if (!Array.isArray(parts) || parts.map(part => part[0]).join("") !== item.name) {
     return `《${escapeHtml(item.name)}》`;
   }
-  return `《${parts.map(([text, reading]) => reading
-    ? `<ruby>${escapeHtml(text)}<rt>${escapeHtml(reading)}</rt></ruby>`
-    : escapeHtml(text)).join("")}》`;
+  return `《${parts.map(([text, reading]) => {
+    // 略称の表示だけを統一し、カード名・リンク・検索用データは保持する。
+    if (text.normalize("NFKC") === "TG" && reading === "テックジーナス") {
+      return `<ruby class="card-title-tg"><span class="card-title-tg-base">TG</span><rt>${escapeHtml(reading)}</rt></ruby>`;
+    }
+    return reading
+      ? `<ruby>${escapeHtml(text)}<rt>${escapeHtml(reading)}</rt></ruby>`
+      : escapeHtml(text);
+  }).join("")}》`;
 }
 
 function typeBadge(item) {
