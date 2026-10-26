@@ -1,5 +1,7 @@
-const CACHE_NAME = "rulings-1103-v95";
+const CACHE_NAME = "rulings-1103-v96";
 const ASSETS = [
+  "./morphtronic-boarden-1103.jpg",
+  "./morphtronic-remoten-1103.jpg",
   "./shining-absorb-1103.jpg",
   "./morphtronic-boomboxen-1103.jpg",
   "./morphtronic-celfon-1103.jpg",
