@@ -1,5 +1,22 @@
-const CACHE_NAME = "rulings-1103-v101";
+const CACHE_NAME = "rulings-1103-v102";
 const ASSETS = [
+  "./rulings-galaxy-20261026.js",
+  "./galaxy-20261026-01.png",
+  "./galaxy-20261026-02.png",
+  "./galaxy-20261026-03.png",
+  "./galaxy-20261026-04.png",
+  "./galaxy-20261026-05.png",
+  "./galaxy-20261026-06.png",
+  "./galaxy-20261026-07.png",
+  "./galaxy-20261026-08.png",
+  "./galaxy-20261026-09.png",
+  "./galaxy-20261026-10.png",
+  "./galaxy-20261026-11.png",
+  "./galaxy-20261026-12.png",
+  "./galaxy-20261026-13.png",
+  "./galaxy-20261026-14.png",
+  "./galaxy-20261026-15.png",
+  "./galaxy-20261026-16.png",
   "./necro-gardna-1103.jpg",
   "./treeborn-frog-1103.jpg",
   "./shiny-black-c-1103.jpg",
