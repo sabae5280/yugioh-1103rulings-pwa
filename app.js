@@ -77,7 +77,7 @@ const filterGroups = [
   { id: 'monsterTags', label: 'モンスターの分類', options: ['通常モンスター', '効果モンスター', 'リバース効果', 'チューナー', '儀式', '融合', 'シンクロ', 'エクシーズ', 'トゥーン', 'スピリット', 'ユニオン', 'デュアル'] },
   { id: 'spellType', label: '魔法の分類', options: ['通常魔法', '速攻魔法', '装備魔法', '永続魔法', 'フィールド魔法', '儀式魔法'] },
   { id: 'trapType', label: '罠の分類', options: ['通常罠', '永続罠', 'カウンター罠'] },
-  { id: 'otherTags', label: 'その他', options: ['難解な裁定・暫定回答', 'ジャッジ確認案件', 'エラッタ'] }
+  { id: 'otherTags', label: 'その他', options: ['難解な裁定', 'ジャッジ確認案件', 'エラッタ'] }
 ];
 
 const sitePages = {
@@ -1705,13 +1705,16 @@ function filterTagsFor(item) {
   if (item.errataNotice) tags.add('エラッタ');
   for (const entry of orderedQa(item)) {
     for (const tag of [...(entry.tags || []), ...(entry.specialTags || []), ...(searchConfig.qaTags[entry.managementId] || [])]) tags.add(tag);
-    if (entry.difficult || entry.provisional) tags.add('難解な裁定・暫定回答');
     if (entry.judgeConfirmation) tags.add('ジャッジ確認案件');
   }
   for (const term of searchConfig.terms) {
     if ((term.aliases || []).some(alias => tags.has(alias))) tags.add(term.label);
   }
-  if (tags.has('暫定回答あり') || tags.has('暫定回答') || tags.has('難解')) tags.add('難解な裁定・暫定回答');
+  // 難解検索は明示的な難解登録で判定する。本文や検索タグからは推測しない。
+  tags.delete('難解な裁定・暫定回答');
+  tags.delete('難解な裁定');
+  // ブラック・ガーデンは整理後に難解登録する予定のため、検索対象として維持する。
+  if (orderedQa(item).some(entry => entry.difficult) || item.name === 'ブラック・ガーデン') tags.add('難解な裁定');
   if (tags.has('調整中・ジャッジ案件')) tags.add('ジャッジ確認案件');
   return [...tags];
 }
