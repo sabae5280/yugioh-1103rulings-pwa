@@ -1521,3 +1521,37 @@ window.CARD_TITLE_READINGS = {
 // 新規追加カード：カタカナのみのため表示ルビなし。
 window.CARD_TITLE_RUBY["ネクロ・ガードナー"] = [["ネクロ・ガードナー"]];
 window.CARD_TITLE_READINGS["ネクロ・ガードナー"] = "ネクロ・ガードナー";
+
+// 2026-10-26 銀河眼のExcel追加分。表示ルビと検索用の正式な読み。
+window.CARD_TITLE_RUBY["銀河の魔導師"] = [["銀河の魔導師", "ギャラクシー・ウィザード"]];
+window.CARD_TITLE_READINGS["銀河の魔導師"] = "ギャラクシー・ウィザード";
+window.CARD_TITLE_RUBY["銀河眼の雲篭"] = [["銀河眼の雲篭", "ギャラクシーアイズ・クラウドラゴン"]];
+window.CARD_TITLE_READINGS["銀河眼の雲篭"] = "ギャラクシーアイズ・クラウドラゴン";
+window.CARD_TITLE_RUBY["銀河戦士"] = [["銀河戦士", "ギャラクシー・ソルジャー"]];
+window.CARD_TITLE_READINGS["銀河戦士"] = "ギャラクシー・ソルジャー";
+window.CARD_TITLE_RUBY["銀河騎士"] = [["銀河騎士", "ギャラクシー・ナイト"]];
+window.CARD_TITLE_READINGS["銀河騎士"] = "ギャラクシー・ナイト";
+window.CARD_TITLE_RUBY["銀河眼の光子竜"] = [["銀河眼の光子竜", "ギャラクシーアイズ・フォトン・ドラゴン"]];
+window.CARD_TITLE_READINGS["銀河眼の光子竜"] = "ギャラクシーアイズ・フォトン・ドラゴン";
+window.CARD_TITLE_RUBY["フォトン・サンクチュアリ"] = [["フォトン・サンクチュアリ"]];
+window.CARD_TITLE_READINGS["フォトン・サンクチュアリ"] = "フォトン・サンクチュアリ";
+window.CARD_TITLE_RUBY["アクセル・ライト"] = [["アクセル・ライト"]];
+window.CARD_TITLE_READINGS["アクセル・ライト"] = "アクセル・ライト";
+window.CARD_TITLE_RUBY["銀河零式"] = [["銀河零式", "ギャラクシー・ゼロ"]];
+window.CARD_TITLE_READINGS["銀河零式"] = "ギャラクシー・ゼロ";
+window.CARD_TITLE_RUBY["銀河遠征"] = [["銀河遠征", "ギャラクシー・エクスペディション"]];
+window.CARD_TITLE_READINGS["銀河遠征"] = "ギャラクシー・エクスペディション";
+window.CARD_TITLE_RUBY["時空混沌渦"] = [["時空混沌渦", "タキオン・カオス・ホール"]];
+window.CARD_TITLE_READINGS["時空混沌渦"] = "タキオン・カオス・ホール";
+window.CARD_TITLE_RUBY["タキオン・トランスミグレイション"] = [["タキオン・トランスミグレイション"]];
+window.CARD_TITLE_READINGS["タキオン・トランスミグレイション"] = "タキオン・トランスミグレイション";
+window.CARD_TITLE_RUBY["輝光帝ギャラクシオン"] = [["輝光帝", "きこうてい"], ["ギャラクシオン"]];
+window.CARD_TITLE_READINGS["輝光帝ギャラクシオン"] = "きこうていギャラクシオン";
+window.CARD_TITLE_RUBY["No.107 銀河眼の時空竜"] = [["No.", "ナンバーズ"], ["107 "], ["銀河眼の時空竜", "ギャラクシーアイズ・タキオン・ドラゴン"]];
+window.CARD_TITLE_READINGS["No.107 銀河眼の時空竜"] = "ナンバーズ107 ギャラクシーアイズ・タキオン・ドラゴン";
+window.CARD_TITLE_RUBY["No.62 銀河眼の光子竜皇"] = [["No.", "ナンバーズ"], ["62 "], ["銀河眼の光子竜皇", "ギャラクシーアイズ・プライム・フォトン・ドラゴン"]];
+window.CARD_TITLE_READINGS["No.62 銀河眼の光子竜皇"] = "ナンバーズ62 ギャラクシーアイズ・プライム・フォトン・ドラゴン";
+window.CARD_TITLE_RUBY["超銀河眼の光子龍"] = [["超銀河眼の光子龍", "ネオ・ギャラクシーアイズ・フォトン・ドラゴン"]];
+window.CARD_TITLE_READINGS["超銀河眼の光子龍"] = "ネオ・ギャラクシーアイズ・フォトン・ドラゴン";
+window.CARD_TITLE_RUBY["CNo.107 超銀河眼の時空龍"] = [["CNo.", "カオスナンバーズ"], ["107 "], ["超銀河眼の時空龍", "ネオ・ギャラクシーアイズ・タキオン・ドラゴン"]];
+window.CARD_TITLE_READINGS["CNo.107 超銀河眼の時空龍"] = "カオスナンバーズ107 ネオ・ギャラクシーアイズ・タキオン・ドラゴン";
