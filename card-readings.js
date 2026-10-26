@@ -1555,3 +1555,7 @@ window.CARD_TITLE_RUBY["超銀河眼の光子龍"] = [["超銀河眼の光子龍
 window.CARD_TITLE_READINGS["超銀河眼の光子龍"] = "ネオ・ギャラクシーアイズ・フォトン・ドラゴン";
 window.CARD_TITLE_RUBY["CNo.107 超銀河眼の時空龍"] = [["CNo.", "カオスナンバーズ"], ["107 "], ["超銀河眼の時空龍", "ネオ・ギャラクシーアイズ・タキオン・ドラゴン"]];
 window.CARD_TITLE_READINGS["CNo.107 超銀河眼の時空龍"] = "カオスナンバーズ107 ネオ・ギャラクシーアイズ・タキオン・ドラゴン";
+
+// 新規追加：カタカナ名のため表示ルビなし。
+window.CARD_TITLE_RUBY["ゲットライド！"] = [["ゲットライド！"]];
+window.CARD_TITLE_READINGS["ゲットライド！"] = "ゲットライド！";
