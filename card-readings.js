@@ -1559,3 +1559,13 @@ window.CARD_TITLE_READINGS["CNo.107 超銀河眼の時空龍"] = "カオスナ�
 // 新規追加：カタカナ名のため表示ルビなし。
 window.CARD_TITLE_RUBY["ゲットライド！"] = [["ゲットライド！"]];
 window.CARD_TITLE_READINGS["ゲットライド！"] = "ゲットライド！";
+
+// 追加カード：かな表記にはルビを付けない。
+window.CARD_TITLE_RUBY["サルベージ・ウォリアー"] = [["サルベージ・ウォリアー"]];
+window.CARD_TITLE_READINGS["サルベージ・ウォリアー"] = "サルベージ・ウォリアー";
+window.CARD_TITLE_RUBY["貫ガエル"] = [["貫", "かん"], ["ガエル"]];
+window.CARD_TITLE_READINGS["貫ガエル"] = "かんガエル";
+window.CARD_TITLE_RUBY["異次元の生還者"] = [["異次元", "いじげん"], ["の"], ["生還者", "せいかんしゃ"]];
+window.CARD_TITLE_READINGS["異次元の生還者"] = "いじげんのせいかんしゃ";
+window.CARD_TITLE_RUBY["異次元の偵察機"] = [["異次元", "いじげん"], ["の"], ["偵察機", "ていさつき"]];
+window.CARD_TITLE_READINGS["異次元の偵察機"] = "いじげんのていさつき";
