@@ -1,5 +1,16 @@
-const CACHE_NAME = "rulings-1103-v113";
+const CACHE_NAME = "rulings-1103-v114";
 const ASSETS = [
+  "./fabled-ganashia-1103.jpg",
+  "./fabled-grimro-1103.jpg",
+  "./fabled-krus-1103.jpg",
+  "./fabled-cerburrel-1103.jpg",
+  "./fabled-soulkius-1103.jpg",
+  "./fabled-nozoochee-1103.jpg",
+  "./fabled-unicore-1103.jpg",
+  "./fabled-leviathan-1103.jpg",
+  "./aoj-cycle-reader-1103.jpg",
+  "./fabled-kushano-1103.jpg",
+  "./fabled-chawa-1103.jpg",
   "./esper-girl-1103.jpg",
   "./rulings-convulsion-20261028.js",
   "./convulsion-of-nature-1103.jpg",

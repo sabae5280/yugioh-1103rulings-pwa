@@ -8,7 +8,7 @@ window.A_O_J_RULINGS = [
       "1103"
     ],
     "cardClass": "effect",
-    "image": "./images/a-o-j-row/a-card-01.png",
+    "image": "./aoj-cycle-reader-1103.jpg",
     "overview": "▶コストは「墓地へ捨てて」の為、《次元の裂け目》、《マクロコスモス》適用下ではコストが支払えないことになる為、発動不可。\n▶対象に取る効果。1～2体を対象に取る。（0体はできない）",
     "qa": [
       {
