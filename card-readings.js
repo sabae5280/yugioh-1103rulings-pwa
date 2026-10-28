@@ -1569,3 +1569,6 @@ window.CARD_TITLE_RUBY["異次元の生還者"] = [["異次元", "いじげん"]
 window.CARD_TITLE_READINGS["異次元の生還者"] = "いじげんのせいかんしゃ";
 window.CARD_TITLE_RUBY["異次元の偵察機"] = [["異次元", "いじげん"], ["の"], ["偵察機", "ていさつき"]];
 window.CARD_TITLE_READINGS["異次元の偵察機"] = "いじげんのていさつき";
+
+window.CARD_TITLE_RUBY["天変地異"] = [["天変地異", "てんぺんちい"]];
+window.CARD_TITLE_READINGS["天変地異"] = "てんぺんちい";
