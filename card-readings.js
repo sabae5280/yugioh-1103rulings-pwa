@@ -1578,3 +1578,9 @@ window.CARD_TITLE_READINGS["魔轟神クシャノ"] = "まごうしんクシャ�
 
 window.CARD_TITLE_RUBY["魔轟神獣チャワ"] = [["魔轟神獣", "まごうしんじゅう"], ["チャワ"]];
 window.CARD_TITLE_READINGS["魔轟神獣チャワ"] = "まごうしんじゅうチャワ";
+
+// 追加カード：漢字部分のみにルビを付ける。
+window.CARD_TITLE_RUBY["溶岩魔神ラヴァ・ゴーレム"] = [["溶岩魔神", "ようがんまじん"], ["ラヴァ・ゴーレム"]];
+window.CARD_TITLE_READINGS["溶岩魔神ラヴァ・ゴーレム"] = "ようがんまじんラヴァ・ゴーレム";
+window.CARD_TITLE_RUBY["洗脳解除"] = [["洗脳解除", "せんのうかいじょ"]];
+window.CARD_TITLE_READINGS["洗脳解除"] = "せんのうかいじょ";
