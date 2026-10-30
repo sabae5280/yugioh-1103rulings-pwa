@@ -1,5 +1,7 @@
-const CACHE_NAME = "rulings-1103-v121";
+const CACHE_NAME = "rulings-1103-v122";
 const ASSETS = [
+  "./rulings-chaos-infinity-20261030.js",
+  "./chaos-infinity-1103.jpg",
   "./rulings-control-cards-20261029.js",
   "./lava-golem-1103.jpg",
   "./remove-brainwashing-1103.jpg",

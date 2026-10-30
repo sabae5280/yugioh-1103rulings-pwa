@@ -1584,3 +1584,7 @@ window.CARD_TITLE_RUBY["溶岩魔神ラヴァ・ゴーレム"] = [["溶岩魔神
 window.CARD_TITLE_READINGS["溶岩魔神ラヴァ・ゴーレム"] = "ようがんまじんラヴァ・ゴーレム";
 window.CARD_TITLE_RUBY["洗脳解除"] = [["洗脳解除", "せんのうかいじょ"]];
 window.CARD_TITLE_READINGS["洗脳解除"] = "せんのうかいじょ";
+
+// カタカナ表記のみのため表示ルビは付けない。
+window.CARD_TITLE_RUBY["カオス・インフィニティ"] = [["カオス・インフィニティ"]];
+window.CARD_TITLE_READINGS["カオス・インフィニティ"] = "カオス・インフィニティ";
