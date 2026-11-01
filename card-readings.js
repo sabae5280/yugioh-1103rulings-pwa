@@ -1588,3 +1588,9 @@ window.CARD_TITLE_READINGS["洗脳解除"] = "せんのうかいじょ";
 // カタカナ表記のみのため表示ルビは付けない。
 window.CARD_TITLE_RUBY["カオス・インフィニティ"] = [["カオス・インフィニティ"]];
 window.CARD_TITLE_READINGS["カオス・インフィニティ"] = "カオス・インフィニティ";
+
+// 追加カード：漢字部分のみに表示ルビを付ける。
+window.CARD_TITLE_RUBY["磨破羅魏"] = [["磨破羅魏", "まはらぎ"]];
+window.CARD_TITLE_READINGS["磨破羅魏"] = "まはらぎ";
+window.CARD_TITLE_RUBY["死のマジック・ボックス"] = [["死", "し"], ["のマジック・ボックス"]];
+window.CARD_TITLE_READINGS["死のマジック・ボックス"] = "しのマジック・ボックス";
