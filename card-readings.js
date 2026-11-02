@@ -1597,3 +1597,10 @@ window.CARD_TITLE_READINGS["死のマジック・ボックス"] = "しのマジ�
 
 window.CARD_TITLE_RUBY["幻想召喚師"] = [["幻想召喚師", "げんそうしょうかんし"]];
 window.CARD_TITLE_READINGS["幻想召喚師"] = "げんそうしょうかんし";
+
+window.CARD_TITLE_RUBY["デス・デーモン・ドラゴン"] = [["デス・デーモン・ドラゴン"]];
+window.CARD_TITLE_READINGS["デス・デーモン・ドラゴン"] = "デス・デーモン・ドラゴン";
+window.CARD_TITLE_RUBY["地天の騎士ガイアドレイク"] = [["地天", "ちてん"], ["の"], ["騎士", "きし"], ["ガイアドレイク"]];
+window.CARD_TITLE_READINGS["地天の騎士ガイアドレイク"] = "ちてんのきしガイアドレイク";
+window.CARD_TITLE_RUBY["極戦機王ヴァルバロイド"] = [["極戦機王", "きょくせんきおう"], ["ヴァルバロイド"]];
+window.CARD_TITLE_READINGS["極戦機王ヴァルバロイド"] = "きょくせんきおうヴァルバロイド";
