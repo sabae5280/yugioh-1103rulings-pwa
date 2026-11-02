@@ -1594,3 +1594,6 @@ window.CARD_TITLE_RUBY["磨破羅魏"] = [["磨破羅魏", "まはらぎ"]];
 window.CARD_TITLE_READINGS["磨破羅魏"] = "まはらぎ";
 window.CARD_TITLE_RUBY["死のマジック・ボックス"] = [["死", "し"], ["のマジック・ボックス"]];
 window.CARD_TITLE_READINGS["死のマジック・ボックス"] = "しのマジック・ボックス";
+
+window.CARD_TITLE_RUBY["幻想召喚師"] = [["幻想召喚師", "げんそうしょうかんし"]];
+window.CARD_TITLE_READINGS["幻想召喚師"] = "げんそうしょうかんし";
