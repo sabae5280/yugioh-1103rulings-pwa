@@ -1611,3 +1611,7 @@ window.CARD_TITLE_READINGS["死霊ゾーマ"] = "しりょうゾーマ";
 window.CARD_READINGS["罠（トラップ）モンスター"] = "トラップモンスター";
 window.CARD_TITLE_RUBY["罠（トラップ）モンスター"] = [["罠（トラップ）モンスター"]];
 window.CARD_TITLE_READINGS["罠（トラップ）モンスター"] = "トラップモンスター";
+
+window.CARD_READINGS["メタル・リフレクト・スライム"] = "メタルリフレクトスライム";
+window.CARD_TITLE_RUBY["メタル・リフレクト・スライム"] = [["メタル・リフレクト・スライム"]];
+window.CARD_TITLE_READINGS["メタル・リフレクト・スライム"] = "メタル・リフレクト・スライム";
