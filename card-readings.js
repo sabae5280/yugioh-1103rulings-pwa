@@ -1604,3 +1604,10 @@ window.CARD_TITLE_RUBY["地天の騎士ガイアドレイク"] = [["地天", "�
 window.CARD_TITLE_READINGS["地天の騎士ガイアドレイク"] = "ちてんのきしガイアドレイク";
 window.CARD_TITLE_RUBY["極戦機王ヴァルバロイド"] = [["極戦機王", "きょくせんきおう"], ["ヴァルバロイド"]];
 window.CARD_TITLE_READINGS["極戦機王ヴァルバロイド"] = "きょくせんきおうヴァルバロイド";
+
+window.CARD_READINGS["死霊ゾーマ"] = "しりょうゾーマ";
+window.CARD_TITLE_RUBY["死霊ゾーマ"] = [["死霊", "しりょう"], ["ゾーマ"]];
+window.CARD_TITLE_READINGS["死霊ゾーマ"] = "しりょうゾーマ";
+window.CARD_READINGS["罠（トラップ）モンスター"] = "トラップモンスター";
+window.CARD_TITLE_RUBY["罠（トラップ）モンスター"] = [["罠（トラップ）モンスター"]];
+window.CARD_TITLE_READINGS["罠（トラップ）モンスター"] = "トラップモンスター";
