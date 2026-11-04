@@ -567,7 +567,7 @@ function environmentMatches(environments) {
 }
 
 function qaEnvironments(entry, item) {
-  return entry.environments || item.environments || ["1103"];
+  return window.supportedQaEnvironments(entry, item);
 }
 
 function qaBasePriority(entry, item) {
