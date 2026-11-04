@@ -1615,3 +1615,7 @@ window.CARD_TITLE_READINGS["罠（トラップ）モンスター"] = "トラッ�
 window.CARD_READINGS["メタル・リフレクト・スライム"] = "メタルリフレクトスライム";
 window.CARD_TITLE_RUBY["メタル・リフレクト・スライム"] = [["メタル・リフレクト・スライム"]];
 window.CARD_TITLE_READINGS["メタル・リフレクト・スライム"] = "メタル・リフレクト・スライム";
+
+window.CARD_READINGS["エネミーコントローラー"] = "エネミーコントローラー";
+window.CARD_TITLE_RUBY["エネミーコントローラー"] = [["エネミーコントローラー"]];
+window.CARD_TITLE_READINGS["エネミーコントローラー"] = "エネミーコントローラー";
