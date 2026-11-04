@@ -1619,3 +1619,7 @@ window.CARD_TITLE_READINGS["メタル・リフレクト・スライム"] = "メ�
 window.CARD_READINGS["エネミーコントローラー"] = "エネミーコントローラー";
 window.CARD_TITLE_RUBY["エネミーコントローラー"] = [["エネミーコントローラー"]];
 window.CARD_TITLE_READINGS["エネミーコントローラー"] = "エネミーコントローラー";
+
+window.CARD_READINGS["クリボー"] = "クリボー";
+window.CARD_TITLE_RUBY["クリボー"] = [["クリボー"]];
+window.CARD_TITLE_READINGS["クリボー"] = "クリボー";
