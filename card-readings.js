@@ -1706,3 +1706,8 @@ window.CARD_TITLE_READINGS["スターライト・ロード"] = "スターライ�
 window.CARD_READINGS["王宮の鉄壁"] = "おうきゅうのてっぺき";
 window.CARD_TITLE_RUBY["王宮の鉄壁"] = [["王宮", "おうきゅう"], ["の"], ["鉄壁", "てっぺき"]];
 window.CARD_TITLE_READINGS["王宮の鉄壁"] = "おうきゅうのてっぺき";
+
+// 《ＴＧ ワンダー・マジシャン》の読み。
+window.CARD_READINGS["ＴＧ ワンダー・マジシャン"] = "テックジーナスワンダーマジシャン";
+window.CARD_TITLE_RUBY["ＴＧ ワンダー・マジシャン"] = [["ＴＧ", "テックジーナス"], [" ワンダー・マジシャン"]];
+window.CARD_TITLE_READINGS["ＴＧ ワンダー・マジシャン"] = "テックジーナスワンダーマジシャン";
