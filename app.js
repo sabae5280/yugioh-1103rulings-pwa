@@ -239,7 +239,7 @@ function rulingByManagementId(value) {
   const wanted = normalizedManagementId(value);
   for (const card of allRulings) {
     for (const entry of card.qa || []) {
-      if (normalizedManagementId(entry.managementId) === wanted) return { item: card, entry };
+      if ([entry.managementId, ...(entry.managementIdAliases || [])].some(id => normalizedManagementId(id) === wanted)) return { item: card, entry };
     }
   }
   return null;
