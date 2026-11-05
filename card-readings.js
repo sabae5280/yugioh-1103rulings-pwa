@@ -1674,3 +1674,14 @@ window.CARD_TITLE_READINGS["エア・サーキュレーター"] = "エアサー�
 window.CARD_READINGS["Dragoon D-END"] = "ドラグーンディーエンド";
 window.CARD_TITLE_RUBY["Dragoon D-END"] = [["Dragoon", "ドラグーン"], [" "], ["D-END", "ディーエンド"]];
 window.CARD_TITLE_READINGS["Dragoon D-END"] = "ドラグーンディーエンド";
+
+// シンクロ3枚の読み。
+window.CARD_READINGS["霞の谷の雷神鬼"] = "ミストバレーのらいじんき";
+window.CARD_TITLE_RUBY["霞の谷の雷神鬼"] = [["霞の谷", "ミストバレー"], ["の"], ["雷神鬼", "らいじんき"]];
+window.CARD_TITLE_READINGS["霞の谷の雷神鬼"] = "ミストバレーのらいじんき";
+window.CARD_READINGS["宇宙砦ゴルガー"] = "そらとりでゴルガー";
+window.CARD_TITLE_RUBY["宇宙砦ゴルガー"] = [["宇宙砦", "そらとりで"], ["ゴルガー"]];
+window.CARD_TITLE_READINGS["宇宙砦ゴルガー"] = "そらとりでゴルガー";
+window.CARD_READINGS["氷結界の虎王ドゥローレン"] = "ひょうけっかいのこおうドゥローレン";
+window.CARD_TITLE_RUBY["氷結界の虎王ドゥローレン"] = [["氷結界", "ひょうけっかい"], ["の"], ["虎王", "こおう"], ["ドゥローレン"]];
+window.CARD_TITLE_READINGS["氷結界の虎王ドゥローレン"] = "ひょうけっかいのこおうドゥローレン";
