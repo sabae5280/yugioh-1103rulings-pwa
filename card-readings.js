@@ -1637,3 +1637,11 @@ window.CARD_TITLE_READINGS["六武衆の身代わり効果"] = "ろくぶしゅ�
 window.CARD_READINGS["マジカルシルクハット"] = "マジカルシルクハット";
 window.CARD_TITLE_RUBY["マジカルシルクハット"] = [["マジカルシルクハット"]];
 window.CARD_TITLE_READINGS["マジカルシルクハット"] = "マジカルシルクハット";
+
+// アマゾネス2枚。
+window.CARD_READINGS["アマゾネス訓練生"] = "アマゾネスくんれんせい";
+window.CARD_TITLE_RUBY["アマゾネス訓練生"] = [["アマゾネス"], ["訓練生", "くんれんせい"]];
+window.CARD_TITLE_READINGS["アマゾネス訓練生"] = "アマゾネスくんれんせい";
+window.CARD_READINGS["アマゾネスの里"] = "アマゾネスのさと";
+window.CARD_TITLE_RUBY["アマゾネスの里"] = [["アマゾネスの"], ["里", "さと"]];
+window.CARD_TITLE_READINGS["アマゾネスの里"] = "アマゾネスのさと";
