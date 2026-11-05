@@ -1627,3 +1627,8 @@ window.CARD_TITLE_READINGS["クリボー"] = "クリボー";
 window.CARD_READINGS["見習い魔術師"] = "みならいまじゅつし";
 window.CARD_TITLE_RUBY["見習い魔術師"] = [["見習", "みなら"], ["い"], ["魔術師", "まじゅつし"]];
 window.CARD_TITLE_READINGS["見習い魔術師"] = "みならいまじゅつし";
+
+// 六武衆の身代わり効果の項目名。
+window.CARD_READINGS["六武衆の身代わり効果"] = "ろくぶしゅうのみがわりこうか";
+window.CARD_TITLE_RUBY["六武衆の身代わり効果"] = [["六武衆", "ろくぶしゅう"], ["の"], ["身代", "みが"], ["わり"], ["効果", "こうか"]];
+window.CARD_TITLE_READINGS["六武衆の身代わり効果"] = "ろくぶしゅうのみがわりこうか";
