@@ -1701,3 +1701,8 @@ window.CARD_TITLE_READINGS["雲魔物－タービュランス"] = "クラウデ�
 window.CARD_READINGS["スターライト・ロード"] = "スターライトロード";
 window.CARD_TITLE_RUBY["スターライト・ロード"] = [["スターライト・ロード"]];
 window.CARD_TITLE_READINGS["スターライト・ロード"] = "スターライトロード";
+
+// 《王宮の鉄壁》の読み。
+window.CARD_READINGS["王宮の鉄壁"] = "おうきゅうのてっぺき";
+window.CARD_TITLE_RUBY["王宮の鉄壁"] = [["王宮", "おうきゅう"], ["の"], ["鉄壁", "てっぺき"]];
+window.CARD_TITLE_READINGS["王宮の鉄壁"] = "おうきゅうのてっぺき";
