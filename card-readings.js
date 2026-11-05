@@ -1685,3 +1685,11 @@ window.CARD_TITLE_READINGS["宇宙砦ゴルガー"] = "そらとりでゴルガ�
 window.CARD_READINGS["氷結界の虎王ドゥローレン"] = "ひょうけっかいのこおうドゥローレン";
 window.CARD_TITLE_RUBY["氷結界の虎王ドゥローレン"] = [["氷結界", "ひょうけっかい"], ["の"], ["虎王", "こおう"], ["ドゥローレン"]];
 window.CARD_TITLE_READINGS["氷結界の虎王ドゥローレン"] = "ひょうけっかいのこおうドゥローレン";
+
+// 新規カード2枚の読み。
+window.CARD_READINGS["妖精の風"] = "ようせいのかぜ";
+window.CARD_TITLE_RUBY["妖精の風"] = [["妖精", "ようせい"], ["の"], ["風", "かぜ"]];
+window.CARD_TITLE_READINGS["妖精の風"] = "ようせいのかぜ";
+window.CARD_READINGS["サクリファイス"] = "サクリファイス";
+window.CARD_TITLE_RUBY["サクリファイス"] = [["サクリファイス"]];
+window.CARD_TITLE_READINGS["サクリファイス"] = "サクリファイス";
