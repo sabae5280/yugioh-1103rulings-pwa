@@ -1632,3 +1632,8 @@ window.CARD_TITLE_READINGS["見習い魔術師"] = "みならいまじゅつし"
 window.CARD_READINGS["六武衆の身代わり効果"] = "ろくぶしゅうのみがわりこうか";
 window.CARD_TITLE_RUBY["六武衆の身代わり効果"] = [["六武衆", "ろくぶしゅう"], ["の"], ["身代", "みが"], ["わり"], ["効果", "こうか"]];
 window.CARD_TITLE_READINGS["六武衆の身代わり効果"] = "ろくぶしゅうのみがわりこうか";
+
+// マジカルシルクハット。
+window.CARD_READINGS["マジカルシルクハット"] = "マジカルシルクハット";
+window.CARD_TITLE_RUBY["マジカルシルクハット"] = [["マジカルシルクハット"]];
+window.CARD_TITLE_READINGS["マジカルシルクハット"] = "マジカルシルクハット";
