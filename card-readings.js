@@ -1693,3 +1693,11 @@ window.CARD_TITLE_READINGS["妖精の風"] = "ようせいのかぜ";
 window.CARD_READINGS["サクリファイス"] = "サクリファイス";
 window.CARD_TITLE_RUBY["サクリファイス"] = [["サクリファイス"]];
 window.CARD_TITLE_READINGS["サクリファイス"] = "サクリファイス";
+
+// 新規カード2枚の読み。
+window.CARD_READINGS["雲魔物－タービュランス"] = "クラウディアンタービュランス";
+window.CARD_TITLE_RUBY["雲魔物－タービュランス"] = [["雲魔物", "クラウディアン"], ["－タービュランス"]];
+window.CARD_TITLE_READINGS["雲魔物－タービュランス"] = "クラウディアンタービュランス";
+window.CARD_READINGS["スターライト・ロード"] = "スターライトロード";
+window.CARD_TITLE_RUBY["スターライト・ロード"] = [["スターライト・ロード"]];
+window.CARD_TITLE_READINGS["スターライト・ロード"] = "スターライトロード";
