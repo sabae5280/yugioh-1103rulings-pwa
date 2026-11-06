@@ -1711,3 +1711,11 @@ window.CARD_TITLE_READINGS["王宮の鉄壁"] = "おうきゅうのてっぺき"
 window.CARD_READINGS["ＴＧ ワンダー・マジシャン"] = "テックジーナスワンダーマジシャン";
 window.CARD_TITLE_RUBY["ＴＧ ワンダー・マジシャン"] = [["ＴＧ", "テックジーナス"], [" ワンダー・マジシャン"]];
 window.CARD_TITLE_READINGS["ＴＧ ワンダー・マジシャン"] = "テックジーナスワンダーマジシャン";
+
+// 新規カード2枚の読み。
+window.CARD_READINGS["マクロコスモス"] = "マクロコスモス";
+window.CARD_TITLE_RUBY["マクロコスモス"] = [["マクロコスモス"]];
+window.CARD_TITLE_READINGS["マクロコスモス"] = "マクロコスモス";
+window.CARD_READINGS["トラップ・イーター"] = "トラップイーター";
+window.CARD_TITLE_RUBY["トラップ・イーター"] = [["トラップ・イーター"]];
+window.CARD_TITLE_READINGS["トラップ・イーター"] = "トラップイーター";
