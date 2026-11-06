@@ -1729,3 +1729,11 @@ window.CARD_TITLE_READINGS["ジェネクス・ウンディーネ"] = "ジェネ�
 window.CARD_READINGS["スナイプストーカー"] = "スナイプストーカー";
 window.CARD_TITLE_RUBY["スナイプストーカー"] = [["スナイプストーカー"]];
 window.CARD_TITLE_READINGS["スナイプストーカー"] = "スナイプストーカー";
+
+// レベル1モンスター2枚の読み。
+window.CARD_READINGS["金華猫"] = "きんかびょう";
+window.CARD_TITLE_RUBY["金華猫"] = [["金華猫", "きんかびょう"]];
+window.CARD_TITLE_READINGS["金華猫"] = "きんかびょう";
+window.CARD_READINGS["ミスティック・パイパー"] = "ミスティックパイパー";
+window.CARD_TITLE_RUBY["ミスティック・パイパー"] = [["ミスティック・パイパー"]];
+window.CARD_TITLE_READINGS["ミスティック・パイパー"] = "ミスティックパイパー";
