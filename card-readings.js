@@ -1724,3 +1724,8 @@ window.CARD_TITLE_READINGS["トラップ・イーター"] = "トラップイー�
 window.CARD_READINGS["ジェネクス・ウンディーネ"] = "ジェネクスウンディーネ";
 window.CARD_TITLE_RUBY["ジェネクス・ウンディーネ"] = [["ジェネクス・ウンディーネ"]];
 window.CARD_TITLE_READINGS["ジェネクス・ウンディーネ"] = "ジェネクスウンディーネ";
+
+// 《スナイプストーカー》の読み。
+window.CARD_READINGS["スナイプストーカー"] = "スナイプストーカー";
+window.CARD_TITLE_RUBY["スナイプストーカー"] = [["スナイプストーカー"]];
+window.CARD_TITLE_READINGS["スナイプストーカー"] = "スナイプストーカー";
