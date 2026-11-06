@@ -1719,3 +1719,8 @@ window.CARD_TITLE_READINGS["マクロコスモス"] = "マクロコスモス";
 window.CARD_READINGS["トラップ・イーター"] = "トラップイーター";
 window.CARD_TITLE_RUBY["トラップ・イーター"] = [["トラップ・イーター"]];
 window.CARD_TITLE_READINGS["トラップ・イーター"] = "トラップイーター";
+
+// 《ジェネクス・ウンディーネ》の読み。
+window.CARD_READINGS["ジェネクス・ウンディーネ"] = "ジェネクスウンディーネ";
+window.CARD_TITLE_RUBY["ジェネクス・ウンディーネ"] = [["ジェネクス・ウンディーネ"]];
+window.CARD_TITLE_READINGS["ジェネクス・ウンディーネ"] = "ジェネクスウンディーネ";
