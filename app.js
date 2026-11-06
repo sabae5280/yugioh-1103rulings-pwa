@@ -308,6 +308,13 @@ function applyAttachedDataCorrections() {
 }
 applyAttachedDataCorrections();
 
+// 読み込み後の旧補正に上書きされないよう、整理済みの概要・QAを最後に適用する。
+for (const update of window.SAMURAI_OVERVIEW_QA_UPDATES_20261106 || []) {
+  const target = itemByManagementId(update.overviewManagementId);
+  if (!target) throw new Error("Missing updated card: " + update.name);
+  Object.assign(target, JSON.parse(JSON.stringify(update)));
+}
+
 const referencePopularity = new Map();
 
 for (const item of allRulings) {
