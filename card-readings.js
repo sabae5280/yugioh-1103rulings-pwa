@@ -1737,3 +1737,8 @@ window.CARD_TITLE_READINGS["金華猫"] = "きんかびょう";
 window.CARD_READINGS["ミスティック・パイパー"] = "ミスティックパイパー";
 window.CARD_TITLE_RUBY["ミスティック・パイパー"] = [["ミスティック・パイパー"]];
 window.CARD_TITLE_READINGS["ミスティック・パイパー"] = "ミスティックパイパー";
+
+// 《Ｄ・ラジオン》の読み。
+window.CARD_READINGS["Ｄ・ラジオン"] = "ディフォーマーラジオン";
+window.CARD_TITLE_RUBY["Ｄ・ラジオン"] = [["Ｄ", "ディフォーマー"], ["・ラジオン"]];
+window.CARD_TITLE_READINGS["Ｄ・ラジオン"] = "ディフォーマーラジオン";
