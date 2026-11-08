@@ -1742,3 +1742,8 @@ window.CARD_TITLE_READINGS["ミスティック・パイパー"] = "ミスティ�
 window.CARD_READINGS["Ｄ・ラジオン"] = "ディフォーマーラジオン";
 window.CARD_TITLE_RUBY["Ｄ・ラジオン"] = [["Ｄ", "ディフォーマー"], ["・ラジオン"]];
 window.CARD_TITLE_READINGS["Ｄ・ラジオン"] = "ディフォーマーラジオン";
+
+// 《コアキメイル・クルセイダー》の読み。
+window.CARD_READINGS["コアキメイル・クルセイダー"] = "コアキメイルクルセイダー";
+window.CARD_TITLE_RUBY["コアキメイル・クルセイダー"] = [["コアキメイル・クルセイダー"]];
+window.CARD_TITLE_READINGS["コアキメイル・クルセイダー"] = "コアキメイルクルセイダー";
