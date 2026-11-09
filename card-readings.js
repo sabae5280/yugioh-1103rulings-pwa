@@ -1766,3 +1766,8 @@ window.CARD_TITLE_READINGS["砂塵の悪霊"] = "さじんのあくりょう";
 window.CARD_READINGS["火之迦具土"] = "ひのかぐつち";
 window.CARD_TITLE_RUBY["火之迦具土"] = [["火之迦具土", "ひのかぐつち"]];
 window.CARD_TITLE_READINGS["火之迦具土"] = "ひのかぐつち";
+
+// 《アマゾネスの剣士》の読み。
+window.CARD_READINGS["アマゾネスの剣士"] = "アマゾネスのけんし";
+window.CARD_TITLE_RUBY["アマゾネスの剣士"] = [["アマゾネスの"], ["剣士", "けんし"]];
+window.CARD_TITLE_READINGS["アマゾネスの剣士"] = "アマゾネスのけんし";
