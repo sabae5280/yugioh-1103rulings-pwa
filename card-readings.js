@@ -1755,3 +1755,14 @@ window.CARD_TITLE_READINGS["神獣王バルバロス"] = "しんじゅうおう�
 window.CARD_READINGS["可変機獣 ガンナードラゴン"] = "かへんきじゅうガンナードラゴン";
 window.CARD_TITLE_RUBY["可変機獣 ガンナードラゴン"] = [["可変機獣", "かへんきじゅう"], [" ガンナードラゴン"]];
 window.CARD_TITLE_READINGS["可変機獣 ガンナードラゴン"] = "かへんきじゅうガンナードラゴン";
+
+// 追加したスピリット3枚の読み。
+window.CARD_READINGS["鳳凰"] = "ほうおう";
+window.CARD_TITLE_RUBY["鳳凰"] = [["鳳凰", "ほうおう"]];
+window.CARD_TITLE_READINGS["鳳凰"] = "ほうおう";
+window.CARD_READINGS["砂塵の悪霊"] = "さじんのあくりょう";
+window.CARD_TITLE_RUBY["砂塵の悪霊"] = [["砂塵", "さじん"], ["の"], ["悪霊", "あくりょう"]];
+window.CARD_TITLE_READINGS["砂塵の悪霊"] = "さじんのあくりょう";
+window.CARD_READINGS["火之迦具土"] = "ひのかぐつち";
+window.CARD_TITLE_RUBY["火之迦具土"] = [["火之迦具土", "ひのかぐつち"]];
+window.CARD_TITLE_READINGS["火之迦具土"] = "ひのかぐつち";
