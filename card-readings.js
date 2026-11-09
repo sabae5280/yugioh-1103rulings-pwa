@@ -1747,3 +1747,11 @@ window.CARD_TITLE_READINGS["Ｄ・ラジオン"] = "ディフォーマーラジ�
 window.CARD_READINGS["コアキメイル・クルセイダー"] = "コアキメイルクルセイダー";
 window.CARD_TITLE_RUBY["コアキメイル・クルセイダー"] = [["コアキメイル・クルセイダー"]];
 window.CARD_TITLE_READINGS["コアキメイル・クルセイダー"] = "コアキメイルクルセイダー";
+
+// バルバロス・ガンナードラゴンの読み。
+window.CARD_READINGS["神獣王バルバロス"] = "しんじゅうおうバルバロス";
+window.CARD_TITLE_RUBY["神獣王バルバロス"] = [["神獣王", "しんじゅうおう"], ["バルバロス"]];
+window.CARD_TITLE_READINGS["神獣王バルバロス"] = "しんじゅうおうバルバロス";
+window.CARD_READINGS["可変機獣 ガンナードラゴン"] = "かへんきじゅうガンナードラゴン";
+window.CARD_TITLE_RUBY["可変機獣 ガンナードラゴン"] = [["可変機獣", "かへんきじゅう"], [" ガンナードラゴン"]];
+window.CARD_TITLE_READINGS["可変機獣 ガンナードラゴン"] = "かへんきじゅうガンナードラゴン";
