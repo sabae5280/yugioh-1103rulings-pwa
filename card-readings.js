@@ -1784,3 +1784,14 @@ window.CARD_TITLE_READINGS["霞の谷のファルコン"] = "ミスト・バレ�
 window.CARD_READINGS["ビッグバン・シュート"] = "ビッグバンシュート";
 window.CARD_TITLE_RUBY["ビッグバン・シュート"] = [["ビッグバン・シュート"]];
 window.CARD_TITLE_READINGS["ビッグバン・シュート"] = "ビッグバン・シュート";
+
+// 聖鳥クレイン、スターダスト・ドラゴン／バスター、銀幕の鏡壁
+window.CARD_READINGS["聖鳥クレイン"] = "セイチョウクレイン";
+window.CARD_TITLE_RUBY["聖鳥クレイン"] = [["聖鳥", "せいちょう"], ["クレイン"]];
+window.CARD_TITLE_READINGS["聖鳥クレイン"] = "せいちょうクレイン";
+window.CARD_READINGS["スターダスト・ドラゴン／バスター"] = "スターダストドラゴンスラッシュバスター";
+window.CARD_TITLE_RUBY["スターダスト・ドラゴン／バスター"] = [["スターダスト・ドラゴン"], ["／", "スラッシュ"], ["バスター"]];
+window.CARD_TITLE_READINGS["スターダスト・ドラゴン／バスター"] = "スターダスト・ドラゴンスラッシュバスター";
+window.CARD_READINGS["銀幕の鏡壁"] = "ギンマクノミラーウォール";
+window.CARD_TITLE_RUBY["銀幕の鏡壁"] = [["銀幕", "ぎんまく"], ["の"], ["鏡壁", "ミラーウォール"]];
+window.CARD_TITLE_READINGS["銀幕の鏡壁"] = "ぎんまくのミラーウォール";
