@@ -1771,3 +1771,8 @@ window.CARD_TITLE_READINGS["火之迦具土"] = "ひのかぐつち";
 window.CARD_READINGS["アマゾネスの剣士"] = "アマゾネスのけんし";
 window.CARD_TITLE_RUBY["アマゾネスの剣士"] = [["アマゾネスの"], ["剣士", "けんし"]];
 window.CARD_TITLE_READINGS["アマゾネスの剣士"] = "アマゾネスのけんし";
+
+// 《スキル・サクセサー》の読み。
+window.CARD_READINGS["スキル・サクセサー"] = "スキルサクセサー";
+window.CARD_TITLE_RUBY["スキル・サクセサー"] = [["スキル・サクセサー"]];
+window.CARD_TITLE_READINGS["スキル・サクセサー"] = "スキルサクセサー";
