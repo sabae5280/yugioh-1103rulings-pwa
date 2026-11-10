@@ -1776,3 +1776,11 @@ window.CARD_TITLE_READINGS["アマゾネスの剣士"] = "アマゾネスのけ�
 window.CARD_READINGS["スキル・サクセサー"] = "スキルサクセサー";
 window.CARD_TITLE_RUBY["スキル・サクセサー"] = [["スキル・サクセサー"]];
 window.CARD_TITLE_READINGS["スキル・サクセサー"] = "スキルサクセサー";
+
+// 霞の谷のファルコン、ビッグバン・シュート
+window.CARD_READINGS["霞の谷のファルコン"] = "ミストバレーノファルコン";
+window.CARD_TITLE_RUBY["霞の谷のファルコン"] = [["霞の谷", "ミスト・バレー"], ["のファルコン"]];
+window.CARD_TITLE_READINGS["霞の谷のファルコン"] = "ミスト・バレーのファルコン";
+window.CARD_READINGS["ビッグバン・シュート"] = "ビッグバンシュート";
+window.CARD_TITLE_RUBY["ビッグバン・シュート"] = [["ビッグバン・シュート"]];
+window.CARD_TITLE_READINGS["ビッグバン・シュート"] = "ビッグバン・シュート";
