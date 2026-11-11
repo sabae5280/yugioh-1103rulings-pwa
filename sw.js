@@ -1,5 +1,6 @@
-const CACHE_NAME = "rulings-1103-v172";
+const CACHE_NAME = "rulings-1103-v173";
 const ASSETS = [
+  "./necrovalley-reference-20261112.webp",
   "./rulings-illusions-fiend-skull-20261112.js",
   "./rulings-crane-assault-mirror-20261110.js",
   "./sacred-crane-1103.jpg",
@@ -130,8 +131,6 @@ const ASSETS = [
   "./submarine-frog-1103.jpg",
   "./dd-survivor-1103.jpg",
   "./dd-scout-plane-1103.jpg",
-  "./necrovalley-rulings-01.jpg",
-  "./necrovalley-rulings-02.jpg",
   "./torrential-qa-order-20261026.js",
   "./torrential-tribute-1103.jpg",
   "./get-ride-1103.jpg",
