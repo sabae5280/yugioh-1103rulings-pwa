@@ -1,4 +1,4 @@
-const CACHE_NAME = "rulings-1103-v174";
+const CACHE_NAME = "rulings-1103-v175";
 const ASSETS = [
   "./necrovalley-reference-20261112.webp",
   "./rulings-illusions-fiend-skull-20261112.js",
