@@ -1795,3 +1795,8 @@ window.CARD_TITLE_READINGS["スターダスト・ドラゴン／バスター"] =
 window.CARD_READINGS["銀幕の鏡壁"] = "ギンマクノミラーウォール";
 window.CARD_TITLE_RUBY["銀幕の鏡壁"] = [["銀幕", "ぎんまく"], ["の"], ["鏡壁", "ミラーウォール"]];
 window.CARD_TITLE_READINGS["銀幕の鏡壁"] = "ぎんまくのミラーウォール";
+
+// スクリーン・オブ・レッド
+window.CARD_READINGS["スクリーン・オブ・レッド"] = "スクリーンオブレッド";
+window.CARD_TITLE_RUBY["スクリーン・オブ・レッド"] = [["スクリーン・オブ・レッド"]];
+window.CARD_TITLE_READINGS["スクリーン・オブ・レッド"] = "スクリーン・オブ・レッド";
