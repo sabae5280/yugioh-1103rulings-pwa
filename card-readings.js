@@ -1821,3 +1821,20 @@ window.CARD_TITLE_READINGS["インヴェルズの門番"] = "インヴェルズ�
 window.CARD_READINGS["インヴェルズの斥候"] = "インヴェルズノセッコウ";
 window.CARD_TITLE_RUBY["インヴェルズの斥候"] = [["インヴェルズの"], ["斥候", "せっこう"]];
 window.CARD_TITLE_READINGS["インヴェルズの斥候"] = "インヴェルズのせっこう";
+
+// コアキメイル・パワーハンド、ワーム4枚
+window.CARD_READINGS["コアキメイル・パワーハンド"] = "コアキメイルパワーハンド";
+window.CARD_TITLE_RUBY["コアキメイル・パワーハンド"] = [["コアキメイル・パワーハンド"]];
+window.CARD_TITLE_READINGS["コアキメイル・パワーハンド"] = "コアキメイル・パワーハンド";
+window.CARD_READINGS["ワーム・カルタロス"] = "ワームカルタロス";
+window.CARD_TITLE_RUBY["ワーム・カルタロス"] = [["ワーム・カルタロス"]];
+window.CARD_TITLE_READINGS["ワーム・カルタロス"] = "ワーム・カルタロス";
+window.CARD_READINGS["ワーム・リンクス"] = "ワームリンクス";
+window.CARD_TITLE_RUBY["ワーム・リンクス"] = [["ワーム・リンクス"]];
+window.CARD_TITLE_READINGS["ワーム・リンクス"] = "ワーム・リンクス";
+window.CARD_READINGS["ワーム・テンタクルス"] = "ワームテンタクルス";
+window.CARD_TITLE_RUBY["ワーム・テンタクルス"] = [["ワーム・テンタクルス"]];
+window.CARD_TITLE_READINGS["ワーム・テンタクルス"] = "ワーム・テンタクルス";
+window.CARD_READINGS["ワーム・ジェートリクプス"] = "ワームジェートリクプス";
+window.CARD_TITLE_RUBY["ワーム・ジェートリクプス"] = [["ワーム・ジェートリクプス"]];
+window.CARD_TITLE_READINGS["ワーム・ジェートリクプス"] = "ワーム・ジェートリクプス";
