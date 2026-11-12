@@ -1838,3 +1838,8 @@ window.CARD_TITLE_READINGS["ワーム・テンタクルス"] = "ワーム・テ�
 window.CARD_READINGS["ワーム・ジェートリクプス"] = "ワームジェートリクプス";
 window.CARD_TITLE_RUBY["ワーム・ジェートリクプス"] = [["ワーム・ジェートリクプス"]];
 window.CARD_TITLE_READINGS["ワーム・ジェートリクプス"] = "ワーム・ジェートリクプス";
+
+// Ｄ・ステープラン
+window.CARD_READINGS["Ｄ・ステープラン"] = "ディフォーマーステープラン";
+window.CARD_TITLE_RUBY["Ｄ・ステープラン"] = [["Ｄ", "ディフォーマー"], ["・ステープラン"]];
+window.CARD_TITLE_READINGS["Ｄ・ステープラン"] = "ディフォーマー・ステープラン";
