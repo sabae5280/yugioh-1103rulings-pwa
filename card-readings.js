@@ -1810,3 +1810,14 @@ window.CARD_TITLE_READINGS["極神聖帝オーディン"] = "きょくしんせ�
 window.CARD_READINGS["ナチュル・エクストリオ"] = "ナチュルエクストリオ";
 window.CARD_TITLE_RUBY["ナチュル・エクストリオ"] = [["ナチュル・エクストリオ"]];
 window.CARD_TITLE_READINGS["ナチュル・エクストリオ"] = "ナチュル・エクストリオ";
+
+// インヴェルズ・ギラファ、インヴェルズの門番、インヴェルズの斥候
+window.CARD_READINGS["インヴェルズ・ギラファ"] = "インヴェルズギラファ";
+window.CARD_TITLE_RUBY["インヴェルズ・ギラファ"] = [["インヴェルズ・ギラファ"]];
+window.CARD_TITLE_READINGS["インヴェルズ・ギラファ"] = "インヴェルズ・ギラファ";
+window.CARD_READINGS["インヴェルズの門番"] = "インヴェルズノモンバン";
+window.CARD_TITLE_RUBY["インヴェルズの門番"] = [["インヴェルズの"], ["門番", "もんばん"]];
+window.CARD_TITLE_READINGS["インヴェルズの門番"] = "インヴェルズのもんばん";
+window.CARD_READINGS["インヴェルズの斥候"] = "インヴェルズノセッコウ";
+window.CARD_TITLE_RUBY["インヴェルズの斥候"] = [["インヴェルズの"], ["斥候", "せっこう"]];
+window.CARD_TITLE_READINGS["インヴェルズの斥候"] = "インヴェルズのせっこう";
