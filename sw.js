@@ -1,5 +1,7 @@
-const CACHE_NAME = "rulings-1103-v176";
+const CACHE_NAME = "rulings-1103-v177";
 const ASSETS = [
+  "./rulings-odin-moon-20261112.js",
+  "./odin-father-of-the-aesir-1103.jpg",
   "./rulings-screen-necrovalley-chaos-20261112.js",
   "./screen-of-red-1103.jpg",
   "./necrovalley-reference-20261112.webp",
