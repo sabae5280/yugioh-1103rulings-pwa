@@ -3,6 +3,7 @@
   const cards = [
   {
     "name": "コアキメイル・パワーハンド",
+    "image": "./koa-ki-meiru-powerhand-1103.jpg",
     "reading": "コアキメイルパワーハンド",
     "overviewManagementId": "79062",
     "type": "monster",
