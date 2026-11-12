@@ -1800,3 +1800,8 @@ window.CARD_TITLE_READINGS["銀幕の鏡壁"] = "ぎんまくのミラーウォ�
 window.CARD_READINGS["スクリーン・オブ・レッド"] = "スクリーンオブレッド";
 window.CARD_TITLE_RUBY["スクリーン・オブ・レッド"] = [["スクリーン・オブ・レッド"]];
 window.CARD_TITLE_READINGS["スクリーン・オブ・レッド"] = "スクリーン・オブ・レッド";
+
+// 極神聖帝オーディン
+window.CARD_READINGS["極神聖帝オーディン"] = "キョクシンセイテイオーディン";
+window.CARD_TITLE_RUBY["極神聖帝オーディン"] = [["極神聖帝", "きょくしんせいてい"], ["オーディン"]];
+window.CARD_TITLE_READINGS["極神聖帝オーディン"] = "きょくしんせいていオーディン";
