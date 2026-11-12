@@ -1805,3 +1805,8 @@ window.CARD_TITLE_READINGS["スクリーン・オブ・レッド"] = "スクリ�
 window.CARD_READINGS["極神聖帝オーディン"] = "キョクシンセイテイオーディン";
 window.CARD_TITLE_RUBY["極神聖帝オーディン"] = [["極神聖帝", "きょくしんせいてい"], ["オーディン"]];
 window.CARD_TITLE_READINGS["極神聖帝オーディン"] = "きょくしんせいていオーディン";
+
+// ナチュル・エクストリオ
+window.CARD_READINGS["ナチュル・エクストリオ"] = "ナチュルエクストリオ";
+window.CARD_TITLE_RUBY["ナチュル・エクストリオ"] = [["ナチュル・エクストリオ"]];
+window.CARD_TITLE_READINGS["ナチュル・エクストリオ"] = "ナチュル・エクストリオ";
