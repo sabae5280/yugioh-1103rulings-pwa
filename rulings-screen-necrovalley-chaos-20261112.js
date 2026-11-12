@@ -63,6 +63,5 @@
   ],
   "managementId": "R-LFQSJN56"
 });
-  necrovalley.overview = "▷このカードの効果の詳細は、下に掲載している「ネクロバレーのしきたり」を参照。\n\n" + necrovalley.overview;
   window.RULINGS.push(newCard);
 })();
