@@ -1843,3 +1843,11 @@ window.CARD_TITLE_READINGS["ワーム・ジェートリクプス"] = "ワーム�
 window.CARD_READINGS["Ｄ・ステープラン"] = "ディフォーマーステープラン";
 window.CARD_TITLE_RUBY["Ｄ・ステープラン"] = [["Ｄ", "ディフォーマー"], ["・ステープラン"]];
 window.CARD_TITLE_READINGS["Ｄ・ステープラン"] = "ディフォーマー・ステープラン";
+
+// ダーク・アームド・ドラゴン、宮廷のしきたり
+window.CARD_READINGS["ダーク・アームド・ドラゴン"] = "ダークアームドドラゴン";
+window.CARD_TITLE_RUBY["ダーク・アームド・ドラゴン"] = [["ダーク・アームド・ドラゴン"]];
+window.CARD_TITLE_READINGS["ダーク・アームド・ドラゴン"] = "ダーク・アームド・ドラゴン";
+window.CARD_READINGS["宮廷のしきたり"] = "キュウテイノシキタリ";
+window.CARD_TITLE_RUBY["宮廷のしきたり"] = [["宮廷", "きゅうてい"], ["のしきたり"]];
+window.CARD_TITLE_READINGS["宮廷のしきたり"] = "きゅうていのしきたり";
