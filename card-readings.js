@@ -1851,3 +1851,8 @@ window.CARD_TITLE_READINGS["ダーク・アームド・ドラゴン"] = "ダー�
 window.CARD_READINGS["宮廷のしきたり"] = "キュウテイノシキタリ";
 window.CARD_TITLE_RUBY["宮廷のしきたり"] = [["宮廷", "きゅうてい"], ["のしきたり"]];
 window.CARD_TITLE_READINGS["宮廷のしきたり"] = "きゅうていのしきたり";
+
+// マインフィールド
+window.CARD_READINGS["マインフィールド"] = "マインフィールド";
+window.CARD_TITLE_RUBY["マインフィールド"] = [["マインフィールド"]];
+window.CARD_TITLE_READINGS["マインフィールド"] = "マインフィールド";
