@@ -935,7 +935,12 @@ function overviewSegments(value) {
 }
 
 function renderOverviewBody(value) {
-  const text = convertOverviewToPlainStyle(value).replace(/▶/g, "■");
+  const disclosures = [];
+  const text = convertOverviewToPlainStyle(value).replace(/▶/g, "■")
+    .replace(/\[\[補足:([^\]\n]+)\]\]([\s\S]*?)\[\[\/補足\]\]/g, (_match, title, body) => {
+      const index = disclosures.push({ title, body: body.trim() }) - 1;
+      return `\n\u0000OVERVIEW_DISCLOSURE_${index}\u0000\n`;
+    });
   const lines = text.split("\n");
   const output = [];
   let point = null;
@@ -955,6 +960,14 @@ function renderOverviewBody(value) {
   };
   for (const line of lines) {
     const trimmed = line.trim();
+    const inline = trimmed.match(/^\u0000OVERVIEW_DISCLOSURE_(\d+)\u0000$/);
+    if (inline) {
+      flushPoint();
+      flushProse();
+      const disclosure = disclosures[Number(inline[1])];
+      output.push(`<details class="overview-disclosure"><summary><span class="overview-heading-icon" aria-hidden="true">◆</span><span class="overview-heading-text">${escapeHtml(disclosure.title)}</span></summary><div class="overview-disclosure__body">${renderOverviewBody(disclosure.body)}</div></details>`);
+      continue;
+    }
     if (!trimmed) { flushPoint(); flushProse(); continue; }
     const marker = trimmed.match(/^(■|▷|◆|●|★|▼|▽|※|①|②|③|④|⑤|⑥|⑦|⑧|⑨|⑩|→)\s*(.*)$/);
     if (marker) {
