@@ -511,13 +511,14 @@ function cardSearchReadings(item) {
 }
 
 function cardTitle(item) {
-  if (item.type === "category") return escapeHtml(item.name);
+  const isCategory = item.type === "category";
   const parts = window.CARD_TITLE_RUBY?.[item.name];
   // 未登録の名前を機械的に分割せず、誤ったルビや名前の欠落を防ぐ。
   if (!Array.isArray(parts) || parts.map(part => part[0]).join("") !== item.name) {
-    return `《${escapeHtml(item.name)}》`;
+    const name = escapeHtml(item.name);
+    return isCategory ? name : `《${name}》`;
   }
-  return `《${parts.map(([text, reading]) => {
+  const name = parts.map(([text, reading]) => {
     // 略称の表示だけを統一し、カード名・リンク・検索用データは保持する。
     if (text.normalize("NFKC") === "TG" && reading === "テックジーナス") {
       return `<ruby class="card-title-tg"><span class="card-title-tg-base">TG</span><rt>${escapeHtml(reading)}</rt></ruby>`;
@@ -525,7 +526,8 @@ function cardTitle(item) {
     return reading
       ? `<ruby>${escapeHtml(text)}<rt>${escapeHtml(reading)}</rt></ruby>`
       : escapeHtml(text);
-  }).join("")}》`;
+  }).join("");
+  return isCategory ? name : `《${name}》`;
 }
 
 function typeBadge(item) {

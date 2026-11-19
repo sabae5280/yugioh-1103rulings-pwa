@@ -1,5 +1,6 @@
-const CACHE_NAME = "rulings-1103-v220";
+const CACHE_NAME = "rulings-1103-v221";
 const ASSETS = [
+  "./earthbound-immortal-aslla-piscu-1103.jpg",
   "./rulings-earthbound-genex-20261119.js",
   "./earthbound-immortal-cover.jpg",
   "./earthbound-immortal-ccarayhua-1103.jpg",
