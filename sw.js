@@ -1,5 +1,9 @@
-const CACHE_NAME = "rulings-1103-v227";
+const CACHE_NAME = "rulings-1103-v228";
 const ASSETS = [
+  "./rulings-nightmare-cross-future-20261120.js",
+  "./nightmare-archfiends-1103.jpg",
+  "./soul-exchange-1103.jpg",
+  "./future-visions-1103.jpg",
   "./rulings-ceasefire-20261119.js",
   "./ceasefire-1103.jpg",
   "./earthbound-immortal-aslla-piscu-1103.jpg",
