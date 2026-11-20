@@ -2685,7 +2685,10 @@ const K_ROW_RULINGS = [
     ],
     "trapType": "カウンター罠",
     "damageStepGuide": true,
-    "source": "note『裁定まとめ か行』"
+    "source": "note『裁定まとめ か行』",
+    "specialTags": [
+      "剣闘獣"
+    ]
   },
   {
     "name": "クリッター",
