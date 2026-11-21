@@ -60,9 +60,9 @@
   const merrow = window.RULINGS.find(card => card.name === "イビリチュア・メロウガイスト");
   const heading = "■《Ｅ・ＨＥＲＯ アブソルートＺｅｒｏ》";
   if (!merrow?.overview.includes(heading)) throw new Error("Missing Zero section");
-  merrow.overview = merrow.overview.replace(heading, "■《マインフィールド》\n▷「フィールドから離れた時」を条件とする効果だが、このカードの効果でメインデッキに戻した場合は発動しない。エクストラデッキに戻る《Ｅ・ＨＥＲＯ アブソルートＺｅｒｏ》とは扱いが異なる。詳しくはQAを参照。\n\n" + heading);
+  merrow.overview = merrow.overview.replace(heading, "■《マインフィールド》\n▷《マインフィールド》は、自分フィールドに表側表示で存在する状態からフィールドを離れた時に発動できる任意の誘発効果を持つ。このカードの効果でメインデッキに戻した場合、その効果は発動しない。\n\n" + heading);
   const index = merrow.qa.findIndex(entry => entry.question.startsWith("このカードの効果で《Ｅ・ＨＥＲＯ アブソルートＺｅｒｏ》"));
   if (index < 0) throw new Error("Missing Zero QA");
-  merrow.qa.splice(index, 0, {"question": "このカードの効果で《マインフィールド》をメインデッキに戻した場合、墓地のフィールド魔法を手札に戻す効果は発動しますか？", "answer": "いいえ、発動しません。《マインフィールド》の発動条件は「フィールドから離れた時」ですが、メインデッキに戻った場合は効果を発動できません。\n\nエクストラデッキに戻った場合も効果を発動する《Ｅ・ＨＥＲＯ アブソルートＺｅｒｏ》とは、戻る場所によって扱いが異なります。", "environments": ["1103"], "managementId": "R-BY4L9GLH"});
+  merrow.qa.splice(index, 0, {"question": "このカードの効果で《マインフィールド》をメインデッキに戻した場合、墓地のフィールド魔法を手札に戻す効果は発動しますか？", "answer": "いいえ、発動しません。《マインフィールド》は自分フィールドに表側表示で存在する状態から離れた時に任意で発動できますが、非公開領域であるメインデッキに戻った場合、その効果は発動できません。", "environments": ["1103"], "managementId": "R-BY4L9GLH"});
   window.RULINGS.push(minefield);
 })();
