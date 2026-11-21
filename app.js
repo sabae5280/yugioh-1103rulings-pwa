@@ -815,6 +815,13 @@ function overviewImagesPanel(item) {
       ${images.map((entry, index) => {
         const image = typeof entry === "string" ? { src: entry } : entry;
         const alt = image.alt || `${item.name}の概要参考画像${index + 1}`;
+        if (image.openOriginal) {
+          return `
+            <a class="supplemental-image" href="${escapeHtml(image.src)}" target="_blank" rel="noopener" aria-label="${escapeHtml(alt)}の原寸画像を別タブで開く">
+              <img src="${escapeHtml(image.src)}" alt="${escapeHtml(alt)}" loading="lazy">
+              <span>${escapeHtml(image.caption || alt)}（原寸画像を開く）</span>
+            </a>`;
+        }
         return `
           <button class="supplemental-image" type="button" data-image-src="${escapeHtml(image.src)}" data-image-name="${escapeHtml(alt)}" aria-label="${escapeHtml(alt)}を拡大表示">
             <img src="${escapeHtml(image.src)}" alt="${escapeHtml(alt)}" loading="lazy">
