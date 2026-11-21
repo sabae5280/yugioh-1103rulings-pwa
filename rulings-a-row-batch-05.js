@@ -221,7 +221,7 @@ const A_ROW_BATCH_05 = [
     qa: [
       { question: "このカードで《マジック・ジャマー》を無効にできますか？", answer: "はい、できます。", environments: ["1103"] , managementId: "R-Y7QWM74UQP"},
       { question: "このカードで《神の宣告》を無効にできますか？", answer: "「魔法・罠カードにチェーンされた《神の宣告》」ならば、無効にできます。", environments: ["1103"] , managementId: "R-MEQKKXKHNT"},
-      {"question": "魔法・罠カード1枚の破壊を含む《ゴッドバードアタック》《毒蛇の供物》の発動、または《マジック・ドレイン》の発動にチェーンして、このカードを発動できますか？", "answer": "いいえ、発動できません。\n\n長きにわたり調整中でしたが、マスタールール2の期間内に、発動できないとの裁定が出ています。\n\n※この裁定は難解なルールを含むため、大会当日のジャッジの判断を優先してください。", "environments": ["1103"], "difficult": true, "managementId": "R-KQQ6SDARTD"},
+      {"question": "魔法・罠カード1枚の破壊を含む《ゴッドバードアタック》《毒蛇の供物》の発動、または《マジック・ドレイン》の発動にチェーンして、このカードを発動できますか？", "answer": "いいえ、発動できません。\n\n長きにわたり調整中でしたが、マスタールール2の期間内に、発動できないとの裁定が出ています。", "environments": ["1103"], "managementId": "R-KQQ6SDARTD"},
       { question: "特殊召喚されている罠モンスターに対して《サイクロン》が発動された時、このカードを発動できますか？", answer: "はい、できます。", environments: ["1103"] , managementId: "R-F8USFQTEED"},
       { question: "特殊召喚されている罠モンスターに対して《地砕き》《死者への手向け》が発動された時、このカードを発動できますか？", answer: "対象を取る、取らないにかかわらず、できません。", environments: ["1103"] , managementId: "R-G6AQN64DHV"},
       { question: "特殊召喚されている罠モンスターに対して《サンダー・ブレイク》が発動された時、このカードを発動できますか？", answer: "はい、発動できます。", environments: ["1103"] , managementId: "R-GBD2FLJT7N"},

@@ -1898,3 +1898,6 @@ Object.assign(window.CARD_TITLE_RUBY, {
 
 // 停戦協定
 window.CARD_TITLE_RUBY["停戦協定"] = [["停戦協定", "ていせんきょうてい"]];
+
+window.CARD_TITLE_RUBY["A・O・J カタストル"] = [["A・O・J", "アーリー・オブ・ジャスティス"], [" カタストル"]];
+window.CARD_TITLE_READINGS["A・O・J カタストル"] = "アーリー・オブ・ジャスティス カタストル";
