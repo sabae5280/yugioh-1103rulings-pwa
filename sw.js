@@ -1,5 +1,12 @@
-const CACHE_NAME = "rulings-1103-v235";
+const CACHE_NAME = "rulings-1103-v236";
 const ASSETS = [
+  "./rulings-gale-shrink-stat-fixing-20261121.js",
+  "./blackwing-gale-1103.png",
+  "./shrink-1103.png",
+  "./emissary-of-darkness-token-1103.png",
+  "./shrink-recalculation.png",
+  "./gale-stat-fixing.png",
+  "./stat-fixing-card-list.png",
   "./ally-of-justice-catastor-1103.jpg",
   "./test-tiger-1103.jpg",
   "./gladiator-beast-heraklinos-1103.jpg",
