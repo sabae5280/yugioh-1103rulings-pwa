@@ -155,9 +155,13 @@ function enrichItem(item) {
 }
 
 const japaneseCollator = new Intl.Collator("ja", { numeric: true, sensitivity: "base" });
+function kanaSortKey(item) {
+  return (item.reading || item.name).normalize("NFKC").replace(/[・\s]/g, "");
+}
+
 const allRulings = window.RULINGS
   .map(enrichItem)
-  .sort((a, b) => japaneseCollator.compare(a.reading || a.name, b.reading || b.name));
+  .sort((a, b) => japaneseCollator.compare(kanaSortKey(a), kanaSortKey(b)));
 
 // Keep Q&A IDs stable across reloads and reserve IDs already assigned to entries.
 const usedManagementIds = new Set();
