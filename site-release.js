@@ -1,1 +1,1 @@
-window.SITE_RELEASE = {"updated": "2026-11-22", "updatedCards": ["カラクリ商人 壱七七"], "version": "v245"};
+window.SITE_RELEASE = {"updated": "2026-11-22", "updatedCards": ["王家の眠る谷-ネクロバレー"], "version": "v244"};

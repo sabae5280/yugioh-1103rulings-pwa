@@ -101,3 +101,8 @@ body.menu-open .notice-track{animation-play-state:paused}
 .credits-notice{padding:14px;border:1px solid #d7c78e;background:#fffdf4;border-radius:8px;margin-top:24px}
 .credits-notice h3{margin-top:0!important}
 @media(max-width:360px){.hero .hero-actions #shareButton,.hero .hero-actions #menuButton{min-height:36px;padding:4px 9px}.hero .hero-subtitle{font-size:10px}.link-category .link-grid{gap:12px 7px;padding:6px}.link-tile{font-size:11px}}
+
+/* v244: give the guide more room while keeping the bubble readable. */
+.menu-guide__bubble{flex:0 1 calc(13em + 24px);max-width:calc(13em + 24px)}
+.menu-guide__portrait{flex:1 0 40%;min-width:0}
+@media(max-width:360px){.menu-guide__bubble{flex-basis:calc(13em + 18px);max-width:calc(13em + 18px)}}

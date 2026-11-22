@@ -16,7 +16,7 @@
  function frame(i){images.forEach((img,n)=>img.classList.toggle('is-current',n===i));}
  function later(fn,ms){const id=setTimeout(()=>{timers.delete(id);fn();},ms);timers.add(id);}
  function stop(){generation++;timers.forEach(clearTimeout);timers.clear();frame(0);}
- function cycle(){const steps=[[1,90],[0,120],[2,150],[3,220],[2,150]];let i=0;function next(){if(i===steps.length){frame(0);later(cycle,8000+Math.random()*6000);return;}const [f,ms]=steps[i++];frame(f);later(next,ms);}next();}
+ function cycle(){const steps=[[1,90],[0,120],[2,150],[3,220],[2,150]];let i=0;function next(){if(i===steps.length){frame(0);later(cycle,2300+Math.random()*700);return;}const [f,ms]=steps[i++];frame(f);later(next,ms);}next();}
  async function start(){stop();if(menu.hidden||document.hidden)return;const token=generation;const message=messageForPage();host.querySelector('.menu-guide__measure').textContent=message;host.querySelector('.visually-hidden').textContent=message;typed.textContent=reduced.matches?message:'';if(reduced.matches)return;
  let count=0;function type(){typed.textContent=message.slice(0,++count);if(count<message.length)later(type,55);}later(type,200);
  await ready;if(token!==generation||menu.hidden||document.hidden)return;later(cycle,800+Math.random()*400);
