@@ -1,5 +1,15 @@
-const CACHE_NAME = "rulings-1103-v242";
+const CACHE_NAME = "rulings-1103-v243";
 const ASSETS = [
+  "./contributors.js",
+  "./images/links/wiki.webp",
+  "./images/links/official.webp",
+  "./images/links/foru-events.webp",
+  "./images/links/adsoji3.webp",
+  "./images/links/T_Morikawa_F.webp",
+  "./images/links/minmaya_.webp",
+  "./images/links/PZFace.webp",
+  "./images/links/zigzag8225.webp",
+
   "./images/links/Wy098.webp",
   "./images/links/Q8VSz.webp",
   "./images/links/MW8fT.webp",

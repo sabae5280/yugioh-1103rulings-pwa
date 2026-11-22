@@ -26,10 +26,6 @@
         <p class="hero-subtitle">Master Rule 2 《1103・1209・1402》</p>
       </div>
       <div class="hero-actions">
-      <button id="shareButton" class="share-button" type="button" aria-label="このサイトを共有">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8a3 3 0 1 0-2.83-4H15a3 3 0 0 0 .16 1l-7.1 4.14a3.5 3.5 0 1 0 0 5.72l7.1 4.14A3 3 0 1 0 16 17.2l-7.1-4.14a3.5 3.5 0 0 0 0-2.12L16 6.8A3 3 0 0 0 18 8Z"/></svg>
-        <span>共有</span>
-      </button>
         <button id="installButton" class="install-button" type="button" hidden>ホーム画面に追加</button>
         <button id="menuButton" class="menu-button" type="button" aria-haspopup="dialog" aria-controls="siteMenu">
           <span aria-hidden="true">☰</span> メニュー
@@ -121,7 +117,12 @@
     <section class="site-menu__drawer">
       <div class="site-menu__header">
         <strong>メニュー</strong>
-        <button id="menuClose" class="site-menu__close" type="button" aria-label="メニューを閉じる">×</button>
+        <div class="menu-header-actions">
+      <button id="shareButton" class="share-button" type="button" aria-label="このサイトを共有">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8a3 3 0 1 0-2.83-4H15a3 3 0 0 0 .16 1l-7.1 4.14a3.5 3.5 0 1 0 0 5.72l7.1 4.14A3 3 0 1 0 16 17.2l-7.1-4.14a3.5 3.5 0 0 0 0-2.12L16 6.8A3 3 0 0 0 18 8Z"/></svg>
+        <span>共有</span>
+      </button>
+<button id="menuClose" class="site-menu__close" type="button" aria-label="メニューを閉じる">×</button></div>
       </div>
       <section class="recent-updates" aria-labelledby="updatesTitle"><h2 id="updatesTitle">最近の更新</h2><p class="updates-hint">最近15件 · カード名から裁定へ</p><ol id="recentUpdates" tabindex="0" aria-label="最近の更新一覧"></ol></section>
 <nav class="site-menu__nav" aria-label="サイトメニュー">
@@ -283,5 +284,6 @@
 <script src="./menu-guide.js"></script>
 <dialog id="noticeDialog" aria-labelledby="noticeTitle"><h2 id="noticeTitle">ご利用にあたって</h2><p>当サイトはファンメイドの非公式サイトです。掲載する遊戯王関連の画像・名称等の権利は各権利者に帰属します。裁定は参考資料としてご活用いただき、イベントでは当日の運営・ジャッジの指示に従ってください。</p><button type="button" id="noticeClose">閉じて戻る</button></dialog>
 <script src="./menu-update.js"></script>
+<script src="./contributors.js"></script>
 </body>
 </html>

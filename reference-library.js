@@ -1,7 +1,7 @@
 (() => {
  const entries=[{name:'ダメージステップ表',file:'damage-step-reference'},{name:'強欲で謙虚な壺 フローチャート',file:'pot-of-duality-flowchart'},{name:'ネクロバレーのしきたり',file:'necrovalley-reference-20261122',image:'necrovalley-reference-20261122.webp'}];
  const dialog=document.createElement('dialog');dialog.className='reference-dialog';dialog.setAttribute('aria-labelledby','referenceTitle');
- dialog.innerHTML='<header><button type="button" id="referenceBack" hidden>‹ 一覧へ</button><h2 id="referenceTitle">各種表・フローチャート</h2><button type="button" id="referenceClose" aria-label="資料を閉じる">× 閉じて戻る</button></header><div id="referenceContent"></div><footer class="reference-footer"><button id="referenceReturn" type="button">閉じて検索画面に戻る</button></footer>';
+ dialog.innerHTML='<header><button type="button" id="referenceBack" hidden>‹ 一覧へ</button><h2 id="referenceTitle">各種表・フローチャート</h2><button type="button" id="referenceClose" aria-label="資料を閉じる">× 閉じて戻る</button></header><div id="referenceContent"></div>';
  document.body.append(dialog);
  const content=dialog.querySelector('#referenceContent'),back=dialog.querySelector('#referenceBack'),title=dialog.querySelector('h2');let selected=-1,previousOverflow='';
  function list(){title.textContent='各種表・フローチャート';back.hidden=true;content.innerHTML=entries.map((e,i)=>`<button class="reference-choice" data-reference-index="${i}">${e.name}<span aria-hidden="true">›</span></button>`).join('');}
@@ -10,7 +10,14 @@
  function openReference(target,index){returnTarget=target;previousOverflow=document.body.style.overflow;document.body.style.overflow='hidden';if(index===undefined)list();else show(index);dialog.showModal();}
  document.querySelector('#referenceOpen').addEventListener('click',event=>openReference(event.currentTarget));
  document.addEventListener('click',event=>{const link=event.target.closest('a.damage-step-reference__link, a[href$="necrovalley-reference-20261122.webp"]');if(!link||event.ctrlKey||event.metaKey||event.shiftKey||event.altKey)return;event.preventDefault();openReference(link,link.href.includes("necrovalley-reference")?2:0);});
- dialog.querySelector('#referenceReturn').addEventListener('click',()=>dialog.close());
+ document.addEventListener('click',event=>{
+  const link=event.target.closest('a.supplemental-image');if(!link||event.defaultPrevented||event.ctrlKey||event.metaKey||event.shiftKey||event.altKey)return;
+  const url=new URL(link.href);if(url.origin!==location.origin||! /\.(png|webp|jpe?g)$/i.test(url.pathname))return;
+  event.preventDefault();returnTarget=link;previousOverflow=document.body.style.overflow;document.body.style.overflow='hidden';
+  title.textContent=link.querySelector('img')?.alt||'参考表';back.hidden=true;
+  content.replaceChildren();const tools=document.createElement('div');tools.className='reference-tools';const zoom=document.createElement('button');zoom.id='referenceZoom';zoom.type='button';zoom.textContent='拡大する';zoom.setAttribute('aria-pressed','false');tools.append(zoom);
+  const wrap=document.createElement('div');wrap.className='reference-image';const img=document.createElement('img');img.src=url.href;img.alt=title.textContent;wrap.append(img);content.append(tools,wrap);dialog.showModal();
+ });
  dialog.querySelector('#referenceClose').addEventListener('click',()=>dialog.close());
  dialog.addEventListener('close',()=>{document.body.style.overflow=previousOverflow;(returnTarget?.isConnected?returnTarget:document.querySelector('#referenceOpen')).focus();});
  back.addEventListener('click',()=>{list();content.querySelectorAll('button')[selected]?.focus();});
