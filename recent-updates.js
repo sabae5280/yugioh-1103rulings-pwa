@@ -24,6 +24,112 @@ window.RECENT_UPDATES = [
     "batch": "2026-11-22-materials"
   },
   {
+    "date": "2026-11-22",
+    "card": "カラクリ商人 壱七七",
+    "change": "読みを修正",
+    "summary": "「壱七七」の読みを「イナシチ」に修正",
+    "qaIds": [],
+    "batch": "2026-11-22-karakuri-reading"
+  },
+  {
+    "date": "2026-11-22",
+    "card": "《カラクリ》共通効果",
+    "change": "内容整理",
+    "summary": "攻撃義務、戦闘の巻き戻し、攻撃対象に選ばれた時の表示形式変更を整理",
+    "qaIds": [],
+    "batch": "2026-11-22-karakuri-watt-bicorn"
+  },
+  {
+    "date": "2026-11-22",
+    "card": "借カラクリ蔵",
+    "change": "内容整理",
+    "summary": "発動条件、手札に加える処理と表示形式変更の関係を整理",
+    "qaIds": [],
+    "batch": "2026-11-22-karakuri-watt-bicorn"
+  },
+  {
+    "date": "2026-11-22",
+    "card": "カラクリ小町 弐弐四",
+    "change": "内容整理",
+    "summary": "共通効果と「カラクリ」の追加召喚を整理",
+    "qaIds": [],
+    "batch": "2026-11-22-karakuri-watt-bicorn"
+  },
+  {
+    "date": "2026-11-22",
+    "card": "カラクリ参謀 弐四八",
+    "change": "内容整理",
+    "summary": "共通効果と召喚・特殊召喚時の表示形式変更を整理",
+    "qaIds": [],
+    "batch": "2026-11-22-karakuri-watt-bicorn"
+  },
+  {
+    "date": "2026-11-22",
+    "card": "カラクリ守衛 参壱参",
+    "added": 1,
+    "summary": "攻守アップの処理と《スキルドレイン》適用後の扱い",
+    "qaIds": [
+      "R-90AA93B7B2"
+    ],
+    "batch": "2026-11-22-karakuri-watt-bicorn",
+    "change": "裁定修正"
+  },
+  {
+    "date": "2026-11-22",
+    "card": "カラクリ商人 壱七七",
+    "added": 1,
+    "summary": "新規掲載。《ライオウ》適用中の手札に加える効果",
+    "qaIds": [
+      "R-7AF82B7FB3"
+    ],
+    "batch": "2026-11-22-karakuri-watt-bicorn",
+    "change": "カード追加"
+  },
+  {
+    "date": "2026-11-22",
+    "card": "カラクリ忍者 参参九",
+    "change": "カード追加",
+    "summary": "新規掲載。リバース時の墓地送りと直接攻撃",
+    "qaIds": [],
+    "batch": "2026-11-22-karakuri-watt-bicorn"
+  },
+  {
+    "date": "2026-11-22",
+    "card": "エレキトンボ",
+    "added": 2,
+    "summary": "新規掲載。《イビリチュア・メロウガイスト》《マクロコスモス》との処理",
+    "qaIds": [
+      "R-B73D134D53",
+      "R-1848D3EEF7"
+    ],
+    "batch": "2026-11-22-karakuri-watt-bicorn",
+    "change": "カード追加"
+  },
+  {
+    "date": "2026-11-22",
+    "card": "ボルテック・バイコーン",
+    "added": 6,
+    "summary": "新規掲載。破壊された場合の発動条件と《イビリチュア・メロウガイスト》との処理",
+    "qaIds": [
+      "R-23D0399D37",
+      "R-5F96B1F0E1",
+      "R-2556C4DA6F",
+      "R-51CC2910AE",
+      "R-F3677EF14D",
+      "R-870CB92F75"
+    ],
+    "batch": "2026-11-22-karakuri-watt-bicorn",
+    "change": "カード追加"
+  },
+  {
+    "date": "2026-11-22",
+    "card": "イビリチュア・メロウガイスト",
+    "change": "裁定修正",
+    "summary": "《ボルテック・バイコーン》《ＴＧ ワンダー・マジシャン》のQA補足を修正",
+    "qaIds": [],
+    "batch": "2026-11-22-karakuri-watt-bicorn"
+  },
+  {
     "date": "2026-11-21",
     "card": "ＢＦ－疾風のゲイル",
     "added": 7,

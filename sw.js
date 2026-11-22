@@ -1,8 +1,8 @@
-const CACHE_NAME = "rulings-1103-v248";
+const CACHE_NAME = "rulings-1103-v249";
 const ASSETS = [
-  "./menu-update.js?v=248",
-  "./site-release.js?v=248",
-  "./recent-updates.js?v=248",
+  "./menu-update.js?v=249",
+  "./site-release.js?v=249",
+  "./recent-updates.js?v=249",
   "./images/guide/explain-open.webp",
   "./images/guide/explain-closed.webp",
   "./images/guide/serious-open.webp",
@@ -14,9 +14,9 @@ const ASSETS = [
 
   "./images/guide/expressions-v248.webp",
   "./images/union-common-v248.webp",
-  "./menu-update.css?v=248",
-  "./menu-guide.js?v=248",
-  "./menu-content.js?v=248",
+  "./menu-update.css?v=249",
+  "./menu-guide.js?v=249",
+  "./menu-content.js?v=249",
   "./images/links/wiki.webp",
   "./images/links/official.webp",
   "./images/links/foru-events.webp",
@@ -53,6 +53,11 @@ const ASSETS = [
   "./menu-update.css",
   "./recent-updates.js",
   "./rulings-gale-shrink-stat-fixing-20261121.js",
+  "./rulings-karakuri-watt-bicorn-20261122.js",
+  "./karakuri-merchant-1103.jpg",
+  "./karakuri-ninja-sazank-1103.jpg",
+  "./wattdragonfly-1103.jpg",
+  "./voltic-bicorn-1103.jpg",
   "./blackwing-gale-1103.png",
   "./shrink-1103.png",
   "./emissary-of-darkness-token-1103.png",
