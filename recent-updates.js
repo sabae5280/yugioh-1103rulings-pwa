@@ -1,5 +1,32 @@
 window.RECENT_UPDATES = [
   {
+    "date": "2026-11-23",
+    "batch": "2026-11-23-shield-stun-wonder",
+    "card": "我が身を盾に",
+    "change": "裁定整理",
+    "summary": "発動条件と無効後の破壊処理を整理。《炎塵爆発》《王宮の弾圧》の例を追記",
+    "qaIds": []
+  },
+  {
+    "date": "2026-11-23",
+    "batch": "2026-11-23-shield-stun-wonder",
+    "card": "トラップ・スタン",
+    "change": "Q&A追加",
+    "added": 1,
+    "summary": "罠の効果を無効にする範囲と、ターン終了までの適用を整理",
+    "qaIds": [
+      "R-STUNEND01"
+    ]
+  },
+  {
+    "date": "2026-11-23",
+    "batch": "2026-11-23-shield-stun-wonder",
+    "card": "ＴＧ ワンダー・マジシャン",
+    "change": "裁定説明を修正",
+    "summary": "《ボルテック・バイコーン》の裁定記録とTF6の検証を根拠として明記し、難解ラベルを追加",
+    "qaIds": []
+  },
+  {
     "date": "2026-11-22",
     "batch": "2026-11-22-ritua-zombie-merrow",
     "card": "リチュア・ディバイナー",
