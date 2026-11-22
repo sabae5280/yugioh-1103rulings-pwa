@@ -1067,10 +1067,12 @@ indexedEnvironmentMode = environmentMode;
 }
 
 let searchRenderTimer = 0;
-function scheduleSearchRender(delay = 140) {
+let searchIsComposing = false;
+function scheduleSearchRender(delay = 220) {
   window.clearTimeout(searchRenderTimer);
   searchRenderTimer = window.setTimeout(() => {
     searchRenderTimer = 0;
+    if (searchIsComposing) return;
     render();
   }, delay);
 }
@@ -1559,12 +1561,24 @@ async function shareSite() {
   }
 }
 
+searchInput.addEventListener("compositionstart", () => {
+  searchIsComposing = true;
+  window.clearTimeout(searchRenderTimer);
+  searchRenderTimer = 0;
+});
 searchInput.addEventListener("input", (event) => {
   clearCardNavigation();
-  if (event.isComposing) return;
+  if (event.isComposing || searchIsComposing) {
+    window.clearTimeout(searchRenderTimer);
+    searchRenderTimer = 0;
+    return;
+  }
   scheduleSearchRender();
 });
-searchInput.addEventListener("compositionend", () => scheduleSearchRender(80));
+searchInput.addEventListener("compositionend", () => {
+  searchIsComposing = false;
+  scheduleSearchRender();
+});
 clearButton.addEventListener("click", () => {
   clearCardNavigation();
   searchInput.value = "";
@@ -1711,6 +1725,23 @@ function matchesSearch(item, tokens) {
   return tokens.every(token => indexed.all.includes(token));
 }
 
+let snippetNeedlesKey = null;
+let snippetNeedlesCache = null;
+function snippetNeedlesFor(tokens) {
+  const key = JSON.stringify(tokens);
+  if (key === snippetNeedlesKey) return snippetNeedlesCache;
+  const needles = new Set(tokens);
+  for (const [alias, full] of Object.entries(searchConfig.aliases)) {
+    if (tokens.some(token => normalize(full).includes(token))) needles.add(normalize(alias));
+  }
+  for (const card of allRulings) {
+    if (tokens.some(token => cardSearchReadings(card).some(reading => normalize(reading).includes(token)))) needles.add(normalize(card.name));
+  }
+  snippetNeedlesKey = key;
+  snippetNeedlesCache = needles;
+  return needles;
+}
+
 function searchSnippet(value, tokens) {
   const text = String(value || '').replace(/\s+/g, ' ');
   let flat = '';
@@ -1720,13 +1751,7 @@ function searchSnippet(value, tokens) {
     flat += chars;
     for (let j = 0; j < chars.length; j++) positions.push(i);
   }
-  const needles = new Set(tokens);
-  for (const [alias, full] of Object.entries(searchConfig.aliases)) {
-    if (tokens.some(token => normalize(full).includes(token))) needles.add(normalize(alias));
-  }
-  for (const card of allRulings) {
-    if (tokens.some(token => cardSearchReadings(card).some(reading => normalize(reading).includes(token)))) needles.add(normalize(card.name));
-  }
+  const needles = snippetNeedlesFor(tokens);
   const spans = [];
   for (const needle of needles) {
     if (!needle) continue;
@@ -1880,3 +1905,4 @@ document.querySelector('#formatPicker').addEventListener('click', event => {
     document.querySelector('#formatPicker summary').focus();
   }
 });
+

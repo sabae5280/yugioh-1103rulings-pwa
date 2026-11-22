@@ -1,4 +1,4 @@
-const CACHE_NAME = "rulings-1103-v238";
+const CACHE_NAME = "rulings-1103-v239";
 const ASSETS = [
   "./rulings-gale-shrink-stat-fixing-20261121.js",
   "./blackwing-gale-1103.png",
@@ -981,6 +981,7 @@ self.addEventListener("fetch", (event) => {
       .catch(() => caches.match(event.request).then((cached) => cached || (event.request.mode === 'navigate' ? caches.match("./index.html") : Response.error())))
   );
 });
+
 
 
 
