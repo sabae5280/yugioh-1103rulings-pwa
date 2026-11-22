@@ -1,6 +1,94 @@
 window.RECENT_UPDATES = [
   {
     "date": "2026-11-22",
+    "batch": "2026-11-22-ritua-zombie-merrow",
+    "card": "リチュア・ディバイナー",
+    "change": "カード追加",
+    "summary": "カード名を宣言してデッキの一番上のカードをめくる効果を掲載",
+    "qaIds": []
+  },
+  {
+    "date": "2026-11-22",
+    "batch": "2026-11-22-ritua-zombie-merrow",
+    "card": "ゾンビキャリア",
+    "change": "カード追加",
+    "summary": "墓地からの特殊召喚とフィールドを離れる場合の除外処理を掲載",
+    "qaIds": [
+      "R-B39D62A621",
+      "R-E5DAB9B105",
+      "R-C537535209",
+      "R-9DE8D5BF2C",
+      "R-50F4969ECC",
+      "R-DBA6F100F0"
+    ],
+    "added": 6
+  },
+  {
+    "date": "2026-11-22",
+    "batch": "2026-11-22-ritua-zombie-merrow",
+    "card": "ボルト・ヘッジホッグ",
+    "change": "カード追加",
+    "summary": "チューナーの条件、墓地からの特殊召喚と除外処理を掲載",
+    "qaIds": [
+      "R-C0720390E8",
+      "R-22CACCC627",
+      "R-1999783066",
+      "R-6F273FAEE4",
+      "R-8EDFCA2A0E",
+      "R-E8CD32333B"
+    ],
+    "added": 6
+  },
+  {
+    "date": "2026-11-22",
+    "batch": "2026-11-22-ritua-zombie-merrow",
+    "card": "イビリチュア・メロウガイスト",
+    "change": "裁定修正",
+    "summary": "メインデッキに戻る５枚のQAに裁定記録と採用根拠を追記",
+    "qaIds": []
+  },
+  {
+    "date": "2026-11-22",
+    "batch": "2026-11-22-ritua-zombie-merrow",
+    "card": "エア・サーキュレーター",
+    "change": "裁定修正",
+    "summary": "メインデッキに戻る場合の裁定変更と類似する効果の裁定を追記",
+    "qaIds": []
+  },
+  {
+    "date": "2026-11-22",
+    "batch": "2026-11-22-ritua-zombie-merrow",
+    "card": "スクリーチ",
+    "change": "裁定修正",
+    "summary": "《イビリチュア・メロウガイスト》の効果でメインデッキに戻った場合の回答を統一",
+    "qaIds": []
+  },
+  {
+    "date": "2026-11-22",
+    "batch": "2026-11-22-ritua-zombie-merrow",
+    "card": "エレキトンボ",
+    "change": "裁定修正",
+    "summary": "《イビリチュア・メロウガイスト》の効果でメインデッキに戻った場合の回答を統一",
+    "qaIds": []
+  },
+  {
+    "date": "2026-11-22",
+    "batch": "2026-11-22-ritua-zombie-merrow",
+    "card": "見習い魔術師",
+    "change": "裁定修正",
+    "summary": "《イビリチュア・メロウガイスト》の効果でメインデッキに戻った場合の回答を統一",
+    "qaIds": []
+  },
+  {
+    "date": "2026-11-22",
+    "batch": "2026-11-22-ritua-zombie-merrow",
+    "card": "Ｄ・ステープラン",
+    "change": "裁定修正",
+    "summary": "《イビリチュア・メロウガイスト》の効果でメインデッキに戻った場合の回答を統一",
+    "qaIds": []
+  },
+  {
+    "date": "2026-11-22",
     "batch": "2026-11-22-materials",
     "card": "《マドルチェ》共通効果",
     "change": "画像表示更新",
