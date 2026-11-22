@@ -1,12 +1,16 @@
 (() => {
  const notice=document.querySelector('.site-notice');
  const release=window.SITE_RELEASE;
+ const history=window.RECENT_UPDATES||[];
+ const latest=history[0];
+ const latestBatch=latest?history.filter(entry=>latest.batch?entry.batch===latest.batch:entry.date===latest.date):[];
+ const updatedCount=new Set(latestBatch.map(entry=>entry.card)).size;
  const track=notice.querySelector('.notice-track');
  const original=track.textContent;
  track.replaceChildren();
  const parts=original.split(/(ファンメイドの非公式サイト|各権利者|運営・ジャッジ)/);
  for(const [i,text] of parts.entries()){const span=document.createElement('span');span.textContent=text;if(i%2)span.className='led-accent-'+i;track.append(span);}
- const releaseText=`　 ◆ 今回のカード更新：${release.updatedCards.length}枚　 ◆ サイト最終更新日：${release.updated.replaceAll('-','/')}　`;
+ const releaseText=`　 ◆ 直近のカード・テーマ更新：${updatedCount}枚　 ◆ サイト最終更新日：${release.updated.replaceAll('-','/')}　`;
  const status=document.createElement('span');status.className='led-release';status.textContent=releaseText;track.append(status);
  notice.querySelector('.visually-hidden').textContent=original+releaseText;
  const full=document.querySelector('#noticeDialog p');full.textContent=original+releaseText;

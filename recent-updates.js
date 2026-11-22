@@ -1,10 +1,27 @@
 window.RECENT_UPDATES = [
   {
     "date": "2026-11-22",
+    "batch": "2026-11-22-materials",
+    "card": "《マドルチェ》共通効果",
+    "change": "画像表示更新",
+    "summary": "画像を最初から大きな16:9の表示に変更",
+    "qaIds": []
+  },
+  {
+    "date": "2026-11-22",
+    "batch": "2026-11-22-materials",
+    "card": "【ユニオン】共通効果",
+    "change": "画像更新",
+    "summary": "共通効果の画像を提供されたイラストへ差し替え",
+    "qaIds": []
+  },
+  {
+    "date": "2026-11-22",
     "card": "王家の眠る谷-ネクロバレー",
     "change": "資料更新",
     "summary": "「ネクロバレーのしきたり」を提供PDFに差し替え",
-    "qaIds": []
+    "qaIds": [],
+    "batch": "2026-11-22-materials"
   },
   {
     "date": "2026-11-21",

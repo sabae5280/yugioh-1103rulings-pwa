@@ -1,5 +1,8 @@
-const CACHE_NAME = "rulings-1103-v247";
+const CACHE_NAME = "rulings-1103-v248";
 const ASSETS = [
+  "./menu-update.js?v=248",
+  "./site-release.js?v=248",
+  "./recent-updates.js?v=248",
   "./images/guide/explain-open.webp",
   "./images/guide/explain-closed.webp",
   "./images/guide/serious-open.webp",
@@ -9,11 +12,11 @@ const ASSETS = [
   "./images/guide/think-open.webp",
   "./images/guide/think-closed.webp",
 
-  "./images/guide/expressions-v247.webp",
-  "./images/union-common-v247.webp",
-  "./menu-update.css?v=247",
-  "./menu-guide.js?v=247",
-  "./menu-content.js?v=247",
+  "./images/guide/expressions-v248.webp",
+  "./images/union-common-v248.webp",
+  "./menu-update.css?v=248",
+  "./menu-guide.js?v=248",
+  "./menu-content.js?v=248",
   "./images/links/wiki.webp",
   "./images/links/official.webp",
   "./images/links/foru-events.webp",
