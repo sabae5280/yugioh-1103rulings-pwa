@@ -1,5 +1,10 @@
-const CACHE_NAME = "rulings-1103-v243";
+const CACHE_NAME = "rulings-1103-v244";
 const ASSETS = [
+  "./rulings-karakuri-watt-bicorn-20261122.js",
+  "./karakuri-merchant-1103.jpg",
+  "./karakuri-ninja-sazank-1103.jpg",
+  "./wattdragonfly-1103.jpg",
+  "./voltic-bicorn-1103.jpg",
   "./contributors.js",
   "./images/links/wiki.webp",
   "./images/links/official.webp",

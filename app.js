@@ -435,9 +435,10 @@ function linkedText(value, currentCardName = null, preserveSingleLines = false) 
     ["《アーティファクト》の共通効果", "【アーティファクト】共通効果"],
     ["《征竜》の共通効果", "【征竜】共通効果"],
     ["《剣闘獣》共通効果", "《剣闘獣》共通効果"],
+    ["《カラクリ》共通効果", "《カラクリ》共通効果"],
     ["《Sin》共通効果", "《Sin》共通効果"]
   ]);
-  return escapeHtml(readable).replace(/《甲虫装機》の共通効果|《アーティファクト》の共通効果|《征竜》の共通効果|《剣闘獣》共通効果|《Sin》共通効果|《([^》]+)》/g, (match, name) => {
+  return escapeHtml(readable).replace(/《甲虫装機》の共通効果|《アーティファクト》の共通効果|《征竜》の共通効果|《剣闘獣》共通効果|《カラクリ》共通効果|《Sin》共通効果|《([^》]+)》/g, (match, name) => {
     const category = categoryReferences.get(match);
     if (category) return cardReference(category, match);
     const isCurrentCard = Boolean(currentCardName && normalize(name) === normalize(currentCardName));
