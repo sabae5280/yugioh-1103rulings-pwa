@@ -9,8 +9,12 @@
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="apple-touch-icon" href="./icons/icon-192.png">
   <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="./menu-update.css">
 </head>
 <body>
+    <div class="site-notice">
+      <button id="noticeOpen" type="button" aria-haspopup="dialog" aria-controls="noticeDialog" aria-label="お知らせの全文を読む"><span class="notice-track" aria-hidden="true">当サイトはファンメイドの非公式サイトです。掲載する遊戯王関連の画像・名称等の権利は各権利者に帰属します。裁定は参考資料としてご活用いただき、イベントでは当日の運営・ジャッジの指示に従ってください。</span><span class="visually-hidden">当サイトはファンメイドの非公式サイトです。掲載する遊戯王関連の画像・名称等の権利は各権利者に帰属します。裁定は参考資料としてご活用いただき、イベントでは当日の運営・ジャッジの指示に従ってください。</span></button>
+    </div>
   <header class="hero">
     <div class="hero-slides" aria-hidden="true"><div class="hero-frame"><div></div></div><div class="hero-frame"><div></div></div></div>
     <button id="heroMotion" class="hero-motion" type="button" aria-label="背景の切り替えを一時停止" aria-pressed="false">Ⅱ</button>
@@ -21,11 +25,11 @@
         </h1>
         <p class="hero-subtitle">Master Rule 2 《1103・1209・1402》</p>
       </div>
+      <div class="hero-actions">
       <button id="shareButton" class="share-button" type="button" aria-label="このサイトを共有">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8a3 3 0 1 0-2.83-4H15a3 3 0 0 0 .16 1l-7.1 4.14a3.5 3.5 0 1 0 0 5.72l7.1 4.14A3 3 0 1 0 16 17.2l-7.1-4.14a3.5 3.5 0 0 0 0-2.12L16 6.8A3 3 0 0 0 18 8Z"/></svg>
         <span>共有</span>
       </button>
-      <div class="hero-actions">
         <button id="installButton" class="install-button" type="button" hidden>ホーム画面に追加</button>
         <button id="menuButton" class="menu-button" type="button" aria-haspopup="dialog" aria-controls="siteMenu">
           <span aria-hidden="true">☰</span> メニュー
@@ -108,7 +112,7 @@
   </button>
 
   <div id="imageLightbox" class="image-lightbox" role="dialog" aria-modal="true" aria-label="カード画像の拡大表示" hidden>
-    <button id="lightboxClose" class="lightbox-close" type="button" aria-label="拡大画像を閉じる">×</button>
+    <button id="lightboxClose" class="lightbox-close" type="button" aria-label="拡大画像を閉じて戻る">× 閉じて戻る</button>
     <img id="lightboxImage" alt="">
   </div>
 
@@ -119,16 +123,20 @@
         <strong>メニュー</strong>
         <button id="menuClose" class="site-menu__close" type="button" aria-label="メニューを閉じる">×</button>
       </div>
-      <nav class="site-menu__nav" aria-label="サイトメニュー">
-        <button type="button" data-menu-page="about">このサイトについて</button>
-        <button type="button" data-menu-page="precautions">使用上の注意事項</button>
-        <button type="button" data-menu-page="guide">使い方</button>
-        <button type="button" data-menu-page="contact">お問い合わせ</button>
-        <button type="button" data-menu-page="links">各種リンク集</button>
-      </nav>
+      <section class="recent-updates" aria-labelledby="updatesTitle"><h2 id="updatesTitle">最近の更新</h2><p class="updates-hint">最近15件 · カード名から裁定へ</p><ol id="recentUpdates" tabindex="0" aria-label="最近の更新一覧"></ol></section>
+<nav class="site-menu__nav" aria-label="サイトメニュー">
+<button type="button" data-menu-page="about">このサイトについて</button>
+<button type="button" data-menu-page="precautions">使用上の注意</button>
+<button type="button" data-menu-page="guide">使用方法</button>
+<button type="button" data-menu-page="philosophy">当サイトの理念・方針</button>
+<button type="button" data-menu-page="decision">裁定決定におけるフローチャート</button>
+<button type="button" data-menu-page="credits">監修協力者の一覧</button>
+<button type="button" data-menu-page="links">各種リンク集</button>
+<button type="button" data-menu-page="contact">お問い合わせ</button>
+</nav>
       <article class="site-menu__page">
         <h2 id="menuPageTitle">このサイトについて</h2>
-        <p id="menuPageBody">現在準備中です。</p>
+        <div id="menuPageBody"></div>
       </article>
     </section>
   </div>
@@ -266,8 +274,14 @@
   <script src="./rulings-gladiator-beasts-20261120.js"></script>
   <script src="./rulings-gale-shrink-stat-fixing-20261121.js"></script>
   <script src="./qa-environments-20261104.js"></script>
+  <script src="./site-release.js"></script>
+  <script src="./menu-content.js"></script>
+  <script src="./recent-updates.js"></script>
   <script src="./app.js"></script>
+
 <script src="./reference-library.js"></script>
 <script src="./menu-guide.js"></script>
+<dialog id="noticeDialog" aria-labelledby="noticeTitle"><h2 id="noticeTitle">ご利用にあたって</h2><p>当サイトはファンメイドの非公式サイトです。掲載する遊戯王関連の画像・名称等の権利は各権利者に帰属します。裁定は参考資料としてご活用いただき、イベントでは当日の運営・ジャッジの指示に従ってください。</p><button type="button" id="noticeClose">閉じて戻る</button></dialog>
+<script src="./menu-update.js"></script>
 </body>
 </html>

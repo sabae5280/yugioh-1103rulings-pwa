@@ -1,14 +1,18 @@
 (() => {
- const entries=[{name:'ダメージステップ表',file:'damage-step-reference'},{name:'強欲で謙虚な壺 フローチャート',file:'pot-of-duality-flowchart'}];
+ const entries=[{name:'ダメージステップ表',file:'damage-step-reference'},{name:'強欲で謙虚な壺 フローチャート',file:'pot-of-duality-flowchart'},{name:'ネクロバレーのしきたり',file:'necrovalley-reference-20261122',image:'necrovalley-reference-20261122.webp'}];
  const dialog=document.createElement('dialog');dialog.className='reference-dialog';dialog.setAttribute('aria-labelledby','referenceTitle');
- dialog.innerHTML='<header><button type="button" id="referenceBack" hidden>‹ 一覧へ</button><h2 id="referenceTitle">各種表・フローチャート</h2><button type="button" id="referenceClose" aria-label="資料を閉じる">閉じる ×</button></header><div id="referenceContent"></div>';
+ dialog.innerHTML='<header><button type="button" id="referenceBack" hidden>‹ 一覧へ</button><h2 id="referenceTitle">各種表・フローチャート</h2><button type="button" id="referenceClose" aria-label="資料を閉じる">× 閉じて戻る</button></header><div id="referenceContent"></div><footer class="reference-footer"><button id="referenceReturn" type="button">閉じて検索画面に戻る</button></footer>';
  document.body.append(dialog);
  const content=dialog.querySelector('#referenceContent'),back=dialog.querySelector('#referenceBack'),title=dialog.querySelector('h2');let selected=-1,previousOverflow='';
  function list(){title.textContent='各種表・フローチャート';back.hidden=true;content.innerHTML=entries.map((e,i)=>`<button class="reference-choice" data-reference-index="${i}">${e.name}<span aria-hidden="true">›</span></button>`).join('');}
- function show(i){selected=i;const e=entries[i];title.textContent=e.name;back.hidden=false;content.innerHTML=`<div class="reference-tools"><a href="./${e.file}.pdf" download="${e.name}.pdf" data-pdf-download>PDFをダウンロード</a><button id="referenceZoom" type="button" aria-pressed="false">拡大する</button></div><p class="reference-save-status" role="status" style="font-size:13px;line-height:1.6">iPhoneでPDFが開いた場合は、共有ボタンから「“ファイル”に保存」を選んでください。</p><div class="reference-image"><img src="./${e.file}.png" alt="${e.name}"></div>`;}
- document.querySelector('#referenceOpen').addEventListener('click',()=>{list();previousOverflow=document.body.style.overflow;document.body.style.overflow='hidden';dialog.showModal();});
+ function show(i){selected=i;const e=entries[i];title.textContent=e.name;back.hidden=false;content.innerHTML=`<div class="reference-tools"><a href="./${e.file}.pdf" download="${e.name}.pdf" data-pdf-download>PDFをダウンロード</a><button id="referenceZoom" type="button" aria-pressed="false">拡大する</button></div><p class="reference-save-status" role="status" style="font-size:13px;line-height:1.6">iPhoneでPDFが開いた場合は、共有ボタンから「“ファイル”に保存」を選んでください。</p><div class="reference-image"><img src="./${e.image || e.file+'.png'}" alt="${e.name}"></div>`;}
+ let returnTarget=document.querySelector('#referenceOpen');
+ function openReference(target,index){returnTarget=target;previousOverflow=document.body.style.overflow;document.body.style.overflow='hidden';if(index===undefined)list();else show(index);dialog.showModal();}
+ document.querySelector('#referenceOpen').addEventListener('click',event=>openReference(event.currentTarget));
+ document.addEventListener('click',event=>{const link=event.target.closest('a.damage-step-reference__link, a[href$="necrovalley-reference-20261122.webp"]');if(!link||event.ctrlKey||event.metaKey||event.shiftKey||event.altKey)return;event.preventDefault();openReference(link,link.href.includes("necrovalley-reference")?2:0);});
+ dialog.querySelector('#referenceReturn').addEventListener('click',()=>dialog.close());
  dialog.querySelector('#referenceClose').addEventListener('click',()=>dialog.close());
- dialog.addEventListener('close',()=>{document.body.style.overflow=previousOverflow;document.querySelector('#referenceOpen').focus();});
+ dialog.addEventListener('close',()=>{document.body.style.overflow=previousOverflow;(returnTarget?.isConnected?returnTarget:document.querySelector('#referenceOpen')).focus();});
  back.addEventListener('click',()=>{list();content.querySelectorAll('button')[selected]?.focus();});
  content.addEventListener('click',async event=>{
   const link=event.target.closest('[data-pdf-download]');if(!link)return;

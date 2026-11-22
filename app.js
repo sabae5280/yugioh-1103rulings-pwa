@@ -80,13 +80,7 @@ const filterGroups = [
   { id: 'otherTags', label: 'その他', options: ['難解な裁定・ジャッジ確認案件', 'エラッタ'] }
 ];
 
-const sitePages = {
-  about: {"title": "このサイトについて", "body": "ご覧いただきありがとうデス。\n1103環境を中心に、マスタールール２での当時裁定を解説しています。\nメニューから使用上の注意点などをよくご確認の上、ご活用ください。"},
-  precautions: {"title": "使用上の注意事項", "body": "本サイトは非公式デス。\n\n複数名で様々な当時裁定を照らし合わせ、有識者の監修も経て作成しておりますが、\n100％の精度ではありません。\n\n必ず自己責任でご活用ください。\n\nイベントで活用する際は、事前に会場ルール（セルフジャッジの有無）などを確認の上、対戦相手とよくコミュニケーションをとった上でご使用ください。"},
-  guide: { title: "使い方", body: "カード名・読みがな・裁定の内容で検索できます。ひらがな／カタカナ、全角／半角の違いを吸収し、「ダメステ」でも「ダメージステップ」を検索できます。\n\n複数の語はスペースで区切ってください。例えば「コピー・プラント 強化蘇生」で、両方が関係するQ&Aや基本情報を探せます。入力例の「、」は別々の検索例です。\n\n詳細検索には五十音、カード種類、対応環境、用語・分類があります。各分類は個別に開閉でき、閉じても条件は維持されます。同じ分類内では選択した項目のいずれかに一致するカードを、異なる分類間では両方の条件に一致するカードを表示します。\n\n用語のチェックボックスは絞り込み、用語名は説明の表示です。用語は登録済みのタグに基づきます。説明未登録の項目は準備中と表示します。\n\n条件は検索欄の下の「×」または「条件をクリア」で解除できます。新しくサイトを開いたときは全環境の掲載カードを表示します。" },
-  contact: { title: "お問い合わせ", body: "現在準備中です。" },
-  links: { title: "各種リンク集", body: "現在準備中です。" }
-};
+const sitePages = window.SITE_MENU_PAGES;
 
 const handTrapArticle = {
   title: "〖1103〗TGワーウルフはいつ出せるのか？〖裁定〗",
@@ -1228,7 +1222,7 @@ function goHome() {
 function openMenu(page = "about") {
   const content = sitePages[page] || sitePages.about;
   menuPageTitle.textContent = content.title;
-  menuPageBody.textContent = content.body;
+  menuPageBody.innerHTML = content.html;
   siteMenu.hidden = false;
   document.body.classList.add("menu-open");
   siteMenu.querySelectorAll("[data-menu-page]").forEach((button) => {
@@ -1643,6 +1637,9 @@ siteMenu.addEventListener("click", (event) => {
   const pageButton = event.target.closest("[data-menu-page]");
   if (!pageButton) return;
   openMenu(pageButton.dataset.menuPage);
+  menuPageTitle.tabIndex = -1;
+  menuPageTitle.focus({ preventScroll: true });
+  menuPageTitle.scrollIntoView({ block: "start" });
 });
 
 window.addEventListener("beforeinstallprompt", (event) => {

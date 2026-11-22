@@ -1,0 +1,74 @@
+/* November 2026 menu and notice. Kept separate from card/search styles. */
+.site-notice{position:relative;z-index:4;display:flex;align-items:center;padding-top:env(safe-area-inset-top,0px);background:#101827;border-bottom:1px solid #8e7439;color:#ffe6a0;min-width:0}
+.site-notice button{color:inherit;background:transparent;border:0;cursor:pointer;font:inherit}
+#noticeOpen{flex:1;min-width:0;overflow:hidden;height:36px;text-align:left;padding:0;position:relative}
+.notice-track{display:inline-block;white-space:nowrap;padding-left:100%;font-size:13px;letter-spacing:.05em;line-height:36px;animation:notice-scroll 45s linear infinite;will-change:transform}
+@keyframes notice-scroll{to{transform:translateX(-100%)}}
+.site-notice.is-paused .notice-track{animation-play-state:paused}
+body.menu-open .notice-track{animation-play-state:paused}
+#noticePause[hidden]{display:none}
+#noticePause{flex:none;width:44px;height:36px;border-left:1px solid #6c6249;font-size:18px}
+.site-notice button:focus-visible{outline:2px solid #ffd86d;outline-offset:-3px}
+.hero .hero__inner{display:flex;flex-direction:column;align-items:stretch;justify-content:space-between;padding-top:10px;min-height:clamp(165px,33.33vw,350px);gap:16px}
+.hero .hero-actions{order:-1;position:relative;inset:auto;display:flex;flex-wrap:wrap;align-self:flex-end;align-items:center;justify-content:flex-end;gap:8px;z-index:3}
+.hero .hero-copy{width:100%;align-self:stretch}
+.hero .hero-actions #shareButton{display:inline-flex!important;position:static!important;visibility:visible!important;opacity:1!important;align-items:center;gap:6px;min-height:44px;margin:0;padding:7px 12px;flex-shrink:0}
+.hero .hero-actions #installButton[hidden]{display:none}
+.hero .hero-actions #menuButton{min-height:44px;margin:0;padding:7px 14px}
+#noticeDialog{max-width:min(90vw,560px);border:1px solid #dbc989;border-radius:14px;background:#fffdf7;color:#17243d;padding:22px;line-height:1.85}
+#noticeDialog::backdrop{background:#101a3299}
+#noticeDialog h2{font-size:18px;margin-top:0}
+#noticeClose{display:block;margin-left:auto;min-height:44px;padding:8px 16px;background:#182540;border:0;border-radius:8px;color:white;font:inherit}
+.site-menu__drawer{padding-top:max(16px,env(safe-area-inset-top));padding-bottom:max(24px,env(safe-area-inset-bottom))}
+.site-menu__header{position:sticky;top:-1px;background:var(--card);z-index:4;padding-top:6px}
+.recent-updates{margin-top:16px}
+.recent-updates h2{margin:0;font-size:16px;color:var(--navy)}
+.updates-hint{font-size:11px;color:#5c687a;margin:4px 0 8px}
+#recentUpdates{list-style:none;margin:0;padding:0;max-height:252px;overflow-y:auto;overscroll-behavior:contain;border:1px solid #d9d6cd;border-radius:9px;background:#fffdf8;scrollbar-gutter:stable}
+#recentUpdates li{height:84px;box-sizing:border-box;border-bottom:1px solid #e6e2d8;font-size:12px;line-height:1.6;overflow:hidden}
+#recentUpdates button{width:100%;height:100%;display:block;text-align:left;border:0;background:transparent;color:inherit;font:inherit;padding:8px 10px;cursor:pointer}
+#recentUpdates li.is-expanded{height:auto;min-height:84px}
+#recentUpdates .is-expanded .update-heading,#recentUpdates .is-expanded .update-detail{white-space:normal;overflow-wrap:anywhere}
+#recentUpdates time{font-size:11px;color:#647083;margin-right:7px}
+#recentUpdates .update-heading{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:700}
+#recentUpdates .update-detail{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#5b6677}
+.site-menu__nav button{font-size:13px;min-height:44px;line-height:1.5}
+.site-menu__page{padding:15px 12px;margin-top:20px;overflow-wrap:anywhere}
+#menuPageTitle{scroll-margin-top:88px}
+.site-menu__page #menuPageBody p{white-space:normal;font-size:14px;line-height:1.85;margin:0 0 13px}
+#menuPageBody h3{font-size:15px;line-height:1.7;margin:20px 0 10px}
+.menu-disclosure{margin:10px 0;border:1px solid #dacfae;border-radius:8px;background:#fffdf5}
+.menu-disclosure summary{display:flex;gap:10px;align-items:center;justify-content:space-between;list-style:none;cursor:pointer;padding:12px 10px;font-size:14px;font-weight:700;line-height:1.7}
+.menu-disclosure summary::-webkit-details-marker{display:none}
+.menu-disclosure summary::after{content:'＋';flex:none;color:#46617a}
+.menu-disclosure[open] summary::after{content:'−'}
+.menu-disclosure>div{padding:3px 12px 2px}
+.contact-service{display:flex;align-items:center;gap:10px;margin:12px 0;padding:10px;border:1px solid #d4d6d8;border-radius:8px;background:white;color:#193c63;font-size:13px;font-weight:700;text-decoration:none;min-height:44px}
+.contact-service svg{width:28px;height:28px;flex:none}.contact-service span{margin-left:auto}
+#lightboxClose{position:fixed;top:calc(12px + env(safe-area-inset-top,0px));right:12px;width:auto;height:auto;min-height:44px;padding:10px 16px;border-radius:24px;font-size:15px;z-index:2}
+.image-lightbox{padding-top:calc(72px + env(safe-area-inset-top,0px))}
+.reference-footer{position:sticky;bottom:0;padding:8px 12px max(8px,env(safe-area-inset-bottom));background:#fffdf7;border-top:1px solid #ddd;text-align:center;z-index:2}
+.reference-footer button{width:100%;font-weight:700}
+.reference-dialog #referenceClose{white-space:nowrap;flex:none}
+.reference-dialog [hidden]{display:none!important}
+@media(prefers-reduced-motion:reduce){.notice-track{animation:none;transform:none;padding-left:12px}}
+@media(max-width:400px){.hero .hero-actions #shareButton,.hero .hero-actions #menuButton{font-size:12px}.site-menu__drawer{padding-left:12px;padding-right:12px}.reference-dialog header{gap:6px;padding:10px 8px}}
+
+/* v241: LED sign sits above, not over, the artwork. */
+@font-face{font-family:'Notice Dot';src:url('./fonts/DotGothic16-Regular.ttf') format('truetype');font-weight:400;font-display:swap}
+.site-notice{margin:0;padding:calc(6px + env(safe-area-inset-top,0px)) 7px 6px;border:3px solid #727c86;border-radius:7px;background:radial-gradient(circle,#483521 1px,transparent 1.5px) 0 0/4px 4px,#100e10;box-shadow:inset 0 0 0 2px #222a31,inset 0 0 10px #000,0 2px 5px #0008;color:#ffb434}
+.site-notice::before,.site-notice::after{content:'';position:absolute;left:7px;right:7px;height:4px;background:linear-gradient(90deg,#ef6aff,#75daff,#a6ff8b,#ffe79b,#ff878d,#b59bff,#75e8ff);-webkit-mask:radial-gradient(circle,#000 1.8px,transparent 2.1px) 0 0/7px 4px;mask:radial-gradient(circle,#000 1.8px,transparent 2.1px) 0 0/7px 4px;filter:drop-shadow(0 0 3px #a3f3ff);pointer-events:none}
+.site-notice::before{top:calc(2px + env(safe-area-inset-top,0px))}.site-notice::after{bottom:2px}
+#noticeOpen{height:35px}
+.notice-track{font-family:'Notice Dot',monospace;font-size:18px;font-weight:400;line-height:35px;letter-spacing:.1em;text-shadow:0 0 4px currentColor;animation-duration:65s}
+.led-accent-1{color:#ff8dce}.led-accent-3{color:#83e8ff}.led-accent-5{color:#b0ef8b}.led-release{color:#82e7df}
+.hero-frame>div{background-size:contain;background-repeat:no-repeat;transform:none}
+.site-menu{grid-template-columns:38px minmax(0,1fr)}
+.site-menu__drawer{grid-column:2;width:100%;padding-left:18px;padding-right:18px}
+@media(min-width:700px){.site-menu{grid-template-columns:1fr min(620px,calc(100vw - 38px))}}
+#recentUpdates li{padding:6px 10px;height:84px}
+#recentUpdates .update-heading{color:#245d91;text-underline-offset:3px}
+#recentUpdates button{height:auto;padding:0;min-height:26px;color:#5b6677}
+.menu-guide__bubble{flex:0 0 calc(15em + 24px);max-width:calc(15em + 24px);white-space:pre-line;line-break:strict;overflow-wrap:anywhere}
+.menu-guide__portrait{flex:1 1 auto;width:auto;min-width:45px}
+@media(max-width:360px){.menu-guide__bubble{font-size:11px;flex-basis:calc(15em + 18px);max-width:calc(15em + 18px)}}

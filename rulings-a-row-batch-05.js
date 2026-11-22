@@ -204,7 +204,8 @@ const A_ROW_BATCH_05 = [
     },
     "overviewImages": [
       {
-        "src": "./necrovalley-reference-20261112.webp",
+        "src": "./necrovalley-reference-20261122.webp",
+        "openOriginal": true,
         "alt": "ネクロバレーのしきたり：効果の無効範囲と影響を受けないカードの一覧",
         "caption": "ネクロバレーのしきたり（1103・1209・1402環境）"
       }

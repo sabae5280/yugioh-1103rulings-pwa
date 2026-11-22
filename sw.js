@@ -1,5 +1,13 @@
-const CACHE_NAME = "rulings-1103-v239";
+const CACHE_NAME = "rulings-1103-v241";
 const ASSETS = [
+  "./site-release.js",
+  "./fonts/DotGothic16-Regular.ttf",
+  "./necrovalley-reference-20261122.pdf",
+  "./necrovalley-reference-20261122.webp",
+  "./menu-content.js",
+  "./menu-update.js",
+  "./menu-update.css",
+  "./recent-updates.js",
   "./rulings-gale-shrink-stat-fixing-20261121.js",
   "./blackwing-gale-1103.png",
   "./shrink-1103.png",
