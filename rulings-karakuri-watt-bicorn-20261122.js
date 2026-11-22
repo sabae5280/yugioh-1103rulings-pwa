@@ -168,7 +168,7 @@
   const newCards = [
   {
     "name": "カラクリ商人 壱七七",
-    "reading": "カラクリしょうにんイナシ",
+    "reading": "からくりしょうにんいなしち",
     "type": "monster",
     "cardClass": "effect",
     "monsterTags": [
@@ -385,7 +385,7 @@
     ],
     [
       "壱七七",
-      "イナシ"
+      "イナシチ"
     ]
   ],
   "カラクリ忍者 参参九": [
