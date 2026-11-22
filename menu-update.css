@@ -72,3 +72,19 @@ body.menu-open .notice-track{animation-play-state:paused}
 .menu-guide__bubble{flex:0 0 calc(15em + 24px);max-width:calc(15em + 24px);white-space:pre-line;line-break:strict;overflow-wrap:anywhere}
 .menu-guide__portrait{flex:1 1 auto;width:auto;min-width:45px}
 @media(max-width:360px){.menu-guide__bubble{font-size:11px;flex-basis:calc(15em + 18px);max-width:calc(15em + 18px)}}
+
+/* v242: no letterboxing; movement stays within the small overscan. */
+.hero-frame>div{background-size:cover;transform:scale(1.035)}
+.hero .hero__inner{min-height:clamp(128px,33.333vw,460px);gap:4px;padding-top:8px;padding-bottom:12px}
+.menu-guide{align-items:flex-start;overflow-anchor:none}
+.menu-guide__bubble{display:grid;align-items:start}
+.menu-guide__measure,.menu-guide__typed{grid-area:1/1;min-height:10.8em}
+.menu-guide__measure{visibility:hidden;pointer-events:none;white-space:pre-line}
+.menu-guide__portrait{align-self:flex-start}
+.link-category .link-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 10px;padding:8px}
+.link-tile{display:block;min-width:0;color:#244f7c;text-decoration:none;font-size:12px;line-height:1.6;font-weight:700}
+.link-tile img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:contain;background:#fff;border:1px solid #d7d6cd;border-radius:6px}
+.link-tile span{display:block;margin-top:5px;overflow-wrap:anywhere}
+.link-tile:focus-visible{outline:3px solid #356c9f;outline-offset:3px;border-radius:6px}
+.link-tile:hover span{text-decoration:underline}
+@media(max-width:360px){.hero .hero-actions #shareButton,.hero .hero-actions #menuButton{min-height:36px;padding:4px 9px}.hero .hero-subtitle{font-size:10px}.link-category .link-grid{gap:12px 7px;padding:6px}.link-tile{font-size:11px}}

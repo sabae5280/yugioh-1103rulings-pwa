@@ -38,8 +38,8 @@
     if (!reduced.matches) {
       const x = Math.random() < .5 ? -1 : 1, y = Math.random() < .5 ? -1 : 1;
       animations[active] = inner.animate([
-        {transform:`scale(.97)`},
-        {transform:`scale(1)`}
+        {transform:`scale(1.035) translate(${-x * .7}%,${-y * .7}%)`},
+        {transform:`scale(1.055) translate(${x * .7}%,${y * .7}%)`}
       ], {duration:9000,fill:'forwards',easing:'linear'});
       if (!running()) animations[active].pause();
     }
