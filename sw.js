@@ -1,6 +1,10 @@
-const CACHE_NAME = "rulings-1103-v244";
+const CACHE_NAME = "rulings-1103-v245";
 const ASSETS = [
-  "./contributors.js",
+  "./images/guide/expressions-v245.webp",
+  "./images/union-common-v245.webp",
+  "./menu-update.css?v=245",
+  "./menu-guide.js?v=245",
+  "./menu-content.js?v=245",
   "./images/links/wiki.webp",
   "./images/links/official.webp",
   "./images/links/foru-events.webp",

@@ -10,14 +10,16 @@
  const portrait=host.querySelector('.menu-guide__portrait');
  const images=paths.map((src,i)=>{const img=new Image(512,696);img.src=src;img.alt=i===0?'ガイドキャラクターのデスガイド':'';img.className=i===0?'is-current':'';portrait.append(img);return img;});
  menu.querySelector('.site-menu__page').after(host);
+ const expression=document.createElement('div');expression.className='menu-guide__expression';expression.setAttribute('role','img');expression.setAttribute('aria-label','ガイドキャラクターのデスガイド');portrait.append(expression);
+ const moods={precautions:'serious',guide:'explain',philosophy:'think',decision:'think',credits:'thanks',links:'explain',contact:'happy'};
  const ready=Promise.all(images.map(img=>img.decode().catch(()=>{})));
  const reduced=matchMedia('(prefers-reduced-motion: reduce)');let generation=0,timers=new Set();
  const typed=host.querySelector('.menu-guide__typed');
  function frame(i){images.forEach((img,n)=>img.classList.toggle('is-current',n===i));}
  function later(fn,ms){const id=setTimeout(()=>{timers.delete(id);fn();},ms);timers.add(id);}
- function stop(){generation++;timers.forEach(clearTimeout);timers.clear();frame(0);}
- function cycle(){const steps=[[1,90],[0,120],[2,150],[3,220],[2,150]];let i=0;function next(){if(i===steps.length){frame(0);later(cycle,2300+Math.random()*700);return;}const [f,ms]=steps[i++];frame(f);later(next,ms);}next();}
- async function start(){stop();if(menu.hidden||document.hidden)return;const token=generation;const message=messageForPage();host.querySelector('.menu-guide__measure').textContent=message;host.querySelector('.visually-hidden').textContent=message;typed.textContent=reduced.matches?message:'';if(reduced.matches)return;
+ function stop(){portrait.classList.remove('guide-gesture');generation++;timers.forEach(clearTimeout);timers.clear();frame(0);}
+ function cycle(){if(host.dataset.mood){portrait.classList.remove('guide-gesture');void portrait.offsetWidth;portrait.classList.add('guide-gesture');later(()=>portrait.classList.remove('guide-gesture'),900);later(cycle,3100);return;}const steps=[[1,90],[0,120],[2,150],[3,220],[2,150]];let i=0;function next(){if(i===steps.length){frame(0);later(cycle,2300+Math.random()*700);return;}const [f,ms]=steps[i++];frame(f);later(next,ms);}next();}
+ async function start(){stop();if(menu.hidden||document.hidden)return;host.dataset.mood=moods[menu.querySelector('[data-menu-page].is-active')?.dataset.menuPage]||'';const token=generation;const message=messageForPage();host.querySelector('.menu-guide__measure').textContent=message;host.querySelector('.visually-hidden').textContent=message;typed.textContent=reduced.matches?message:'';if(reduced.matches)return;
  let count=0;function type(){typed.textContent=message.slice(0,++count);if(count<message.length)later(type,55);}later(type,200);
  await ready;if(token!==generation||menu.hidden||document.hidden)return;later(cycle,800+Math.random()*400);
  }
