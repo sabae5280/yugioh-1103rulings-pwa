@@ -1,6 +1,28 @@
 {
-  "sourceCommit": "f6ed634cd2903133c45fa9b84b60c4f54d0ad450",
+  "sourceCommit": "16bab8f7ffefdb0d0c25971832013b3a329b1ec0",
   "entries": [
+    {
+      "sha": "16bab8f7ffefdb0d0c25971832013b3a329b1ec0",
+      "author": "sabae5280",
+      "committer": "GitHub",
+      "authoredAt": "2026-11-23T14:54:09+09:00",
+      "date": "2026-11-23T14:54:09+09:00",
+      "message": "Add files via upload",
+      "files": [
+        "UPDATE-GUIDE.md",
+        "admin-history.json",
+        "ai/index.html",
+        "ai/manifest.json",
+        "ai/site.html",
+        "images/links/0Q3Oo.png",
+        "images/links/PGKbY.jpg",
+        "menu-content.js",
+        "menu-guide.js",
+        "menu-update.css",
+        "site-release.js",
+        "sw.js"
+      ]
+    },
     {
       "sha": "f6ed634cd2903133c45fa9b84b60c4f54d0ad450",
       "author": "sabae5280",

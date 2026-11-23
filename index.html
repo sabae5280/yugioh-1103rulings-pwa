@@ -1,300 +1,777 @@
-<!doctype html>
-<html lang="ja">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#101a32">
-  <meta name="description" content="1103・1209・1402環境の裁定を検索・確認できる非公式アーカイブ">
-  <title>遊戯王 GB 裁定アーカイブ</title>
-  <link rel="manifest" href="./manifest.webmanifest">
-  <link rel="apple-touch-icon" href="./icons/icon-192.png">
-  <link rel="stylesheet" href="./styles.css">
-  <link rel="stylesheet" href="./menu-update.css?v=256">
-<link rel="stylesheet" href="./ai-mode.css?v=256">
-<link rel="stylesheet" href="./admin-mode.css?v=256">
-</head>
-<body>
-    <div class="site-notice">
-      <button id="noticeOpen" type="button" aria-haspopup="dialog" aria-controls="noticeDialog" aria-label="お知らせの全文を読む"><span class="notice-track" aria-hidden="true">当サイトはファンメイドの非公式サイトです。掲載する遊戯王関連の画像・名称等の権利は各権利者に帰属します。裁定は参考資料としてご活用いただき、イベントでは当日の運営・ジャッジの指示に従ってください。</span><span class="visually-hidden">当サイトはファンメイドの非公式サイトです。掲載する遊戯王関連の画像・名称等の権利は各権利者に帰属します。裁定は参考資料としてご活用いただき、イベントでは当日の運営・ジャッジの指示に従ってください。</span></button>
-    </div>
-  <header class="hero">
-    <div class="hero-slides" aria-hidden="true"><div class="hero-frame"><div></div></div><div class="hero-frame"><div></div></div></div>
-    <button id="heroMotion" class="hero-motion" type="button" aria-label="背景の切り替えを一時停止" aria-pressed="false">Ⅱ</button>
-    <div class="hero__inner">
-      <div class="hero-copy">
-        <h1>
-          <button id="homeButton" class="home-button" type="button" aria-label="遊戯王 GB 裁定アーカイブ：初期トップ画面に戻る"><span class="archive-title">遊戯王 GB 裁定アーカイブ</span></button>
-        </h1>
-        <p class="hero-subtitle">Master Rule 2 《1103・1209・1402》</p>
-      </div>
-      <div class="hero-actions">
-        <button id="installButton" class="install-button" type="button" hidden>ホーム画面に追加</button>
-        <button id="menuButton" class="menu-button" type="button" aria-haspopup="dialog" aria-controls="siteMenu">
-          <span aria-hidden="true">☰</span> メニュー
-        </button>
-      </div>
-    </div>
-  </header>
-
-  <main class="container">
-    <section class="search-panel" aria-label="裁定検索">
-      <label for="searchInput">カード名・ルビ・裁定内容を検索</label>
-      <div class="search-box">
-        <span aria-hidden="true">⌕</span>
-        <input id="searchInput" type="search" placeholder="例：ライオウ、禁じられた、ダメステ" autocomplete="off">
-        <button id="clearButton" type="button" aria-label="検索文字を消去">×</button>
-      </div>
-        <details id="formatPicker" class="filter-section environment-section">
-          <summary>フォーマット： <span id="environmentSummary" class="selection-summary">すべての掲載カード</span></summary>
-          <fieldset class="environment-filter">
-            <legend class="visually-hidden">対応環境</legend>
-            <div class="environment-options">
-              <label class="environment-option" data-format="all"><input type="radio" name="environmentMode" value="all" checked><span><strong>すべての掲載カード</strong><small>『マスタールール2』の対象カード</small></span></label>
-              <label class="environment-option" data-format="1103"><input type="radio" name="environmentMode" value="1103"><span><strong>1103環境</strong><small>『寒波亭ルール』対応：〜2011/8/31</small></span></label>
-              <label class="environment-option" data-format="1209"><input type="radio" name="environmentMode" value="1209"><span><strong>1209環境</strong><small>『熱波亭-LIMITED-ルール』対応：〜2012/12/21</small></span></label>
-              <label class="environment-option" data-format="1209-only"><input type="radio" name="environmentMode" value="1209-only"><span><strong>1209新規カード・新規裁定を含む既存カード</strong><small>対象：2011/9/1〜2012/12/21</small></span></label>
-              <label class="environment-option" data-format="1402-only"><input type="radio" name="environmentMode" value="1402-only"><span><strong>1402新規カード・新規裁定を含む既存カード</strong><small>対象：2012/12/22〜2014/2/28</small></span></label>
-            </div>
-          </fieldset>
-        </details>
-      <p id="shareStatus" class="visually-hidden" aria-live="polite"></p>
-      <div class="advanced-controls">
-<button id="referenceOpen" type="button" aria-haspopup="dialog"><span aria-hidden="true">▦</span> 各種表・フローチャート</button>
-        <button id="advancedToggle" class="advanced-toggle" type="button" aria-expanded="false" aria-controls="advancedPanel">
-          詳細検索 <span aria-hidden="true">⌄</span>
-        </button>
-      </div>
-      <div id="activeConditions" class="active-conditions" aria-label="適用中の絞り込み条件"></div>
-      <div id="advancedPanel" class="advanced-panel" hidden>
-      <nav id="rowNavigation" class="row-navigation" aria-label="五十音順の行へ移動"></nav>
-      <div id="filters" class="filters" aria-label="カード種別">
-        <button class="filter is-active" type="button" data-filter="all">すべて</button>
-        <button class="filter" type="button" data-filter="monster">モンスター</button>
-        <button class="filter" type="button" data-filter="spell">魔法</button>
-        <button class="filter" type="button" data-filter="trap">罠</button>
-        <button class="filter" type="button" data-filter="category">テーマ共通効果</button>
-      </div>
-
-        <div id="advancedFilters" class="advanced-filter-groups"></div>
-        <div class="filter-actions"><button id="clearConditions" type="button">条件をクリア</button><button id="showResults" type="button">結果を見る</button></div>
-      </div>
-    </section>
-
-    <section class="result-section" aria-live="polite">
-      <div class="result-heading">
-        <h2>裁定一覧</h2>
-        <p id="resultCount"></p>
-      </div>
-      <div id="rulingList" class="ruling-list"></div>
-      <div id="emptyState" class="empty-state" hidden>
-        <p>該当する裁定が見つかりませんでした。</p>
-        <button id="resetButton" type="button">検索条件をリセット</button>
-      </div>
-    </section>
-
-    <aside id="iosTip" class="ios-tip" hidden>
-      <strong>iPhone・iPadへの追加方法</strong>
-      <span>共有ボタンから「ホーム画面に追加」を選択してください。</span>
-    </aside>
-  </main>
-
-  <footer>
-    <p>非公式の裁定資料です。<br>大会では主催者・ジャッジの判断を優先してください。</p>
-  </footer>
-
-  <button id="backToCard" class="back-to-card" type="button" aria-label="前のカードに戻る" title="前のカードに戻る" hidden>
-    <span aria-hidden="true">←</span><small>Back</small>
-  </button>
-  <button id="backToTop" class="back-to-top" type="button" aria-label="ページの先頭へ戻る" title="ページの先頭へ戻る">
-    <span aria-hidden="true">↑</span><small>TOP</small>
-  </button>
-
-  <div id="imageLightbox" class="image-lightbox" role="dialog" aria-modal="true" aria-label="カード画像の拡大表示" hidden>
-    <button id="lightboxClose" class="lightbox-close" type="button" aria-label="拡大画像を閉じて戻る">× 閉じて戻る</button>
-    <img id="lightboxImage" alt="">
-  </div>
-
-  <div id="siteMenu" class="site-menu" role="dialog" aria-modal="true" aria-labelledby="menuPageTitle" hidden>
-    <button class="site-menu__backdrop" type="button" data-menu-close aria-label="メニューを閉じる"></button>
-    <section class="site-menu__drawer">
-      <div class="site-menu__header">
-        <strong>メニュー</strong>
-        <div class="menu-header-actions">
-      <button id="shareButton" class="menu-share-button" type="button" aria-label="このサイトを共有">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8a3 3 0 1 0-2.83-4H15a3 3 0 0 0 .16 1l-7.1 4.14a3.5 3.5 0 1 0 0 5.72l7.1 4.14A3 3 0 1 0 16 17.2l-7.1-4.14a3.5 3.5 0 0 0 0-2.12L16 6.8A3 3 0 0 0 18 8Z"/></svg>
-        <span>共有</span>
-      </button>
-<button id="menuClose" class="site-menu__close" type="button" aria-label="メニューを閉じる">×</button></div>
-      </div>
-      <section class="recent-updates" aria-labelledby="updatesTitle"><h2 id="updatesTitle">最近の更新</h2><p class="updates-hint">最近15件 · カード名から裁定へ</p><ol id="recentUpdates" tabindex="0" aria-label="最近の更新一覧"></ol></section>
-<nav class="site-menu__nav" aria-label="サイトメニュー">
-<button type="button" data-menu-page="about">このサイトについて</button>
-<button type="button" data-menu-page="precautions">使用上の注意</button>
-<button type="button" data-menu-page="guide">使用方法</button>
-<button type="button" data-menu-page="philosophy">当サイトの理念・方針</button>
-<button type="button" data-menu-page="decision">裁定決定におけるフローチャート</button>
-<button type="button" data-menu-page="credits">監修協力者の一覧</button>
-<button type="button" data-menu-page="links">各種リンク集</button>
-<button type="button" data-menu-page="simulator">ステータス自動計算シミュレーター</button>
-<button type="button" data-menu-page="contact">お問い合わせ</button>
-<button type="button" data-menu-page="admin">管理者・主催モード</button>
-</nav>
-      <article class="site-menu__page">
-        <h2 id="menuPageTitle">このサイトについて</h2>
-        <div id="menuPageBody"></div>
-      </article>
-    </section>
-  </div>
-
-  <script src="./card-metadata.js"></script>
-  <script src="./card-metadata-a-row-batch-04.js"></script>
-  <script src="./card-metadata-a-row-batch-05.js"></script>
-  <script src="./card-readings.js"></script>
-  <script src="./rulings.js"></script>
-  <script src="./rulings-a-row-batch-04.js"></script>
-  <script src="./rulings-a-row-batch-05.js"></script>
-  <script src="./rulings-k-row.js"></script>
-  <script src="./rulings-s-row.js"></script>
-  <script src="./rulings-s-row-remaining.js"></script>
-  <script src="./s-row-overview-fixes.js"></script>
-  <script src="./corrections-a-row.js"></script>
-  <script src="./rulings-t-row.js"></script>
-  <script src="./rulings-h-row.js"></script>
-  <script src="./rulings-n-row.js"></script>
-  <script src="./rulings-r-row.js"></script>
-  <script src="./rulings-m-row.js"></script>
-  <script src="./rulings-w-row.js"></script>
-  <script src="./rulings-m-row-fixes.js"></script>
-  <script src="./rulings-a-o-j-row.js"></script>
-  <script src="./site-enhancements.js"></script>
-  <script src="./rulings-update-20261004.js"></script>
-  <script src="./rulings-instructions-20261004.js"></script>
-  <script src="./rulings-instructions-20261007.js"></script>
-  <script src="./rulings-instructions-20261007-04.js"></script>
-  <script src="./rulings-instructions-20261007-05.js"></script>
-  <script src="./rulings-instructions-20261009.js"></script>
-  <script src="./rulings-instructions-20261009-2.js"></script>
-  <script src="./search-config.js"></script>
-  <script src="./rulings-update-20261012.js"></script>
-  <script src="./rulings-ta-20261012.js"></script>
-  <script src="./rulings-na-20261021.js"></script>
-  <script src="./rulings-ha-20261022.js"></script>
-  <script src="./rulings-maya-20261022.js"></script>
-  <script src="./rulings-ra-bk-20261022.js"></script>
-  <script src="./hero-background.js"></script>
-  <script src="./rulings-galaxy-20261026.js"></script>
-  <script src="./torrential-qa-order-20261026.js"></script>
-  <script src="./rulings-return-cards-20261027.js"></script>
-  <script src="./rulings-convulsion-20261028.js"></script>
-  <script src="./rulings-control-cards-20261029.js"></script>
-  <script src="./rulings-chaos-infinity-20261030.js"></script>
-  <script src="./rulings-maharaghi-magicbox-20261101.js"></script>
-  <script src="./rulings-summoner-of-illusions-20261102.js"></script>
-  <script src="./rulings-fusion-cards-20261102.js"></script>
-  <script src="./rulings-trap-monsters-20261103.js"></script>
-  <script src="./rulings-metal-reflect-slime-20261103.js"></script>
-  <script src="./rulings-econ-squirrel-20261104.js"></script>
-  <script src="./rulings-doomcaliber-kuriboh-20261104.js"></script>
-  <script src="./rulings-prison-apprentice-20261104.js"></script>
-  <script src="./rulings-royal-oppression-20261105.js"></script>
-  <script src="./rulings-jar-rai-oh-20261105.js"></script>
-  <script src="./rulings-light-darkness-dragon-20261105.js"></script>
-  <script src="./rulings-laval-update-20261105.js"></script>
-  <script src="./rulings-revival-ravine-kycoo-rabbit-20261105.js"></script>
-  <script src="./rulings-samurai-r-row-20261105.js"></script>
-  <script src="./rulings-worm-king-gateway-20261105.js"></script>
-  <script src="./rulings-magical-hats-20261105.js"></script>
-  <script src="./rulings-battle-trap-interactions-20261105.js"></script>
-  <script src="./rulings-amazoness-20261105.js"></script>
-  <script src="./rulings-phantom-alien-and-more-20261105.js"></script>
-  <script src="./rulings-synchro-three-20261105.js"></script>
-  <script src="./rulings-fairy-relinquished-20261105.js"></script>
-  <script src="./rulings-cloudian-starlight-20261105.js"></script>
-  <script src="./rulings-imperial-iron-wall-20261106.js"></script>
-  <script src="./rulings-wonder-magician-iron-wall-20261106.js"></script>
-  <script src="./rulings-macro-trap-eater-20261106.js"></script>
-  <script src="./rulings-fissure-cyberdark-20261106.js"></script>
-  <script src="./rulings-undine-arms-20261106.js"></script>
-  <script src="./rulings-samurai-snipe-20261106.js"></script>
-  <script src="./rulings-samurai-end-phase-20261106.js"></script>
-  <script src="./rulings-kinka-piper-20261106.js"></script>
-  <script src="./rulings-radion-20261107.js"></script>
-  <script src="./rulings-decisive-arms-20261108.js"></script>
-  <script src="./rulings-koaki-crusader-20261108.js"></script>
-  <script src="./rulings-birdman-theme-20261108.js"></script>
-  <script src="./rulings-aoj-justice-20261108.js"></script>
-  <script src="./rulings-darkworld-grave-20261109.js"></script>
-  <script src="./rulings-barbaros-gunner-20261109.js"></script>
-  <script src="./rulings-darkworld2-20261109.js"></script>
-  <script src="./rulings-spirit-safety-20261109.js"></script>
-  <script src="./rulings-dimension-20261109.js"></script>
-  <script src="./rulings-swordswoman-20261109.js"></script>
-  <script src="./rulings-attack-qa-20261110.js"></script>
-  <script src="./rulings-shuffle-20261110.js"></script>
-  <script src="./rulings-successor-quasar-20261110.js"></script>
-  <script src="./rulings-falcon-big-bang-shooting-star-20261110.js"></script>
-  <script src="./rulings-phoenix-shooting-star-20261110.js"></script>
-  <script src="./rulings-crane-assault-mirror-20261110.js"></script>
-  <script src="./rulings-illusions-fiend-skull-20261112.js"></script>
-  <script src="./rulings-screen-necrovalley-chaos-20261112.js"></script>
-  <script src="./rulings-odin-moon-20261112.js"></script>
-  <script src="./rulings-exterio-kuriboh-20261112.js"></script>
-  <script src="./rulings-inverz-naturia-20261112.js"></script>
-  <script src="./rulings-worms-tags-20261112.js"></script>
-  <script src="./rulings-staplen-worms-20261113.js"></script>
-  <script src="./rulings-merrowgeist-20261113.js"></script>
-  <script src="./rulings-roach-dad-custom-20261113.js"></script>
-  <script src="./rulings-instant-dd-style-20261114.js"></script>
-  <script src="./rulings-wind-decree-merrow-20261114.js"></script>
-  <script src="./rulings-minefield-merrow-20261115.js"></script>
-  <script src="./rulings-dragon-ice-gem-knights-20261116.js"></script>
-  <script src="./rulings-aoi-madira-20261116.js"></script>
-  <script src="./rulings-gem-turtle-wingbeat-20261116.js"></script>
-  <script src="./rulings-gadjiltron-transporter-20261116.js"></script>
-  <script src="./rulings-wisel-infernity-honest-20261116.js"></script>
-  <script src="./rulings-infernity-rest-commander-20261116.js"></script>
-  <script src="./rulings-fire-kings-20261116.js"></script>
-  <script src="./rulings-disigma-relinquished-fire-20261116.js"></script>
-  <script src="./rulings-pachy-vanity-zephyros-20261116.js"></script>
-  <script src="./rulings-reasoning-cardcar-20261116.js"></script>
-  <script src="./rulings-adoration-chaos-20261116.js"></script>
-  <script src="./rulings-laggia-gemini-tuner-20261116.js"></script>
-  <script src="./rulings-rivalry-gozen-20261116.js"></script>
-  <script src="./rulings-rivalry-extra-qa-20261116.js"></script>
-  <script src="./rulings-gozen-rivalry-followup-20261116.js"></script>
-  <script src="./rulings-gozen-zephyros-gorz-20261117.js"></script>
-  <script src="./rulings-veiler-bls-backs-20261117.js"></script>
-  <script src="./rulings-zero-watt-worm-ice-20261117.js"></script>
-  <script src="./rulings-chaos-infinity-rivalry-20261117.js"></script>
-  <script src="./rulings-rivalry-chaos-followup-20261118.js"></script>
-  <script src="./rulings-rivalry-chaos-third-20261118.js"></script>
-  <script src="./rulings-gallis-tanngnjostr-20261118.js"></script>
-  <script src="./rulings-shining-darkend-20261118.js"></script>
-  <script src="./rulings-hero-ancient-overviews-20261118.js"></script>
-  <script src="./rulings-rivalry-gozen-inline-20261118.js"></script>
-  <script src="./rulings-guard-hedge-thor-20261119.js"></script>
-  <script src="./rulings-earthbound-genex-20261119.js"></script>
-  <script src="./rulings-ceasefire-20261119.js"></script>
-  <script src="./rulings-nightmare-cross-future-20261120.js"></script>
-  <script src="./rulings-gladiator-beasts-20261120.js"></script>
-  <script src="./rulings-gale-shrink-stat-fixing-20261121.js"></script>
-  <script src="./rulings-karakuri-watt-bicorn-20261122.js"></script>
-  <script src="./rulings-ritua-zombie-merrow-20261122.js"></script>
-  <script src="./qa-environments-20261104.js"></script>
-  <script src="./site-release.js?v=256"></script>
-  <script src="./menu-content.js?v=256"></script>
-  <script src="./recent-updates.js?v=256"></script>
-  <script src="./app.js"></script>
-
-<script src="./reference-library.js"></script>
-<script src="./menu-guide.js?v=256"></script>
-<dialog id="noticeDialog" aria-labelledby="noticeTitle"><h2 id="noticeTitle">ご利用にあたって</h2><p>当サイトはファンメイドの非公式サイトです。掲載する遊戯王関連の画像・名称等の権利は各権利者に帰属します。裁定は参考資料としてご活用いただき、イベントでは当日の運営・ジャッジの指示に従ってください。</p><button type="button" id="noticeClose">閉じて戻る</button></dialog>
-<script src="./menu-update.js?v=256"></script>
-
-<script src="./ai/prompt.js?v=256"></script>
-<script src="./ai-mode.js?v=256"></script>
-<script src="./admin-content.js?v=256"></script>
-<script src="./admin-config.js?v=256"></script>
-<script src="./admin-mode.js?v=256"></script>
-</body>
-</html>
+<!doctype html><html lang="ja"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>カード索引・AI検索案内｜遊戯王GB裁定アーカイブ</title><style>body{max-width:900px;margin:24px auto;padding:0 16px;font:16px/1.8 sans-serif;color:#18243c}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#f7f5ef;padding:16px}a{color:#235c96}li{margin:8px 0}input,button{font:inherit;padding:8px}small{color:#536078}</style><body><h1>カード索引・AI検索案内</h1><p><small>サイト更新日：2026-11-23／v259</small></p><p>カード名・読みの索引です。裁定本文は必要な個別ページだけを開いて参照してください。全件一括資料は配布していません。</p><p><a href="prompt.txt" download>検索用案内プロンプト</a> · <a href="site.html">サイトの方針・使用上の注意</a></p><form><label>カード名・読み <input name="q" id="q" type="search"></label><button>探す</button></form><p id="count">777件</p><ul id="cards"><li data-reading="アーカナイト マジシャン"><a href="cards/c476049b897c97c0c293.html">アーカナイト・マジシャン</a> <small>アーカナイト マジシャン</small></li>
+<li data-reading="アーティファクト カドケウス"><a href="cards/2cfef949cf868b5a51a3.html">アーティファクト－カドケウス</a> <small>アーティファクト カドケウス</small></li>
+<li data-reading="アーティファクト きょうつうこうか"><a href="cards/0a4ca45131da4911922e.html">【アーティファクト】共通効果</a> <small>アーティファクト きょうつうこうか</small></li>
+<li data-reading="アーティファクト デュランダル"><a href="cards/06e9ae2affc7408f4f49.html">アーティファクト－デュランダル</a> <small>アーティファクト デュランダル</small></li>
+<li data-reading="アーティファクトのしんち"><a href="cards/dadcb99e2c2474e1cc98.html">アーティファクトの神智</a> <small>アーティファクトのしんち</small></li>
+<li data-reading="アーティファクト ベガルタ"><a href="cards/8eed8dda55d9ab983d53.html">アーティファクト－ベガルタ</a> <small>アーティファクト ベガルタ</small></li>
+<li data-reading="アーティファクト ムーブメント"><a href="cards/a27251834c1961ead55d.html">アーティファクト・ムーブメント</a> <small>アーティファクト ムーブメント</small></li>
+<li data-reading="アーティファクト モラルタ"><a href="cards/41acecebbab6ebfc3fd1.html">アーティファクト－モラルタ</a> <small>アーティファクト モラルタ</small></li>
+<li data-reading="アーマー・カッパー"><a href="cards/d1a9001d9375846c7532.html">アーマーカッパー</a> <small>アーマー・カッパー</small></li>
+<li data-reading="アーマードサイキッカー"><a href="cards/1f7594542e51a274b642.html">アーマード・サイキッカー</a> <small>アーマードサイキッカー</small></li>
+<li data-reading="アームズ エイド"><a href="cards/0c81bb5168941c6cbdbc.html">アームズ・エイド</a> <small>アームズ エイド</small></li>
+<li data-reading="アームズ ホール"><a href="cards/16fcbdce4292cf1bdf2a.html">アームズ・ホール</a> <small>アームズ ホール</small></li>
+<li data-reading="アーリー・オブ・ジャスティス カタストル"><a href="cards/0aeb2d34f464be7e1f76.html">A・O・J カタストル</a> <small>アーリー・オブ・ジャスティス カタストル</small></li>
+<li data-reading="アーリー・オブ・ジャスティス サイクルリーダー"><a href="cards/5ad70773cd5312f6ba20.html">A・O・J サイクルリーダー</a> <small>アーリー・オブ・ジャスティス サイクルリーダー</small></li>
+<li data-reading="アーリー オブ ジャスティス ディサイシブ アームズ"><a href="cards/721047a3898bf94af8b6.html">Ａ・Ｏ・Ｊ ディサイシブ・アームズ</a> <small>アーリー オブ ジャスティス ディサイシブ アームズ</small></li>
+<li data-reading="アーリー ジェネクス バードマン"><a href="cards/40ce3299fb1e35fd8a12.html">Ａ・ジェネクス・バードマン</a> <small>アーリー ジェネクス バードマン</small></li>
+<li data-reading="アーリー ボム"><a href="cards/4299462245dd5270531e.html">A・ボム</a> <small>アーリー ボム</small></li>
+<li data-reading="アール ライトジャスティス"><a href="cards/52fc5076ec662da43f08.html">Ｒ－ライトジャスティス</a> <small>アール ライトジャスティス</small></li>
+<li data-reading="あおきめのおとめ"><a href="cards/40644e2af8d85d2170ac.html">青き眼の乙女</a> <small>あおきめのおとめ</small></li>
+<li data-reading="アクウカンブッシツテンソウソウチ"><a href="cards/10190e161d61fdbbc38b.html">亜空間物質転送装置</a> <small>アクウカンブッシツテンソウソウチ</small></li>
+<li data-reading="アクセル・ライト"><a href="cards/206ed7c42616b39f599b.html">アクセル・ライト</a> <small>アクセル・ライト</small></li>
+<li data-reading="あさすぎたはかあな"><a href="cards/615cf78528f18e10d898.html">浅すぎた墓穴</a> <small>あさすぎたはかあな</small></li>
+<li data-reading="アビスケイル－クラーケン"><a href="cards/f68d25dc01c05b2060b4.html">アビスケイル－クラーケン</a> <small>アビスケイル－クラーケン</small></li>
+<li data-reading="アビスケイル－ケートス"><a href="cards/7ba9d1a2075cb61e2959.html">アビスケイル－ケートス</a> <small>アビスケイル－ケートス</small></li>
+<li data-reading="アビスケイル－ミヅチ"><a href="cards/52e2bb6d4be64a4d1a0c.html">アビスケイル－ミヅチ</a> <small>アビスケイル－ミヅチ</small></li>
+<li data-reading="アビスコール"><a href="cards/06795ba3b457fae2b80d.html">アビスコール</a> <small>アビスコール</small></li>
+<li data-reading="アビスフィアー"><a href="cards/5e67c444a30955f370cb.html">アビスフィアー</a> <small>アビスフィアー</small></li>
+<li data-reading="アマゾネスくんれんせい"><a href="cards/021cd2add4af49f393ae.html">アマゾネス訓練生</a> <small>アマゾネスくんれんせい</small></li>
+<li data-reading="アマゾネスのけんし"><a href="cards/50af69d4ea2ca5dc552a.html">アマゾネスの剣士</a> <small>アマゾネスのけんし</small></li>
+<li data-reading="アマゾネスのさと"><a href="cards/a33734af083dc657bb7f.html">アマゾネスの里</a> <small>アマゾネスのさと</small></li>
+<li data-reading="アルマのまどうしょ"><a href="cards/90f1be504e551615d46b.html">アルマの魔導書</a> <small>アルマのまどうしょ</small></li>
+<li data-reading="あんえんせい－ユウシ"><a href="cards/bd95c351eabf241ea200.html">暗炎星－ユウシ</a> <small>あんえんせい－ユウシ</small></li>
+<li data-reading="あんこくかいのいかずち"><a href="cards/d2695ebbb13e2d7997de.html">暗黒界の雷</a> <small>あんこくかいのいかずち</small></li>
+<li data-reading="あんこくかいのぐんしん シルバ"><a href="cards/3a549710865d4f43ee44.html">暗黒界の軍神 シルバ</a> <small>あんこくかいのぐんしん シルバ</small></li>
+<li data-reading="あんこくかいのとりひき"><a href="cards/3f80b2091d8093afbf96.html">暗黒界の取引</a> <small>あんこくかいのとりひき</small></li>
+<li data-reading="あんこくかいのぶしん ゴルド"><a href="cards/6bd7a860aeb94699cdfa.html">暗黒界の武神 ゴルド</a> <small>あんこくかいのぶしん ゴルド</small></li>
+<li data-reading="あんこくかいのもん"><a href="cards/fc0cd7cf960c11f0c079.html">暗黒界の門</a> <small>あんこくかいのもん</small></li>
+<li data-reading="あんこくかいのりゅうしん グラファ"><a href="cards/31046955889aff92b706.html">暗黒界の龍神 グラファ</a> <small>あんこくかいのりゅうしん グラファ</small></li>
+<li data-reading="あんこくのしょうき"><a href="cards/b0194f50a30c7f13b405.html">暗黒の瘴気</a> <small>あんこくのしょうき</small></li>
+<li data-reading="あんせんし カンゴルゴーム"><a href="cards/db17a31a8fb1b4c3260e.html">暗遷士 カンゴルゴーム</a> <small>あんせんし カンゴルゴーム</small></li>
+<li data-reading="あんぜんちたい"><a href="cards/aab922c887c4e8944c30.html">安全地帯</a> <small>あんぜんちたい</small></li>
+<li data-reading="アンティークギアガジェルドラゴン"><a href="cards/8b97596d3e86048fd03b.html">古代の機械巨竜</a> <small>アンティークギアガジェルドラゴン</small></li>
+<li data-reading="アンノウン シンクロン"><a href="cards/084c764731b30c32436d.html">アンノウン・シンクロン</a> <small>アンノウン シンクロン</small></li>
+<li data-reading="いじげんからのきかん"><a href="cards/88e057ae38a5c3e03f98.html">異次元からの帰還</a> <small>いじげんからのきかん</small></li>
+<li data-reading="いじげんからのまいそう"><a href="cards/48d32f6d2964a60a8ed3.html">異次元からの埋葬</a> <small>いじげんからのまいそう</small></li>
+<li data-reading="いじげんのおんなせんし"><a href="cards/3d2b315ebbd00d24a3fa.html">異次元の女戦士</a> <small>いじげんのおんなせんし</small></li>
+<li data-reading="いじげんのせいかんしゃ"><a href="cards/4e43d3865c3d706f8133.html">異次元の生還者</a> <small>いじげんのせいかんしゃ</small></li>
+<li data-reading="いじげんのていさつき"><a href="cards/42984ff01572c0d309b9.html">異次元の偵察機</a> <small>いじげんのていさつき</small></li>
+<li data-reading="イビリチュアメロウガイスト"><a href="cards/e2aeb91d9a5aa8b549f1.html">イビリチュア・メロウガイスト</a> <small>イビリチュアメロウガイスト</small></li>
+<li data-reading="インヴェルズギラファ"><a href="cards/588814f5901d41cf9aa6.html">インヴェルズ・ギラファ</a> <small>インヴェルズギラファ</small></li>
+<li data-reading="インヴェルズノセッコウ"><a href="cards/d821e07c1bccd66396df.html">インヴェルズの斥候</a> <small>インヴェルズノセッコウ</small></li>
+<li data-reading="インヴェルズノモンバン"><a href="cards/927907c4f051ec233769.html">インヴェルズの門番</a> <small>インヴェルズノモンバン</small></li>
+<li data-reading="インヴェルズローチ"><a href="cards/69e3383815ad53d937ab.html">インヴェルズ・ローチ</a> <small>インヴェルズローチ</small></li>
+<li data-reading="インスタントフュージョン"><a href="cards/faec75cfe222ebd54f62.html">簡易融合</a> <small>インスタントフュージョン</small></li>
+<li data-reading="インゼクター エクサスタッグ"><a href="cards/4c65ee05e99fcea57144.html">甲虫装機 エクサスタッグ</a> <small>インゼクター エクサスタッグ</small></li>
+<li data-reading="インゼクター エクサビートル"><a href="cards/a09a0fc310ddbd1982ee.html">甲虫装機 エクサビートル</a> <small>インゼクター エクサビートル</small></li>
+<li data-reading="インゼクター ギガウィービル"><a href="cards/4200edb663ed9408acf4.html">甲虫装機 ギガウィービル</a> <small>インゼクター ギガウィービル</small></li>
+<li data-reading="インゼクター ギガマンティス"><a href="cards/7ec37d3cb9ea489df6c8.html">甲虫装機 ギガマンティス</a> <small>インゼクター ギガマンティス</small></li>
+<li data-reading="インゼクターきょうつうこうか"><a href="cards/348234564d640eb54c56.html">【甲虫装機】共通効果</a> <small>インゼクターきょうつうこうか</small></li>
+<li data-reading="インゼクター グルフ"><a href="cards/89fc083618af4a9e7b64.html">甲虫装機 グルフ</a> <small>インゼクター グルフ</small></li>
+<li data-reading="インゼクター センチピード"><a href="cards/42dc03ae29e47fda1a91.html">甲虫装機 センチピード</a> <small>インゼクター センチピード</small></li>
+<li data-reading="インゼクター ダンセル"><a href="cards/0140fa9106ada22b9073.html">甲虫装機 ダンセル</a> <small>インゼクター ダンセル</small></li>
+<li data-reading="インゼクターのそうびカードあつかいのルール"><a href="cards/004137cf48a48b5df78b.html">甲虫装機の装備カード扱いのルール</a> <small>インゼクターのそうびカードあつかいのルール</small></li>
+<li data-reading="インゼクターのまけん ゼクトキャリバー"><a href="cards/c361146bf6d68efd11b3.html">甲虫装機の魔剣 ゼクトキャリバー</a> <small>インゼクターのまけん ゼクトキャリバー</small></li>
+<li data-reading="インゼクター ホーネット"><a href="cards/0d1d1486c0f420d5b157.html">甲虫装機 ホーネット</a> <small>インゼクター ホーネット</small></li>
+<li data-reading="インゼクター ホッパー"><a href="cards/6b6bf4f5c209de700e7a.html">甲虫装機 ホッパー</a> <small>インゼクター ホッパー</small></li>
+<li data-reading="インフェルニティインフェルノ"><a href="cards/63cf94222d968046e7fe.html">インフェルニティ・インフェルノ</a> <small>インフェルニティインフェルノ</small></li>
+<li data-reading="インフェルニティガーディアン"><a href="cards/c5e35e635f9b8f09cad8.html">インフェルニティ・ガーディアン</a> <small>インフェルニティガーディアン</small></li>
+<li data-reading="インフェルニティガン"><a href="cards/26afa3b72204b8be5576.html">インフェルニティ・ガン</a> <small>インフェルニティガン</small></li>
+<li data-reading="インフェルニティきょうつうこうか"><a href="cards/4fa52f5e4ddab5ef8b5b.html">《インフェルニティ》共通効果</a> <small>インフェルニティきょうつうこうか</small></li>
+<li data-reading="インフェルニティデーモン"><a href="cards/9edbb8e254e05e57c480.html">インフェルニティ・デーモン</a> <small>インフェルニティデーモン</small></li>
+<li data-reading="インフェルニティデスドラゴン"><a href="cards/9008fbdbac821a49d0e4.html">インフェルニティ・デス・ドラゴン</a> <small>インフェルニティデスドラゴン</small></li>
+<li data-reading="インフェルニティデストロイヤー"><a href="cards/2ee92c8784003c7feed2.html">インフェルニティ・デストロイヤー</a> <small>インフェルニティデストロイヤー</small></li>
+<li data-reading="インフェルニティネクロマンサー"><a href="cards/b4bc792284ff6d87cef7.html">インフェルニティ・ネクロマンサー</a> <small>インフェルニティネクロマンサー</small></li>
+<li data-reading="インフェルニティ・バリア"><a href="cards/172b58ce4d8338c00bf6.html">インフェルニティ・バリア</a> <small>インフェルニティ・バリア</small></li>
+<li data-reading="インフェルニティブレイク"><a href="cards/e04c91fbabb19ba1a447.html">インフェルニティ・ブレイク</a> <small>インフェルニティブレイク</small></li>
+<li data-reading="インフェルニティミラージュ"><a href="cards/2d2e75b70f76e8a45a17.html">インフェルニティ・ミラージュ</a> <small>インフェルニティミラージュ</small></li>
+<li data-reading="インフェルニティリベンジャー"><a href="cards/e7bce7ca94eda9a4f3dc.html">インフェルニティ・リベンジャー</a> <small>インフェルニティリベンジャー</small></li>
+<li data-reading="ヴァイロンシグマ"><a href="cards/44047fdd2d18dba02661.html">ヴァイロン・シグマ</a> <small>ヴァイロンシグマ</small></li>
+<li data-reading="ヴァイロンディシグマ"><a href="cards/a42bce4cc5042fc07cde.html">ヴァイロン・ディシグマ</a> <small>ヴァイロンディシグマ</small></li>
+<li data-reading="ヴァニティー・デビル"><a href="cards/bc53022b3e6bb4efb09e.html">虚無魔人</a> <small>ヴァニティー・デビル</small></li>
+<li data-reading="ヴァンパイア・キラー"><a href="cards/884de344d2cec86d10f3.html">ヴァンパイア・キラー</a> <small>ヴァンパイア・キラー</small></li>
+<li data-reading="ヴィジョンヒーローアドレイション"><a href="cards/5ef0a930526c39746540.html">V・HERO アドレイション</a> <small>ヴィジョンヒーローアドレイション</small></li>
+<li data-reading="ウィングドライノ"><a href="cards/ae1d92cccdaf62bda4be.html">ウィングド・ライノ</a> <small>ウィングドライノ</small></li>
+<li data-reading="ヴェルズ・アザトホース"><a href="cards/bb3a0909a8e02efb6621.html">ヴェルズ・アザトホース</a> <small>ヴェルズ・アザトホース</small></li>
+<li data-reading="ヴェルズ・ウロボロス"><a href="cards/5c38759869469560bedd.html">ヴェルズ・ウロボロス</a> <small>ヴェルズ・ウロボロス</small></li>
+<li data-reading="ヴェルズ・オ・ウィスプ"><a href="cards/f28523cf81b250a71aaf.html">ヴェルズ・オ・ウィスプ</a> <small>ヴェルズ・オ・ウィスプ</small></li>
+<li data-reading="ヴェルズ・オピオン"><a href="cards/3240e29d4dc02ae68d7e.html">ヴェルズ・オピオン</a> <small>ヴェルズ・オピオン</small></li>
+<li data-reading="ヴェルズ・オランタ"><a href="cards/6e06b0e577ac8ab30006.html">ヴェルズ・オランタ</a> <small>ヴェルズ・オランタ</small></li>
+<li data-reading="ヴェルズ・カイトス"><a href="cards/7d2c3e0510edf6bd02d3.html">ヴェルズ・カイトス</a> <small>ヴェルズ・カイトス</small></li>
+<li data-reading="ヴェルズ・カストル"><a href="cards/a61be98f9673b52ae2bd.html">ヴェルズ・カストル</a> <small>ヴェルズ・カストル</small></li>
+<li data-reading="ヴェルズ・ケルキオン"><a href="cards/3af2dca8cfc3fc53dddd.html">ヴェルズ・ケルキオン</a> <small>ヴェルズ・ケルキオン</small></li>
+<li data-reading="ヴェルズ・コッペリアル"><a href="cards/95b4c5ca7f38b202d610.html">ヴェルズ・コッペリアル</a> <small>ヴェルズ・コッペリアル</small></li>
+<li data-reading="ヴェルズ・ザッハーク"><a href="cards/c617c4a52be58b59b0bc.html">ヴェルズ・ザッハーク</a> <small>ヴェルズ・ザッハーク</small></li>
+<li data-reading="ヴェルズ・サラマンドラ"><a href="cards/fdfb5cb7a4535d8718fa.html">ヴェルズ・サラマンドラ</a> <small>ヴェルズ・サラマンドラ</small></li>
+<li data-reading="ヴェルズ・サンダーバード"><a href="cards/bc1389d78e3a2c2be937.html">ヴェルズ・サンダーバード</a> <small>ヴェルズ・サンダーバード</small></li>
+<li data-reading="ヴェルズ・タナトス"><a href="cards/eee553ed4726fddd49d1.html">ヴェルズ・タナトス</a> <small>ヴェルズ・タナトス</small></li>
+<li data-reading="ヴェルズ・ナイトメア"><a href="cards/107391a6135487b6d6d2.html">ヴェルズ・ナイトメア</a> <small>ヴェルズ・ナイトメア</small></li>
+<li data-reading="ヴェルズ・バハムート"><a href="cards/16e45553b7ff266ccc6b.html">ヴェルズ・バハムート</a> <small>ヴェルズ・バハムート</small></li>
+<li data-reading="ヴェルズ・フレイス"><a href="cards/ce58c945453f913674af.html">ヴェルズ・フレイス</a> <small>ヴェルズ・フレイス</small></li>
+<li data-reading="ヴェルズ・マンドラゴ"><a href="cards/9c50fda81ab149715d74.html">ヴェルズ・マンドラゴ</a> <small>ヴェルズ・マンドラゴ</small></li>
+<li data-reading="エアサーキュレーター"><a href="cards/7700c3437518d66d011a.html">エア・サーキュレーター</a> <small>エアサーキュレーター</small></li>
+<li data-reading="エヴォルカイザーラギア"><a href="cards/6ef6a1cadbac4d25ff10.html">エヴォルカイザー・ラギア</a> <small>エヴォルカイザーラギア</small></li>
+<li data-reading="エヴォルテクターシュバリエ"><a href="cards/c0b2b58af174b8e770ea.html">エヴォルテクター シュバリエ</a> <small>エヴォルテクターシュバリエ</small></li>
+<li data-reading="エーリアングレイ"><a href="cards/dd47f9f3cee6e507c78c.html">エーリアン・グレイ</a> <small>エーリアングレイ</small></li>
+<li data-reading="エーリアンドッグ"><a href="cards/7191f935fabc22c170f9.html">エーリアン・ドッグ</a> <small>エーリアンドッグ</small></li>
+<li data-reading="エネミーコントローラー"><a href="cards/6d9c5f8867fa6b140a13.html">エネミーコントローラー</a> <small>エネミーコントローラー</small></li>
+<li data-reading="エフェクトヴェーラー"><a href="cards/ab0f898e9dca5f5a34fa.html">エフェクト・ヴェーラー</a> <small>エフェクトヴェーラー</small></li>
+<li data-reading="エレキタリス"><a href="cards/20bfd9523af8c7813898.html">エレキタリス</a> <small>エレキタリス</small></li>
+<li data-reading="エレキトンボ"><a href="cards/60a372e264e535208e03.html">エレキトンボ</a> <small>エレキトンボ</small></li>
+<li data-reading="エレキリン"><a href="cards/7dc3505e1b27f5868d2a.html">エレキリン</a> <small>エレキリン</small></li>
+<li data-reading="エレクトリックワーム"><a href="cards/79b93ab011166be9ef13.html">エレクトリック・ワーム</a> <small>エレクトリックワーム</small></li>
+<li data-reading="エレメンタルヒーローアイスエッジ"><a href="cards/a0d6af1a169a307ba458.html">E・HERO アイスエッジ</a> <small>エレメンタルヒーローアイスエッジ</small></li>
+<li data-reading="エレメンタルヒーローアナザーネオス"><a href="cards/f4b5952faf61ea3cf31d.html">E・HERO アナザー・ネオス</a> <small>エレメンタルヒーローアナザーネオス</small></li>
+<li data-reading="エレメンタルヒーローアブソルートゼロ"><a href="cards/15217620baca99b11806.html">E・HERO アブソルートZero</a> <small>エレメンタルヒーローアブソルートゼロ</small></li>
+<li data-reading="エレメンタルヒーローエアーマン"><a href="cards/1d0b9aaabfc5e27c01e2.html">E・HERO エアーマン</a> <small>エレメンタルヒーローエアーマン</small></li>
+<li data-reading="エレメンタルヒーローガイア"><a href="cards/b98c626f0e3bd8ed8eb7.html">E・HERO ガイア</a> <small>エレメンタルヒーローガイア</small></li>
+<li data-reading="エレメンタルヒーローグレイトトルネード"><a href="cards/1ca78dafe95e3c9e569b.html">E・HERO Great TORNADO</a> <small>エレメンタルヒーローグレイトトルネード</small></li>
+<li data-reading="エレメンタルヒーローザシャイニング"><a href="cards/c364e11823433a52eb95.html">E・HERO The シャイニング</a> <small>エレメンタルヒーローザシャイニング</small></li>
+<li data-reading="エレメンタルヒーローノヴァマスター"><a href="cards/10896ccdab59b33c6192.html">E・HERO ノヴァマスター</a> <small>エレメンタルヒーローノヴァマスター</small></li>
+<li data-reading="エレメンタルヒーローバブルマン"><a href="cards/c9db5925374d73d2cf61.html">E・HERO バブルマン</a> <small>エレメンタルヒーローバブルマン</small></li>
+<li data-reading="エレメンタルヒーロープリズマー"><a href="cards/e99a8ab7cb6569cf6097.html">E・HERO プリズマー</a> <small>エレメンタルヒーロープリズマー</small></li>
+<li data-reading="えんおうえんかん"><a href="cards/6ef16231e2dd570ee2ad.html">炎王炎環</a> <small>えんおうえんかん</small></li>
+<li data-reading="えんおうじゅう キリン"><a href="cards/43815578a74c7955c0f1.html">炎王獣 キリン</a> <small>えんおうじゅう キリン</small></li>
+<li data-reading="えんおうじゅう バロン"><a href="cards/f0779b7ed85697d1fd03.html">炎王獣 バロン</a> <small>えんおうじゅう バロン</small></li>
+<li data-reading="えんおうじゅう ヤクシャ"><a href="cards/744826983d2a86faf9f1.html">炎王獣 ヤクシャ</a> <small>えんおうじゅう ヤクシャ</small></li>
+<li data-reading="えんおうしんじゅう ガルドニクス"><a href="cards/39098d4f87227fe388dc.html">炎王神獣 ガルドニクス</a> <small>えんおうしんじゅう ガルドニクス</small></li>
+<li data-reading="えんおうのきゅうしゅう"><a href="cards/877e62306095dbb9d5f0.html">炎王の急襲</a> <small>えんおうのきゅうしゅう</small></li>
+<li data-reading="エンシェントゴッドフレムベル"><a href="cards/155232c88c1f18d947f0.html">エンシェント・ゴッド・フレムベル</a> <small>エンシェントゴッドフレムベル</small></li>
+<li data-reading="エンシェントフェアリードラゴン"><a href="cards/3767ecc85432eedc46c8.html">エンシェント・フェアリー・ドラゴン</a> <small>エンシェントフェアリードラゴン</small></li>
+<li data-reading="エンシェントホーリーワイバーン"><a href="cards/3949b4bbaf722480c881.html">エンシェント・ホーリー・ワイバーン</a> <small>エンシェントホーリーワイバーン</small></li>
+<li data-reading="えんじんばくはつ"><a href="cards/972ff59fb6a8112ffe53.html">炎塵爆発</a> <small>えんじんばくはつ</small></li>
+<li data-reading="えんせいこう－チョウライオ"><a href="cards/7c88b75b74579086c4b3.html">炎星皇－チョウライオ</a> <small>えんせいこう－チョウライオ</small></li>
+<li data-reading="えんせいこう－ホウシン"><a href="cards/7ca56186b35704efa3a9.html">炎星侯－ホウシン</a> <small>えんせいこう－ホウシン</small></li>
+<li data-reading="えんせいし－チョウテン"><a href="cards/98a7a31baa837d7f8f11.html">炎星師－チョウテン</a> <small>えんせいし－チョウテン</small></li>
+<li data-reading="えんせいりゅう－ブラスター"><a href="cards/a0bb7c625fbda8f80bc2.html">焔征竜－ブラスター</a> <small>えんせいりゅう－ブラスター</small></li>
+<li data-reading="えんねつでんどうば"><a href="cards/664e3d44274bfb49c4c7.html">炎熱伝導場</a> <small>えんねつでんどうば</small></li>
+<li data-reading="えんぶ－ぎょくしょう"><a href="cards/45a5e1dc6f71315fb9c4.html">炎舞－「玉衝」</a> <small>えんぶ－ぎょくしょう</small></li>
+<li data-reading="えんぶ－てんき"><a href="cards/16af01303bea864d4928.html">炎舞－「天璣」</a> <small>えんぶ－てんき</small></li>
+<li data-reading="えんぶ－てんけん"><a href="cards/a119294cfb2a6f62244c.html">炎舞－「天権」</a> <small>えんぶ－てんけん</small></li>
+<li data-reading="えんぶ－てんすう"><a href="cards/649d7517346c5033ab99.html">炎舞－「天枢」</a> <small>えんぶ－てんすう</small></li>
+<li data-reading="えんぶ－てんせん"><a href="cards/9948b074cbc74826843c.html">炎舞－「天璇」</a> <small>えんぶ－てんせん</small></li>
+<li data-reading="えんまりゅう レッド・デーモン"><a href="cards/c8391e9984f5cdd8a18d.html">琰魔竜 レッド・デーモン</a> <small>えんまりゅう レッド・デーモン</small></li>
+<li data-reading="おうきゅうのおふれ"><a href="cards/f3e592dd6cd77b6a84cc.html">王宮のお触れ</a> <small>おうきゅうのおふれ</small></li>
+<li data-reading="おうきゅうのだんあつ"><a href="cards/5d4f4ee8bf8093a3b3ae.html">王宮の弾圧</a> <small>おうきゅうのだんあつ</small></li>
+<li data-reading="おうきゅうのてっぺき"><a href="cards/36758197bfca81c62e59.html">王宮の鉄壁</a> <small>おうきゅうのてっぺき</small></li>
+<li data-reading="おうけのねむるたにネクロバレー"><a href="cards/2ce2ebb4a972b37e77b3.html">王家の眠る谷-ネクロバレー</a> <small>おうけのねむるたにネクロバレー</small></li>
+<li data-reading="おうけののろい"><a href="cards/477d0e44b0b868ce0fa3.html">王家の呪い</a> <small>おうけののろい</small></li>
+<li data-reading="オーバースペック"><a href="cards/4af0edfe94e66f38750d.html">オーバースペック</a> <small>オーバースペック</small></li>
+<li data-reading="オネスト"><a href="cards/fce48ec57bf4df6aae6e.html">オネスト</a> <small>オネスト</small></li>
+<li data-reading="オベリスクのきょしんへい"><a href="cards/a63cd5960d09b60cd549.html">オベリスクの巨神兵</a> <small>オベリスクのきょしんへい</small></li>
+<li data-reading="カードカー・ディー"><a href="cards/d98a3b33272a7c59b9b6.html">カードカー・Ｄ</a> <small>カードカー・ディー</small></li>
+<li data-reading="カードガンナー"><a href="cards/8fd8b35a5849304b3505.html">カードガンナー</a> <small>カードガンナー</small></li>
+<li data-reading="ガードヘッジ"><a href="cards/4ba09976bad48497a3bd.html">ガード・ヘッジ</a> <small>ガードヘッジ</small></li>
+<li data-reading="かいえんせいおうソウコ"><a href="cards/f27e9d4e5f7aaaee45fc.html">魁炎星王－ソウコ</a> <small>かいえんせいおうソウコ</small></li>
+<li data-reading="かいおうのじゅうそうへい"><a href="cards/7092ef477b688d971fc3.html">海皇の重装兵</a> <small>かいおうのじゅうそうへい</small></li>
+<li data-reading="かいおうのそげきへい"><a href="cards/923d394bbdfe5a68f423.html">海皇の狙撃兵</a> <small>かいおうのそげきへい</small></li>
+<li data-reading="かいおうのとつげきへい"><a href="cards/3683ef98332b6544e5b2.html">海皇の突撃兵</a> <small>かいおうのとつげきへい</small></li>
+<li data-reading="かいおうのりゅうきたい"><a href="cards/ab7d7f31a0f49f9dedbd.html">海皇の竜騎隊</a> <small>かいおうのりゅうきたい</small></li>
+<li data-reading="かいおうりゅうポセイドラ"><a href="cards/1c12ea575f9daff121bf.html">海皇龍ポセイドラ</a> <small>かいおうりゅうポセイドラ</small></li>
+<li data-reading="がいこくりゅう サイバーダークドラゴン"><a href="cards/a00f07595ab93b062556.html">鎧黒竜－サイバー・ダーク・ドラゴン</a> <small>がいこくりゅう サイバーダークドラゴン</small></li>
+<li data-reading="カイザーコロシアム"><a href="cards/1e1f5b2a81b341751377.html">カイザーコロシアム</a> <small>カイザーコロシアム</small></li>
+<li data-reading="カオス・インフィニティ"><a href="cards/5697b2dd8d49f609dd17.html">カオス・インフィニティ</a> <small>カオス・インフィニティ</small></li>
+<li data-reading="カオスソーサラー"><a href="cards/429ba8bc83942e353b23.html">カオス・ソーサラー</a> <small>カオスソーサラー</small></li>
+<li data-reading="カオスソルジャーかいびゃくのししゃ"><a href="cards/09f446f99fdd2442a59e.html">カオス・ソルジャー －開闢の使者－</a> <small>カオスソルジャーかいびゃくのししゃ</small></li>
+<li data-reading="カオスナンバーズ１０５ バーニングナックラー すいせいのカエストス"><a href="cards/747ea7eabe1516fd3a8f.html">CNo.105 BK 彗星のカエストス</a> <small>カオスナンバーズ１０５ バーニングナックラー すいせいのカエストス</small></li>
+<li data-reading="カオスナンバーズ107 ネオ・ギャラクシーアイズ・タキオン・ドラゴン"><a href="cards/584910bb418533e03802.html">CNo.107 超銀河眼の時空龍</a> <small>カオスナンバーズ107 ネオ・ギャラクシーアイズ・タキオン・ドラゴン</small></li>
+<li data-reading="カオスナンバーズさんじゅうきゅうきぼうおうホープレイ"><a href="cards/2dae1920a567cc972ddf.html">CNo.39 希望皇ホープレイ</a> <small>カオスナンバーズさんじゅうきゅうきぼうおうホープレイ</small></li>
+<li data-reading="カオスナンバーズひゃくいちサイレントオナーズダークナイト"><a href="cards/45c433d23d1610f5b4bc.html">ＣＮｏ.１０１ Ｓ・Ｈ・Ｄａｒｋ Ｋｎｉｇｈｔ</a> <small>カオスナンバーズひゃくいちサイレントオナーズダークナイト</small></li>
+<li data-reading="カオスポッド"><a href="cards/3463c6e45e72ec98397b.html">カオスポッド</a> <small>カオスポッド</small></li>
+<li data-reading="ガガガガンマン"><a href="cards/31c789d6aad082559de5.html">ガガガガンマン</a> <small>ガガガガンマン</small></li>
+<li data-reading="カゲトカゲ"><a href="cards/f0de3e03df4a80549a19.html">カゲトカゲ</a> <small>カゲトカゲ</small></li>
+<li data-reading="ガジェット共通効果"><a href="cards/6f08a83a3817481440f2.html">《ガジェット》共通効果</a> <small>ガジェット共通効果</small></li>
+<li data-reading="かすみちょうクラウソラス"><a href="cards/5b2ba6631be5bb4cc717.html">霞鳥クラウソラス</a> <small>かすみちょうクラウソラス</small></li>
+<li data-reading="ガチガチガンテツ"><a href="cards/3183b0c906767750d5b1.html">ガチガチガンテツ</a> <small>ガチガチガンテツ</small></li>
+<li data-reading="カチコチドラゴン"><a href="cards/07685270f92888414a30.html">カチコチドラゴン</a> <small>カチコチドラゴン</small></li>
+<li data-reading="かへんきじゅうガンナードラゴン"><a href="cards/2a028eb8d0d7f4679c06.html">可変機獣 ガンナードラゴン</a> <small>かへんきじゅうガンナードラゴン</small></li>
+<li data-reading="かまいたち"><a href="cards/0955971b79471dd7320c.html">火舞太刀</a> <small>かまいたち</small></li>
+<li data-reading="かみのきょじょうヴァルハラ"><a href="cards/2a363f535c33b5c9ef5e.html">神の居城－ヴァルハラ</a> <small>かみのきょじょうヴァルハラ</small></li>
+<li data-reading="かみのけいこく"><a href="cards/f25fbbe257af9a3b3dba.html">神の警告</a> <small>かみのけいこく</small></li>
+<li data-reading="かみのせんこく"><a href="cards/7b2c8380a1a3e067adbf.html">神の宣告</a> <small>かみのせんこく</small></li>
+<li data-reading="カメンレオン"><a href="cards/f6f0a1934e0550371296.html">カメンレオン</a> <small>カメンレオン</small></li>
+<li data-reading="かもくなるサイコプリースト"><a href="cards/2333d6ac4fd34ea0261f.html">寡黙なるサイコプリースト</a> <small>かもくなるサイコプリースト</small></li>
+<li data-reading="カラクリかいたいしんしょ"><a href="cards/ba93b701383db324f30f.html">カラクリ解体新書</a> <small>カラクリかいたいしんしょ</small></li>
+<li data-reading="カラクリきょうつうこうか"><a href="cards/3c1c7748b025394a82b2.html">《カラクリ》共通効果</a> <small>カラクリきょうつうこうか</small></li>
+<li data-reading="カラクリくら"><a href="cards/71e792666a946e922d95.html">借カラクリ蔵</a> <small>カラクリくら</small></li>
+<li data-reading="カラクリこまちニニシ"><a href="cards/2b0eaeb46b01a803479d.html">カラクリ小町 弐弐四</a> <small>カラクリこまちニニシ</small></li>
+<li data-reading="カラクリさんぼうニシパチ"><a href="cards/6e34e7b509dac57ff081.html">カラクリ参謀 弐四八</a> <small>カラクリさんぼうニシパチ</small></li>
+<li data-reading="カラクリしゅえいサイザン"><a href="cards/17df38fae6fccf132daf.html">カラクリ守衛 参壱参</a> <small>カラクリしゅえいサイザン</small></li>
+<li data-reading="カラクリしょうぐんブレイ"><a href="cards/77eae50325b065913481.html">カラクリ将軍 無零</a> <small>カラクリしょうぐんブレイ</small></li>
+<li data-reading="からくりしょうにんいなしち"><a href="cards/96d5e153c00109119e6b.html">カラクリ商人 壱七七</a> <small>からくりしょうにんいなしち</small></li>
+<li data-reading="カラクリだいしょうぐんブレイド"><a href="cards/5c784097a2fbd4e2dd40.html">カラクリ大将軍 無零怒</a> <small>カラクリだいしょうぐんブレイド</small></li>
+<li data-reading="カラクリにんじゃサザンク"><a href="cards/2f17b3ebabd921b9255d.html">カラクリ忍者 参参九</a> <small>カラクリにんじゃサザンク</small></li>
+<li data-reading="かんえんせいコウカンショウ"><a href="cards/4abe8ab98b945d857eff.html">間炎星－コウカンショウ</a> <small>かんえんせいコウカンショウ</small></li>
+<li data-reading="かんガエル"><a href="cards/00a85075c64e2b7bf2d4.html">貫ガエル</a> <small>かんガエル</small></li>
+<li data-reading="がんせいりゅうレドックス"><a href="cards/7f13ea98cfb782eb9b4f.html">巌征竜－レドックス</a> <small>がんせいりゅうレドックス</small></li>
+<li data-reading="ガントレットシューター"><a href="cards/6b5ce61dbb25eab36ee6.html">ガントレット・シューター</a> <small>ガントレットシューター</small></li>
+<li data-reading="ギアギアーセナル"><a href="cards/0e73a1844ed11d9fe369.html">ギアギアーセナル</a> <small>ギアギアーセナル</small></li>
+<li data-reading="ギアギアーノ"><a href="cards/16379fe536c2057e7123.html">ギアギアーノ</a> <small>ギアギアーノ</small></li>
+<li data-reading="ギアギアーノマークスリー"><a href="cards/94d6d4cfa48efae1f701.html">ギアギアーノ Mk－Ⅲ</a> <small>ギアギアーノマークスリー</small></li>
+<li data-reading="ギアギアーノマークツー"><a href="cards/484ee88cef85cc0c45ae.html">ギアギアーノ Mk－Ⅱ</a> <small>ギアギアーノマークツー</small></li>
+<li data-reading="ギアギアーマー"><a href="cards/49a16426f6fde8f1a354.html">ギアギアーマー</a> <small>ギアギアーマー</small></li>
+<li data-reading="ギアギアギア"><a href="cards/77263f61755d2d6fb847.html">ギアギアギア</a> <small>ギアギアギア</small></li>
+<li data-reading="ギアギアクセル"><a href="cards/dc85c5bbe9ca18b56fb5.html">ギアギアクセル</a> <small>ギアギアクセル</small></li>
+<li data-reading="ギアギアタッカー"><a href="cards/2c7eb2ddef86898b5673.html">ギアギアタッカー</a> <small>ギアギアタッカー</small></li>
+<li data-reading="ギアギアングラー"><a href="cards/a6049039c7b5039766e8.html">ギアギアングラー</a> <small>ギアギアングラー</small></li>
+<li data-reading="ギアギガントクロス"><a href="cards/231e4523a2ce16c7c086.html">ギアギガント X</a> <small>ギアギガントクロス</small></li>
+<li data-reading="ギアタウン"><a href="cards/1a9d15f90915f702c93c.html">歯車街</a> <small>ギアタウン</small></li>
+<li data-reading="きガエル"><a href="cards/af59ea30d38afce7a2cf.html">鬼ガエル</a> <small>きガエル</small></li>
+<li data-reading="ギガプラント"><a href="cards/3b6a1875a87bf184c800.html">ギガプラント</a> <small>ギガプラント</small></li>
+<li data-reading="ギガンテックファイター"><a href="cards/cefe736ee065a2fc3834.html">ギガンテック・ファイター</a> <small>ギガンテックファイター</small></li>
+<li data-reading="きこうしパラディオス"><a href="cards/384ca96244456bb78b93.html">輝光子パラディオス</a> <small>きこうしパラディオス</small></li>
+<li data-reading="きこうていギャラクシオン"><a href="cards/24776a1e28d1632b42e3.html">輝光帝ギャラクシオン</a> <small>きこうていギャラクシオン</small></li>
+<li data-reading="キコウテイワイゼルインフィニティ"><a href="cards/71a1559bc87ccf95f9e6.html">機皇帝ワイゼル∞</a> <small>キコウテイワイゼルインフィニティ</small></li>
+<li data-reading="きこうにんじゃブレードハート"><a href="cards/75a33575f29aada51840.html">機甲忍者ブレード・ハート</a> <small>きこうにんじゃブレードハート</small></li>
+<li data-reading="きせきのはっくつ"><a href="cards/1e3d811b8f9e0db07299.html">奇跡の発掘</a> <small>きせきのはっくつ</small></li>
+<li data-reading="キメラテックフォートレスドラゴン"><a href="cards/7a1ab463c582a0b0820d.html">キメラテック・フォートレス・ドラゴン</a> <small>キメラテックフォートレスドラゴン</small></li>
+<li data-reading="ギャラクシーアイズ・クラウドラゴン"><a href="cards/829176f0741ffbeb710c.html">銀河眼の雲篭</a> <small>ギャラクシーアイズ・クラウドラゴン</small></li>
+<li data-reading="ギャラクシーアイズ・フォトン・ドラゴン"><a href="cards/899b150c4cac07eb50dd.html">銀河眼の光子竜</a> <small>ギャラクシーアイズ・フォトン・ドラゴン</small></li>
+<li data-reading="ギャラクシー・ウィザード"><a href="cards/ca463e923db03cc6a2a8.html">銀河の魔導師</a> <small>ギャラクシー・ウィザード</small></li>
+<li data-reading="ギャラクシー・エクスペディション"><a href="cards/6483bef96b0a2066df44.html">銀河遠征</a> <small>ギャラクシー・エクスペディション</small></li>
+<li data-reading="ギャラクシー・ゼロ"><a href="cards/d815a69526ecaef4b20f.html">銀河零式</a> <small>ギャラクシー・ゼロ</small></li>
+<li data-reading="ギャラクシー・ソルジャー"><a href="cards/3a0a3e733a5afd23fb55.html">銀河戦士</a> <small>ギャラクシー・ソルジャー</small></li>
+<li data-reading="ギャラクシー・ナイト"><a href="cards/8b40c9e52e44c2db354c.html">銀河騎士</a> <small>ギャラクシー・ナイト</small></li>
+<li data-reading="きゅうきょくはいすいのじん"><a href="cards/19105a9134966edf73e0.html">究極・背水の陣</a> <small>きゅうきょくはいすいのじん</small></li>
+<li data-reading="きゅうきょくふういんしんエクゾディオス"><a href="cards/08d2556e14e7611c6267.html">究極封印神エクゾディオス</a> <small>きゅうきょくふういんしんエクゾディオス</small></li>
+<li data-reading="キュウテイノシキタリ"><a href="cards/6913ab53e695084a009a.html">宮廷のしきたり</a> <small>キュウテイノシキタリ</small></li>
+<li data-reading="きょうかそせい"><a href="cards/7db847603bfc012b299b.html">強化蘇生</a> <small>きょうかそせい</small></li>
+<li data-reading="きょうがろうダイヤウルフ"><a href="cards/48fff8569f3df97e15da.html">恐牙狼 ダイヤウルフ</a> <small>きょうがろうダイヤウルフ</small></li>
+<li data-reading="きょうせいてんい"><a href="cards/da9a2d57e6e94300098a.html">強制転移</a> <small>きょうせいてんい</small></li>
+<li data-reading="キョクシンオウトール"><a href="cards/ba31576444c48c4600d7.html">極神皇トール</a> <small>キョクシンオウトール</small></li>
+<li data-reading="キョクシンセイテイオーディン"><a href="cards/d12fb83466fc6f3baede.html">極神聖帝オーディン</a> <small>キョクシンセイテイオーディン</small></li>
+<li data-reading="きょくせいじゅうたんぐにょーすと"><a href="cards/8d3a0cd40d86d45f7347.html">極星獣タングニョースト</a> <small>きょくせいじゅうたんぐにょーすと</small></li>
+<li data-reading="きょくせんきおうヴァルバロイド"><a href="cards/6d4539523ec43bc30793.html">極戦機王ヴァルバロイド</a> <small>きょくせんきおうヴァルバロイド</small></li>
+<li data-reading="きょむくうかん"><a href="cards/0953134b21328df0fd89.html">虚無空間</a> <small>きょむくうかん</small></li>
+<li data-reading="キョリュウノハバタキ"><a href="cards/0eaddc6935fbf8ef6abd.html">巨竜の羽ばたき</a> <small>キョリュウノハバタキ</small></li>
+<li data-reading="きんかびょう"><a href="cards/2fe494275c277b65cbef.html">金華猫</a> <small>きんかびょう</small></li>
+<li data-reading="キングレムリン"><a href="cards/7b0082cc2305ec3a0230.html">キングレムリン</a> <small>キングレムリン</small></li>
+<li data-reading="きんじられたせいい"><a href="cards/6f965fcbacf89a1e8b4c.html">禁じられた聖衣</a> <small>きんじられたせいい</small></li>
+<li data-reading="きんじられたせいそう"><a href="cards/72c6830e81c30ee744e7.html">禁じられた聖槍</a> <small>きんじられたせいそう</small></li>
+<li data-reading="きんじられたせいはい"><a href="cards/65774b085834db7ea81e.html">禁じられた聖杯</a> <small>きんじられたせいはい</small></li>
+<li data-reading="きんしれい"><a href="cards/2022efee5c8af5d5006a.html">禁止令</a> <small>きんしれい</small></li>
+<li data-reading="ギンマクノミラーウォール"><a href="cards/250c94e310645029ece5.html">銀幕の鏡壁</a> <small>ギンマクノミラーウォール</small></li>
+<li data-reading="クイーンマドルチェ・ティアラミス"><a href="cards/b76f26431f1ba2ae5e05.html">クイーンマドルチェ・ティアラミス</a> <small>クイーンマドルチェ・ティアラミス</small></li>
+<li data-reading="クイックシンクロン"><a href="cards/36ecce312161ffd0ccd1.html">クイック・シンクロン</a> <small>クイックシンクロン</small></li>
+<li data-reading="くずてつのかかし"><a href="cards/5bfa18cd21c83d0c5c45.html">くず鉄のかかし</a> <small>くずてつのかかし</small></li>
+<li data-reading="クラウディアンタービュランス"><a href="cards/4ed74fb3837f7d7bc6ef.html">雲魔物－タービュランス</a> <small>クラウディアンタービュランス</small></li>
+<li data-reading="グラディアルビーストガイザレス"><a href="cards/d19386a182dc5fd9857e.html">剣闘獣ガイザレス</a> <small>グラディアルビーストガイザレス</small></li>
+<li data-reading="グラディアルビーストきょうつうこうか"><a href="cards/674986886b64bcc5502f.html">《剣闘獣》共通効果</a> <small>グラディアルビーストきょうつうこうか</small></li>
+<li data-reading="グラディアルビーストダリウス"><a href="cards/a43021452331518c6084.html">剣闘獣ダリウス</a> <small>グラディアルビーストダリウス</small></li>
+<li data-reading="グラディアルビースト・チャリオット"><a href="cards/e75879af741857d6f479.html">剣闘獣の戦車</a> <small>グラディアルビースト・チャリオット</small></li>
+<li data-reading="グラディアルビーストのそこぢから"><a href="cards/5ed3f7c114feeebf0064.html">剣闘獣の底力</a> <small>グラディアルビーストのそこぢから</small></li>
+<li data-reading="グラディアルビーストベストロウリィ"><a href="cards/701cf0b0a6db465dd2c2.html">剣闘獣ベストロウリィ</a> <small>グラディアルビーストベストロウリィ</small></li>
+<li data-reading="グラディアルビーストヘラクレイノス"><a href="cards/81ea03bde1a4459e6a4b.html">剣闘獣ヘラクレイノス</a> <small>グラディアルビーストヘラクレイノス</small></li>
+<li data-reading="グラディアルビーストラクエル"><a href="cards/c290e912b7a6124a1abe.html">剣闘獣ラクエル</a> <small>グラディアルビーストラクエル</small></li>
+<li data-reading="くらやみをすいこむマジックミラー"><a href="cards/09e1cca87554aba56e71.html">暗闇を吸い込むマジックミラー</a> <small>くらやみをすいこむマジックミラー</small></li>
+<li data-reading="グランドクロス"><a href="cards/d93196440e80dde2b97b.html">グランドクロス</a> <small>グランドクロス</small></li>
+<li data-reading="クリッター"><a href="cards/65bfcb3e8bb535a9eddb.html">クリッター</a> <small>クリッター</small></li>
+<li data-reading="クリボー"><a href="cards/c5aebf1a3e582f9e4b71.html">クリボー</a> <small>クリボー</small></li>
+<li data-reading="クリムゾンブレーダー"><a href="cards/96963c1a23fbf09ad52d.html">クリムゾン・ブレーダー</a> <small>クリムゾンブレーダー</small></li>
+<li data-reading="グリモのまどうしょ"><a href="cards/06e69c65ca8eefb27e56.html">グリモの魔導書</a> <small>グリモのまどうしょ</small></li>
+<li data-reading="クルセイダーオブエンディミオン"><a href="cards/0ab345f39a8856b0afc7.html">クルセイダー・オブ・エンディミオン</a> <small>クルセイダーオブエンディミオン</small></li>
+<li data-reading="グレイブスクワーマー"><a href="cards/063b4d3f507333c1238c.html">グレイブ・スクワーマー</a> <small>グレイブスクワーマー</small></li>
+<li data-reading="グローアップバルブ"><a href="cards/3adf69c5ed32d4e74a81.html">グローアップ・バルブ</a> <small>グローアップバルブ</small></li>
+<li data-reading="クロスソウル"><a href="cards/6b37ad965b93bd59a8c7.html">クロス・ソウル</a> <small>クロスソウル</small></li>
+<li data-reading="くろびかりするジー"><a href="cards/a7c84a4f124c1a7ccc68.html">黒光りするG</a> <small>くろびかりするジー</small></li>
+<li data-reading="ぐんゆうかっきょ"><a href="cards/92ab3e791d62314bcb51.html">群雄割拠</a> <small>ぐんゆうかっきょ</small></li>
+<li data-reading="ゲーテのまどうしょ"><a href="cards/f94f3b1ed247135f44a2.html">ゲーテの魔導書</a> <small>ゲーテのまどうしょ</small></li>
+<li data-reading="げきりゅうそう"><a href="cards/667a763b7737036407eb.html">激流葬</a> <small>げきりゅうそう</small></li>
+<li data-reading="ゲットライド"><a href="cards/9ab11255e5b0bfd4f123.html">ゲットライド！</a> <small>ゲットライド</small></li>
+<li data-reading="げんじゅうきドラゴサック"><a href="cards/c54c2f59b56f6ca803bb.html">幻獣機ドラゴサック</a> <small>げんじゅうきドラゴサック</small></li>
+<li data-reading="げんじゅうのつの"><a href="cards/bdea5b3cf6488ccd1b5c.html">幻獣の角</a> <small>げんじゅうのつの</small></li>
+<li data-reading="げんすいりゅう"><a href="cards/83e8171a915efe2546f1.html">幻水龍</a> <small>げんすいりゅう</small></li>
+<li data-reading="げんそうしょうかんし"><a href="cards/3c5561677c7aab566bec.html">幻想召喚師</a> <small>げんそうしょうかんし</small></li>
+<li data-reading="げんそうのしゅごしゃアルマデス"><a href="cards/e25ee73514873c890abb.html">幻層の守護者アルマデス</a> <small>げんそうのしゅごしゃアルマデス</small></li>
+<li data-reading="げんもくりゅう"><a href="cards/d053384eacd1d98c64dd.html">幻木龍</a> <small>げんもくりゅう</small></li>
+<li data-reading="コアキメイルクルセイダー"><a href="cards/904e21e51cb7a7c0e44b.html">コアキメイル・クルセイダー</a> <small>コアキメイルクルセイダー</small></li>
+<li data-reading="コアキメイル・ドラゴ"><a href="cards/155370dcd37365054165.html">コアキメイル・ドラゴ</a> <small>コアキメイル・ドラゴ</small></li>
+<li data-reading="コアキメイルのこうかく"><a href="cards/8136be3ad730030a97b8.html">コアキメイルの鋼核</a> <small>コアキメイルのこうかく</small></li>
+<li data-reading="コアキメイルのこんごうかく"><a href="cards/02d0e35eab8603d57985.html">コアキメイルの金剛核</a> <small>コアキメイルのこんごうかく</small></li>
+<li data-reading="コアキメイルパワーハンド"><a href="cards/e1ab69edee3a11c11fe6.html">コアキメイル・パワーハンド</a> <small>コアキメイルパワーハンド</small></li>
+<li data-reading="ごうえんせいリシュンキ"><a href="cards/1fbe3522b5a0e384f14a.html">罡炎星－リシュンキ</a> <small>ごうえんせいリシュンキ</small></li>
+<li data-reading="こうかつなおとしあな"><a href="cards/c63ecaf7986ba9ac9f5a.html">狡猾な落とし穴</a> <small>こうかつなおとしあな</small></li>
+<li data-reading="こうきょうまじんマエストローク"><a href="cards/e4740bab802ba70f0837.html">交響魔人マエストローク</a> <small>こうきょうまじんマエストローク</small></li>
+<li data-reading="こうしゅをいっていのすうちにするこうかにともなうステータスこていについて"><a href="cards/c52915547d4213674992.html">【攻守を一定の数値にする効果に伴うステータス固定について】</a> <small>こうしゅをいっていのすうちにするこうかにともなうステータスこていについて</small></li>
+<li data-reading="ごうよくでけんきょなつぼ"><a href="cards/a21a8fbf5c51f0933ca3.html">強欲で謙虚な壺</a> <small>ごうよくでけんきょなつぼ</small></li>
+<li data-reading="こえんせいロシシン"><a href="cards/e9b87d9cba097b92bee4.html">孤炎星－ロシシン</a> <small>こえんせいロシシン</small></li>
+<li data-reading="ゴーストリック・フロスト"><a href="cards/44645eed81348cdb4be9.html">ゴーストリック・フロスト</a> <small>ゴーストリック・フロスト</small></li>
+<li data-reading="こくうかいりゅうリヴァイエール"><a href="cards/5b9562fa2fc76ad98aeb.html">虚空海竜リヴァイエール</a> <small>こくうかいりゅうリヴァイエール</small></li>
+<li data-reading="ごぜんじあい"><a href="cards/3660720b2010a63bab4f.html">御前試合</a> <small>ごぜんじあい</small></li>
+<li data-reading="コピープラント"><a href="cards/19eca2167c78bd7012aa.html">コピー・プラント</a> <small>コピープラント</small></li>
+<li data-reading="ゴルゴニックガーディアン"><a href="cards/eb70eb1c3afec98e6383.html">ゴルゴニック・ガーディアン</a> <small>ゴルゴニックガーディアン</small></li>
+<li data-reading="こわくのおとしあな"><a href="cards/a1ef1221283dabf6ba1d.html">蟲惑の落とし穴</a> <small>こわくのおとしあな</small></li>
+<li data-reading="ごんごどうだんざむらい"><a href="cards/5c476da67caac8a7db46.html">言語道断侍</a> <small>ごんごどうだんざむらい</small></li>
+<li data-reading="サイガール"><a href="cards/de561c57b777488b4819.html">サイ・ガール</a> <small>サイガール</small></li>
+<li data-reading="サイココマンダー"><a href="cards/839da3af49ad934a2188.html">サイコ・コマンダー</a> <small>サイココマンダー</small></li>
+<li data-reading="サイコジャンパー"><a href="cards/48c3cee47944bbead140.html">サイコジャンパー</a> <small>サイコジャンパー</small></li>
+<li data-reading="サイコンダクター ビヒーマス"><a href="cards/25de248a60aa00db88f1.html">超念導体ビヒーマス</a> <small>サイコンダクター ビヒーマス</small></li>
+<li data-reading="サイファー・スカウター"><a href="cards/94e0a28b5ebf8adc19b6.html">サイファー・スカウター</a> <small>サイファー・スカウター</small></li>
+<li data-reading="サクリファイス"><a href="cards/d159b475f0218f1cead0.html">サクリファイス</a> <small>サクリファイス</small></li>
+<li data-reading="さじんのあくりょう"><a href="cards/83686134d74ace81374a.html">砂塵の悪霊</a> <small>さじんのあくりょう</small></li>
+<li data-reading="サジンノオオタツマキ"><a href="cards/52e33d348823957ffb4c.html">砂塵の大竜巻</a> <small>サジンノオオタツマキ</small></li>
+<li data-reading="サルベージ・ウォリアー"><a href="cards/bc10873f63008d6f2beb.html">サルベージ・ウォリアー</a> <small>サルベージ・ウォリアー</small></li>
+<li data-reading="ジェネクスウンディーネ"><a href="cards/8992793ca8501981059e.html">ジェネクス・ウンディーネ</a> <small>ジェネクスウンディーネ</small></li>
+<li data-reading="ジェネクスニュートロン"><a href="cards/fa52bde182dc069d7979.html">ジェネクス・ニュートロン</a> <small>ジェネクスニュートロン</small></li>
+<li data-reading="ジェネレーションチェンジ"><a href="cards/5a36b88fd2146a8946bc.html">ジェネレーション・チェンジ</a> <small>ジェネレーションチェンジ</small></li>
+<li data-reading="ジェムタートル"><a href="cards/91faae26071f888b16b5.html">ジェムタートル</a> <small>ジェムタートル</small></li>
+<li data-reading="ジェムナイトパール"><a href="cards/d9c07d2ac4b66c53f21a.html">ジェムナイト・パール</a> <small>ジェムナイトパール</small></li>
+<li data-reading="ジェムナイトフュージョン"><a href="cards/e6a8b50570733d2773d8.html">ジェムナイト・フュージョン</a> <small>ジェムナイトフュージョン</small></li>
+<li data-reading="ジェムナイトマディラ"><a href="cards/2b2a3c60de8fd877304e.html">ジェムナイト・マディラ</a> <small>ジェムナイトマディラ</small></li>
+<li data-reading="ジェルエンデュオ"><a href="cards/58f7c0ca2a1db397b573.html">ジェルエンデュオ</a> <small>ジェルエンデュオ</small></li>
+<li data-reading="シエンノロウジュウエニシ"><a href="cards/29ef10cebef1a1513682.html">紫炎の老中 エニシ</a> <small>シエンノロウジュウエニシ</small></li>
+<li data-reading="ジカイシンメタイオン"><a href="cards/87028ac58b7afe046fb1.html">時械神メタイオン</a> <small>ジカイシンメタイオン</small></li>
+<li data-reading="ジゲンカラクリバクダン"><a href="cards/4bd18ad304941475a47a.html">時限カラクリ爆弾</a> <small>ジゲンカラクリバクダン</small></li>
+<li data-reading="じげんのさけめ"><a href="cards/ca8a3046bd55e8b61b66.html">次元の裂け目</a> <small>じげんのさけめ</small></li>
+<li data-reading="じげんゆうへい"><a href="cards/fbf1730549341f7a7395.html">次元幽閉</a> <small>じげんゆうへい</small></li>
+<li data-reading="シソノシュゴシャティラス"><a href="cards/7428a897f8fae12b1ea1.html">始祖の守護者ティラス</a> <small>シソノシュゴシャティラス</small></li>
+<li data-reading="シッコクノズムウォルト"><a href="cards/18b6b18e6fabb0f788c9.html">漆黒のズムウォルト</a> <small>シッコクノズムウォルト</small></li>
+<li data-reading="しのマジック・ボックス"><a href="cards/559a89f0410c160c7fd8.html">死のマジック・ボックス</a> <small>しのマジック・ボックス</small></li>
+<li data-reading="ジバクシンアスラピスク"><a href="cards/da7ca3b3af31de6fba72.html">地縛神 Ａｓｌｌａ ｐｉｓｃｕ</a> <small>ジバクシンアスラピスク</small></li>
+<li data-reading="ジバクシンキョウツウコウカ"><a href="cards/228da3e89cfcaf9e87ac.html">《地縛神》共通効果</a> <small>ジバクシンキョウツウコウカ</small></li>
+<li data-reading="ジバクシンコカライア"><a href="cards/4d8add1b76ab9f2d6439.html">地縛神 Ｃｃａｒａｙｈｕａ</a> <small>ジバクシンコカライア</small></li>
+<li data-reading="ジャイアントコザッキー"><a href="cards/b6825322e4f32fe69f81.html">G・コザッキー</a> <small>ジャイアントコザッキー</small></li>
+<li data-reading="シャイニングアブソーブ"><a href="cards/88314151da96f077ef5d.html">シャイニング・アブソーブ</a> <small>シャイニングアブソーブ</small></li>
+<li data-reading="シャインエルフ"><a href="cards/852b29ab933c17f4cc37.html">シャインエルフ</a> <small>シャインエルフ</small></li>
+<li data-reading="ジャッジメント・ドラグーン"><a href="cards/9d6947ce73c043defdc8.html">裁きの龍</a> <small>ジャッジメント・ドラグーン</small></li>
+<li data-reading="じゃてい ガイウス"><a href="cards/4cb039e7e5c8aec0697d.html">邪帝ガイウス</a> <small>じゃてい ガイウス</small></li>
+<li data-reading="ジャリュウアナンタ"><a href="cards/06d432c3abef4703ec17.html">邪龍アナンタ</a> <small>ジャリュウアナンタ</small></li>
+<li data-reading="ジャンクアーチャー"><a href="cards/f17dc40caaa982559b27.html">ジャンク・アーチャー</a> <small>ジャンクアーチャー</small></li>
+<li data-reading="ジャンクウォリアー"><a href="cards/6cef4e86ce15a4d08ed4.html">ジャンク・ウォリアー</a> <small>ジャンクウォリアー</small></li>
+<li data-reading="ジャンクシンクロン"><a href="cards/c6bfeaa7eb3f323190c5.html">ジャンク・シンクロン</a> <small>ジャンクシンクロン</small></li>
+<li data-reading="ジャンクデストロイヤー"><a href="cards/81571fd2de80ae4b75ea.html">ジャンク・デストロイヤー</a> <small>ジャンクデストロイヤー</small></li>
+<li data-reading="ジャンクバーサーカー"><a href="cards/567e8e710e55ccb1c55e.html">ジャンク・バーサーカー</a> <small>ジャンクバーサーカー</small></li>
+<li data-reading="ジユウカイホウ"><a href="cards/db4cd3438d32fc8a2489.html">自由解放</a> <small>ジユウカイホウ</small></li>
+<li data-reading="しゅうしゅく"><a href="cards/02f3bee199ebdb801f17.html">収縮</a> <small>しゅうしゅく</small></li>
+<li data-reading="ジュウシンキオウバルバロスウル"><a href="cards/f99195ca51763c31b65d.html">獣神機王バルバロスUr</a> <small>ジュウシンキオウバルバロスウル</small></li>
+<li data-reading="シューティングクェーサードラゴン"><a href="cards/34d8e7dfd69b87476199.html">シューティング・クェーサー・ドラゴン</a> <small>シューティングクェーサードラゴン</small></li>
+<li data-reading="シューティングスタードラゴン"><a href="cards/132efc26c36b7eef7a76.html">シューティング・スター・ドラゴン</a> <small>シューティングスタードラゴン</small></li>
+<li data-reading="シュウマツノキシ"><a href="cards/a55c1144b6b8548bdc62.html">終末の騎士</a> <small>シュウマツノキシ</small></li>
+<li data-reading="ジュラックグアイバ"><a href="cards/2e55ed53ab986e3d7949.html">ジュラック・グアイバ</a> <small>ジュラックグアイバ</small></li>
+<li data-reading="しょうかんけんについて"><a href="cards/d79992d9901df706d33b.html">召喚権について</a> <small>しょうかんけんについて</small></li>
+<li data-reading="ショウテンノクロツノブエ"><a href="cards/1245624f14359c8bdcb5.html">昇天の黒角笛</a> <small>ショウテンノクロツノブエ</small></li>
+<li data-reading="しょうれいじゅつし ジョウゲン"><a href="cards/93de2d2ed99bafdaff20.html">昇霊術師 ジョウゲン</a> <small>しょうれいじゅつし ジョウゲン</small></li>
+<li data-reading="シリョウキシデスカリバーナイト"><a href="cards/a1756c7d91363901e530.html">死霊騎士デスカリバー・ナイト</a> <small>シリョウキシデスカリバーナイト</small></li>
+<li data-reading="しりょうゾーマ"><a href="cards/3c0dc648878c23b4c52d.html">死霊ゾーマ</a> <small>しりょうゾーマ</small></li>
+<li data-reading="しんえんのばくはつ"><a href="cards/41f6dead13fc31d332f1.html">真炎の爆発</a> <small>しんえんのばくはつ</small></li>
+<li data-reading="シンキョウツウコウカ"><a href="cards/d9ee4741befa9458d1fe.html">《Sin》共通効果</a> <small>シンキョウツウコウカ</small></li>
+<li data-reading="シンクロキャンセル"><a href="cards/d091d4da997ac706da0c.html">シンクロキャンセル</a> <small>シンクロキャンセル</small></li>
+<li data-reading="しんじゅうおうバルバロス"><a href="cards/ae94b094c0872898c8a7.html">神獣王バルバロス</a> <small>しんじゅうおうバルバロス</small></li>
+<li data-reading="シンスターダストドラゴン"><a href="cards/e65cd9aa744ddebce253.html">Sin スターダスト・ドラゴン</a> <small>シンスターダストドラゴン</small></li>
+<li data-reading="シンピノダイコウシャアース"><a href="cards/59789a56cbc5bea5ba23.html">神秘の代行者 アース</a> <small>シンピノダイコウシャアース</small></li>
+<li data-reading="しんろくぶしゅう－エニシ"><a href="cards/b6369982e682dd7bde14.html">真六武衆－エニシ</a> <small>しんろくぶしゅう－エニシ</small></li>
+<li data-reading="シンロクブシュウシエン"><a href="cards/e379f4d821f4fb9f259f.html">真六武衆-シエン</a> <small>シンロクブシュウシエン</small></li>
+<li data-reading="スイレイジュツアオイ"><a href="cards/5ae33915b013694377aa.html">水霊術－「葵」</a> <small>スイレイジュツアオイ</small></li>
+<li data-reading="スーペルヴィス"><a href="cards/8370d1567ae73e2f16c8.html">スーペルヴィス</a> <small>スーペルヴィス</small></li>
+<li data-reading="スキルサクセサー"><a href="cards/f40deb25bce05049871b.html">スキル・サクセサー</a> <small>スキルサクセサー</small></li>
+<li data-reading="スキルドレイン"><a href="cards/6c05b80329ed963d1315.html">スキルドレイン</a> <small>スキルドレイン</small></li>
+<li data-reading="スクラップオルトロス"><a href="cards/5a018ec1d5cceb6fc548.html">スクラップ・オルトロス</a> <small>スクラップオルトロス</small></li>
+<li data-reading="スクラップキマイラ"><a href="cards/3ecd5044d174f4e5547f.html">スクラップ・キマイラ</a> <small>スクラップキマイラ</small></li>
+<li data-reading="スクラップキョウツウコウカ"><a href="cards/9d99928ebc68596eef07.html">《スクラップ》共通効果</a> <small>スクラップキョウツウコウカ</small></li>
+<li data-reading="スクラップゴーレム"><a href="cards/71b330fa813b1f5e7a98.html">スクラップ・ゴーレム</a> <small>スクラップゴーレム</small></li>
+<li data-reading="スクラップゴブリン"><a href="cards/3103ed663104efb4ca2c.html">スクラップ・ゴブリン</a> <small>スクラップゴブリン</small></li>
+<li data-reading="スクラップサーチャー"><a href="cards/4d2a5923b84ca0ef5b62.html">スクラップ・サーチャー</a> <small>スクラップサーチャー</small></li>
+<li data-reading="スクラップスコール"><a href="cards/619f8da521f18604ed78.html">スクラップ・スコール</a> <small>スクラップスコール</small></li>
+<li data-reading="スクラップツインドラゴン"><a href="cards/6b2ebef018c193260fab.html">スクラップ・ツイン・ドラゴン</a> <small>スクラップツインドラゴン</small></li>
+<li data-reading="スクラップドラゴン"><a href="cards/992343c6798830598001.html">スクラップ・ドラゴン</a> <small>スクラップドラゴン</small></li>
+<li data-reading="スクラップワーム"><a href="cards/ca90b092b12b6d983295.html">スクラップ・ワーム</a> <small>スクラップワーム</small></li>
+<li data-reading="スクリーチ"><a href="cards/722aa5c8da6d8a21d506.html">スクリーチ</a> <small>スクリーチ</small></li>
+<li data-reading="スクリーンオブレッド"><a href="cards/caf56a0dfeb351149e5b.html">スクリーン・オブ・レッド</a> <small>スクリーンオブレッド</small></li>
+<li data-reading="スケープゴート"><a href="cards/81559e680c763d4666b8.html">スケープ・ゴート</a> <small>スケープゴート</small></li>
+<li data-reading="スターダストドラゴン"><a href="cards/0b7ee94210872818fdb7.html">スターダスト・ドラゴン</a> <small>スターダストドラゴン</small></li>
+<li data-reading="スターダストドラゴンスラッシュバスター"><a href="cards/4d9831d4584afa395c56.html">スターダスト・ドラゴン／バスター</a> <small>スターダストドラゴンスラッシュバスター</small></li>
+<li data-reading="スターライトロード"><a href="cards/56586b41a9a8372a8c08.html">スターライト・ロード</a> <small>スターライトロード</small></li>
+<li data-reading="スッパヌキ"><a href="cards/5eccd9dd1f96e393c49e.html">透破抜き</a> <small>スッパヌキ</small></li>
+<li data-reading="スナイプストーカー"><a href="cards/17aac7f85b68369ffd60.html">スナイプストーカー</a> <small>スナイプストーカー</small></li>
+<li data-reading="スノーマンイーター"><a href="cards/2e5d91e96dbbf603406e.html">スノーマンイーター</a> <small>スノーマンイーター</small></li>
+<li data-reading="スバヤイビッグハムスター"><a href="cards/6c45ceb74edd3baf7a80.html">素早いビッグハムスター</a> <small>スバヤイビッグハムスター</small></li>
+<li data-reading="スポーア"><a href="cards/e4aa378d1404c5014872.html">スポーア</a> <small>スポーア</small></li>
+<li data-reading="スレイブタイガー"><a href="cards/847535857b57532efb01.html">スレイブタイガー</a> <small>スレイブタイガー</small></li>
+<li data-reading="セイクリッド・オメガ"><a href="cards/ce9e430cf9dea207eae4.html">セイクリッド・オメガ</a> <small>セイクリッド・オメガ</small></li>
+<li data-reading="セイクリッド・カウスト"><a href="cards/b062c0bfdca91987815a.html">セイクリッド・カウスト</a> <small>セイクリッド・カウスト</small></li>
+<li data-reading="セイクリッド・グレディ"><a href="cards/310a8df79652a741713e.html">セイクリッド・グレディ</a> <small>セイクリッド・グレディ</small></li>
+<li data-reading="セイクリッド・シェラタン"><a href="cards/a088e5e2276cb517a77c.html">セイクリッド・シェラタン</a> <small>セイクリッド・シェラタン</small></li>
+<li data-reading="セイクリッド・ソンブレス"><a href="cards/1dc2a7419f64cdc863b7.html">セイクリッド・ソンブレス</a> <small>セイクリッド・ソンブレス</small></li>
+<li data-reading="セイクリッド・トレミスメシエセブン"><a href="cards/ed8fd355c7ef2463dd07.html">セイクリッド・トレミスM７</a> <small>セイクリッド・トレミスメシエセブン</small></li>
+<li data-reading="セイクリッド・ヒアデス"><a href="cards/0d2bd8b564808ec5856e.html">セイクリッド・ヒアデス</a> <small>セイクリッド・ヒアデス</small></li>
+<li data-reading="セイクリッド・ビーハイブ"><a href="cards/ce5584bb4641cfb70d39.html">セイクリッド・ビーハイブ</a> <small>セイクリッド・ビーハイブ</small></li>
+<li data-reading="セイクリッド・プレアデス"><a href="cards/dd782f6567d0171bbab3.html">セイクリッド・プレアデス</a> <small>セイクリッド・プレアデス</small></li>
+<li data-reading="セイクリッド・ポルクス"><a href="cards/b955dcb8b36034dd813a.html">セイクリッド・ポルクス</a> <small>セイクリッド・ポルクス</small></li>
+<li data-reading="セイジャクノサイコウィッチ"><a href="cards/acebcd909f73f8e6c6e7.html">静寂のサイコウィッチ</a> <small>セイジャクノサイコウィッチ</small></li>
+<li data-reading="セイシンソウサ"><a href="cards/57a96550b6104f52c298.html">精神操作</a> <small>セイシンソウサ</small></li>
+<li data-reading="セイチョウクレイン"><a href="cards/245ccf85728d5cf8daa4.html">聖鳥クレイン</a> <small>セイチョウクレイン</small></li>
+<li data-reading="せいなるあかり"><a href="cards/ddc5aca6c50667d6c8a3.html">聖なるあかり</a> <small>せいなるあかり</small></li>
+<li data-reading="せいりゅう きょうつうこうか"><a href="cards/e055783c53fe5abceffb.html">【征竜】共通効果</a> <small>せいりゅう きょうつうこうか</small></li>
+<li data-reading="ゼロマックス"><a href="cards/6cc17d6134fa399cfd23.html">ZERO-MAX</a> <small>ゼロマックス</small></li>
+<li data-reading="せんしさん クリスタル・スカル"><a href="cards/cd563925d46640021f31.html">先史遺産クリスタル・スカル</a> <small>せんしさん クリスタル・スカル</small></li>
+<li data-reading="せんしさん クリスタル・ボーン"><a href="cards/760d5bd38dd95c55557f.html">先史遺産クリスタル・ボーン</a> <small>せんしさん クリスタル・ボーン</small></li>
+<li data-reading="せんしさん ゴールデン・シャトル"><a href="cards/f55722e511a993db7047.html">先史遺産ゴールデン・シャトル</a> <small>せんしさん ゴールデン・シャトル</small></li>
+<li data-reading="せんしさんとし バビロン"><a href="cards/291943055ec6ba3e056a.html">先史遺産都市バビロン</a> <small>せんしさんとし バビロン</small></li>
+<li data-reading="せんしさん ネブラ・ディスク"><a href="cards/6f09bbd06865e6cee8bd.html">先史遺産ネブラ・ディスク</a> <small>せんしさん ネブラ・ディスク</small></li>
+<li data-reading="せんのうかいじょ"><a href="cards/179cea4119a4581eb9de.html">洗脳解除</a> <small>せんのうかいじょ</small></li>
+<li data-reading="せんのうこうせん"><a href="cards/c7f1b16e0c827ecfdf40.html">洗脳光線</a> <small>せんのうこうせん</small></li>
+<li data-reading="ゼンマイキコウゼンマイスター"><a href="cards/201fd68451dc9470f09d.html">発条機甲ゼンマイスター</a> <small>ゼンマイキコウゼンマイスター</small></li>
+<li data-reading="ゼンマイジャグラー"><a href="cards/1a77fd25d0573f527027.html">ゼンマイジャグラー</a> <small>ゼンマイジャグラー</small></li>
+<li data-reading="ぞうしょくするジー"><a href="cards/4b8c872fa01b846919e3.html">増殖するＧ</a> <small>ぞうしょくするジー</small></li>
+<li data-reading="ソウゾウノダイコウシャヴィーナス"><a href="cards/96391f5510d0073a327d.html">創造の代行者 ヴィーナス</a> <small>ソウゾウノダイコウシャヴィーナス</small></li>
+<li data-reading="ソッコウノカカシ"><a href="cards/cfa89af3d0b3801576e7.html">速攻のかかし</a> <small>ソッコウノカカシ</small></li>
+<li data-reading="そらとりでゴルガー"><a href="cards/b023834c0b00857553f3.html">宇宙砦ゴルガー</a> <small>そらとりでゴルガー</small></li>
+<li data-reading="ゾンビキャリア"><a href="cards/262916788653ec391c25.html">ゾンビキャリア</a> <small>ゾンビキャリア</small></li>
+<li data-reading="ダークアームドドラゴン"><a href="cards/4bf9cd4e334d5f94f17a.html">ダーク・アームド・ドラゴン</a> <small>ダークアームドドラゴン</small></li>
+<li data-reading="だーくえんどどらごん"><a href="cards/5c2e50896badf3992685.html">ダークエンド・ドラゴン</a> <small>だーくえんどどらごん</small></li>
+<li data-reading="ダーク・クリエイター"><a href="cards/d977490cd921d16291a5.html">ダーク・クリエイター</a> <small>ダーク・クリエイター</small></li>
+<li data-reading="ダーク・シムルグ"><a href="cards/33ccf4e371791d10b808.html">ダーク・シムルグ</a> <small>ダーク・シムルグ</small></li>
+<li data-reading="ダイガスタ・エメラル"><a href="cards/298daebc8e9e179ae320.html">ダイガスタ・エメラル</a> <small>ダイガスタ・エメラル</small></li>
+<li data-reading="ダイガスタ・フェニクス"><a href="cards/0a292d43ebc1f27d5bc5.html">ダイガスタ・フェニクス</a> <small>ダイガスタ・フェニクス</small></li>
+<li data-reading="たいこまじんテンテンテンポ"><a href="cards/a21f5dcb126ad1af2c54.html">太鼓魔人テンテンテンポ</a> <small>たいこまじんテンテンテンポ</small></li>
+<li data-reading="だいちのきしガイアナイト"><a href="cards/b19c7e3d2035d23ddc6f.html">大地の騎士ガイアナイト</a> <small>だいちのきしガイアナイト</small></li>
+<li data-reading="だいてんしクリスティア"><a href="cards/fa4886d4f326f0b245da.html">大天使クリスティア</a> <small>だいてんしクリスティア</small></li>
+<li data-reading="タキオン・カオス・ホール"><a href="cards/884deab30db106e22255.html">時空混沌渦</a> <small>タキオン・カオス・ホール</small></li>
+<li data-reading="タキオン・トランスミグレイション"><a href="cards/d8a839875685d540d51e.html">タキオン・トランスミグレイション</a> <small>タキオン・トランスミグレイション</small></li>
+<li data-reading="ダスト・シュート"><a href="cards/bfa95e0a73937ed3a11f.html">ダスト・シュート</a> <small>ダスト・シュート</small></li>
+<li data-reading="だてんしアスモディウス"><a href="cards/b71ed9340b64bfe09ff0.html">堕天使アスモディウス</a> <small>だてんしアスモディウス</small></li>
+<li data-reading="ダブルエックスセイバーガトムズ"><a href="cards/f51faceb611d828a19ef.html">XX-セイバー ガトムズ</a> <small>ダブルエックスセイバーガトムズ</small></li>
+<li data-reading="ダブル・サイクロン"><a href="cards/615a8ba45539c2c1c1aa.html">ダブル・サイクロン</a> <small>ダブル・サイクロン</small></li>
+<li data-reading="ダブルせいうんいんせき"><a href="cards/dde358cf133ad7d1e12a.html">W星雲隕石</a> <small>ダブルせいうんいんせき</small></li>
+<li data-reading="たましいをけずるしりょう"><a href="cards/709bd553fb85e7ff1ae5.html">魂を削る死霊</a> <small>たましいをけずるしりょう</small></li>
+<li data-reading="ダンディライオン"><a href="cards/0c62a48bb0deeb1592bf.html">ダンディライオン</a> <small>ダンディライオン</small></li>
+<li data-reading="チェーン・ロスト"><a href="cards/afde448a894b5e5fdcce.html">連鎖除外</a> <small>チェーン・ロスト</small></li>
+<li data-reading="ヂェミナイ・デビル"><a href="cards/6f08892f0767fc132268.html">ヂェミナイ・デビル</a> <small>ヂェミナイ・デビル</small></li>
+<li data-reading="ちてんのきしガイアドレイク"><a href="cards/0bdd1b28300ff336bd98.html">地天の騎士ガイアドレイク</a> <small>ちてんのきしガイアドレイク</small></li>
+<li data-reading="ちのだいしょう"><a href="cards/c2a8e0540177da3003e8.html">血の代償</a> <small>ちのだいしょう</small></li>
+<li data-reading="ちょうえいようたいよう"><a href="cards/192c51a8c8d459ee955d.html">超栄養太陽</a> <small>ちょうえいようたいよう</small></li>
+<li data-reading="ちょうでんじタートル"><a href="cards/910dcd2d2c11caed72d8.html">超電磁タートル</a> <small>ちょうでんじタートル</small></li>
+<li data-reading="ちょうゆうごう"><a href="cards/a946ba5db8599f4e8a6d.html">超融合</a> <small>ちょうゆうごう</small></li>
+<li data-reading="ちょうりつ"><a href="cards/a16087dfc3d2ae9f79b0.html">調律</a> <small>ちょうりつ</small></li>
+<li data-reading="チョウリツシノインボウ"><a href="cards/c950fc1fa81a6169c4b4.html">調律師の陰謀</a> <small>チョウリツシノインボウ</small></li>
+<li data-reading="ちんもくのサイコウィザード"><a href="cards/393fa37fa46557e74e40.html">沈黙のサイコウィザード</a> <small>ちんもくのサイコウィザード</small></li>
+<li data-reading="つきのしょ"><a href="cards/50b615fa71bbcf520c82.html">月の書</a> <small>つきのしょ</small></li>
+<li data-reading="つばきティタニアル"><a href="cards/d79df75c5d4743fee1f4.html">椿姫ティタニアル</a> <small>つばきティタニアル</small></li>
+<li data-reading="つりてんじょう"><a href="cards/989be6cdd7a4f1a459af.html">つり天井</a> <small>つりてんじょう</small></li>
+<li data-reading="ティージーエックスワンエイチエル"><a href="cards/77d70b8941d3f9ff8e61.html">TGX1-HL</a> <small>ティージーエックスワンエイチエル</small></li>
+<li data-reading="ティージーワンイーエムワン"><a href="cards/d756829c79ae0c1c73c1.html">TG1-EM1</a> <small>ティージーワンイーエムワン</small></li>
+<li data-reading="ディーディーアール"><a href="cards/8fd04a1128f9e3a08d58.html">Ｄ・Ｄ・Ｒ</a> <small>ディーディーアール</small></li>
+<li data-reading="ディーディークロウ"><a href="cards/16dbd9f7ecfe502305b5.html">D.D.クロウ</a> <small>ディーディークロウ</small></li>
+<li data-reading="ティオのこわくま"><a href="cards/767c3ad3e10929199cf6.html">ティオの蟲惑魔</a> <small>ティオのこわくま</small></li>
+<li data-reading="ディストラクター"><a href="cards/f74f897ff55f94e07678.html">ディストラクター</a> <small>ディストラクター</small></li>
+<li data-reading="テイセンキョウテイ"><a href="cards/6f618c19247657be23ec.html">停戦協定</a> <small>テイセンキョウテイ</small></li>
+<li data-reading="ディフォーマーステープラン"><a href="cards/74a23dac6795a52e46d6.html">Ｄ・ステープラン</a> <small>ディフォーマーステープラン</small></li>
+<li data-reading="ディフォーマーボードン"><a href="cards/a0a08607545b0a5da373.html">D・ボードン</a> <small>ディフォーマーボードン</small></li>
+<li data-reading="ディフォーマーモバホン"><a href="cards/3de8e5d4c78a0a2f4c42.html">D・モバホン</a> <small>ディフォーマーモバホン</small></li>
+<li data-reading="ディフォーマーラジオン"><a href="cards/6df51f3752a784e678bd.html">Ｄ・ラジオン</a> <small>ディフォーマーラジオン</small></li>
+<li data-reading="ディフォーマーラジカッセン"><a href="cards/0ced7d692b32a966fd40.html">D・ラジカッセン</a> <small>ディフォーマーラジカッセン</small></li>
+<li data-reading="ディフォーマーリモコン"><a href="cards/f30ba7551cd70372435c.html">D・リモコン</a> <small>ディフォーマーリモコン</small></li>
+<li data-reading="デーモンのおたけび"><a href="cards/0b45816b6437d02ac404.html">デーモンの雄叫び</a> <small>デーモンのおたけび</small></li>
+<li data-reading="デーモンパレス あくまのめいきゅう"><a href="cards/1eb042fd2f48945b5f34.html">伏魔殿－悪魔の迷宮－</a> <small>デーモンパレス あくまのめいきゅう</small></li>
+<li data-reading="デス・デーモン・ドラゴン"><a href="cards/a16dfcfadddd96e8619f.html">デス・デーモン・ドラゴン</a> <small>デス・デーモン・ドラゴン</small></li>
+<li data-reading="テックジーナスきょうつうこうか"><a href="cards/06353fc4da6d6d57cb31.html">《ＴＧ》共通効果</a> <small>テックジーナスきょうつうこうか</small></li>
+<li data-reading="テックジーナスハイパーライブラリアン"><a href="cards/eb617d94161fdbe214f6.html">ＴＧハイパー・ライブラリアン</a> <small>テックジーナスハイパーライブラリアン</small></li>
+<li data-reading="テックジーナスラッシュライノ"><a href="cards/d17202f517b222c1363d.html">TG ラッシュ・ライノ</a> <small>テックジーナスラッシュライノ</small></li>
+<li data-reading="テックジーナスワーウルフ"><a href="cards/e51d8e02007efeacb74d.html">TG ワーウルフ</a> <small>テックジーナスワーウルフ</small></li>
+<li data-reading="テックジーナスワンダーマジシャン"><a href="cards/788294d13245995233ef.html">ＴＧ ワンダー・マジシャン</a> <small>テックジーナスワンダーマジシャン</small></li>
+<li data-reading="てふだまっさつ"><a href="cards/5583b9b2f3f3f19240be.html">手札抹殺</a> <small>てふだまっさつ</small></li>
+<li data-reading="デブリドラゴン"><a href="cards/f027b6b7fe48c6f0112a.html">デブリ・ドラゴン</a> <small>デブリドラゴン</small></li>
+<li data-reading="デモンズ・チェーン"><a href="cards/19e28be37e5a76d22ca8.html">デモンズ・チェーン</a> <small>デモンズ・チェーン</small></li>
+<li data-reading="デュアルサモン"><a href="cards/024129972848cb7b138f.html">二重召喚</a> <small>デュアルサモン</small></li>
+<li data-reading="デュアルスパーク"><a href="cards/0812be9a677790140789.html">デュアルスパーク</a> <small>デュアルスパーク</small></li>
+<li data-reading="てんけいおうブラックハイランダー"><a href="cards/845576c4c007cffc4409.html">天刑王ブラック・ハイランダー</a> <small>てんけいおうブラックハイランダー</small></li>
+<li data-reading="でんこうちどり"><a href="cards/b900f9e8a17fcb9ba7ab.html">電光千鳥</a> <small>でんこうちどり</small></li>
+<li data-reading="てんせいのよげん"><a href="cards/ebae72533c07f68e5317.html">転生の予言</a> <small>てんせいのよげん</small></li>
+<li data-reading="てんばつ"><a href="cards/05019897a2c873199eb1.html">天罰</a> <small>てんばつ</small></li>
+<li data-reading="てんぺんちい"><a href="cards/6e70e18bca060a246ef3.html">天変地異</a> <small>てんぺんちい</small></li>
+<li data-reading="てんろうおうブルーセイリオス"><a href="cards/065b449f2177b5abcadf.html">天狼王ブルーセイリオス</a> <small>てんろうおうブルーセイリオス</small></li>
+<li data-reading="トゥルース・リインフォース"><a href="cards/e8f5a3e5bc4189faa387.html">トゥルース・リインフォース</a> <small>トゥルース・リインフォース</small></li>
+<li data-reading="トーラのまどうしょ"><a href="cards/4215fd0afd94e2dbbad5.html">トーラの魔導書</a> <small>トーラのまどうしょ</small></li>
+<li data-reading="どくじゃのくもつ"><a href="cards/913b0c6f5094c7947bd8.html">毒蛇の供物</a> <small>どくじゃのくもつ</small></li>
+<li data-reading="ドッペル・ウォリアー"><a href="cards/bb1545055685f4f8ef9e.html">ドッペル・ウォリアー</a> <small>ドッペル・ウォリアー</small></li>
+<li data-reading="ドッペルゲンガー"><a href="cards/cd1f4c537789f68c1c2b.html">ドッペルゲンガー</a> <small>ドッペルゲンガー</small></li>
+<li data-reading="トライアングルエリア"><a href="cards/43bdfdca4926a6a0d7cd.html">トライアングル・エリア</a> <small>トライアングルエリア</small></li>
+<li data-reading="トライデント・ドラギオン"><a href="cards/07f7491328ec5f8542db.html">トライデント・ドラギオン</a> <small>トライデント・ドラギオン</small></li>
+<li data-reading="ドラグーンディーエンド"><a href="cards/37f4944c26e94294232b.html">Dragoon D-END</a> <small>ドラグーンディーエンド</small></li>
+<li data-reading="ドラグニティアームズ・ミスティル"><a href="cards/b884a0ddf98791f43e7f.html">ドラグニティアームズ－ミスティル</a> <small>ドラグニティアームズ・ミスティル</small></li>
+<li data-reading="ドラグニティ・アキュリス"><a href="cards/ca0598ff2fa738a7ce24.html">ドラグニティ-アキュリス</a> <small>ドラグニティ・アキュリス</small></li>
+<li data-reading="ドラグニティきょうつうこうか"><a href="cards/dada7edb4b6a34c730fa.html">《ドラグニティ》共通効果</a> <small>ドラグニティきょうつうこうか</small></li>
+<li data-reading="ドラグニティナイト・ヴァジュランダ"><a href="cards/66c41f554ad9b6569799.html">ドラグニティナイト-ヴァジュランダ</a> <small>ドラグニティナイト・ヴァジュランダ</small></li>
+<li data-reading="ドラグニティナイト・ガジャルグ"><a href="cards/b963a49cc8b285d4b871.html">ドラグニティナイト-ガジャルグ</a> <small>ドラグニティナイト・ガジャルグ</small></li>
+<li data-reading="トラゴエディア"><a href="cards/ae3b8c7f4758aadd5493.html">トラゴエディア</a> <small>トラゴエディア</small></li>
+<li data-reading="ドラゴンアイス"><a href="cards/9efcda9889252a98a814.html">ドラゴン・アイス</a> <small>ドラゴンアイス</small></li>
+<li data-reading="トラップイーター"><a href="cards/c1f2f556cad4bab0d7b7.html">トラップ・イーター</a> <small>トラップイーター</small></li>
+<li data-reading="トラップ・スタン"><a href="cards/300d01657bb79af211ad.html">トラップ・スタン</a> <small>トラップ・スタン</small></li>
+<li data-reading="トラップモンスター"><a href="cards/914b4594e5ce4124bd58.html">罠（トラップ）モンスター</a> <small>トラップモンスター</small></li>
+<li data-reading="トランスターン"><a href="cards/17c888287c2752376eb2.html">トランスターン</a> <small>トランスターン</small></li>
+<li data-reading="トランス・デーモン"><a href="cards/d16fa2ff29762e166d86.html">トランス・デーモン</a> <small>トランス・デーモン</small></li>
+<li data-reading="トリオンのこわくま"><a href="cards/85848fd36b6fbc458b8b.html">トリオンの蟲惑魔</a> <small>トリオンのこわくま</small></li>
+<li data-reading="トリック・デーモン"><a href="cards/652f4f281e003c5094fa.html">トリック・デーモン</a> <small>トリック・デーモン</small></li>
+<li data-reading="ドリルウォリアー"><a href="cards/93d7247bca4b0234fb0a.html">ドリル・ウォリアー</a> <small>ドリルウォリアー</small></li>
+<li data-reading="どんよくなつぼ"><a href="cards/0aa18647baf042acfaf8.html">貪欲な壺</a> <small>どんよくなつぼ</small></li>
+<li data-reading="ナイト・ショット"><a href="cards/ab83cf1cda133e244a40.html">ナイト・ショット</a> <small>ナイト・ショット</small></li>
+<li data-reading="ナイトメアデーモンズ"><a href="cards/c3578f472deedbcb7289.html">ナイトメア・デーモンズ</a> <small>ナイトメアデーモンズ</small></li>
+<li data-reading="ナチュルエクストリオ"><a href="cards/e73ce5068d349d7409a1.html">ナチュル・エクストリオ</a> <small>ナチュルエクストリオ</small></li>
+<li data-reading="ナチュルパルキオン"><a href="cards/d66bbd306df0f4f7b453.html">ナチュル・パルキオン</a> <small>ナチュルパルキオン</small></li>
+<li data-reading="ナチュルバンブーシュート"><a href="cards/a69b159f9b980e705d17.html">ナチュル・バンブーシュート</a> <small>ナチュルバンブーシュート</small></li>
+<li data-reading="ナチュルビースト"><a href="cards/ce1e0dc27fdc53f3c351.html">ナチュル・ビースト</a> <small>ナチュルビースト</small></li>
+<li data-reading="ナチュルフライトフライ"><a href="cards/8b234fa481f9aa0ae11f.html">ナチュル・フライトフライ</a> <small>ナチュルフライトフライ</small></li>
+<li data-reading="ナチュルランドオルス"><a href="cards/5c730660138420c14a21.html">ナチュル・ランドオルス</a> <small>ナチュルランドオルス</small></li>
+<li data-reading="ならくのおとしあな"><a href="cards/b713f9dab34540d8f3cb.html">奈落の落とし穴</a> <small>ならくのおとしあな</small></li>
+<li data-reading="なりきんにんじゃ"><a href="cards/5aaf1bdfdf25f7955d2a.html">成金忍者</a> <small>なりきんにんじゃ</small></li>
+<li data-reading="ナンバーズ６ オーパーツアトランタル"><a href="cards/a74130244e7ea3f64849.html">No.6 先史遺産アトランタル</a> <small>ナンバーズ６ オーパーツアトランタル</small></li>
+<li data-reading="ナンバーズ7 ラッキー・ストライプ"><a href="cards/8649db1bd9971c75c79f.html">No.7 ラッキー・ストライプ</a> <small>ナンバーズ7 ラッキー・ストライプ</small></li>
+<li data-reading="ナンバーズ８　もんしょうおうゲノム・ヘリター"><a href="cards/54eacd3e4b8cc654ba4a.html">No.8 紋章王ゲノム・ヘリター</a> <small>ナンバーズ８　もんしょうおうゲノム・ヘリター</small></li>
+<li data-reading="ナンバーズ１１　ビッグ・アイ"><a href="cards/2be2858a4ddb778505e4.html">No.11 ビッグ・アイ</a> <small>ナンバーズ１１　ビッグ・アイ</small></li>
+<li data-reading="ナンバーズ１２　きこうにんじゃクリムゾン・シャドー"><a href="cards/f067d09a65d356669bcb.html">No.12 機甲忍者クリムゾン・シャドー</a> <small>ナンバーズ１２　きこうにんじゃクリムゾン・シャドー</small></li>
+<li data-reading="ナンバーズ１５　ギミック・パペット－ジャイアントキラー"><a href="cards/2b6a3741606775d6a1c6.html">No.15 ギミック・パペット－ジャイアントキラー</a> <small>ナンバーズ１５　ギミック・パペット－ジャイアントキラー</small></li>
+<li data-reading="ナンバーズ１６ いろのしはいしゃショック・ルーラー"><a href="cards/ac767b035c12d44a167b.html">No.16 色の支配者ショック・ルーラー</a> <small>ナンバーズ１６ いろのしはいしゃショック・ルーラー</small></li>
+<li data-reading="ナンバーズ１８　もんしょうそプレイン・コート"><a href="cards/ddbc5c625ed4756b0652.html">No.18 紋章祖プレイン・コート</a> <small>ナンバーズ１８　もんしょうそプレイン・コート</small></li>
+<li data-reading="ナンバーズ１９　フリーザードン"><a href="cards/35397a81959735705eb8.html">No.19 フリーザードン</a> <small>ナンバーズ１９　フリーザードン</small></li>
+<li data-reading="ナンバーズ２２　フランケン"><a href="cards/78f920d4e097b248f0b8.html">No.22 不乱健</a> <small>ナンバーズ２２　フランケン</small></li>
+<li data-reading="ナンバーズ２５　フルメタル・フォトグライドフォーカス・フォース"><a href="cards/afcea06bfdb146c2042a.html">No.25 重装光学撮影機フォーカス・フォース</a> <small>ナンバーズ２５　フルメタル・フォトグライドフォーカス・フォース</small></li>
+<li data-reading="ナンバーズ３０ はめつのアシッド・ゴーレム"><a href="cards/b8ee1db801a50f42b0b7.html">No.30 破滅のアシッド・ゴーレム</a> <small>ナンバーズ３０ はめつのアシッド・ゴーレム</small></li>
+<li data-reading="ナンバーズ３３　オーパーツ－ちょうへいきマシュ＝マック"><a href="cards/8c8fb1f7721217369d55.html">No.33 先史遺産－超兵器マシュ＝マック</a> <small>ナンバーズ３３　オーパーツ－ちょうへいきマシュ＝マック</small></li>
+<li data-reading="ナンバーズ３６　オーパーツ－ちょうきかんフォーク＝ヒューク"><a href="cards/88d1c9d1f18d0ed08e37.html">No.36 先史遺産－超機関フォーク＝ヒューク</a> <small>ナンバーズ３６　オーパーツ－ちょうきかんフォーク＝ヒューク</small></li>
+<li data-reading="ナンバーズ３９ きぼうおうホープ"><a href="cards/36fe391e85a7c0b9ec42.html">No.39 希望皇ホープ</a> <small>ナンバーズ３９ きぼうおうホープ</small></li>
+<li data-reading="ナンバーズ４６　しんえいりゅうドラッグルーオン"><a href="cards/f8efdd6ed398f57e121b.html">No.46 神影龍ドラッグルーオン</a> <small>ナンバーズ４６　しんえいりゅうドラッグルーオン</small></li>
+<li data-reading="ナンバーズ５０　ブラック・コーンごう"><a href="cards/d77d6e9bee20a18d831f.html">No.50 ブラック・コーン号</a> <small>ナンバーズ５０　ブラック・コーンごう</small></li>
+<li data-reading="ナンバーズ５２ ダイヤモンド・クラブ・キング"><a href="cards/365f5d01a3a42c448913.html">No.52 ダイヤモンド・クラブ・キング</a> <small>ナンバーズ５２ ダイヤモンド・クラブ・キング</small></li>
+<li data-reading="ナンバーズ61 ヴォルカザウルス"><a href="cards/85835d16fbdb114cd770.html">No.61 ヴォルカザウルス</a> <small>ナンバーズ61 ヴォルカザウルス</small></li>
+<li data-reading="ナンバーズ62 ギャラクシーアイズ・プライム・フォトン・ドラゴン"><a href="cards/fc366122b817186400df.html">No.62 銀河眼の光子竜皇</a> <small>ナンバーズ62 ギャラクシーアイズ・プライム・フォトン・ドラゴン</small></li>
+<li data-reading="ナンバーズ６６　はけんこうちゅうマスター・キー・ビートル"><a href="cards/15ac7aa1bc536b233918.html">No.66 覇鍵甲虫マスター・キー・ビートル</a> <small>ナンバーズ６６　はけんこうちゅうマスター・キー・ビートル</small></li>
+<li data-reading="ナンバーズ６９　ゴッド・メダリオンコート・オブ・アームズ"><a href="cards/19284ca36d8f26b51a7e.html">No.69 紋章神コート・オブ・アームズ</a> <small>ナンバーズ６９　ゴッド・メダリオンコート・オブ・アームズ</small></li>
+<li data-reading="ナンバーズ74 マジカル・クラウン－ミッシング・ソード"><a href="cards/478840ef357c9c9adeb7.html">No.74 マジカル・クラウン－ミッシング・ソード</a> <small>ナンバーズ74 マジカル・クラウン－ミッシング・ソード</small></li>
+<li data-reading="ナンバーズ７９ バーニングナックラー しんせいのカイザー"><a href="cards/fa0c6461ecfb3e8769b3.html">No.79 BK 新星のカイザー</a> <small>ナンバーズ７９ バーニングナックラー しんせいのカイザー</small></li>
+<li data-reading="ナンバーズ８２　ハートランドラコ"><a href="cards/3dca1645b35d8727e6c2.html">No.82 ハートランドラコ</a> <small>ナンバーズ８２　ハートランドラコ</small></li>
+<li data-reading="ナンバーズ８５　クレイジー・ボックス"><a href="cards/95e281611ad4b199e787.html">No.85 クレイジー・ボックス</a> <small>ナンバーズ８５　クレイジー・ボックス</small></li>
+<li data-reading="ナンバーズ９１　サンダー・スパーク・ドラゴン"><a href="cards/fa6b727a73f6e27bf0b4.html">No.91 サンダー・スパーク・ドラゴン</a> <small>ナンバーズ９１　サンダー・スパーク・ドラゴン</small></li>
+<li data-reading="ナンバーズ１０１　サイレント・オナーズ・アーク・ナイト"><a href="cards/97b9d1fd3f8f18b73397.html">No.101 S・H・Ark Knight</a> <small>ナンバーズ１０１　サイレント・オナーズ・アーク・ナイト</small></li>
+<li data-reading="ナンバーズ１０３　しんそうれいじょうラグナ・ゼロ"><a href="cards/d8c49da5cd977e040ffb.html">No.103 神葬零嬢ラグナ・ゼロ</a> <small>ナンバーズ１０３　しんそうれいじょうラグナ・ゼロ</small></li>
+<li data-reading="ナンバーズ１０５ バーニングナックラー りゅうせいのセスタス"><a href="cards/95c4d5bff762609b5fc0.html">No.105 BK 流星のセスタス</a> <small>ナンバーズ１０５ バーニングナックラー りゅうせいのセスタス</small></li>
+<li data-reading="ナンバーズ１０６　きょがんしょうジャイアント・ハンド"><a href="cards/29cc59ac3cfff26cbc5b.html">No.106 巨岩掌ジャイアント・ハンド</a> <small>ナンバーズ１０６　きょがんしょうジャイアント・ハンド</small></li>
+<li data-reading="ナンバーズ107 ギャラクシーアイズ・タキオン・ドラゴン"><a href="cards/233acf9b88bc74c162dd.html">No.107 銀河眼の時空竜</a> <small>ナンバーズ107 ギャラクシーアイズ・タキオン・ドラゴン</small></li>
+<li data-reading="にじクリボー"><a href="cards/ffac3f5d83957f82bfa5.html">虹クリボー</a> <small>にじクリボー</small></li>
+<li data-reading="ニトロウォリアー"><a href="cards/2bf6a2b18502dd2d8aea.html">ニトロ・ウォリアー</a> <small>ニトロウォリアー</small></li>
+<li data-reading="ニュードリュア"><a href="cards/142f1ff8cdbd00c1212b.html">ニュードリュア</a> <small>ニュードリュア</small></li>
+<li data-reading="にんじゃマスター ハンゾー"><a href="cards/b9cea2a52cd6d7150ba5.html">忍者マスター HANZO</a> <small>にんじゃマスター ハンゾー</small></li>
+<li data-reading="にんぽう ちょうへんげのじゅつ"><a href="cards/dfa9eb5335c9ed23f2ab.html">忍法 超変化の術</a> <small>にんぽう ちょうへんげのじゅつ</small></li>
+<li data-reading="ネオ・ギャラクシーアイズ・フォトン・ドラゴン"><a href="cards/2f5b37c610fae79ade7e.html">超銀河眼の光子龍</a> <small>ネオ・ギャラクシーアイズ・フォトン・ドラゴン</small></li>
+<li data-reading="ネオスペーシアン・グラン・モール"><a href="cards/792fe534b26ac4685b7c.html">N・グラン・モール</a> <small>ネオスペーシアン・グラン・モール</small></li>
+<li data-reading="ネクロガードナー"><a href="cards/43dd98fdbd9a268aa0bb.html">ネクロ・ガードナー</a> <small>ネクロガードナー</small></li>
+<li data-reading="ネクロのまどうしょ"><a href="cards/ffeb401d24a5215cab98.html">ネクロの魔導書</a> <small>ネクロのまどうしょ</small></li>
+<li data-reading="ねっけつしどうおうジャイアントレーナー"><a href="cards/95ba0e2d80ce3cd2be91.html">熱血指導王ジャイアントレーナー</a> <small>ねっけつしどうおうジャイアントレーナー</small></li>
+<li data-reading="ねっけつじゅうしウルフバーク"><a href="cards/8d536e291c926ba2c737.html">熱血獣士ウルフバーク</a> <small>ねっけつじゅうしウルフバーク</small></li>
+<li data-reading="のうかいはつけんきゅうじょ"><a href="cards/8eb50b1e627f90ec4cc3.html">脳開発研究所</a> <small>のうかいはつけんきゅうじょ</small></li>
+<li data-reading="バーニングナックラー グラスジョー"><a href="cards/c200ca2b2fec096ec673.html">BK グラスジョー</a> <small>バーニングナックラー グラスジョー</small></li>
+<li data-reading="バーニングナックラー こうそくばんぺいリードブロー"><a href="cards/843257f78857ea6d4c2a.html">BK 拘束蛮兵リードブロー</a> <small>バーニングナックラー こうそくばんぺいリードブロー</small></li>
+<li data-reading="バーニングナックラー スイッチヒッター"><a href="cards/48c52405167d09737013.html">BK スイッチヒッター</a> <small>バーニングナックラー スイッチヒッター</small></li>
+<li data-reading="バーニングナックラー スパー"><a href="cards/40f27f6b74089eb29179.html">BK スパー</a> <small>バーニングナックラー スパー</small></li>
+<li data-reading="バーニングナックラー ヘッドギア"><a href="cards/9f9d2e1808a3b1b8410e.html">BK ヘッドギア</a> <small>バーニングナックラー ヘッドギア</small></li>
+<li data-reading="バーニングナックル・スピリッツ"><a href="cards/78ee1b6a12a5b09b96c0.html">バーニングナックル・スピリッツ</a> <small>バーニングナックル・スピリッツ</small></li>
+<li data-reading="パーフェクト・デクレアラー"><a href="cards/5e366befa8077e13f4f0.html">神光の宣告者</a> <small>パーフェクト・デクレアラー</small></li>
+<li data-reading="バーミリオン・デクレアラー"><a href="cards/084b0d4c4e9f68161048.html">朱光の宣告者</a> <small>バーミリオン・デクレアラー</small></li>
+<li data-reading="はいどろげどん"><a href="cards/544f4e747ccee8205b82.html">ハイドロゲドン</a> <small>はいどろげどん</small></li>
+<li data-reading="ハイ・メダリオン・アーツ"><a href="cards/6ff5f1e9c7e2c0bb6342.html">高等紋章術</a> <small>ハイ・メダリオン・アーツ</small></li>
+<li data-reading="はかあなのみちづれ"><a href="cards/927ec8aa6e31082a1f7e.html">墓穴の道連れ</a> <small>はかあなのみちづれ</small></li>
+<li data-reading="はかもりのアサシン"><a href="cards/2890efa6bda1c897338a.html">墓守の暗殺者</a> <small>はかもりのアサシン</small></li>
+<li data-reading="はかもりのていさつしゃ"><a href="cards/7313d9372157b5d90547.html">墓守の偵察者</a> <small>はかもりのていさつしゃ</small></li>
+<li data-reading="ばくせいりゅう－タイダル"><a href="cards/41025752b5a95a932191.html">瀑征竜－タイダル</a> <small>ばくせいりゅう－タイダル</small></li>
+<li data-reading="はどうりゅうきしドラゴエクィテス"><a href="cards/c91ea601d0b1063bfa3d.html">波動竜騎士 ドラゴエクィテス</a> <small>はどうりゅうきしドラゴエクィテス</small></li>
+<li data-reading="はどうりゅうフォノン・ドラゴン"><a href="cards/308f29cd6a9f2eaa2f7d.html">波動竜フォノン・ドラゴン</a> <small>はどうりゅうフォノン・ドラゴン</small></li>
+<li data-reading="ばとるふぇーだー"><a href="cards/68d4fc48c6a3a0541ab4.html">バトルフェーダー</a> <small>ばとるふぇーだー</small></li>
+<li data-reading="バハムート・シャーク"><a href="cards/0b064748aff784be5398.html">バハムート・シャーク</a> <small>バハムート・シャーク</small></li>
+<li data-reading="ぱぺっとぷらんと"><a href="cards/4cf21c91a3dcd5177db1.html">パペット・プラント</a> <small>ぱぺっとぷらんと</small></li>
+<li data-reading="ばらのこくいん"><a href="cards/31f3292c6195a22b8026.html">薔薇の刻印</a> <small>ばらのこくいん</small></li>
+<li data-reading="パワー・ジャイアント"><a href="cards/0c8fc27ec2c8413f20f2.html">パワー・ジャイアント</a> <small>パワー・ジャイアント</small></li>
+<li data-reading="ぱわーつーるどらごん"><a href="cards/d1d933cba454b052f97c.html">パワー・ツール・ドラゴン</a> <small>ぱわーつーるどらごん</small></li>
+<li data-reading="ひーろーぶらすと"><a href="cards/c34840b2e9a61ee65adb.html">ヒーロー・ブラスト</a> <small>ひーろーぶらすと</small></li>
+<li data-reading="びえんせい－リュウシシン"><a href="cards/78ab272471672247799b.html">微炎星－リュウシシン</a> <small>びえんせい－リュウシシン</small></li>
+<li data-reading="ひかりのえんぐん"><a href="cards/52705ba32e9962562f17.html">光の援軍</a> <small>ひかりのえんぐん</small></li>
+<li data-reading="ビッグバンシュート"><a href="cards/a51c36a0469534ea5642.html">ビッグバン・シュート</a> <small>ビッグバンシュート</small></li>
+<li data-reading="ひのかぐつち"><a href="cards/a730025915108ffd47e4.html">火之迦具土</a> <small>ひのかぐつち</small></li>
+<li data-reading="ヒュグロのまどうしょ"><a href="cards/4997993c3637a4cfa80d.html">ヒュグロの魔導書</a> <small>ヒュグロのまどうしょ</small></li>
+<li data-reading="ひょうけっかいのこおうドゥローレン"><a href="cards/b104f5a5729ca5ed7c52.html">氷結界の虎王ドゥローレン</a> <small>ひょうけっかいのこおうドゥローレン</small></li>
+<li data-reading="ひょうけっかいのりゅうぐんぐにーる"><a href="cards/9afad2481aaa0349a93e.html">氷結界の龍 グングニール</a> <small>ひょうけっかいのりゅうぐんぐにーる</small></li>
+<li data-reading="ひょうけっかいのりゅうとりしゅーら"><a href="cards/c13f88a35f60b1338da1.html">氷結界の龍 トリシューラ</a> <small>ひょうけっかいのりゅうとりしゅーら</small></li>
+<li data-reading="ひょうけっかいのりゅうぶりゅーなく"><a href="cards/4d746a7fff396253681b.html">氷結界の龍 ブリューナク</a> <small>ひょうけっかいのりゅうぶりゅーなく</small></li>
+<li data-reading="ひょうけつのふぃっつじぇらるど"><a href="cards/89ec4879a5ed6960129a.html">氷結のフィッツジェラルド</a> <small>ひょうけつのふぃっつじぇらるど</small></li>
+<li data-reading="ひょうれいしんムーラングレイス"><a href="cards/6aa9e928e8c12190ebe5.html">氷霊神ムーラングレイス</a> <small>ひょうれいしんムーラングレイス</small></li>
+<li data-reading="ヒロイック－チャンピオン　エクスカリバー"><a href="cards/84a05461127630d8b474.html">Ｈ－Ｃ エクスカリバー</a> <small>ヒロイック－チャンピオン　エクスカリバー</small></li>
+<li data-reading="ヒロイックチャレンジャー　エクストラ・ソード"><a href="cards/9746728d1499dad1ffda.html">H・C エクストラ・ソード</a> <small>ヒロイックチャレンジャー　エクストラ・ソード</small></li>
+<li data-reading="ファントムオブカオス"><a href="cards/f8c1176fe7b673bb34a2.html">ファントム・オブ・カオス</a> <small>ファントムオブカオス</small></li>
+<li data-reading="フィッシュボーグ－アーチャー"><a href="cards/920e5c3da34c74ae56b9.html">フィッシュボーグ－アーチャー</a> <small>フィッシュボーグ－アーチャー</small></li>
+<li data-reading="ふぃっしゅぼーぐがんなー"><a href="cards/f6a1b045ec1f9bce7094.html">フィッシュボーグ－ガンナー</a> <small>ふぃっしゅぼーぐがんなー</small></li>
+<li data-reading="ふううんからくりじょう"><a href="cards/401da5fbfcf2be5195f0.html">風雲カラクリ城</a> <small>ふううんからくりじょう</small></li>
+<li data-reading="ふぉーみゅらしんくろん"><a href="cards/490c659fb26c0c8d0e1d.html">フォーミュラ・シンクロン</a> <small>ふぉーみゅらしんくろん</small></li>
+<li data-reading="ふぉっしるだいなぱきけふぁろ"><a href="cards/11041d5f1b1f08cc62b3.html">フォッシル・ダイナ パキケファロ</a> <small>ふぉっしるだいなぱきけふぁろ</small></li>
+<li data-reading="フォトン・サンクチュアリ"><a href="cards/723014320251ee1f8c88.html">フォトン・サンクチュアリ</a> <small>フォトン・サンクチュアリ</small></li>
+<li data-reading="フォトン・ストリーク・バウンサー"><a href="cards/86d3a9017f4d8df21929.html">フォトン・ストリーク・バウンサー</a> <small>フォトン・ストリーク・バウンサー</small></li>
+<li data-reading="フォトン・スラッシャー"><a href="cards/60204fc82e8ab2c59639.html">フォトン・スラッシャー</a> <small>フォトン・スラッシャー</small></li>
+<li data-reading="フォトン・バタフライ・アサシン"><a href="cards/c944d095c8c64c7bf078.html">フォトン・バタフライ・アサシン</a> <small>フォトン・バタフライ・アサシン</small></li>
+<li data-reading="ふか"><a href="cards/155daf027b6c0f8db894.html">孵化</a> <small>ふか</small></li>
+<li data-reading="ぶじん－アラスダ"><a href="cards/74f4ba280d76b0ab263d.html">武神－アラスダ</a> <small>ぶじん－アラスダ</small></li>
+<li data-reading="ぶじん－ヒルメ"><a href="cards/44d78c6ce73d917be259.html">武神－ヒルメ</a> <small>ぶじん－ヒルメ</small></li>
+<li data-reading="ぶじん－ミカヅチ"><a href="cards/6307195d811ba0ec39ef.html">武神－ミカヅチ</a> <small>ぶじん－ミカヅチ</small></li>
+<li data-reading="ぶじん－ヤマト"><a href="cards/11016dace8efd8578284.html">武神－ヤマト</a> <small>ぶじん－ヤマト</small></li>
+<li data-reading="ぶじんき－アマテラス"><a href="cards/7744c58ff9a66efddf83.html">武神姫－アマテラス</a> <small>ぶじんき－アマテラス</small></li>
+<li data-reading="ぶじんぎ－イクタ"><a href="cards/bcfb7da76c0a021b5f98.html">武神器－イクタ</a> <small>ぶじんぎ－イクタ</small></li>
+<li data-reading="ぶじんぎ－サグサ"><a href="cards/504615b47f213e7c9218.html">武神器－サグサ</a> <small>ぶじんぎ－サグサ</small></li>
+<li data-reading="ぶじんぎ－ハチ"><a href="cards/b3dcc99d8626a9c4a3d7.html">武神器－ハチ</a> <small>ぶじんぎ－ハチ</small></li>
+<li data-reading="ぶじんぎ－ハバキリ"><a href="cards/81edc15138e2f4038ccd.html">武神器－ハバキリ</a> <small>ぶじんぎ－ハバキリ</small></li>
+<li data-reading="ぶじんぎ－ヘツカ"><a href="cards/268e8291a599a1346028.html">武神器－ヘツカ</a> <small>ぶじんぎ－ヘツカ</small></li>
+<li data-reading="ぶじんぎ－ムラクモ"><a href="cards/9223491869c3a4384e64.html">武神器－ムラクモ</a> <small>ぶじんぎ－ムラクモ</small></li>
+<li data-reading="ぶじんぎ－ヤサカニ"><a href="cards/9827bb93ed1bf8138fdd.html">武神器－ヤサカニ</a> <small>ぶじんぎ－ヤサカニ</small></li>
+<li data-reading="ぶじんこうりん"><a href="cards/4b76ce56d77742f2027d.html">武神降臨</a> <small>ぶじんこうりん</small></li>
+<li data-reading="ぶじんてい－カグツチ"><a href="cards/42dfa260364992cf9c96.html">武神帝－カグツチ</a> <small>ぶじんてい－カグツチ</small></li>
+<li data-reading="ぶじんてい－スサノヲ"><a href="cards/33d1666c286ce11e988f.html">武神帝－スサノヲ</a> <small>ぶじんてい－スサノヲ</small></li>
+<li data-reading="ぶじんてい－ツクヨミ"><a href="cards/59fde021b3c441f7ba93.html">武神帝－ツクヨミ</a> <small>ぶじんてい－ツクヨミ</small></li>
+<li data-reading="ふやじょう"><a href="cards/b4fcafc9da059e635e6c.html">浮鵺城</a> <small>ふやじょう</small></li>
+<li data-reading="フューチャーヴィジョン"><a href="cards/b060a14ec004db4f59ee.html">フューチャー・ヴィジョン</a> <small>フューチャーヴィジョン</small></li>
+<li data-reading="ぶらっくがーでん"><a href="cards/e4f1e0da4488c7a72bdc.html">ブラック・ガーデン</a> <small>ぶらっくがーでん</small></li>
+<li data-reading="ブラックフェザーあかつきのしろっこ"><a href="cards/74a36fa0a0331ee7805c.html">BF－暁のシロッコ</a> <small>ブラックフェザーあかつきのしろっこ</small></li>
+<li data-reading="ブラックフェザーしっぷうのゲイル"><a href="cards/97e7da72b4eff4e2ca23.html">ＢＦ－疾風のゲイル</a> <small>ブラックフェザーしっぷうのゲイル</small></li>
+<li data-reading="ブラックフェザーせいえいのぜぴゅろす"><a href="cards/654ecca95fd5061c1b3a.html">BF－精鋭のゼピュロス</a> <small>ブラックフェザーせいえいのぜぴゅろす</small></li>
+<li data-reading="ブラックフェザーたいはいのゔぁーゆ"><a href="cards/fa42eee6c1b762bbae81.html">BF－大旆のヴァーユ</a> <small>ブラックフェザーたいはいのゔぁーゆ</small></li>
+<li data-reading="ぶらっくろーずどらごん"><a href="cards/d055d8018bb92457148a.html">ブラック・ローズ・ドラゴン</a> <small>ぶらっくろーずどらごん</small></li>
+<li data-reading="ブリキンギョ"><a href="cards/4bc87c9f457523f36702.html">ブリキンギョ</a> <small>ブリキンギョ</small></li>
+<li data-reading="フルアーマード－クリスタル・ゼロ・ランサー"><a href="cards/d443fd78453e83ca3334.html">FA－クリスタル・ゼロ・ランサー</a> <small>フルアーマード－クリスタル・ゼロ・ランサー</small></li>
+<li data-reading="ブレイクスルー・スキル"><a href="cards/fb888d9c1307f5717ac3.html">ブレイクスルー・スキル</a> <small>ブレイクスルー・スキル</small></li>
+<li data-reading="へるついんこっぷ"><a href="cards/b3490c98d5f1c8550a6f.html">ヘル・ツイン・コップ</a> <small>へるついんこっぷ</small></li>
+<li data-reading="ほうおう"><a href="cards/8be1d120d052e300871e.html">鳳凰</a> <small>ほうおう</small></li>
+<li data-reading="ほうじょうのあるてみす"><a href="cards/c327ec2acfdc31bcc8a7.html">豊穣のアルテミス</a> <small>ほうじょうのあるてみす</small></li>
+<li data-reading="ほうよくのばくふう"><a href="cards/9e85bfafa393cad0ee36.html">鳳翼の爆風</a> <small>ほうよくのばくふう</small></li>
+<li data-reading="ほしみじゅうがりす"><a href="cards/8df3b4b3a7fb1fa42cf0.html">星見獣ガリス</a> <small>ほしみじゅうがりす</small></li>
+<li data-reading="ほむらりゅうピュラリス"><a href="cards/1232c562331e04691018.html">焔紫竜ピュラリス</a> <small>ほむらりゅうピュラリス</small></li>
+<li data-reading="ボルテックバイコーン"><a href="cards/ac1dee75115b339a6c1a.html">ボルテック・バイコーン</a> <small>ボルテックバイコーン</small></li>
+<li data-reading="ボルトヘッジホッグ"><a href="cards/1a07971bf46d931979c5.html">ボルト・ヘッジホッグ</a> <small>ボルトヘッジホッグ</small></li>
+<li data-reading="マーメイル アビスグンデ"><a href="cards/3cdd2e27b7b08f01c3d0.html">水精鱗－アビスグンデ</a> <small>マーメイル アビスグンデ</small></li>
+<li data-reading="マーメイル アビスタージ"><a href="cards/ba52e8ec93d1594cf4b1.html">水精鱗－アビスタージ</a> <small>マーメイル アビスタージ</small></li>
+<li data-reading="マーメイル アビスディーネ"><a href="cards/c459b305982c8d1dba96.html">水精鱗－アビスディーネ</a> <small>マーメイル アビスディーネ</small></li>
+<li data-reading="マーメイル アビストリーテ"><a href="cards/bc7ee73c8da60ff594a6.html">水精鱗－アビストリーテ</a> <small>マーメイル アビストリーテ</small></li>
+<li data-reading="マーメイル アビスパイク"><a href="cards/4f354576b182ed1b63ff.html">水精鱗－アビスパイク</a> <small>マーメイル アビスパイク</small></li>
+<li data-reading="マーメイル アビスヒルデ"><a href="cards/ec1b1ce5a428cb264eda.html">水精鱗－アビスヒルデ</a> <small>マーメイル アビスヒルデ</small></li>
+<li data-reading="マーメイル アビスリンデ"><a href="cards/1a1fb58d453bf2d06a08.html">水精鱗－アビスリンデ</a> <small>マーメイル アビスリンデ</small></li>
+<li data-reading="マーメイル オーケアビス"><a href="cards/1370b16fd18f77f80195.html">水精鱗－オーケアビス</a> <small>マーメイル オーケアビス</small></li>
+<li data-reading="マーメイル ガイオアビス"><a href="cards/3ed7821bb83299d5ce31.html">水精鱗－ガイオアビス</a> <small>マーメイル ガイオアビス</small></li>
+<li data-reading="マーメイル ディニクアビス"><a href="cards/cfcfde12e6ed42f29340.html">水精鱗－ディニクアビス</a> <small>マーメイル ディニクアビス</small></li>
+<li data-reading="マーメイル メガロアビス"><a href="cards/290bf615739e7d5b95c5.html">水精鱗－メガロアビス</a> <small>マーメイル メガロアビス</small></li>
+<li data-reading="マーメイル リードアビス"><a href="cards/551c678ae833d5cfbd52.html">水精鱗－リードアビス</a> <small>マーメイル リードアビス</small></li>
+<li data-reading="マインド・クラッシュ"><a href="cards/9d83de2c90401b3bdbc1.html">マインド・クラッシュ</a> <small>マインド・クラッシュ</small></li>
+<li data-reading="マインフィールド"><a href="cards/27ffe8e7ce04134aea39.html">マインフィールド</a> <small>マインフィールド</small></li>
+<li data-reading="まかいとうしバルムンク"><a href="cards/0a75442be7155017b157.html">魔界闘士バルムンク</a> <small>まかいとうしバルムンク</small></li>
+<li data-reading="まかいはつげんせゆきデスガイド"><a href="cards/18ffd4d2a75fa9392d5d.html">魔界発現世行きデスガイド</a> <small>まかいはつげんせゆきデスガイド</small></li>
+<li data-reading="マクロコスモス"><a href="cards/840057ec03332e6bf6a7.html">マクロコスモス</a> <small>マクロコスモス</small></li>
+<li data-reading="まごうしん"><a href="cards/42587ba511bba08d5e98.html">【魔轟神】共通効果</a> <small>まごうしん</small></li>
+<li data-reading="まごうしんクシャノ"><a href="cards/32890c7f7fe92addd2ae.html">魔轟神クシャノ</a> <small>まごうしんクシャノ</small></li>
+<li data-reading="まごうしんグリムロ"><a href="cards/153919ada6b34b6a814e.html">魔轟神グリムロ</a> <small>まごうしんグリムロ</small></li>
+<li data-reading="まごうしんクルス"><a href="cards/8c4f0b0c93e2b66bdbc0.html">魔轟神クルス</a> <small>まごうしんクルス</small></li>
+<li data-reading="まごうしんじゅうガナシア"><a href="cards/e208c85137ea623085c0.html">魔轟神獣ガナシア</a> <small>まごうしんじゅうガナシア</small></li>
+<li data-reading="まごうしんじゅうケルベラル"><a href="cards/6bbd1e7cc6b3b5d47bd0.html">魔轟神獣ケルベラル</a> <small>まごうしんじゅうケルベラル</small></li>
+<li data-reading="まごうしんじゅうチャワ"><a href="cards/483927257357f4f5160e.html">魔轟神獣チャワ</a> <small>まごうしんじゅうチャワ</small></li>
+<li data-reading="まごうしんじゅうノズチ"><a href="cards/fdbb922a5c9a555c5b61.html">魔轟神獣ノズチ</a> <small>まごうしんじゅうノズチ</small></li>
+<li data-reading="まごうしんじゅうユニコール"><a href="cards/aa7d485d6fd99c81863a.html">魔轟神獣ユニコール</a> <small>まごうしんじゅうユニコール</small></li>
+<li data-reading="まごうしんソルキウス"><a href="cards/b3b33099ad1871e25998.html">魔轟神ソルキウス</a> <small>まごうしんソルキウス</small></li>
+<li data-reading="まごうしんレイヴン"><a href="cards/03e79c2ba1c9ba1d53d0.html">魔轟神レイヴン</a> <small>まごうしんレイヴン</small></li>
+<li data-reading="まごうしんレヴュアタン"><a href="cards/87ac031dfceb72d4a1e6.html">魔轟神レヴュアタン</a> <small>まごうしんレヴュアタン</small></li>
+<li data-reading="マジカルシルクハット"><a href="cards/88a3fe798d257f5ff941.html">マジカルシルクハット</a> <small>マジカルシルクハット</small></li>
+<li data-reading="マシンナーズ・カノン"><a href="cards/03d428978079138cba2b.html">マシンナーズ・カノン</a> <small>マシンナーズ・カノン</small></li>
+<li data-reading="マシンナーズ・ギアフレーム"><a href="cards/4a8276ef3e91a833db7e.html">マシンナーズ・ギアフレーム</a> <small>マシンナーズ・ギアフレーム</small></li>
+<li data-reading="マシンナーズ・フォートレス"><a href="cards/55d131e2795f31e2f984.html">マシンナーズ・フォートレス</a> <small>マシンナーズ・フォートレス</small></li>
+<li data-reading="マスター・ヒュペリオン"><a href="cards/db1ea30774f60234fb2d.html">マスター・ヒュペリオン</a> <small>マスター・ヒュペリオン</small></li>
+<li data-reading="マックス・テレポーター"><a href="cards/641ed6bd7416f4a9c00a.html">マックス・テレポーター</a> <small>マックス・テレポーター</small></li>
+<li data-reading="まっさつのしと"><a href="cards/78e706c0bd12fcf2ca74.html">抹殺の使徒</a> <small>まっさつのしと</small></li>
+<li data-reading="まどうきょうし　システィ"><a href="cards/b0a33d6b3981e6a86a76.html">魔導教士 システィ</a> <small>まどうきょうし　システィ</small></li>
+<li data-reading="まどうしょいんラメイソン"><a href="cards/51227c65e6d01ca5279e.html">魔導書院ラメイソン</a> <small>まどうしょいんラメイソン</small></li>
+<li data-reading="まどうしょうかんし　テンペル"><a href="cards/802c0f68b9bafdbf2eee.html">魔導召喚士 テンペル</a> <small>まどうしょうかんし　テンペル</small></li>
+<li data-reading="まどうしょこクレッセン"><a href="cards/66bb3216423f4f87e9ef.html">魔導書庫クレッセン</a> <small>まどうしょこクレッセン</small></li>
+<li data-reading="まどうしょし　バテル"><a href="cards/4df830b169e1967fa9c0.html">魔導書士 バテル</a> <small>まどうしょし　バテル</small></li>
+<li data-reading="まどうしょろうエトワール"><a href="cards/4aeef1f6e2414eb23dcc.html">魔導書廊エトワール</a> <small>まどうしょろうエトワール</small></li>
+<li data-reading="まどうせんしブレイカー"><a href="cards/7601a2b0ec6b34416cf1.html">魔導戦士ブレイカー</a> <small>まどうせんしブレイカー</small></li>
+<li data-reading="まどうほうおう　ハイロン"><a href="cards/0148eaaac8183e4c6226.html">魔導法皇 ハイロン</a> <small>まどうほうおう　ハイロン</small></li>
+<li data-reading="まどうほうし　ジュノン"><a href="cards/4c41e47977d8febe8e3e.html">魔導法士 ジュノン</a> <small>まどうほうし　ジュノン</small></li>
+<li data-reading="マドルチェ・エンジェリー"><a href="cards/ee09c588350da787e0a8.html">マドルチェ・エンジェリー</a> <small>マドルチェ・エンジェリー</small></li>
+<li data-reading="マドルチェ・シャトー"><a href="cards/5c19b94f6cc5e1ecb40d.html">マドルチェ・シャトー</a> <small>マドルチェ・シャトー</small></li>
+<li data-reading="マドルチェ・チケット"><a href="cards/ffcc097720862c1437ee.html">マドルチェ・チケット</a> <small>マドルチェ・チケット</small></li>
+<li data-reading="マドルチェ・ハッピーフェスタ"><a href="cards/049db9b2642b91957cc6.html">マドルチェ・ハッピーフェスタ</a> <small>マドルチェ・ハッピーフェスタ</small></li>
+<li data-reading="マドルチェ・ホーットケーキ"><a href="cards/605edc511f3a3c70dd07.html">マドルチェ・ホーットケーキ</a> <small>マドルチェ・ホーットケーキ</small></li>
+<li data-reading="マドルチェ・マジョレーヌ"><a href="cards/956e17ffadc209660c41.html">マドルチェ・マジョレーヌ</a> <small>マドルチェ・マジョレーヌ</small></li>
+<li data-reading="マドルチェ・ミィルフィーヤ"><a href="cards/c576869a1d7ba1001442.html">マドルチェ・ミィルフィーヤ</a> <small>マドルチェ・ミィルフィーヤ</small></li>
+<li data-reading="マドルチェ・メッセンジェラート"><a href="cards/f15900d9e7c72f46364d.html">マドルチェ・メッセンジェラート</a> <small>マドルチェ・メッセンジェラート</small></li>
+<li data-reading="マドルチェ共通効果"><a href="cards/4bafc7fef2ca4773367b.html">《マドルチェ》共通効果</a> <small>マドルチェ共通効果</small></li>
+<li data-reading="まのデッキはかいウイルス"><a href="cards/5f4a139bb6bbbaf824b4.html">魔のデッキ破壊ウイルス</a> <small>まのデッキはかいウイルス</small></li>
+<li data-reading="まはらぎ"><a href="cards/d09c190f6fae69ba4d26.html">磨破羅魏</a> <small>まはらぎ</small></li>
+<li data-reading="ミスティックパイパー"><a href="cards/07779510a2e0a5a6f846.html">ミスティック・パイパー</a> <small>ミスティックパイパー</small></li>
+<li data-reading="ミストバレーノファルコン"><a href="cards/186849c24bf82e68ff37.html">霞の谷のファルコン</a> <small>ミストバレーノファルコン</small></li>
+<li data-reading="ミストバレーのらいじんき"><a href="cards/2cbbcb7581ec28760773.html">霞の谷の雷神鬼</a> <small>ミストバレーのらいじんき</small></li>
+<li data-reading="ミッシングエックス－セイバー　インヴォーカー"><a href="cards/f3f8e52fd8f185104719.html">Ｍ.Ｘ－セイバー インヴォーカー</a> <small>ミッシングエックス－セイバー　インヴォーカー</small></li>
+<li data-reading="みならいまじゅつし"><a href="cards/ac0cb1ba3c2762ee6425.html">見習い魔術師</a> <small>みならいまじゅつし</small></li>
+<li data-reading="みらいゆうごう－フューチャー・フュージョン"><a href="cards/b9d7765985b9740cccae.html">未来融合－フューチャー・フュージョン</a> <small>みらいゆうごう－フューチャー・フュージョン</small></li>
+<li data-reading="むさかにのまがたま"><a href="cards/40a78d755da24c0263be.html">六尺瓊勾玉</a> <small>むさかにのまがたま</small></li>
+<li data-reading="めいおうりゅうヴァンダルギオン"><a href="cards/c75467c1e7870b718117.html">冥王竜ヴァンダルギオン</a> <small>めいおうりゅうヴァンダルギオン</small></li>
+<li data-reading="めいきょうしすいのこころ"><a href="cards/958dea71703e55762356.html">明鏡止水の心</a> <small>めいきょうしすいのこころ</small></li>
+<li data-reading="メイスイリ"><a href="cards/9f2f5e3035020539508c.html">名推理</a> <small>メイスイリ</small></li>
+<li data-reading="めいふのししゃカイエントークン"><a href="cards/df0a416a3c5d12c75d47.html">冥府の使者カイエントークン</a> <small>めいふのししゃカイエントークン</small></li>
+<li data-reading="めいふのししゃゴーズ"><a href="cards/f98a7754dba6ceb5ac7e.html">冥府の使者ゴーズ</a> <small>めいふのししゃゴーズ</small></li>
+<li data-reading="メタモルポット"><a href="cards/f463b8d864c9315acdf3.html">メタモルポット</a> <small>メタモルポット</small></li>
+<li data-reading="メタルリフレクトスライム"><a href="cards/9d0e8afe43cc16f4898a.html">メタル・リフレクト・スライム</a> <small>メタルリフレクトスライム</small></li>
+<li data-reading="メンタルスフィア・デーモン"><a href="cards/df99b2774118555eeae4.html">メンタルスフィア・デーモン</a> <small>メンタルスフィア・デーモン</small></li>
+<li data-reading="メンタルマスター"><a href="cards/54134c67de36c3c6b187.html">メンタルマスター</a> <small>メンタルマスター</small></li>
+<li data-reading="もろはのかつじんけんじゅつ"><a href="cards/456c0c4c728b3924d20e.html">諸刃の活人剣術</a> <small>もろはのかつじんけんじゅつ</small></li>
+<li data-reading="もんしょうじゅうアバコーンウェイ"><a href="cards/1910a1cc0afb123f75e9.html">紋章獣アバコーンウェイ</a> <small>もんしょうじゅうアバコーンウェイ</small></li>
+<li data-reading="もんしょうじゅうアンフィスバエナ"><a href="cards/0514bf2c35ae5d2692a6.html">紋章獣アンフィスバエナ</a> <small>もんしょうじゅうアンフィスバエナ</small></li>
+<li data-reading="もんしょうじゅうツインヘッド・イーグル"><a href="cards/31c2d64848b8f1a71005.html">紋章獣ツインヘッド・イーグル</a> <small>もんしょうじゅうツインヘッド・イーグル</small></li>
+<li data-reading="もんしょうじゅうバシリスク"><a href="cards/1deb00c092afc020697a.html">紋章獣バシリスク</a> <small>もんしょうじゅうバシリスク</small></li>
+<li data-reading="もんしょうじゅうユニコーン"><a href="cards/0b90215e53c1c2fbb94a.html">紋章獣ユニコーン</a> <small>もんしょうじゅうユニコーン</small></li>
+<li data-reading="もんしょうじゅうレオ"><a href="cards/4e6631a76382213c4255.html">紋章獣レオ</a> <small>もんしょうじゅうレオ</small></li>
+<li data-reading="やみのデッキはかいウイルス"><a href="cards/bc2cccb300ac2011e11f.html">闇のデッキ破壊ウイルス</a> <small>やみのデッキはかいウイルス</small></li>
+<li data-reading="ゆうえんせい－エンショウ"><a href="cards/9f8854a332b34ee236f8.html">勇炎星－エンショウ</a> <small>ゆうえんせい－エンショウ</small></li>
+<li data-reading="ユニオン"><a href="cards/393600e41770c7897dca.html">【ユニオン】共通効果</a> <small>ユニオン</small></li>
+<li data-reading="ようがんまじんラヴァ・ゴーレム"><a href="cards/0e5ad3dc8de41d238c7f.html">溶岩魔神ラヴァ・ゴーレム</a> <small>ようがんまじんラヴァ・ゴーレム</small></li>
+<li data-reading="ようせいおうアルヴェルド"><a href="cards/c17a0d2d30796f1b7edb.html">妖精王アルヴェルド</a> <small>ようせいおうアルヴェルド</small></li>
+<li data-reading="ようせいのかぜ"><a href="cards/c73ff9da2f18e992a229.html">妖精の風</a> <small>ようせいのかぜ</small></li>
+<li data-reading="よみガエル"><a href="cards/5f70ccdce87f40cf665f.html">黄泉ガエル</a> <small>よみガエル</small></li>
+<li data-reading="ライオウ"><a href="cards/ef697728dabc36b1c424.html">ライオウ</a> <small>ライオウ</small></li>
+<li data-reading="ライトアンドダークネスドラゴン"><a href="cards/f5b2431f55d0d5c78432.html">光と闇の竜</a> <small>ライトアンドダークネスドラゴン</small></li>
+<li data-reading="ライトロード・アーク ミカエル"><a href="cards/ab228716ce7efdf1861e.html">ライトロード・アーク ミカエル</a> <small>ライトロード・アーク ミカエル</small></li>
+<li data-reading="ライトロード・アーチャー フェリス"><a href="cards/4a093f6d8c4431b94b1c.html">ライトロード・アーチャー フェリス</a> <small>ライトロード・アーチャー フェリス</small></li>
+<li data-reading="ライトロード・アサシン ライデン"><a href="cards/928acc2abb266423916e.html">ライトロード・アサシン ライデン</a> <small>ライトロード・アサシン ライデン</small></li>
+<li data-reading="ライトロードハンターライコウ"><a href="cards/5f9ac94b3e651c5a0c13.html">ライトロード・ハンター ライコウ</a> <small>ライトロードハンターライコウ</small></li>
+<li data-reading="ライトロードマジシャンライラ"><a href="cards/de22c23290cfbd49e246.html">ライトロード・マジシャン ライラ</a> <small>ライトロードマジシャンライラ</small></li>
+<li data-reading="ライトロード・メイデン ミネルバ"><a href="cards/7b78e40819d38d1d0b03.html">ライトロード・メイデン ミネルバ</a> <small>ライトロード・メイデン ミネルバ</small></li>
+<li data-reading="ライトロードモンクエイリン"><a href="cards/a8b1491b0f7df54a877a.html">ライトロード・モンク　エイリン</a> <small>ライトロードモンクエイリン</small></li>
+<li data-reading="ラヴァルえんかざんのじじょ"><a href="cards/d2543dd68dce9a3a8bdc.html">ラヴァル炎火山の侍女</a> <small>ラヴァルえんかざんのじじょ</small></li>
+<li data-reading="ラヴァルえんこはんのしゅくじょ"><a href="cards/382a23d9bac013fb9b2f.html">ラヴァル炎湖畔の淑女</a> <small>ラヴァルえんこはんのしゅくじょ</small></li>
+<li data-reading="ラヴァルキャノン"><a href="cards/bd1759e47063e2bd36cb.html">ラヴァル・キャノン</a> <small>ラヴァルキャノン</small></li>
+<li data-reading="ラヴァルステライド"><a href="cards/8a928cc58fbec79f2e4b.html">ラヴァル・ステライド</a> <small>ラヴァルステライド</small></li>
+<li data-reading="ラヴァルツインスレイヤー"><a href="cards/525037eee56083215454.html">ラヴァル・ツインスレイヤー</a> <small>ラヴァルツインスレイヤー</small></li>
+<li data-reading="ラヴァルのマグマほうへい"><a href="cards/ce37517dab6ecfe84432.html">ラヴァルのマグマ砲兵</a> <small>ラヴァルのマグマほうへい</small></li>
+<li data-reading="ラヴァルバルチェイン"><a href="cards/442d387138bcde15c428.html">ラヴァルバル・チェイン</a> <small>ラヴァルバルチェイン</small></li>
+<li data-reading="ラヴァルバルドラグーン"><a href="cards/934ddb33b93824558169.html">ラヴァルバル・ドラグーン</a> <small>ラヴァルバルドラグーン</small></li>
+<li data-reading="ラヴァルバルドラゴン"><a href="cards/e2c574847bfd55a80d11.html">ラヴァルバル・ドラゴン</a> <small>ラヴァルバルドラゴン</small></li>
+<li data-reading="ランクアップマジック－ザ・セブンス・ワン"><a href="cards/535e992f71945047a04f.html">RUM－七皇の剣</a> <small>ランクアップマジック－ザ・セブンス・ワン</small></li>
+<li data-reading="らんせいりゅう－テンペスト"><a href="cards/7e69550a5ef3972c3c12.html">嵐征竜－テンペスト</a> <small>らんせいりゅう－テンペスト</small></li>
+<li data-reading="リチュアディバイナー"><a href="cards/1805a0174ea5558b7b59.html">リチュア・ディバイナー</a> <small>リチュアディバイナー</small></li>
+<li data-reading="りつえんせい－トウケイ"><a href="cards/e93ec10dda15a99ce980.html">立炎星－トウケイ</a> <small>りつえんせい－トウケイ</small></li>
+<li data-reading="リビングデッドのよびごえ"><a href="cards/355b3a46a0dd5270c65f.html">リビングデッドの呼び声</a> <small>リビングデッドのよびごえ</small></li>
+<li data-reading="リミッターかいじょ"><a href="cards/6a71fc84333c034953c0.html">リミッター解除</a> <small>リミッターかいじょ</small></li>
+<li data-reading="リミットリバース"><a href="cards/c93482654e05baca7210.html">リミット・リバース</a> <small>リミットリバース</small></li>
+<li data-reading="りゅうのけいこく"><a href="cards/90615b2a319c5cf9d80d.html">竜の渓谷</a> <small>りゅうのけいこく</small></li>
+<li data-reading="りゅうのれいびょう"><a href="cards/239d6962b162c238a680.html">竜の霊廟</a> <small>りゅうのれいびょう</small></li>
+<li data-reading="りゅうまじんクィーンドラグーン"><a href="cards/0d23a387f0374200bd0e.html">竜魔人クィーンドラグーン</a> <small>りゅうまじんクィーンドラグーン</small></li>
+<li data-reading="れいきし　ヴェルズビュート"><a href="cards/d03d7b8d44f8ddea4286.html">励輝士 ヴェルズビュート</a> <small>れいきし　ヴェルズビュート</small></li>
+<li data-reading="れいめつじゅつしカイクウ"><a href="cards/fb5bd918e9c6dbc75f85.html">霊滅術師 カイクウ</a> <small>れいめつじゅつしカイクウ</small></li>
+<li data-reading="レスキューラビット"><a href="cards/e7651f37cee37c1fb0cb.html">レスキュー・ラビット</a> <small>レスキューラビット</small></li>
+<li data-reading="レッドアイズダークネスメタルドラゴン"><a href="cards/00a82048f2fc29f9a9b8.html">レッドアイズ・ダークネスメタルドラゴン</a> <small>レッドアイズダークネスメタルドラゴン</small></li>
+<li data-reading="レッドデーモンズドラゴン"><a href="cards/3b6865375e29b474d5e4.html">レッド・デーモンズ・ドラゴン</a> <small>レッドデーモンズドラゴン</small></li>
+<li data-reading="レベルスティーラー"><a href="cards/694ffd009476fb790a6f.html">レベル・スティーラー</a> <small>レベルスティーラー</small></li>
+<li data-reading="レベルせいげんビーちく"><a href="cards/b2242e95f78721a6fb23.html">レベル制限B地区</a> <small>レベルせいげんビーちく</small></li>
+<li data-reading="れんごくのおとしあな"><a href="cards/7cdb6e4dc8dce307615a.html">煉獄の落とし穴</a> <small>れんごくのおとしあな</small></li>
+<li data-reading="ローズ・アーチャー"><a href="cards/f44e280e2adc74cf0bcc.html">薔薇の聖弓手</a> <small>ローズ・アーチャー</small></li>
+<li data-reading="ローンファイアブロッサム"><a href="cards/7c2aa1104312493b79af.html">ローンファイア・ブロッサム</a> <small>ローンファイアブロッサム</small></li>
+<li data-reading="ろくぶしゅう－ザンジ"><a href="cards/7ef811b0958f149b74e0.html">六武衆－ザンジ</a> <small>ろくぶしゅう－ザンジ</small></li>
+<li data-reading="ろくぶしゅう－ヤイチ"><a href="cards/34fd8c211a6cb8308ca8.html">六武衆－ヤイチ</a> <small>ろくぶしゅう－ヤイチ</small></li>
+<li data-reading="ろくぶしゅうのあらぎょう"><a href="cards/3ff8ee080ca976fd64cd.html">六武衆の荒行</a> <small>ろくぶしゅうのあらぎょう</small></li>
+<li data-reading="ろくぶしゅうのかげむしゃ"><a href="cards/1cb13c62f8f60f4ebc82.html">六武衆の影武者</a> <small>ろくぶしゅうのかげむしゃ</small></li>
+<li data-reading="ろくぶしゅうのけっそく"><a href="cards/af011c3c51992a6ecef7.html">六武衆の結束</a> <small>ろくぶしゅうのけっそく</small></li>
+<li data-reading="ろくぶしゅうのしはん"><a href="cards/b4159755b840f058ab5d.html">六武衆の師範</a> <small>ろくぶしゅうのしはん</small></li>
+<li data-reading="ろくぶしゅうのつゆはらい"><a href="cards/d8d60dda3d3c0731601e.html">六武衆の露払い</a> <small>ろくぶしゅうのつゆはらい</small></li>
+<li data-reading="ろくぶしゅうのみがわりこうか"><a href="cards/c4c87b43b31bb806136e.html">六武衆の身代わり効果</a> <small>ろくぶしゅうのみがわりこうか</small></li>
+<li data-reading="ろくぶしゅうのみたましろ"><a href="cards/78470902826855e68b54.html">六武衆の御霊代</a> <small>ろくぶしゅうのみたましろ</small></li>
+<li data-reading="ろくぶのもん"><a href="cards/d8069f7cf9a9d9cb59a9.html">六武の門</a> <small>ろくぶのもん</small></li>
+<li data-reading="ワームカルタロス"><a href="cards/03b686db0abd7a5cb49f.html">ワーム・カルタロス</a> <small>ワームカルタロス</small></li>
+<li data-reading="ワーム・キング"><a href="cards/c5c281d3339ecc9f70e4.html">ワーム・キング</a> <small>ワーム・キング</small></li>
+<li data-reading="ワームジェートリクプス"><a href="cards/02d9b94e79467cb6716b.html">ワーム・ジェートリクプス</a> <small>ワームジェートリクプス</small></li>
+<li data-reading="ワーム・ゼロ"><a href="cards/9a1f43ed1a9fdde64230.html">ワーム・ゼロ</a> <small>ワーム・ゼロ</small></li>
+<li data-reading="ワームテンタクルス"><a href="cards/1094da93ffee553a3eaa.html">ワーム・テンタクルス</a> <small>ワームテンタクルス</small></li>
+<li data-reading="ワーム・ヤガン"><a href="cards/1eebd1a8edbaefbca1ac.html">ワーム・ヤガン</a> <small>ワーム・ヤガン</small></li>
+<li data-reading="ワームリンクス"><a href="cards/574cf01ba3bc8c3261d7.html">ワーム・リンクス</a> <small>ワームリンクス</small></li>
+<li data-reading="わがみをたてに"><a href="cards/e136350b2412284ec169.html">我が身を盾に</a> <small>わがみをたてに</small></li>
+<li data-reading="わくせいおせんウイルス"><a href="cards/17b8cea23bcc90326c55.html">惑星汚染ウイルス</a> <small>わくせいおせんウイルス</small></li>
+<li data-reading="ワンハンドレット・アイ・ドラゴン"><a href="cards/f8f1bd8a9c36337c77bc.html">ワンハンドレット・アイ・ドラゴン</a> <small>ワンハンドレット・アイ・ドラゴン</small></li>
+<li data-reading="ワン・フォー・ワン"><a href="cards/ec2109f947ce246c02a9.html">ワン・フォー・ワン</a> <small>ワン・フォー・ワン</small></li></ul><script>const input=document.querySelector('#q');input.value=new URLSearchParams(location.search).get('q')||'';function norm(s){return s.normalize('NFKC').toLowerCase().replace(/[ァ-ヶ]/g,c=>String.fromCharCode(c.charCodeAt(0)-96))}function filter(){let n=0;document.querySelectorAll('#cards li').forEach(li=>{li.hidden=!norm(li.textContent).includes(norm(input.value));if(!li.hidden)n++});document.querySelector('#count').textContent=n+'件'}input.addEventListener('input',filter);filter();</script><p><a href="https://sabae5280.github.io/yugioh-1103rulings-pwa/">サイトの検索画面へ</a> · <a href="https://sabae5280.github.io/yugioh-1103rulings-pwa/ai/">カード索引へ</a></p></body></html>

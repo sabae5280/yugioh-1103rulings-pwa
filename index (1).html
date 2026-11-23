@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#101a32">
+  <meta name="description" content="1103・1209・1402環境の裁定を検索・確認できる非公式アーカイブ">
+  <title>遊戯王 GB 裁定アーカイブ</title>
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="apple-touch-icon" href="./icons/icon-192.png">
+  <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="./menu-update.css?v=259">
+<link rel="stylesheet" href="./ai-mode.css?v=259">
+<link rel="stylesheet" href="./admin-mode.css?v=259">
+</head>
+<body>
+    <div class="site-notice">
+      <button id="noticeOpen" type="button" aria-haspopup="dialog" aria-controls="noticeDialog" aria-label="お知らせの全文を読む"><span class="notice-track" aria-hidden="true">当サイトはファンメイドの非公式サイトです。掲載する遊戯王関連の画像・名称等の権利は各権利者に帰属します。裁定は参考資料としてご活用いただき、イベントでは当日の運営・ジャッジの指示に従ってください。</span><span class="visually-hidden">当サイトはファンメイドの非公式サイトです。掲載する遊戯王関連の画像・名称等の権利は各権利者に帰属します。裁定は参考資料としてご活用いただき、イベントでは当日の運営・ジャッジの指示に従ってください。</span></button>
+    </div>
+  <header class="hero">
+    <div class="hero-slides" aria-hidden="true"><div class="hero-frame"><div></div></div><div class="hero-frame"><div></div></div></div>
+    <button id="heroMotion" class="hero-motion" type="button" aria-label="背景の切り替えを一時停止" aria-pressed="false">Ⅱ</button>
+    <div class="hero__inner">
+      <div class="hero-copy">
+        <h1>
+          <button id="homeButton" class="home-button" type="button" aria-label="遊戯王 GB 裁定アーカイブ：初期トップ画面に戻る"><span class="archive-title">遊戯王 GB 裁定アーカイブ</span></button>
+        </h1>
+        <p class="hero-subtitle">Master Rule 2 《1103・1209・1402》</p>
+      </div>
+      <div class="hero-actions">
+        <button id="installButton" class="install-button" type="button" hidden>ホーム画面に追加</button>
+        <button id="menuButton" class="menu-button" type="button" aria-haspopup="dialog" aria-controls="siteMenu">
+          <span aria-hidden="true">☰</span> メニュー
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="search-panel" aria-label="裁定検索">
+      <label for="searchInput">カード名・ルビ・裁定内容を検索</label>
+      <div class="search-box">
+        <span aria-hidden="true">⌕</span>
+        <input id="searchInput" type="search" placeholder="例：ライオウ、禁じられた、ダメステ" autocomplete="off">
+        <button id="clearButton" type="button" aria-label="検索文字を消去">×</button>
+      </div>
+        <details id="formatPicker" class="filter-section environment-section">
+          <summary>フォーマット： <span id="environmentSummary" class="selection-summary">すべての掲載カード</span></summary>
+          <fieldset class="environment-filter">
+            <legend class="visually-hidden">対応環境</legend>
+            <div class="environment-options">
+              <label class="environment-option" data-format="all"><input type="radio" name="environmentMode" value="all" checked><span><strong>すべての掲載カード</strong><small>『マスタールール2』の対象カード</small></span></label>
+              <label class="environment-option" data-format="1103"><input type="radio" name="environmentMode" value="1103"><span><strong>1103環境</strong><small>『寒波亭ルール』対応：〜2011/8/31</small></span></label>
+              <label class="environment-option" data-format="1209"><input type="radio" name="environmentMode" value="1209"><span><strong>1209環境</strong><small>『熱波亭-LIMITED-ルール』対応：〜2012/12/21</small></span></label>
+              <label class="environment-option" data-format="1209-only"><input type="radio" name="environmentMode" value="1209-only"><span><strong>1209新規カード・新規裁定を含む既存カード</strong><small>対象：2011/9/1〜2012/12/21</small></span></label>
+              <label class="environment-option" data-format="1402-only"><input type="radio" name="environmentMode" value="1402-only"><span><strong>1402新規カード・新規裁定を含む既存カード</strong><small>対象：2012/12/22〜2014/2/28</small></span></label>
+            </div>
+          </fieldset>
+        </details>
+      <p id="shareStatus" class="visually-hidden" aria-live="polite"></p>
+      <div class="advanced-controls">
+<button id="referenceOpen" type="button" aria-haspopup="dialog"><span aria-hidden="true">▦</span> 各種表・フローチャート</button>
+        <button id="advancedToggle" class="advanced-toggle" type="button" aria-expanded="false" aria-controls="advancedPanel">
+          詳細検索 <span aria-hidden="true">⌄</span>
+        </button>
+      </div>
+      <div id="activeConditions" class="active-conditions" aria-label="適用中の絞り込み条件"></div>
+      <div id="advancedPanel" class="advanced-panel" hidden>
+      <nav id="rowNavigation" class="row-navigation" aria-label="五十音順の行へ移動"></nav>
+      <div id="filters" class="filters" aria-label="カード種別">
+        <button class="filter is-active" type="button" data-filter="all">すべて</button>
+        <button class="filter" type="button" data-filter="monster">モンスター</button>
+        <button class="filter" type="button" data-filter="spell">魔法</button>
+        <button class="filter" type="button" data-filter="trap">罠</button>
+        <button class="filter" type="button" data-filter="category">テーマ共通効果</button>
+      </div>
+
+        <div id="advancedFilters" class="advanced-filter-groups"></div>
+        <div class="filter-actions"><button id="clearConditions" type="button">条件をクリア</button><button id="showResults" type="button">結果を見る</button></div>
+      </div>
+    </section>
+
+    <section class="result-section" aria-live="polite">
+      <div class="result-heading">
+        <h2>裁定一覧</h2>
+        <p id="resultCount"></p>
+      </div>
+      <div id="rulingList" class="ruling-list"></div>
+      <div id="emptyState" class="empty-state" hidden>
+        <p>該当する裁定が見つかりませんでした。</p>
+        <button id="resetButton" type="button">検索条件をリセット</button>
+      </div>
+    </section>
+
+    <aside id="iosTip" class="ios-tip" hidden>
+      <strong>iPhone・iPadへの追加方法</strong>
+      <span>共有ボタンから「ホーム画面に追加」を選択してください。</span>
+    </aside>
+  </main>
+
+  <footer>
+    <p>非公式の裁定資料です。<br>大会では主催者・ジャッジの判断を優先してください。</p>
+  </footer>
+
+  <button id="backToCard" class="back-to-card" type="button" aria-label="前のカードに戻る" title="前のカードに戻る" hidden>
+    <span aria-hidden="true">←</span><small>Back</small>
+  </button>
+  <button id="backToTop" class="back-to-top" type="button" aria-label="ページの先頭へ戻る" title="ページの先頭へ戻る">
+    <span aria-hidden="true">↑</span><small>TOP</small>
+  </button>
+
+  <div id="imageLightbox" class="image-lightbox" role="dialog" aria-modal="true" aria-label="カード画像の拡大表示" hidden>
+    <button id="lightboxClose" class="lightbox-close" type="button" aria-label="拡大画像を閉じて戻る">× 閉じて戻る</button>
+    <img id="lightboxImage" alt="">
+  </div>
+
+  <div id="siteMenu" class="site-menu" role="dialog" aria-modal="true" aria-labelledby="menuPageTitle" hidden>
+    <button class="site-menu__backdrop" type="button" data-menu-close aria-label="メニューを閉じる"></button>
+    <section class="site-menu__drawer">
+      <div class="site-menu__header">
+        <strong>メニュー</strong>
+        <div class="menu-header-actions">
+      <button id="shareButton" class="menu-share-button" type="button" aria-label="このサイトを共有">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8a3 3 0 1 0-2.83-4H15a3 3 0 0 0 .16 1l-7.1 4.14a3.5 3.5 0 1 0 0 5.72l7.1 4.14A3 3 0 1 0 16 17.2l-7.1-4.14a3.5 3.5 0 0 0 0-2.12L16 6.8A3 3 0 0 0 18 8Z"/></svg>
+        <span>共有</span>
+      </button>
+<button id="menuClose" class="site-menu__close" type="button" aria-label="メニューを閉じる">×</button></div>
+      </div>
+      <section class="recent-updates" aria-labelledby="updatesTitle"><h2 id="updatesTitle">最近の更新</h2><p class="updates-hint">最近15件 · カード名から裁定へ</p><ol id="recentUpdates" tabindex="0" aria-label="最近の更新一覧"></ol></section>
+<nav class="site-menu__nav" aria-label="サイトメニュー">
+<button type="button" data-menu-page="about">このサイトについて</button>
+<button type="button" data-menu-page="precautions">使用上の注意</button>
+<button type="button" data-menu-page="guide">使用方法</button>
+<button type="button" data-menu-page="philosophy">当サイトの理念・方針</button>
+<button type="button" data-menu-page="decision">裁定決定におけるフローチャート</button>
+<button type="button" data-menu-page="credits">監修協力者の一覧</button>
+<button type="button" data-menu-page="links">各種リンク集</button>
+<button type="button" data-menu-page="simulator">ステータス自動計算シミュレーター</button>
+<button type="button" data-menu-page="contact">お問い合わせ</button>
+<button type="button" data-menu-page="admin">管理者・主催モード</button>
+</nav>
+      <article class="site-menu__page">
+        <h2 id="menuPageTitle">このサイトについて</h2>
+        <div id="menuPageBody"></div>
+      </article>
+    </section>
+  </div>
+
+  <script src="./card-metadata.js"></script>
+  <script src="./card-metadata-a-row-batch-04.js"></script>
+  <script src="./card-metadata-a-row-batch-05.js"></script>
+  <script src="./card-readings.js"></script>
+  <script src="./rulings.js"></script>
+  <script src="./rulings-a-row-batch-04.js"></script>
+  <script src="./rulings-a-row-batch-05.js"></script>
+  <script src="./rulings-k-row.js"></script>
+  <script src="./rulings-s-row.js"></script>
+  <script src="./rulings-s-row-remaining.js"></script>
+  <script src="./s-row-overview-fixes.js"></script>
+  <script src="./corrections-a-row.js"></script>
+  <script src="./rulings-t-row.js"></script>
+  <script src="./rulings-h-row.js"></script>
+  <script src="./rulings-n-row.js"></script>
+  <script src="./rulings-r-row.js"></script>
+  <script src="./rulings-m-row.js"></script>
+  <script src="./rulings-w-row.js"></script>
+  <script src="./rulings-m-row-fixes.js"></script>
+  <script src="./rulings-a-o-j-row.js"></script>
+  <script src="./site-enhancements.js"></script>
+  <script src="./rulings-update-20261004.js"></script>
+  <script src="./rulings-instructions-20261004.js"></script>
+  <script src="./rulings-instructions-20261007.js"></script>
+  <script src="./rulings-instructions-20261007-04.js"></script>
+  <script src="./rulings-instructions-20261007-05.js"></script>
+  <script src="./rulings-instructions-20261009.js"></script>
+  <script src="./rulings-instructions-20261009-2.js"></script>
+  <script src="./search-config.js"></script>
+  <script src="./rulings-update-20261012.js"></script>
+  <script src="./rulings-ta-20261012.js"></script>
+  <script src="./rulings-na-20261021.js"></script>
+  <script src="./rulings-ha-20261022.js"></script>
+  <script src="./rulings-maya-20261022.js"></script>
+  <script src="./rulings-ra-bk-20261022.js"></script>
+  <script src="./hero-background.js"></script>
+  <script src="./rulings-galaxy-20261026.js"></script>
+  <script src="./torrential-qa-order-20261026.js"></script>
+  <script src="./rulings-return-cards-20261027.js"></script>
+  <script src="./rulings-convulsion-20261028.js"></script>
+  <script src="./rulings-control-cards-20261029.js"></script>
+  <script src="./rulings-chaos-infinity-20261030.js"></script>
+  <script src="./rulings-maharaghi-magicbox-20261101.js"></script>
+  <script src="./rulings-summoner-of-illusions-20261102.js"></script>
+  <script src="./rulings-fusion-cards-20261102.js"></script>
+  <script src="./rulings-trap-monsters-20261103.js"></script>
+  <script src="./rulings-metal-reflect-slime-20261103.js"></script>
+  <script src="./rulings-econ-squirrel-20261104.js"></script>
+  <script src="./rulings-doomcaliber-kuriboh-20261104.js"></script>
+  <script src="./rulings-prison-apprentice-20261104.js"></script>
+  <script src="./rulings-royal-oppression-20261105.js"></script>
+  <script src="./rulings-jar-rai-oh-20261105.js"></script>
+  <script src="./rulings-light-darkness-dragon-20261105.js"></script>
+  <script src="./rulings-laval-update-20261105.js"></script>
+  <script src="./rulings-revival-ravine-kycoo-rabbit-20261105.js"></script>
+  <script src="./rulings-samurai-r-row-20261105.js"></script>
+  <script src="./rulings-worm-king-gateway-20261105.js"></script>
+  <script src="./rulings-magical-hats-20261105.js"></script>
+  <script src="./rulings-battle-trap-interactions-20261105.js"></script>
+  <script src="./rulings-amazoness-20261105.js"></script>
+  <script src="./rulings-phantom-alien-and-more-20261105.js"></script>
+  <script src="./rulings-synchro-three-20261105.js"></script>
+  <script src="./rulings-fairy-relinquished-20261105.js"></script>
+  <script src="./rulings-cloudian-starlight-20261105.js"></script>
+  <script src="./rulings-imperial-iron-wall-20261106.js"></script>
+  <script src="./rulings-wonder-magician-iron-wall-20261106.js"></script>
+  <script src="./rulings-macro-trap-eater-20261106.js"></script>
+  <script src="./rulings-fissure-cyberdark-20261106.js"></script>
+  <script src="./rulings-undine-arms-20261106.js"></script>
+  <script src="./rulings-samurai-snipe-20261106.js"></script>
+  <script src="./rulings-samurai-end-phase-20261106.js"></script>
+  <script src="./rulings-kinka-piper-20261106.js"></script>
+  <script src="./rulings-radion-20261107.js"></script>
+  <script src="./rulings-decisive-arms-20261108.js"></script>
+  <script src="./rulings-koaki-crusader-20261108.js"></script>
+  <script src="./rulings-birdman-theme-20261108.js"></script>
+  <script src="./rulings-aoj-justice-20261108.js"></script>
+  <script src="./rulings-darkworld-grave-20261109.js"></script>
+  <script src="./rulings-barbaros-gunner-20261109.js"></script>
+  <script src="./rulings-darkworld2-20261109.js"></script>
+  <script src="./rulings-spirit-safety-20261109.js"></script>
+  <script src="./rulings-dimension-20261109.js"></script>
+  <script src="./rulings-swordswoman-20261109.js"></script>
+  <script src="./rulings-attack-qa-20261110.js"></script>
+  <script src="./rulings-shuffle-20261110.js"></script>
+  <script src="./rulings-successor-quasar-20261110.js"></script>
+  <script src="./rulings-falcon-big-bang-shooting-star-20261110.js"></script>
+  <script src="./rulings-phoenix-shooting-star-20261110.js"></script>
+  <script src="./rulings-crane-assault-mirror-20261110.js"></script>
+  <script src="./rulings-illusions-fiend-skull-20261112.js"></script>
+  <script src="./rulings-screen-necrovalley-chaos-20261112.js"></script>
+  <script src="./rulings-odin-moon-20261112.js"></script>
+  <script src="./rulings-exterio-kuriboh-20261112.js"></script>
+  <script src="./rulings-inverz-naturia-20261112.js"></script>
+  <script src="./rulings-worms-tags-20261112.js"></script>
+  <script src="./rulings-staplen-worms-20261113.js"></script>
+  <script src="./rulings-merrowgeist-20261113.js"></script>
+  <script src="./rulings-roach-dad-custom-20261113.js"></script>
+  <script src="./rulings-instant-dd-style-20261114.js"></script>
+  <script src="./rulings-wind-decree-merrow-20261114.js"></script>
+  <script src="./rulings-minefield-merrow-20261115.js"></script>
+  <script src="./rulings-dragon-ice-gem-knights-20261116.js"></script>
+  <script src="./rulings-aoi-madira-20261116.js"></script>
+  <script src="./rulings-gem-turtle-wingbeat-20261116.js"></script>
+  <script src="./rulings-gadjiltron-transporter-20261116.js"></script>
+  <script src="./rulings-wisel-infernity-honest-20261116.js"></script>
+  <script src="./rulings-infernity-rest-commander-20261116.js"></script>
+  <script src="./rulings-fire-kings-20261116.js"></script>
+  <script src="./rulings-disigma-relinquished-fire-20261116.js"></script>
+  <script src="./rulings-pachy-vanity-zephyros-20261116.js"></script>
+  <script src="./rulings-reasoning-cardcar-20261116.js"></script>
+  <script src="./rulings-adoration-chaos-20261116.js"></script>
+  <script src="./rulings-laggia-gemini-tuner-20261116.js"></script>
+  <script src="./rulings-rivalry-gozen-20261116.js"></script>
+  <script src="./rulings-rivalry-extra-qa-20261116.js"></script>
+  <script src="./rulings-gozen-rivalry-followup-20261116.js"></script>
+  <script src="./rulings-gozen-zephyros-gorz-20261117.js"></script>
+  <script src="./rulings-veiler-bls-backs-20261117.js"></script>
+  <script src="./rulings-zero-watt-worm-ice-20261117.js"></script>
+  <script src="./rulings-chaos-infinity-rivalry-20261117.js"></script>
+  <script src="./rulings-rivalry-chaos-followup-20261118.js"></script>
+  <script src="./rulings-rivalry-chaos-third-20261118.js"></script>
+  <script src="./rulings-gallis-tanngnjostr-20261118.js"></script>
+  <script src="./rulings-shining-darkend-20261118.js"></script>
+  <script src="./rulings-hero-ancient-overviews-20261118.js"></script>
+  <script src="./rulings-rivalry-gozen-inline-20261118.js"></script>
+  <script src="./rulings-guard-hedge-thor-20261119.js"></script>
+  <script src="./rulings-earthbound-genex-20261119.js"></script>
+  <script src="./rulings-ceasefire-20261119.js"></script>
+  <script src="./rulings-nightmare-cross-future-20261120.js"></script>
+  <script src="./rulings-gladiator-beasts-20261120.js"></script>
+  <script src="./rulings-gale-shrink-stat-fixing-20261121.js"></script>
+  <script src="./rulings-karakuri-watt-bicorn-20261122.js"></script>
+  <script src="./rulings-ritua-zombie-merrow-20261122.js"></script>
+  <script src="./qa-environments-20261104.js"></script>
+  <script src="./rulings-psychicker-rulings-20261123.js"></script>
+  <script src="./site-release.js?v=259"></script>
+  <script src="./menu-content.js?v=259"></script>
+  <script src="./recent-updates.js?v=259"></script>
+  <script src="./app.js"></script>
+
+<script src="./reference-library.js"></script>
+<script src="./menu-guide.js?v=259"></script>
+<dialog id="noticeDialog" aria-labelledby="noticeTitle"><h2 id="noticeTitle">ご利用にあたって</h2><p>当サイトはファンメイドの非公式サイトです。掲載する遊戯王関連の画像・名称等の権利は各権利者に帰属します。裁定は参考資料としてご活用いただき、イベントでは当日の運営・ジャッジの指示に従ってください。</p><button type="button" id="noticeClose">閉じて戻る</button></dialog>
+<script src="./menu-update.js?v=259"></script>
+
+<script src="./ai/prompt.js?v=259"></script>
+<script src="./ai-mode.js?v=259"></script>
+<script src="./admin-content.js?v=259"></script>
+<script src="./admin-config.js?v=259"></script>
+<script src="./admin-mode.js?v=259"></script>
+</body>
+</html>
