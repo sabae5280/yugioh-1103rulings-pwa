@@ -1,5 +1,6 @@
-const CACHE_NAME = "rulings-1103-v256";
+const CACHE_NAME = "rulings-1103-v258";
 const ASSETS = [
+  "./images/links/PGKbY.jpg", "./images/links/0Q3Oo.png",
   "./images/links/andal_po.png",
   "./admin-mode.js?v=255", "./admin-mode.css?v=255", "./admin-config.js?v=255", "./admin-content.js?v=255",
   "./ai/prompt.js?v=254",

@@ -118,14 +118,11 @@ body.menu-open .notice-track{animation-play-state:paused}
 .ruling-card[data-card-name="《マドルチェ》共通効果"] .category-cover{width:100%;max-width:none;aspect-ratio:16/9}
 .ruling-card[data-card-name="《マドルチェ》共通効果"] .category-cover img{width:100%;height:100%;object-fit:contain}
 
-/* Give deliberate dialogue lines sufficient width; portrait stays independent of typing. */
-.menu-guide{gap:12px;align-items:flex-start}
-.menu-guide__bubble{flex:1 1 auto;width:auto;max-width:none;font-size:13px;line-height:1.8;padding:12px 10px;white-space:pre-wrap;overflow-wrap:normal}
-.menu-guide__portrait{flex:0 0 160px;width:160px;min-width:0}
+
+/* Side-by-side dialogue: reserve portrait space and wrap at deliberate phrase boundaries. */
+.menu-guide{display:flex;flex-direction:row;gap:10px;align-items:flex-start}
+.menu-guide__bubble{flex:1 1 60%;width:auto;max-width:none;min-width:0;box-sizing:border-box;font-size:13px;line-height:1.8;padding:12px 10px;white-space:pre-wrap;overflow-wrap:normal;line-break:strict}
+.menu-guide__portrait{flex:0 0 46%;width:46%;min-width:0;max-width:216px;align-self:flex-start;margin:0}
 .menu-guide__measure,.menu-guide__typed{white-space:pre-wrap;overflow-wrap:normal;min-height:0}
-@media(max-width:600px){
- .menu-guide{flex-direction:column;gap:12px}
- .menu-guide__bubble{flex:0 0 auto;box-sizing:border-box;width:100%;max-width:100%;font-size:13px;padding:12px 10px}
- .menu-guide__portrait{flex:0 0 auto;width:160px;align-self:flex-end;margin-right:8px}
- .menu-guide__bubble::after{right:72px;top:auto;bottom:-8px;transform:rotate(135deg)}
-}
+.menu-guide__bubble::after{right:-8px;top:32px;bottom:auto;transform:rotate(45deg)}
+@media(max-width:360px){.menu-guide{gap:8px}.menu-guide__bubble{font-size:12px;padding:10px 7px}.menu-guide__portrait{flex-basis:44%;width:44%}}

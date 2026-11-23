@@ -1,6 +1,37 @@
 {
-  "sourceCommit": "44e943f82dbcb16da1249eeffac8118cd7017aa2",
+  "sourceCommit": "f6ed634cd2903133c45fa9b84b60c4f54d0ad450",
   "entries": [
+    {
+      "sha": "f6ed634cd2903133c45fa9b84b60c4f54d0ad450",
+      "author": "sabae5280",
+      "committer": "GitHub",
+      "authoredAt": "2026-11-23T14:32:19+09:00",
+      "date": "2026-11-23T14:32:19+09:00",
+      "message": "Add files via upload",
+      "files": [
+        "AGENTS.md",
+        "UPDATE-GUIDE.md",
+        "admin-config.js",
+        "admin-content.js",
+        "admin-history.json",
+        "admin-mode.css",
+        "admin-mode.js",
+        "ai-mode.js",
+        "ai/index.html",
+        "ai/manifest.json",
+        "ai/site.html",
+        "app.js",
+        "images/links/andal_po.png",
+        "index.html",
+        "menu-content.js",
+        "menu-guide.js",
+        "menu-update.css",
+        "scripts/build-admin-history.py",
+        "scripts/render-ai-search.cjs",
+        "site-release.js",
+        "sw.js"
+      ]
+    },
     {
       "sha": "44e943f82dbcb16da1249eeffac8118cd7017aa2",
       "author": "sabae5280",
