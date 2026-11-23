@@ -1,12 +1,18 @@
-const CACHE_NAME = "rulings-1103-v251";
+const CACHE_NAME = "rulings-1103-v252";
 const ASSETS = [
+  "./ai-mode.css?v=252",
+  "./ai-mode.js?v=252",
+  "./images/ai/chatgpt.png",
+  "./images/ai/gemini.png",
+  "./images/ai/claude.png",
+
   "./rulings-ritua-zombie-merrow-20261122.js",
   "./gishki-diviner-1103.jpg",
   "./plaguespreader-zombie-1103.jpg",
   "./quillbolt-hedgehog-1103.jpg",
-  "./menu-update.js?v=251",
-  "./site-release.js?v=251",
-  "./recent-updates.js?v=251",
+  "./menu-update.js?v=252",
+  "./site-release.js?v=252",
+  "./recent-updates.js?v=252",
   "./images/guide/explain-open.webp",
   "./images/guide/explain-closed.webp",
   "./images/guide/serious-open.webp",
@@ -18,9 +24,9 @@ const ASSETS = [
 
   "./images/guide/expressions-v248.webp",
   "./images/union-common-v248.webp",
-  "./menu-update.css?v=251",
-  "./menu-guide.js?v=251",
-  "./menu-content.js?v=251",
+  "./menu-update.css?v=252",
+  "./menu-guide.js?v=252",
+  "./menu-content.js?v=252",
   "./images/links/wiki.webp",
   "./images/links/official.webp",
   "./images/links/foru-events.webp",

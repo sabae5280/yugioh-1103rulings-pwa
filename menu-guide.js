@@ -4,9 +4,9 @@
  const paths=names.map(n=>`./images/guide/death-guide-${n}-site.webp`);
  const variants=['explain','serious','thanks','think'];
  variants.forEach(n=>paths.push(`./images/guide/${n}-open.webp`,`./images/guide/${n}-closed.webp`));
- const pageVariants={guide:4,links:4,precautions:6,credits:8,philosophy:10,decision:10,contact:3};
+ const pageVariants={ai:4,guide:4,links:4,precautions:6,credits:8,philosophy:10,decision:10,contact:3};
  const variantProbability=0.2; // 80% normal, 20% page-specific expression per 8-second selection.
- const messages = {"about": "ワタシのターン、ドローデース。\n1103から1402環境まで！\n\n裁定ツアーガイドは\nお任せアレ！", "precautions": "本サイトは非公式デス(TωT)\n\nイベントで活用する時は、\n運営さんとジャッジさんの\n指示に従ってくださいネ。\n\n対戦相手とも、仲良く\nコミュニケーションを取って\nご利用くださいデス。", "guide": "管理者の手が回らず、\n画像の用意ができてないデス。\n┐(´д｀)┌\n\n実際に使って覚えてほしいデス。", "philosophy": "実は元々、プレイヤー向けではなく\nイベントの主催とジャッジを\nサポートしたいという思いで\n当サイトは作られたデス。\n\n勿論、プレイヤーさんも\nたくさん使ってくださいネ。", "decision": "管理者の手が回らず、\n画像の用意ができてないデス。\n┐(´д｀)┌\n\n後日画像で\nフローチャートを\n用意するデス。", "credits": "様々なテーマに関して、\n今後協力者を追加予定デス！\n\n各デッキの知見がある\n様々なプレイヤーに\n協力していただきまシタ！", "links": "こちらから、各種イベントや\n様々な関連サイトにアクセス\nできマスよ～。", "contact": "気軽に裁定に関する質問、\n当時のルールや確認事項、\nご要望を教えてデス♪"};
+ const messages = {"ai":"お使いのAIで検索できマス！\n依頼文をコピーして\n貼り付けてくださいネ。\n\n表の内容は未対応デス。\n元の画像もご確認ください！","about": "ワタシのターン、ドローデース。\n1103から1402環境まで！\n\n裁定ツアーガイドは\nお任せアレ！", "precautions": "本サイトは非公式デス(TωT)\n\nイベントで活用する時は、\n運営さんとジャッジさんの\n指示に従ってくださいネ。\n\n対戦相手とも、仲良く\nコミュニケーションを取って\nご利用くださいデス。", "guide": "管理者の手が回らず、\n画像の用意ができてないデス。\n┐(´д｀)┌\n\n実際に使って覚えてほしいデス。", "philosophy": "実は元々、プレイヤー向けではなく\nイベントの主催とジャッジを\nサポートしたいという思いで\n当サイトは作られたデス。\n\n勿論、プレイヤーさんも\nたくさん使ってくださいネ。", "decision": "管理者の手が回らず、\n画像の用意ができてないデス。\n┐(´д｀)┌\n\n後日画像で\nフローチャートを\n用意するデス。", "credits": "様々なテーマに関して、\n今後協力者を追加予定デス！\n\n各デッキの知見がある\n様々なプレイヤーに\n協力していただきまシタ！", "links": "こちらから、各種イベントや\n様々な関連サイトにアクセス\nできマスよ～。", "contact": "気軽に裁定に関する質問、\n当時のルールや確認事項、\nご要望を教えてデス♪"};
  function messageForPage(){return messages[menu.querySelector("[data-menu-page].is-active")?.dataset.menuPage] || messages.about;}
  const host=document.createElement('div');host.className='menu-guide';
  host.innerHTML='<div class="menu-guide__bubble"><span aria-hidden="true" class="menu-guide__measure"></span><span aria-hidden="true" class="menu-guide__typed"></span><span class="visually-hidden"></span></div><div class="menu-guide__portrait"></div>';

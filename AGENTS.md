@@ -10,3 +10,10 @@
 - 公開用ZIPには履歴・公開情報・表示処理・index.html・sw.jsを必ず含める。
 - 完了前に、履歴のカードリンク、電光掲示板の件数と日付、最新履歴の表示を確認する。
 - sources/は参照専用。編集しない。
+
+## AI用資料の更新
+- カードデータ・Q&A・環境判定・site-release.jsを変更したら、公開前に scripts/build-ai-data.cjs を実行して ai/rulings.txt・ai/index.html・ai/manifest.json を再生成する。
+- Node.jsとPlaywrightを使用。Edgeを使わない環境は AI_BROWSER=chromium を指定する。
+- node scripts/build-ai-data.cjs --check で資料が現在のソースと一致することを確認する。
+- ai-modeの資料更新日・版・ダウンロード名も更新する。表の文章化は未実装のため、画像の内容を推測して資料に加えない。
+- AI用資料は通常ページの初回読み込みで取得せず、必要時だけ取得する。
