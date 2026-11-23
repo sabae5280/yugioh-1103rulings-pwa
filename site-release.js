@@ -1,1 +1,1 @@
-window.SITE_RELEASE = {"updated": "2026-11-23", "version": "v252"};
+window.SITE_RELEASE = {"updated": "2026-11-23", "version": "v254"};

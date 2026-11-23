@@ -11,9 +11,9 @@
 - 完了前に、履歴のカードリンク、電光掲示板の件数と日付、最新履歴の表示を確認する。
 - sources/は参照専用。編集しない。
 
-## AI用資料の更新
-- カードデータ・Q&A・環境判定・site-release.jsを変更したら、公開前に scripts/build-ai-data.cjs を実行して ai/rulings.txt・ai/index.html・ai/manifest.json を再生成する。
-- Node.jsとPlaywrightを使用。Edgeを使わない環境は AI_BROWSER=chromium を指定する。
-- node scripts/build-ai-data.cjs --check で資料が現在のソースと一致することを確認する。
-- ai-modeの資料更新日・版・ダウンロード名も更新する。表の文章化は未実装のため、画像の内容を推測して資料に加えない。
-- AI用資料は通常ページの初回読み込みで取得せず、必要時だけ取得する。
+## AI検索ページの更新
+- 全件データの配布は廃止。ai/rulings.txt は終了案内だけにし、本文を戻さない。
+- カード・Q&A・環境判定・メニュー・公開情報を変更したら、公開前に node scripts/build-ai-data.cjs を実行する。Node.js、Playwright、Edgeが必要（AI_BROWSER=chromiumも可）。
+- ai/ 以下の索引、個別カードページ、方針、案内文、manifestを一緒に公開する。node scripts/build-ai-data.cjs --check も通す。
+- 利用者が持つ案内文は通常のカード更新では変更不要。サイト側の個別ページ再生成は必要。
+- 表・画像の文章化は未実装。推測で追加しない。個別ページは必要時のみ参照し、トップから全件取得しない。
