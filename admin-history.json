@@ -1,6 +1,25 @@
 {
-  "sourceCommit": "83ad72df30a4a59641c6d8c0be7c93e3cc9bc58e",
+  "sourceCommit": "60df421db21bb2c867887c642ad198dca434990a",
   "entries": [
+    {
+      "sha": "60df421db21bb2c867887c642ad198dca434990a",
+      "author": "sabae5280",
+      "committer": "sabae5280",
+      "authoredAt": "2026-11-24T06:22:19+09:00",
+      "date": "2026-11-24T06:22:19+09:00",
+      "message": "履歴匿名化後の管理履歴参照と公開情報を更新\n\n実装担当：Codex（さばえ氏の依頼）\n\n変更内容：匿名化済み履歴の参照、公開版v260、共同編集手順を更新。カード裁定とカード更新履歴は維持。",
+      "files": [
+        "AGENTS.md",
+        "UPDATE-GUIDE.md",
+        "admin-history.json",
+        "ai/index.html",
+        "ai/manifest.json",
+        "ai/site.html",
+        "index.html",
+        "site-release.js",
+        "sw.js"
+      ]
+    },
     {
       "sha": "83ad72df30a4a59641c6d8c0be7c93e3cc9bc58e",
       "author": "igaiundine",

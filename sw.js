@@ -1,24 +1,18 @@
-const CACHE_NAME = "rulings-1103-v260";
+const CACHE_NAME = "rulings-1103-v261";
 const ASSETS = [
   "./rulings-psychicker-rulings-20261123.js",
   "./armored-axon-kicker-1103.jpg",
   "./images/links/PGKbY.jpg", "./images/links/0Q3Oo.png",
   "./images/links/andal_po.png",
-  "./admin-mode.js?v=259", "./admin-mode.css?v=259", "./admin-config.js?v=259", "./admin-content.js?v=259",
-  "./ai/prompt.js?v=259",
-  "./ai-mode.css?v=259",
-  "./ai-mode.js?v=259",
-  "./images/ai/chatgpt.png",
-  "./images/ai/gemini.png",
-  "./images/ai/claude.png",
+  "./admin-mode.js?v=261", "./admin-mode.css?v=261", "./admin-config.js?v=261",
 
   "./rulings-ritua-zombie-merrow-20261122.js",
   "./gishki-diviner-1103.jpg",
   "./plaguespreader-zombie-1103.jpg",
   "./quillbolt-hedgehog-1103.jpg",
-  "./menu-update.js?v=259",
-  "./site-release.js?v=259",
-  "./recent-updates.js?v=259",
+  "./menu-update.js?v=261",
+  "./site-release.js?v=261",
+  "./recent-updates.js?v=261",
   "./images/guide/explain-open.webp",
   "./images/guide/explain-closed.webp",
   "./images/guide/serious-open.webp",
@@ -30,9 +24,9 @@ const ASSETS = [
 
   "./images/guide/expressions-v248.webp",
   "./images/union-common-v248.webp",
-  "./menu-update.css?v=259",
-  "./menu-guide.js?v=259",
-  "./menu-content.js?v=259",
+  "./menu-update.css?v=261",
+  "./menu-guide.js?v=261",
+  "./menu-content.js?v=261",
   "./images/links/wiki.webp",
   "./images/links/official.webp",
   "./images/links/foru-events.webp",
@@ -1042,6 +1036,12 @@ self.addEventListener("activate", (event) => {
 
 self.addEventListener("fetch", (event) => {
   if (event.request.method !== "GET") return;
+  const url = new URL(event.request.url);
+  const retiredAiRoot = new URL('./ai/', self.registration.scope);
+  if (url.origin === retiredAiRoot.origin && url.pathname.startsWith(retiredAiRoot.pathname)) {
+    event.respondWith(Promise.resolve(new Response('AI専用ページは公開を終了しました。通常のサイトをご利用ください。', {status: 410, headers: {'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'no-store'}})));
+    return;
+  }
   event.respondWith(
     fetch(event.request)
       .then((response) => {
