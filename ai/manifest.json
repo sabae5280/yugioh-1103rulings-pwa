@@ -1,8 +1,8 @@
 {
-  "version": "v258",
+  "version": "v259",
   "updated": "2026-11-23",
-  "cardCount": 776,
-  "sourceHash": "17ef6d459c3b90715e9e6e240006dbd194b3e9481ba75a07d064826b0311c021",
+  "cardCount": 777,
+  "sourceHash": "ed9ff5af2844099136b6f92e7c82c6d4b4cce3b2caf4880c129e8d36aa046409",
   "files": [
     "cards/c476049b897c97c0c293.html",
     "cards/2cfef949cf868b5a51a3.html",
@@ -13,6 +13,7 @@
     "cards/a27251834c1961ead55d.html",
     "cards/41acecebbab6ebfc3fd1.html",
     "cards/d1a9001d9375846c7532.html",
+    "cards/1f7594542e51a274b642.html",
     "cards/0c81bb5168941c6cbdbc.html",
     "cards/16fcbdce4292cf1bdf2a.html",
     "cards/0aeb2d34f464be7e1f76.html",
