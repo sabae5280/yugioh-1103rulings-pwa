@@ -1221,6 +1221,8 @@ function goHome() {
 }
 
 function openMenu(page = "about") {
+  if (page === "ai") page = "admin";
+  window.AdminMode?.leave();
   const content = sitePages[page] || sitePages.about;
   menuPageTitle.textContent = content.title;
   menuPageBody.innerHTML = content.html;
@@ -1229,6 +1231,7 @@ function openMenu(page = "about") {
   siteMenu.querySelectorAll("[data-menu-page]").forEach((button) => {
     button.classList.toggle("is-active", button.dataset.menuPage === page);
   });
+  if (page === "admin") window.AdminMode?.open();
   menuClose.focus();
 }
 

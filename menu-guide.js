@@ -4,9 +4,9 @@
  const paths=names.map(n=>`./images/guide/death-guide-${n}-site.webp`);
  const variants=['explain','serious','thanks','think'];
  variants.forEach(n=>paths.push(`./images/guide/${n}-open.webp`,`./images/guide/${n}-closed.webp`));
- const pageVariants={ai:4,guide:4,links:4,precautions:6,credits:8,philosophy:10,decision:10,contact:3};
+ const pageVariants={admin:4,ai:4,guide:4,links:4,precautions:6,credits:8,philosophy:10,decision:10,contact:3};
  const variantProbability=0.2; // 80% normal, 20% page-specific expression per 8-second selection.
- const messages = {"ai":"お使いのAIで検索できマス！\n案内をコピーして\n貼り付けてくださいネ。\n\n表の内容は未対応デス。\n元の画像もご確認ください！","about": "ワタシのターン、ドローデース。\n1103から1402環境まで！\n\n裁定ツアーガイドは\nお任せアレ！", "precautions": "本サイトは非公式デス(TωT)\n\nイベントで活用する時は、\n運営さんとジャッジさんの\n指示に従ってくださいネ。\n\n対戦相手とも、仲良く\nコミュニケーションを取って\nご利用くださいデス。", "guide": "管理者の手が回らず、\n画像の用意ができてないデス。\n┐(´д｀)┌\n\n実際に使って覚えてほしいデス。", "philosophy": "実は元々、プレイヤー向けではなく\nイベントの主催とジャッジを\nサポートしたいという思いで\n当サイトは作られたデス。\n\n勿論、プレイヤーさんも\nたくさん使ってくださいネ。", "decision": "管理者の手が回らず、\n画像の用意ができてないデス。\n┐(´д｀)┌\n\n後日画像で\nフローチャートを\n用意するデス。", "credits": "様々なテーマに関して、\n今後協力者を追加予定デス！\n\n各デッキの知見がある\n様々なプレイヤーに\n協力していただきまシタ！", "links": "こちらから、各種イベントや\n様々な関連サイトにアクセス\nできマスよ～。", "contact": "気軽に裁定に関する質問、\n当時のルールや確認事項、\nご要望を教えてデス♪"};
+ const messages = {"simulator":"《収縮》《ゲイル》《聖杯》\n《聖槍》《巨大化》・・・\n\n頭痛が痛いデス・・・\n\n実装までもう少し\nお待ちくださいネ・・・","admin":"更新の記録とAI案内は\nこちらで確認できマス！","ai":"お使いのAIで検索できマス！\n案内をコピーして\n貼り付けてくださいネ。\n\n表の内容は未対応デス。\n元の画像もご確認ください！","about": "ワタシのターン、ドローデース。\n1103から1402環境まで！\n\n裁定ツアーガイドは\nお任せアレ！", "precautions": "本サイトは非公式デス(TωT)\n\nイベントで活用する時は、\n運営さんとジャッジさんの\n指示に従ってくださいネ。\n\n対戦相手とも、仲良く\nコミュニケーションを取って\nご利用くださいデス。", "guide": "管理者の手が回らず、\n画像の用意が\nできてないデス。\n┐(´д｀)┌\n\n実際に使って\n覚えてほしいデス。", "philosophy": "実は元々、\nプレイヤー向けではなく\nイベントの主催とジャッジを\nサポートしたいという思いで\n当サイトは作られたデス。\n\n勿論、プレイヤーさんも\nたくさん使ってくださいネ。", "decision": "管理者の手が回らず、\n画像の用意が\nできてないデス。\n┐(´д｀)┌\n\n後日画像で\nフローチャートを\n用意するデス。", "credits": "様々なテーマに関して、\n今後協力者を追加予定デス！\n\n各デッキの知見がある\n様々なプレイヤーに\n協力していただきまシタ！", "links": "こちらから、各種イベントや\n様々な関連サイトにアクセス\nできマスよ～。", "contact": "気軽に裁定に関する質問、\n当時のルールや確認事項、\nご要望を教えてデス♪"};
  function messageForPage(){return messages[menu.querySelector("[data-menu-page].is-active")?.dataset.menuPage] || messages.about;}
  const host=document.createElement('div');host.className='menu-guide';
  host.innerHTML='<div class="menu-guide__bubble"><span aria-hidden="true" class="menu-guide__measure"></span><span aria-hidden="true" class="menu-guide__typed"></span><span class="visually-hidden"></span></div><div class="menu-guide__portrait"></div>';
@@ -32,10 +32,10 @@
  }
  later(gesture,2300);later(gesture,5600);later(()=>randomSegment(page),8000);
  }
- async function start(){stop();if(menu.hidden||document.hidden)return;const token=generation;const message=messageForPage();host.querySelector('.menu-guide__measure').textContent=message;host.querySelector('.visually-hidden').textContent=message;typed.textContent=reduced.matches?message:'';if(reduced.matches)return;
+ async function start(){stop();if(menu.hidden||document.hidden)return;const token=generation;const currentPage=menu.querySelector('[data-menu-page].is-active')?.dataset.menuPage||'about';if(currentPage==='simulator'){host.dataset.expression='troubled';frame(10);}const message=messageForPage();host.querySelector('.menu-guide__measure').textContent=message;host.querySelector('.visually-hidden').textContent=message;typed.textContent=reduced.matches?message:'';if(reduced.matches)return;
  let count=0;function type(){typed.textContent=message.slice(0,++count);if(count<message.length)later(type,55);}later(type,200);
  await ready;if(token!==generation||menu.hidden||document.hidden)return;const page=menu.querySelector('[data-menu-page].is-active')?.dataset.menuPage||'about';
- if(page==='about'){host.dataset.expression='normal';later(cycle,800+Math.random()*400);}else randomSegment(page);
+ if(page==='simulator'){host.dataset.expression='troubled';frame(10);function blink(){frame(11);later(()=>frame(10),140);later(blink,3000);}later(blink,3000);}else if(page==='about'){host.dataset.expression='normal';later(cycle,800+Math.random()*400);}else randomSegment(page);
  }
  menu.addEventListener('click',event=>{if(event.target.closest('[data-menu-page]'))start();});
  new MutationObserver(start).observe(menu,{attributes:true,attributeFilter:['hidden']});
