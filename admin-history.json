@@ -1,6 +1,22 @@
 {
-  "sourceCommit": "94f5fd9d621e95717b098f3552b04f1d5d98abf5",
+  "sourceCommit": "47ab1cd0dddf863c25396df60127183a80b55b76",
   "entries": [
+    {
+      "sha": "47ab1cd0dddf863c25396df60127183a80b55b76",
+      "author": "igaiundine",
+      "committer": "GitHub",
+      "authoredAt": "2026-11-24T19:30:41+09:00",
+      "date": "2026-11-24T19:30:41+09:00",
+      "message": "墓地強制２",
+      "files": [
+        "admin-history.json",
+        "index.html",
+        "recent-updates.js",
+        "rulings-m-row.js",
+        "site-release.js",
+        "sw.js"
+      ]
+    },
     {
       "sha": "94f5fd9d621e95717b098f3552b04f1d5d98abf5",
       "author": "igaiundine",

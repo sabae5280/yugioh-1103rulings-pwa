@@ -1,6 +1,97 @@
 window.RECENT_UPDATES = [
   {
     "date": "2026-11-24",
+    "batch": "2026-11-24-card-ruby-and-tg-links",
+    "card": "TG サイバー・マジシャン",
+    "change": "ルビ・リンク修正",
+    "summary": "実装担当：Codex。カード名の「ＴＧ」に「テックジーナス」のルビを追加し、概要の共通効果への案内をリンク化"
+  },
+  {
+    "date": "2026-11-24",
+    "batch": "2026-11-24-card-ruby-and-tg-links",
+    "card": "TG ラッシュ・ライノ",
+    "change": "リンク修正",
+    "summary": "実装担当：Codex。概要の《ＴＧ》共通効果への案内をリンク化"
+  },
+  {
+    "date": "2026-11-24",
+    "batch": "2026-11-24-card-ruby-and-tg-links",
+    "card": "TG ワーウルフ",
+    "change": "リンク修正",
+    "summary": "実装担当：Codex。概要の《ＴＧ》共通効果への案内をリンク化"
+  },
+  {
+    "date": "2026-11-24",
+    "batch": "2026-11-24-card-ruby-and-tg-links",
+    "card": "魔轟神獣キャシー",
+    "change": "ルビ追加",
+    "summary": "実装担当：Codex。カード名のルビと読みを登録"
+  },
+  {
+    "date": "2026-11-24",
+    "batch": "2026-11-24-card-ruby-and-tg-links",
+    "card": "機械複製術",
+    "change": "ルビ追加",
+    "summary": "実装担当：Codex。カード名のルビと読みを登録"
+  },
+  {
+    "date": "2026-11-24",
+    "batch": "2026-11-24-card-ruby-and-tg-links",
+    "card": "緊急テレポート",
+    "change": "ルビ追加",
+    "summary": "実装担当：Codex。カード名のルビと読みを登録"
+  },
+  {
+    "date": "2026-11-24",
+    "batch": "2026-11-24-card-ruby-and-tg-links",
+    "card": "精霊の鏡",
+    "change": "ルビ追加",
+    "summary": "実装担当：Codex。カード名のルビと読みを登録"
+  },
+  {
+    "date": "2026-11-24",
+    "batch": "2026-11-24-card-ruby-and-tg-links",
+    "card": "暗黒界の術師 スノウ",
+    "change": "ルビ追加",
+    "summary": "実装担当：Codex。カード名のルビと読みを登録"
+  },
+  {
+    "date": "2026-11-24",
+    "batch": "2026-11-24-card-ruby-and-tg-links",
+    "card": "封印の黄金櫃",
+    "change": "ルビ追加",
+    "summary": "実装担当：Codex。カード名のルビと読みを登録"
+  },
+  {
+    "date": "2026-11-24",
+    "batch": "2026-11-24-card-ruby-and-tg-links",
+    "card": "デーモンの宣告",
+    "change": "ルビ追加",
+    "summary": "実装担当：Codex。カード名のルビと読みを登録"
+  },
+  {
+    "date": "2026-11-24",
+    "batch": "2026-11-24-card-ruby-and-tg-links",
+    "card": "水晶の占い師",
+    "change": "ルビ追加",
+    "summary": "実装担当：Codex。カード名のルビと読みを登録"
+  },
+  {
+    "date": "2026-11-24",
+    "batch": "2026-11-24-card-ruby-and-tg-links",
+    "card": "フレムベル・ウルキサス",
+    "change": "読み登録",
+    "summary": "実装担当：Codex。カード名のカタカナ表記に合わせて読みを登録"
+  },
+  {
+    "date": "2026-11-24",
+    "batch": "2026-11-24-card-ruby-and-tg-links",
+    "card": "カードガード",
+    "change": "読み登録",
+    "summary": "実装担当：Codex。カード名のカタカナ表記に合わせて読みを登録"
+  },
+  {
+    "date": "2026-11-24",
     "batch": "2026-11-24-graveyard-qa-polish",
     "card": "墓地に送られた場合に発動する強制効果",
     "change": "裁定解説の整理",
