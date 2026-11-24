@@ -1,5 +1,86 @@
 window.RECENT_UPDATES = [
   {
+    "date": "2026-11-24",
+    "batch": "2026-11-24-rabbit-card-guard-and-four",
+    "card": "レスキュー・ラビット",
+    "change": "裁定修正",
+    "summary": "破壊処理を３環境共通で１度と明記し、ファントム・オブ・カオスのQAを追加",
+    "qaIds": [
+      "R-6HV6W",
+      "R-RABBIT262P"
+    ]
+  },
+  {
+    "date": "2026-11-24",
+    "batch": "2026-11-24-rabbit-card-guard-and-four",
+    "card": "カードガード",
+    "change": "カード追加",
+    "summary": "ガードカウンターを置く処理と破壊を防ぐ裁定を掲載",
+    "qaIds": [
+      "R-CGD26201",
+      "R-CGD26202",
+      "R-CGD26203",
+      "R-CGD26204",
+      "R-CGD26205",
+      "R-CGD26206",
+      "R-CGD26207",
+      "R-CGD26208",
+      "R-CGD26209",
+      "R-CGD26210"
+    ]
+  },
+  {
+    "date": "2026-11-24",
+    "batch": "2026-11-24-rabbit-card-guard-and-four",
+    "card": "暗黒界の術師 スノウ",
+    "change": "カード追加",
+    "summary": "手札から捨てられた場合の手札補充と特殊召喚の処理を掲載",
+    "qaIds": [
+      "R-SNW26201",
+      "R-SNW26202",
+      "R-SNW26203",
+      "R-SNW26204",
+      "R-SNW26205"
+    ]
+  },
+  {
+    "date": "2026-11-24",
+    "batch": "2026-11-24-rabbit-card-guard-and-four",
+    "card": "封印の黄金櫃",
+    "change": "カード追加",
+    "summary": "デッキからの除外と２回目のスタンバイフェイズに手札へ加える処理を掲載",
+    "qaIds": [
+      "R-GSC26201",
+      "R-GSC26202",
+      "R-GSC26203",
+      "R-GSC26204"
+    ]
+  },
+  {
+    "date": "2026-11-24",
+    "batch": "2026-11-24-rabbit-card-guard-and-four",
+    "card": "デーモンの宣告",
+    "change": "カード追加",
+    "summary": "カード名の宣言とライオウ適用時の発動・処理を掲載",
+    "qaIds": [
+      "R-AFO26201",
+      "R-AFO26202",
+      "R-AFO26203"
+    ]
+  },
+  {
+    "date": "2026-11-24",
+    "batch": "2026-11-24-rabbit-card-guard-and-four",
+    "card": "水晶の占い師",
+    "change": "カード追加",
+    "summary": "リバース時の処理と、デッキが１枚の場合・ライオウ適用時の裁定を掲載",
+    "qaIds": [
+      "R-CS26201",
+      "R-CS26202",
+      "R-CS26203"
+    ]
+  },
+  {
     "date": "2026-11-23",
     "batch": "2026-11-23-psychicker-rulings",
     "card": "アーマード・サイキッカー",
