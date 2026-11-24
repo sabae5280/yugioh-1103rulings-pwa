@@ -1,6 +1,22 @@
 {
-  "sourceCommit": "51ed7b6d0d907dc27ab6697f543e87b6351c20ca",
+  "sourceCommit": "94f5fd9d621e95717b098f3552b04f1d5d98abf5",
   "entries": [
+    {
+      "sha": "94f5fd9d621e95717b098f3552b04f1d5d98abf5",
+      "author": "igaiundine",
+      "committer": "GitHub",
+      "authoredAt": "2026-11-24T19:19:42+09:00",
+      "date": "2026-11-24T19:19:42+09:00",
+      "message": "墓地強制修正",
+      "files": [
+        "admin-history.json",
+        "index.html",
+        "recent-updates.js",
+        "rulings-m-row.js",
+        "site-release.js",
+        "sw.js"
+      ]
+    },
     {
       "sha": "51ed7b6d0d907dc27ab6697f543e87b6351c20ca",
       "author": "igaiundine",

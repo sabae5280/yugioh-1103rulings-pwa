@@ -1,6 +1,19 @@
 window.RECENT_UPDATES = [
   {
     "date": "2026-11-24",
+    "batch": "2026-11-24-graveyard-qa-polish",
+    "card": "墓地に送られた場合に発動する強制効果",
+    "change": "裁定解説の整理",
+    "summary": "実装担当：Codex。QAの不要な補足２枠を削除し、1103向け補足のタイトルとQAの文体を統一",
+    "qaIds": [
+      "R-BYDO1",
+      "R-JXZJUYHSLH",
+      "R-HZKL4",
+      "R-GYSPL265CHAIN"
+    ]
+  },
+  {
+    "date": "2026-11-24",
     "batch": "2026-11-24-graveyard-qa-foldouts",
     "card": "墓地に送られた場合に発動する強制効果",
     "change": "裁定解説の整理",
