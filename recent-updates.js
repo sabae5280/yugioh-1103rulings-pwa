@@ -1,6 +1,77 @@
 window.RECENT_UPDATES = [
   {
     "date": "2026-11-24",
+    "batch": "2026-11-24-rai-oh-breaker-mole-duality-teleport-refpanel",
+    "card": "ライオウ",
+    "change": "裁定修正",
+    "summary": "２つの効果とQAを整理し、特殊召喚を無効にできる事例を《神の宣告》へ案内",
+    "qaIds": [
+      "R-ZGWJO"
+    ]
+  },
+  {
+    "date": "2026-11-24",
+    "batch": "2026-11-24-rai-oh-breaker-mole-duality-teleport-refpanel",
+    "card": "魔導戦士ブレイカー",
+    "change": "裁定修正",
+    "summary": "魔力カウンターと攻撃力の処理を整理し、《ブラック・ガーデン》とのチェーン順と攻撃力のQAを追加",
+    "qaIds": [
+      "R-YDN8S",
+      "R-BRK262BG"
+    ]
+  },
+  {
+    "date": "2026-11-24",
+    "batch": "2026-11-24-rai-oh-breaker-mole-duality-teleport-refpanel",
+    "card": "N・グラン・モール",
+    "change": "裁定修正",
+    "summary": "ダメージステップの表記をそろえ、《A・O・J カタストル》等との戦闘時の処理を整理",
+    "qaIds": [
+      "R-9EAMRQS4Q9",
+      "R-WSGMD7DM99"
+    ]
+  },
+  {
+    "date": "2026-11-24",
+    "batch": "2026-11-24-rai-oh-breaker-mole-duality-teleport-refpanel",
+    "card": "強欲で謙虚な壺",
+    "change": "裁定修正",
+    "summary": "《D.D.クロウ》へのリンクを追加し、《カオスポッド》との特殊召喚制限と《ライオウ》をチェーンした場合の処理を掲載",
+    "qaIds": [
+      "R-POD263C1",
+      "R-POD263C2",
+      "R-POD263C3",
+      "R-POD263RAI"
+    ]
+  },
+  {
+    "date": "2026-11-24",
+    "batch": "2026-11-24-rai-oh-breaker-mole-duality-teleport-refpanel",
+    "card": "緊急テレポート",
+    "change": "カード追加",
+    "summary": "カード画像と、裏側表示・《禁じられた聖槍》適用中のエンドフェイズの除外処理を掲載",
+    "qaIds": [
+      "R-ET263MOON",
+      "R-ET263LANCE"
+    ]
+  },
+  {
+    "date": "2026-11-24",
+    "batch": "2026-11-24-rai-oh-breaker-mole-duality-teleport-refpanel",
+    "card": "精霊の鏡",
+    "change": "カード追加",
+    "summary": "カード画像と、発動条件、QA６件、発動できる主な魔法カード１７枚を掲載",
+    "qaIds": [
+      "R-MR263DUALITY",
+      "R-MR263DISCARD",
+      "R-MR263DRAW",
+      "R-MR263SEARCH",
+      "R-MR263GOLD",
+      "R-MR263CANNON"
+    ]
+  },
+  {
+    "date": "2026-11-24",
     "batch": "2026-11-24-rabbit-card-guard-and-four",
     "card": "レスキュー・ラビット",
     "change": "裁定修正",

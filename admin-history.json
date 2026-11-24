@@ -1,6 +1,28 @@
 {
-  "sourceCommit": "05c96b136aacd0d5ca208c02fef68f18612b9f24",
+  "sourceCommit": "b2cc682ee22e7e43ba4508333ae0f326924e1ad5",
   "entries": [
+    {
+      "sha": "b2cc682ee22e7e43ba4508333ae0f326924e1ad5",
+      "author": "igaiundine",
+      "committer": "GitHub",
+      "authoredAt": "2026-11-24T10:29:47+09:00",
+      "date": "2026-11-24T10:29:47+09:00",
+      "message": "ライオウ関連カード追加",
+      "files": [
+        "admin-history.json",
+        "archfiends-oath-1103.jpg",
+        "card-guard-1103.jpg",
+        "crystal-seer-1103.jpg",
+        "gold-sarcophagus-1103.jpg",
+        "index.html",
+        "recent-updates.js",
+        "rulings-rabbit-card-guard-and-four-20261124.js",
+        "rulings-revival-ravine-kycoo-rabbit-20261105.js",
+        "site-release.js",
+        "snoww-unlight-of-dark-world-1103.jpg",
+        "sw.js"
+      ]
+    },
     {
       "sha": "05c96b136aacd0d5ca208c02fef68f18612b9f24",
       "author": "sabae5280",
