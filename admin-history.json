@@ -1,6 +1,23 @@
 {
-  "sourceCommit": "47ab1cd0dddf863c25396df60127183a80b55b76",
+  "sourceCommit": "7121c2f78572d076c2ea5b243f8473a41c193705",
   "entries": [
+    {
+      "sha": "7121c2f78572d076c2ea5b243f8473a41c193705",
+      "author": "igaiundine",
+      "committer": "GitHub",
+      "authoredAt": "2026-11-24T20:46:47+09:00",
+      "date": "2026-11-24T20:46:47+09:00",
+      "message": "ルビ追加",
+      "files": [
+        "admin-history.json",
+        "card-readings.js",
+        "index.html",
+        "recent-updates.js",
+        "rulings-t-row.js",
+        "site-release.js",
+        "sw.js"
+      ]
+    },
     {
       "sha": "47ab1cd0dddf863c25396df60127183a80b55b76",
       "author": "igaiundine",

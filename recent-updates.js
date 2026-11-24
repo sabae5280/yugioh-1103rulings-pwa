@@ -1,6 +1,28 @@
 window.RECENT_UPDATES = [
   {
     "date": "2026-11-24",
+    "batch": "2026-11-24-skull-meister-and-graveyard",
+    "card": "スカル・マイスター",
+    "change": "カード追加",
+    "summary": "実装担当：Codex。添付画像と1209・1402向けの概要、ダメージ計算時のQAを追加",
+    "qaIds": [
+      "R-SKME269DS"
+    ]
+  },
+  {
+    "date": "2026-11-24",
+    "batch": "2026-11-24-skull-meister-and-graveyard",
+    "card": "墓地に送られた場合に発動する強制効果",
+    "change": "裁定解説の整理",
+    "summary": "実装担当：Codex。2011年9月のスカル・マイスターの裁定記録とTF6検証結果を難解QAの根拠に追記し、カードへのリンクを追加",
+    "qaIds": [
+      "R-JXZJUYHSLH",
+      "R-HZKL4",
+      "R-GYSPL265CHAIN"
+    ]
+  },
+  {
+    "date": "2026-11-24",
     "batch": "2026-11-24-card-ruby-and-tg-links",
     "card": "TG サイバー・マジシャン",
     "change": "ルビ・リンク修正",

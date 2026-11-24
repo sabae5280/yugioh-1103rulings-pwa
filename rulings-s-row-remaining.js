@@ -389,6 +389,39 @@ const S_ROW_RULINGS_REMAINING = [
     "source": "note『さ行まとめ』"
   },
   {
+    "name": "スカル・マイスター",
+    "reading": "スカルマイスター",
+    "type": "monster",
+    "cardClass": "effect",
+    "monsterTags": [
+      "効果モンスター"
+    ],
+    "race": "悪魔族",
+    "attribute": "闇属性",
+    "level": 4,
+    "attack": 1700,
+    "defense": 400,
+    "image": "./skull-meister-1209.jpg",
+    "overview": "■相手の墓地で発動した効果を無効にする効果\n▷手札で発動できる誘発即時効果。相手の墓地で魔法・罠・モンスターの効果が発動した時に直接チェーンして発動できる。\n▷発動コストとして、このカードを手札から墓地へ送る。\n▷ダメージステップ中でも発動でき、ダメージ計算時にも発動できる。",
+    "qa": [
+      {
+        "question": "ダメージステップ中やダメージ計算時にも、このカードの効果を発動できますか？",
+        "answer": "はい。ダメージステップ中に発動でき、ダメージ計算時にも発動できます。",
+        "environments": [
+          "1209",
+          "1402"
+        ],
+        "managementId": "R-SKME269DS"
+      }
+    ],
+    "environments": [
+      "1209",
+      "1402"
+    ],
+    "damageStepGuide": true,
+    "source": "ユーザー提供資料"
+  },
+  {
     "name": "スクラップ・オルトロス",
     "reading": "スクラップオルトロス",
     "type": "monster",

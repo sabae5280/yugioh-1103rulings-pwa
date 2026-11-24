@@ -1930,3 +1930,6 @@ Object.assign(window.CARD_TITLE_READINGS, {
   "デーモンの宣告": "デーモンのせんこく",
   "水晶の占い師": "すいしょうのうらないし",
 });
+
+window.CARD_TITLE_RUBY["スカル・マイスター"] = [["スカル・マイスター"]];
+window.CARD_TITLE_READINGS["スカル・マイスター"] = "スカル・マイスター";
