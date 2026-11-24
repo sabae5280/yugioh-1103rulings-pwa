@@ -1,6 +1,73 @@
 window.RECENT_UPDATES = [
   {
     "date": "2026-11-24",
+    "batch": "2026-11-24-chalice-blast-sphere-reincarnation",
+    "card": "禁じられた聖杯",
+    "change": "裁定整理",
+    "summary": "実装担当：Codex。概要・QAを整理。ライコウの対象選択と発動タイミングをDS表で示し、直接攻撃と２回目の攻撃のQAを掲載",
+    "qaIds": [
+      "R-T2KGR",
+      "R-54YAX",
+      "R-CHAL270DOUBLE"
+    ]
+  },
+  {
+    "date": "2026-11-24",
+    "batch": "2026-11-24-chalice-blast-sphere-reincarnation",
+    "card": "D・ラジカッセン",
+    "change": "裁定整理",
+    "summary": "実装担当：Codex。聖杯で２回攻撃の効果が無効になるQAを、バトルステップとダメージステップの１件に統合",
+    "qaIds": [
+      "R-TWZ8PGJQ"
+    ]
+  },
+  {
+    "date": "2026-11-24",
+    "batch": "2026-11-24-chalice-blast-sphere-reincarnation",
+    "card": "スフィア・ボム 球体時限爆弾",
+    "change": "カード追加",
+    "summary": "実装担当：Codex。カード画像・ルビ・概要・装備と破壊に関するQA４件を追加",
+    "qaIds": [
+      "R-BLAST270DDWL",
+      "R-BLAST270HORUS",
+      "R-BLAST270SWAP",
+      "R-BLAST270SUB"
+    ]
+  },
+  {
+    "date": "2026-11-24",
+    "batch": "2026-11-24-chalice-blast-sphere-reincarnation",
+    "card": "異次元の女戦士",
+    "change": "裁定整理",
+    "summary": "実装担当：Codex。スフィア・ボムとの処理をDS表に沿って記載し、同じQAに含まれていた伝説の柔術家の例を削除",
+    "qaIds": [
+      "R-S6T5J87HQU"
+    ]
+  },
+  {
+    "date": "2026-11-24",
+    "batch": "2026-11-24-chalice-blast-sphere-reincarnation",
+    "card": "死者転生",
+    "change": "カード追加",
+    "summary": "実装担当：Codex。カード画像・ルビ・概要と、捨てたカードを対象にする場合のQA３件を追加",
+    "qaIds": [
+      "R-MR270EMPTY",
+      "R-MR270TARGET",
+      "R-MR270RETURN"
+    ]
+  },
+  {
+    "date": "2026-11-24",
+    "batch": "2026-11-24-chalice-blast-sphere-reincarnation",
+    "card": "転生の予言",
+    "change": "裁定修正",
+    "summary": "実装担当：Codex。クリッター、キャシー、ダンディライオンのQAを統合し、共通項目と回答・検証結果を統一",
+    "qaIds": [
+      "R-BC4NCT9YHH"
+    ]
+  },
+  {
+    "date": "2026-11-24",
     "batch": "2026-11-24-skull-meister-and-graveyard",
     "card": "スカル・マイスター",
     "change": "カード追加",

@@ -1,6 +1,25 @@
 {
-  "sourceCommit": "7121c2f78572d076c2ea5b243f8473a41c193705",
+  "sourceCommit": "aba43b38e195832ce9a2a65e845d8298a5762add",
   "entries": [
+    {
+      "sha": "aba43b38e195832ce9a2a65e845d8298a5762add",
+      "author": "igaiundine",
+      "committer": "GitHub",
+      "authoredAt": "2026-11-24T22:07:43+09:00",
+      "date": "2026-11-24T22:07:43+09:00",
+      "message": "スカルマイスター",
+      "files": [
+        "admin-history.json",
+        "card-readings.js",
+        "index.html",
+        "recent-updates.js",
+        "rulings-m-row.js",
+        "rulings-s-row-remaining.js",
+        "site-release.js",
+        "skull-meister-1209.jpg",
+        "sw.js"
+      ]
+    },
     {
       "sha": "7121c2f78572d076c2ea5b243f8473a41c193705",
       "author": "igaiundine",

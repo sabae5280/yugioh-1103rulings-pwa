@@ -1933,3 +1933,9 @@ Object.assign(window.CARD_TITLE_READINGS, {
 
 window.CARD_TITLE_RUBY["スカル・マイスター"] = [["スカル・マイスター"]];
 window.CARD_TITLE_READINGS["スカル・マイスター"] = "スカル・マイスター";
+
+window.CARD_TITLE_RUBY["スフィア・ボム 球体時限爆弾"] = [["スフィア・ボム "], ["球体", "きゅうたい"], ["時限", "じげん"], ["爆弾", "ばくだん"]];
+window.CARD_TITLE_READINGS["スフィア・ボム 球体時限爆弾"] = "スフィア・ボム きゅうたいじげんばくだん";
+
+window.CARD_TITLE_RUBY["死者転生"] = [["死者", "ししゃ"], ["転生", "てんせい"]];
+window.CARD_TITLE_READINGS["死者転生"] = "ししゃてんせい";
