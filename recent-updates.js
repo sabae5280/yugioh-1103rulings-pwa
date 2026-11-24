@@ -1,6 +1,114 @@
 window.RECENT_UPDATES = [
   {
     "date": "2026-11-24",
+    "batch": "2026-11-24-lance-duality-machine-tg",
+    "card": "禁じられた聖槍",
+    "change": "裁定修正",
+    "summary": "概要とQAを整理し、《自由解放》へのチェーンと《天罰》の処理を明記。エンドフェイズの除外例に《緊急テレポート》を追加",
+    "qaIds": [
+      "R-LANCE264FREE",
+      "R-KD1LL",
+      "R-4EO3H8NP"
+    ]
+  },
+  {
+    "date": "2026-11-24",
+    "batch": "2026-11-24-lance-duality-machine-tg",
+    "card": "強欲で謙虚な壺",
+    "change": "裁定修正",
+    "summary": "《王宮の弾圧》で特殊召喚そのものを無効にされた場合、そのターンは発動できない当時の裁定に修正"
+  },
+  {
+    "date": "2026-11-24",
+    "batch": "2026-11-24-lance-duality-machine-tg",
+    "card": "機械複製術",
+    "change": "カード追加",
+    "summary": "カード画像と、発動時の対象、効果処理、《禁じられた聖槍》等のQA６件を掲載",
+    "qaIds": [
+      "R-MD264TRAP",
+      "R-MD264LIMIT",
+      "R-MD264LANCE",
+      "R-MD264RUSH",
+      "R-MD264MOON",
+      "R-MD264CONTROL"
+    ]
+  },
+  {
+    "date": "2026-11-24",
+    "batch": "2026-11-24-lance-duality-machine-tg",
+    "card": "《ＴＧ》共通効果",
+    "change": "裁定修正",
+    "summary": "《魔轟神獣キャシー》で破壊された場合は同じエンドフェイズにサーチ可能と修正し、手札調整と《D.D.クロウ》のQAを掲載",
+    "qaIds": [
+      "R-ZWFEQTLLEZ",
+      "R-TG264CROW"
+    ]
+  },
+  {
+    "date": "2026-11-24",
+    "batch": "2026-11-24-lance-duality-machine-tg",
+    "card": "TG ワーウルフ",
+    "change": "裁定修正",
+    "summary": "手札からの特殊召喚の条件とチェーン順を整理し、共通効果への案内と【ＴＧ】タグを追加",
+    "qaIds": [
+      "R-GTADHF3MHC",
+      "R-GLG797PVTN"
+    ]
+  },
+  {
+    "date": "2026-11-24",
+    "batch": "2026-11-24-lance-duality-machine-tg",
+    "card": "TG ラッシュ・ライノ",
+    "change": "裁定修正",
+    "summary": "攻撃時の攻撃力アップを整理し、《ＢＦ－疾風のゲイル》のQAと【ＴＧ】タグを追加",
+    "qaIds": [
+      "R-TG264RHINOGALE"
+    ]
+  },
+  {
+    "date": "2026-11-24",
+    "batch": "2026-11-24-lance-duality-machine-tg",
+    "card": "TG サイバー・マジシャン",
+    "change": "カード追加",
+    "summary": "カード画像と、手札をシンクロ素材に使う手順、QA４件、【ＴＧ】タグを掲載",
+    "qaIds": [
+      "R-TG264CYBERNEGATE",
+      "R-TG264CYBERMULTI",
+      "R-TG264CYBERMIX",
+      "R-TG264CYBERTUNER"
+    ]
+  },
+  {
+    "date": "2026-11-24",
+    "batch": "2026-11-24-lance-duality-machine-tg",
+    "card": "ＴＧハイパー・ライブラリアン",
+    "change": "裁定修正",
+    "summary": "シンクロ召喚時の強制効果とドローの処理を整理し、チューナーの誤表示を修正して【ＴＧ】タグを追加",
+    "qaIds": [
+      "R-XYN84UU5CF",
+      "R-4ZZ7E7FRWU"
+    ]
+  },
+  {
+    "date": "2026-11-24",
+    "batch": "2026-11-24-lance-duality-machine-tg",
+    "card": "TGX1-HL",
+    "change": "裁定修正",
+    "summary": "《禁じられた聖槍》のQAにTF6での検証結果を追記し、《TG ラッシュ・ライノ》のQAと【ＴＧ】タグを追加",
+    "qaIds": [
+      "R-7EB7ZQXAFW",
+      "R-TG264HLRHINO"
+    ]
+  },
+  {
+    "date": "2026-11-24",
+    "batch": "2026-11-24-lance-duality-machine-tg",
+    "card": "TG1-EM1",
+    "change": "タグ追加",
+    "summary": "【ＴＧ】タグを追加"
+  },
+  {
+    "date": "2026-11-24",
     "batch": "2026-11-24-rai-oh-breaker-mole-duality-teleport-refpanel",
     "card": "ライオウ",
     "change": "裁定修正",

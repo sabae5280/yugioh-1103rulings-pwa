@@ -1,6 +1,28 @@
 {
-  "sourceCommit": "b2cc682ee22e7e43ba4508333ae0f326924e1ad5",
+  "sourceCommit": "73673c7c38dc17bbc7ed9f0f74945e3e10c3f4c4",
   "entries": [
+    {
+      "sha": "73673c7c38dc17bbc7ed9f0f74945e3e10c3f4c4",
+      "author": "igaiundine",
+      "committer": "GitHub",
+      "authoredAt": "2026-11-24T12:00:38+09:00",
+      "date": "2026-11-24T12:00:38+09:00",
+      "message": "精霊の鏡、緊急テレポート追加、ラギア関連整理",
+      "files": [
+        "admin-history.json",
+        "emergency-teleport-1103.jpg",
+        "index.html",
+        "mystical-refpanel-1103.jpg",
+        "recent-updates.js",
+        "rulings-jar-rai-oh-20261105.js",
+        "rulings-k-row.js",
+        "rulings-m-row.js",
+        "rulings-n-row.js",
+        "rulings-s-row-remaining.js",
+        "site-release.js",
+        "sw.js"
+      ]
+    },
     {
       "sha": "b2cc682ee22e7e43ba4508333ae0f326924e1ad5",
       "author": "igaiundine",
