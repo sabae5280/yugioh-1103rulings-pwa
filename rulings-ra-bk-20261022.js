@@ -3,6 +3,7 @@
   const additions = [
   {
     "name": "ライトロード・アーチャー フェリス",
+    "specialTags": ["ライトロード"],
     "reading": "ライトロード・アーチャー フェリス",
     "type": "monster",
     "image": "./ra-bk-20261022-card-01.png",
@@ -35,6 +36,7 @@
   },
   {
     "name": "ライトロード・アーク ミカエル",
+    "specialTags": ["ライトロード"],
     "reading": "ライトロード・アーク ミカエル",
     "type": "monster",
     "image": "./ra-bk-20261022-card-02.png",
@@ -82,6 +84,7 @@
   },
   {
     "name": "ライトロード・アサシン ライデン",
+    "specialTags": ["ライトロード"],
     "reading": "ライトロード・アサシン ライデン",
     "type": "monster",
     "image": "./ra-bk-20261022-card-03.png",
@@ -128,6 +131,7 @@
   },
   {
     "name": "ライトロード・メイデン ミネルバ",
+    "specialTags": ["ライトロード"],
     "reading": "ライトロード・メイデン ミネルバ",
     "type": "monster",
     "image": "./ra-bk-20261022-card-04.png",

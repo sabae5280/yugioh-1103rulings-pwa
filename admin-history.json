@@ -1,6 +1,31 @@
 {
-  "sourceCommit": "aba43b38e195832ce9a2a65e845d8298a5762add",
+  "sourceCommit": "3e43e4cbca82a391c84d511303dfe02ff35acf83",
   "entries": [
+    {
+      "sha": "3e43e4cbca82a391c84d511303dfe02ff35acf83",
+      "author": "igaiundine",
+      "committer": "GitHub",
+      "authoredAt": "2026-11-24T23:11:51+09:00",
+      "date": "2026-11-24T23:11:51+09:00",
+      "message": "死者転生、スフィアボム",
+      "files": [
+        "admin-history.json",
+        "blast-sphere-1103.jpg",
+        "card-readings.js",
+        "index.html",
+        "monster-reincarnation-1103.jpg",
+        "recent-updates.js",
+        "rulings-dimension-20261109.js",
+        "rulings-instant-dd-style-20261114.js",
+        "rulings-k-row.js",
+        "rulings-s-row-remaining.js",
+        "rulings-s-row.js",
+        "rulings-t-row.js",
+        "rulings.js",
+        "site-release.js",
+        "sw.js"
+      ]
+    },
     {
       "sha": "aba43b38e195832ce9a2a65e845d8298a5762add",
       "author": "igaiundine",

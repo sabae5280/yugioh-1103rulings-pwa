@@ -1939,3 +1939,10 @@ window.CARD_TITLE_READINGS["スフィア・ボム 球体時限爆弾"] = "スフ
 
 window.CARD_TITLE_RUBY["死者転生"] = [["死者", "ししゃ"], ["転生", "てんせい"]];
 window.CARD_TITLE_READINGS["死者転生"] = "ししゃてんせい";
+
+window.CARD_TITLE_RUBY["ライトロード・ビースト ウォルフ"] = [["ライトロード・ビースト ウォルフ"]];
+window.CARD_TITLE_READINGS["ライトロード・ビースト ウォルフ"] = "ライトロード・ビースト ウォルフ";
+
+window.CARD_READINGS["深淵の暗殺者"] = "ナイトアサシン";
+window.CARD_TITLE_RUBY["深淵の暗殺者"] = [["深淵の暗殺者", "ナイト・アサシン"]];
+window.CARD_TITLE_READINGS["深淵の暗殺者"] = "ナイト・アサシン";

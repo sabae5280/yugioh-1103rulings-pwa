@@ -1,5 +1,107 @@
 window.RECENT_UPDATES = [
   {
+    "date": "2026-11-25",
+    "batch": "2026-11-25-lightsworn-assailant-xyz",
+    "card": "ライトロード・ビースト ウォルフ",
+    "change": "カード追加",
+    "summary": "実装担当：Codex。画像・概要・QA３件を追加し、ライトロードタグを設定",
+    "qaIds": [
+      "R-WULF271BURIAL",
+      "R-WULF271MILL",
+      "R-WULF271FLIP"
+    ]
+  },
+  {
+    "date": "2026-11-25",
+    "batch": "2026-11-25-lightsworn-assailant-xyz",
+    "card": "深淵の暗殺者",
+    "change": "カード追加",
+    "summary": "実装担当：Codex。画像・ルビ・エラッタ表示・旧テキストとQA３件を追加",
+    "qaIds": [
+      "R-NIGHT271SELF",
+      "R-NIGHT271SAME",
+      "R-NIGHT271HONEST"
+    ]
+  },
+  {
+    "date": "2026-11-25",
+    "batch": "2026-11-25-lightsworn-assailant-xyz",
+    "card": "発条機甲ゼンマイスター",
+    "change": "裁定整理",
+    "summary": "実装担当：Codex。素材による攻撃力アップ、表示形式変更、エンドフェイズの処理と既存QA４件を整理",
+    "qaIds": [
+      "R-6GWQRNR88T",
+      "R-WQUG4VP4BB",
+      "R-2WCKNFSVYB",
+      "R-X25ZSR5DDG"
+    ]
+  },
+  {
+    "date": "2026-11-25",
+    "batch": "2026-11-25-lightsworn-assailant-xyz",
+    "card": "No.16 色の支配者ショック・ルーラー",
+    "change": "裁定整理",
+    "summary": "実装担当：Codex。宣言別の発動制限と適用期間を明記し、概要に入っていた３件をQAに戻して全７件を整理",
+    "qaIds": [
+      "R-G3NN8US2JH",
+      "R-WJT93P6YGW",
+      "R-HZ2R9P6QKA",
+      "R-P3KRM7F8P8",
+      "R-59A42ZPUX9",
+      "R-NBM6ZTQZ5F",
+      "R-EQHHG4NTTS"
+    ]
+  },
+  {
+    "date": "2026-11-25",
+    "batch": "2026-11-25-lightsworn-assailant-xyz",
+    "card": "ライトロード・アーク ミカエル",
+    "change": "タグ追加",
+    "summary": "実装担当：Codex。ライトロードタグを設定"
+  },
+  {
+    "date": "2026-11-25",
+    "batch": "2026-11-25-lightsworn-assailant-xyz",
+    "card": "ライトロード・アーチャー フェリス",
+    "change": "タグ追加",
+    "summary": "実装担当：Codex。ライトロードタグを設定"
+  },
+  {
+    "date": "2026-11-25",
+    "batch": "2026-11-25-lightsworn-assailant-xyz",
+    "card": "ライトロード・アサシン ライデン",
+    "change": "タグ追加",
+    "summary": "実装担当：Codex。ライトロードタグを設定"
+  },
+  {
+    "date": "2026-11-25",
+    "batch": "2026-11-25-lightsworn-assailant-xyz",
+    "card": "ライトロード・ハンター ライコウ",
+    "change": "タグ追加",
+    "summary": "実装担当：Codex。ライトロードタグを設定"
+  },
+  {
+    "date": "2026-11-25",
+    "batch": "2026-11-25-lightsworn-assailant-xyz",
+    "card": "ライトロード・マジシャン ライラ",
+    "change": "タグ追加",
+    "summary": "実装担当：Codex。ライトロードタグを設定"
+  },
+  {
+    "date": "2026-11-25",
+    "batch": "2026-11-25-lightsworn-assailant-xyz",
+    "card": "ライトロード・メイデン ミネルバ",
+    "change": "タグ追加",
+    "summary": "実装担当：Codex。ライトロードタグを設定"
+  },
+  {
+    "date": "2026-11-25",
+    "batch": "2026-11-25-lightsworn-assailant-xyz",
+    "card": "ライトロード・モンク　エイリン",
+    "change": "タグ追加",
+    "summary": "実装担当：Codex。ライトロードタグを設定"
+  },
+  {
     "date": "2026-11-24",
     "batch": "2026-11-24-chalice-blast-sphere-reincarnation",
     "card": "禁じられた聖杯",

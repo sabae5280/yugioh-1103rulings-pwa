@@ -320,6 +320,7 @@ window.R_ROW_RULINGS = [
   },
   {
     "name": "ライトロード・ハンター ライコウ",
+    "specialTags": ["ライトロード"],
     "type": "monster",
     "reading": "ライトロードハンターライコウ",
     "image": "./images/r-row/r-03.png",
@@ -359,7 +360,67 @@ window.R_ROW_RULINGS = [
     "cardClass": "effect"
   },
   {
+    "name": "ライトロード・ビースト ウォルフ",
+    "reading": "ライトロードビーストウォルフ",
+    "type": "monster",
+    "cardClass": "effect",
+    "monsterTags": [
+      "効果モンスター",
+      "特殊召喚モンスター"
+    ],
+    "specialTags": [
+      "ライトロード"
+    ],
+    "race": "獣戦士族",
+    "attribute": "光属性",
+    "level": 4,
+    "attack": 2100,
+    "defense": 300,
+    "image": "./wulf-lightsworn-beast-1103.jpg",
+    "environments": [
+      "1103",
+      "1209",
+      "1402"
+    ],
+    "damageStepGuide": true,
+    "source": "ユーザー提供資料",
+    "overview": "■特殊召喚の条件\n▷通常召喚できず、カードの効果でのみ特殊召喚できる。この条件は効果として扱わない。\n\n■デッキから墓地へ送られた場合の特殊召喚\n▷デッキから墓地へ送られた場合、墓地で必ず発動する誘発効果。このカード自身を特殊召喚する。\n▷ダメージステップ中にデッキから墓地へ送られた場合も発動する。",
+    "qa": [
+      {
+        "question": "《おろかな埋葬》の効果でこのカードを墓地へ送った場合、特殊召喚できますか？",
+        "answer": "はい。デッキから墓地へ送られたため、自身の効果が発動して特殊召喚されます。",
+        "environments": [
+          "1103",
+          "1209",
+          "1402"
+        ],
+        "managementId": "R-WULF271BURIAL"
+      },
+      {
+        "question": "《名推理》《モンスターゲート》《魔導雑貨商人》の効果でこのカードがデッキから墓地へ送られた場合、特殊召喚できますか？",
+        "answer": "はい。デッキから墓地へ送られた後、新たなチェーンで自身の効果が発動して特殊召喚されます。\n\nこのカードは通常召喚できないため、《名推理》《モンスターゲート》でめくられた場合も、通常召喚できるモンスターがめくられるまで処理を続けます。このカードが墓地へ送られた後に、自身の効果で特殊召喚します。",
+        "environments": [
+          "1103",
+          "1209",
+          "1402"
+        ],
+        "managementId": "R-WULF271MILL"
+      },
+      {
+        "question": "フィールドのこのカードが《月の書》で裏側守備表示になった場合、反転召喚できますか？",
+        "answer": "はい。反転召喚の条件を満たしていれば、反転召喚できます。",
+        "environments": [
+          "1103",
+          "1209",
+          "1402"
+        ],
+        "managementId": "R-WULF271FLIP"
+      }
+    ]
+  },
+  {
     "name": "ライトロード・マジシャン ライラ",
+    "specialTags": ["ライトロード"],
     "type": "monster",
     "reading": "ライトロードマジシャンライラ",
     "image": "./images/r-row/r-04.png",
@@ -477,6 +538,7 @@ window.R_ROW_RULINGS = [
   },
   {
     "name": "ライトロード・モンク　エイリン",
+    "specialTags": ["ライトロード"],
     "type": "monster",
     "reading": "ライトロードモンクエイリン",
     "image": "./images/r-row/r-05.png",
