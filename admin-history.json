@@ -1,6 +1,30 @@
 {
-  "sourceCommit": "803f3588969d444b82937358129c9973b758b89c",
+  "sourceCommit": "51ed7b6d0d907dc27ab6697f543e87b6351c20ca",
   "entries": [
+    {
+      "sha": "51ed7b6d0d907dc27ab6697f543e87b6351c20ca",
+      "author": "igaiundine",
+      "committer": "GitHub",
+      "authoredAt": "2026-11-24T18:51:34+09:00",
+      "date": "2026-11-24T18:51:34+09:00",
+      "message": "墓地に送られた場合の共通効果、キャシー、ウルキサス",
+      "files": [
+        "admin-history.json",
+        "fabled-catsith-1103.jpg",
+        "flamvell-urquizas-1103.jpg",
+        "graveyard-mandatory-trigger-cover.webp",
+        "index.html",
+        "recent-updates.js",
+        "rulings-amazoness-20261105.js",
+        "rulings-h-row.js",
+        "rulings-k-row.js",
+        "rulings-m-row.js",
+        "rulings-royal-oppression-20261105.js",
+        "rulings-t-row.js",
+        "site-release.js",
+        "sw.js"
+      ]
+    },
     {
       "sha": "803f3588969d444b82937358129c9973b758b89c",
       "author": "igaiundine",

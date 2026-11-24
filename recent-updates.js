@@ -1,6 +1,19 @@
 window.RECENT_UPDATES = [
   {
     "date": "2026-11-24",
+    "batch": "2026-11-24-graveyard-qa-foldouts",
+    "card": "墓地に送られた場合に発動する強制効果",
+    "change": "裁定解説の整理",
+    "summary": "実装担当：Codex。概要を簡潔にし、Wikiの裁定記録とTF6での検証理由・結果を各QAの折りたたみ補足に移動。1103の発動場所を明記",
+    "qaIds": [
+      "R-BYDO1",
+      "R-JXZJUYHSLH",
+      "R-HZKL4",
+      "R-GYSPL265CHAIN"
+    ]
+  },
+  {
+    "date": "2026-11-24",
     "batch": "2026-11-24-graveyard-mandatory-and-rulings",
     "card": "墓地に送られた場合に発動する強制効果",
     "change": "テーマ追加",
