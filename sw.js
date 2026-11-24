@@ -1,5 +1,8 @@
-const CACHE_NAME = "rulings-1103-v264";
+const CACHE_NAME = "rulings-1103-v265";
 const ASSETS = [
+  "./fabled-catsith-1103.jpg",
+  "./flamvell-urquizas-1103.jpg",
+  "./graveyard-mandatory-trigger-cover.webp",
   "./machine-duplication-1103.jpg",
   "./tg-cyber-magician-1103.jpg",
   "./emergency-teleport-1103.jpg",
@@ -14,15 +17,15 @@ const ASSETS = [
   "./armored-axon-kicker-1103.jpg",
   "./images/links/PGKbY.jpg", "./images/links/0Q3Oo.png",
   "./images/links/andal_po.png",
-  "./admin-mode.js?v=264", "./admin-mode.css?v=264", "./admin-config.js?v=264",
+  "./admin-mode.js?v=265", "./admin-mode.css?v=265", "./admin-config.js?v=265",
 
   "./rulings-ritua-zombie-merrow-20261122.js",
   "./gishki-diviner-1103.jpg",
   "./plaguespreader-zombie-1103.jpg",
   "./quillbolt-hedgehog-1103.jpg",
-  "./menu-update.js?v=264",
-  "./site-release.js?v=264",
-  "./recent-updates.js?v=264",
+  "./menu-update.js?v=265",
+  "./site-release.js?v=265",
+  "./recent-updates.js?v=265",
   "./images/guide/explain-open.webp",
   "./images/guide/explain-closed.webp",
   "./images/guide/serious-open.webp",
@@ -32,9 +35,9 @@ const ASSETS = [
   "./images/guide/think-open.webp",
   "./images/guide/think-closed.webp",
 
-  "./menu-update.css?v=264",
-  "./menu-guide.js?v=264",
-  "./menu-content.js?v=264",
+  "./menu-update.css?v=265",
+  "./menu-guide.js?v=265",
+  "./menu-content.js?v=265",
   "./images/links/wiki.webp",
   "./images/links/official.webp",
   "./images/links/foru-events.webp",

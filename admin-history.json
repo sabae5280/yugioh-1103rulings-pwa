@@ -1,6 +1,26 @@
 {
-  "sourceCommit": "73673c7c38dc17bbc7ed9f0f74945e3e10c3f4c4",
+  "sourceCommit": "803f3588969d444b82937358129c9973b758b89c",
   "entries": [
+    {
+      "sha": "803f3588969d444b82937358129c9973b758b89c",
+      "author": "igaiundine",
+      "committer": "GitHub",
+      "authoredAt": "2026-11-24T15:22:02+09:00",
+      "date": "2026-11-24T15:22:02+09:00",
+      "message": "聖槍、TG修正",
+      "files": [
+        "admin-history.json",
+        "index.html",
+        "machine-duplication-1103.jpg",
+        "recent-updates.js",
+        "rulings-k-row.js",
+        "rulings-samurai-end-phase-20261106.js",
+        "rulings-t-row.js",
+        "site-release.js",
+        "sw.js",
+        "tg-cyber-magician-1103.jpg"
+      ]
+    },
     {
       "sha": "73673c7c38dc17bbc7ed9f0f74945e3e10c3f4c4",
       "author": "igaiundine",

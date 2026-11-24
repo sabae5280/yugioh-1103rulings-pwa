@@ -1,6 +1,91 @@
 window.RECENT_UPDATES = [
   {
     "date": "2026-11-24",
+    "batch": "2026-11-24-graveyard-mandatory-and-rulings",
+    "card": "墓地に送られた場合に発動する強制効果",
+    "change": "テーマ追加",
+    "summary": "実装担当：Codex。TF6検証と旧裁定を基に、発動前に墓地から移動した場合の処理と環境別QA５件を掲載",
+    "qaIds": [
+      "R-BYDO1",
+      "R-JXZJUYHSLH",
+      "R-HZKL4",
+      "R-GYSPL265CHAIN",
+      "R-GYSPL265WULF"
+    ]
+  },
+  {
+    "date": "2026-11-24",
+    "batch": "2026-11-24-graveyard-mandatory-and-rulings",
+    "card": "墓地に送られた場合に発動する強制効果",
+    "change": "画像更新",
+    "summary": "実装担当：Codex。提供された５枚のイラストを使ったテーマカバーを掲載"
+  },
+  {
+    "date": "2026-11-24",
+    "batch": "2026-11-24-graveyard-mandatory-and-rulings",
+    "card": "魔轟神獣キャシー",
+    "change": "カード追加",
+    "summary": "実装担当：Codex。カード画像、概要、手札調整のQA、共通裁定へのリンクを掲載",
+    "qaIds": [
+      "R-CATHY265HANDSIZE"
+    ]
+  },
+  {
+    "date": "2026-11-24",
+    "batch": "2026-11-24-graveyard-mandatory-and-rulings",
+    "card": "クリッター",
+    "change": "裁定修正",
+    "summary": "実装担当：Codex。発動前に墓地から移動した場合のQAを共通項目へ統合"
+  },
+  {
+    "date": "2026-11-24",
+    "batch": "2026-11-24-graveyard-mandatory-and-rulings",
+    "card": "ダンディライオン",
+    "change": "裁定修正",
+    "summary": "実装担当：Codex。発動前に墓地から移動した場合のQAを共通項目へ統合"
+  },
+  {
+    "date": "2026-11-24",
+    "batch": "2026-11-24-graveyard-mandatory-and-rulings",
+    "card": "【魔轟神】共通効果",
+    "change": "裁定修正",
+    "summary": "実装担当：Codex。墓地から移動した場合の裁定を新しい共通項目へ統合"
+  },
+  {
+    "date": "2026-11-24",
+    "batch": "2026-11-24-graveyard-mandatory-and-rulings",
+    "card": "アマゾネス訓練生",
+    "change": "裁定修正",
+    "summary": "実装担当：Codex。戦闘破壊後にデッキへ戻す処理と、戻ったカードの効果に関するQA４件を掲載",
+    "qaIds": [
+      "R-AMZT265MAIN",
+      "R-AMZT265EXTRA",
+      "R-AMZT265MINE",
+      "R-AMZT265ZERO"
+    ]
+  },
+  {
+    "date": "2026-11-24",
+    "batch": "2026-11-24-graveyard-mandatory-and-rulings",
+    "card": "王宮の弾圧",
+    "change": "裁定修正",
+    "summary": "実装担当：Codex。特殊召喚を無効にできる例と、墓地で発動した《ネフティスの鳳凰神》の処理を整理",
+    "qaIds": [
+      "R-RWVNX37SKG"
+    ]
+  },
+  {
+    "date": "2026-11-24",
+    "batch": "2026-11-24-graveyard-mandatory-and-rulings",
+    "card": "フレムベル・ウルキサス",
+    "change": "カード追加",
+    "summary": "実装担当：Codex。カード画像、フレムベルタグ、貫通と攻撃力上昇の概要・QAを掲載",
+    "qaIds": [
+      "R-FU265BOOST"
+    ]
+  },
+  {
+    "date": "2026-11-24",
     "batch": "2026-11-24-lance-duality-machine-tg",
     "card": "禁じられた聖槍",
     "change": "裁定修正",
