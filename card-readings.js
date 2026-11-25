@@ -1958,3 +1958,12 @@ window.CARD_TITLE_READINGS["異次元への隙間"] = "いじげんへのすき�
 
 window.CARD_TITLE_RUBY["D.D.アサイラント"] = [["D.D.", "ディー．ディー"], ["アサイラント"]];
 window.CARD_TITLE_READINGS["D.D.アサイラント"] = "ディーディーアサイラント";
+
+window.CARD_TITLE_RUBY["ミラクル・フュージョン"] = [["ミラクル・フュージョン"]];
+window.CARD_TITLE_READINGS["ミラクル・フュージョン"] = "ミラクルフュージョン";
+
+window.CARD_TITLE_RUBY["お注射天使リリー"] = [["お"], ["注射", "ちゅうしゃ"], ["天使", "てんし"], ["リリー"]];
+window.CARD_TITLE_READINGS["お注射天使リリー"] = "おちゅうしゃてんしリリー";
+
+window.CARD_TITLE_RUBY["マシュマロン"] = [["マシュマロン"]];
+window.CARD_TITLE_READINGS["マシュマロン"] = "マシュマロン";

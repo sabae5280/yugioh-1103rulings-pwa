@@ -1,6 +1,23 @@
 {
-  "sourceCommit": "f614c06ae75e96181c4beb580daff67e3b575c63",
+  "sourceCommit": "6bf89c0e2410338f349531952ad82f770fbb72a7",
   "entries": [
+    {
+      "sha": "6bf89c0e2410338f349531952ad82f770fbb72a7",
+      "author": "igaiundine",
+      "committer": "GitHub",
+      "authoredAt": "2026-11-25T11:55:44+09:00",
+      "date": "2026-11-25T11:55:44+09:00",
+      "message": "未来融合、ゼピュロス整理",
+      "files": [
+        "admin-history.json",
+        "index.html",
+        "recent-updates.js",
+        "rulings-gozen-zephyros-gorz-20261117.js",
+        "rulings-m-row.js",
+        "site-release.js",
+        "sw.js"
+      ]
+    },
     {
       "sha": "f614c06ae75e96181c4beb580daff67e3b575c63",
       "author": "igaiundine",
