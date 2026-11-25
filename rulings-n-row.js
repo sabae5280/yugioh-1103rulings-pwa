@@ -135,8 +135,7 @@ const N_ROW_RULINGS = [
         "environments": [
           "1103"
         ],
-        "managementId": "R-PWLPKGU5RF",
-        "groupHeading": "発動できるタイミング"
+        "managementId": "R-PWLPKGU5RF"
       },
       {
         "question": "召喚に成功した時に効果を発動したモンスターを、このカードで破壊し除外した場合、その効果は無効になりますか？",
@@ -144,8 +143,7 @@ const N_ROW_RULINGS = [
         "environments": [
           "1103"
         ],
-        "managementId": "R-QC7PPZ37V3",
-        "groupHeading": "発動できるタイミング"
+        "managementId": "R-QC7PPZ37V3"
       },
       {
         "question": "元々の攻撃力が１５００未満でも、フィールド魔法の効果で攻撃力１５００以上になるモンスターに発動できますか？",
@@ -153,8 +151,7 @@ const N_ROW_RULINGS = [
         "environments": [
           "1103"
         ],
-        "managementId": "R-U5R4MP3CKF",
-        "groupHeading": "発動できるタイミング"
+        "managementId": "R-U5R4MP3CKF"
       },
       {
         "question": "《浅すぎた墓穴》で相手が裏側守備表示のモンスターを特殊召喚した場合、発動できますか？",
@@ -162,8 +159,7 @@ const N_ROW_RULINGS = [
         "environments": [
           "1103"
         ],
-        "managementId": "R-2EFY2BKT7K",
-        "groupHeading": "発動できるタイミング"
+        "managementId": "R-2EFY2BKT7K"
       },
       {
         "question": "相手が《溶岩魔神ラヴァ・ゴーレム》を自分フィールドに特殊召喚した場合、自分はこのカードを発動できますか？",
@@ -171,8 +167,7 @@ const N_ROW_RULINGS = [
         "environments": [
           "1103"
         ],
-        "managementId": "R-ZT8ESFF7YS",
-        "groupHeading": "発動できるタイミング"
+        "managementId": "R-ZT8ESFF7YS"
       },
       {
         "question": "このカードにチェーンして《月の書》や《収縮》を発動した場合、そのモンスターは破壊・除外されますか？",
@@ -184,8 +179,7 @@ const N_ROW_RULINGS = [
         "managementIdAliases": [
           "R-IDM7LU9C",
           "R-AKGF3N88CX"
-        ],
-        "groupHeading": "発動後にモンスターの状態が変わった場合"
+        ]
       },
       {
         "question": "相手が召喚したモンスターのコントロールが、このカードの効果処理前に自分に移った場合も、破壊・除外されますか？",
@@ -193,8 +187,7 @@ const N_ROW_RULINGS = [
         "environments": [
           "1103"
         ],
-        "managementId": "R-4X8EZQ6CJX",
-        "groupHeading": "発動後にモンスターの状態が変わった場合"
+        "managementId": "R-4X8EZQ6CJX"
       },
       {
         "question": "相手が《アポピスの化神》や《死霊ゾーマ》を罠モンスターとして特殊召喚した場合も、破壊・除外できますか？",
@@ -202,8 +195,7 @@ const N_ROW_RULINGS = [
         "environments": [
           "1103"
         ],
-        "managementId": "R-6K4925C6FK",
-        "groupHeading": "発動後にモンスターの状態が変わった場合"
+        "managementId": "R-6K4925C6FK"
       },
       {
         "question": "《レスキュー・ラビット》《異次元からの帰還》《真炎の爆発》で相手が複数のモンスターを同時に特殊召喚した場合、このカード１枚で何体まで破壊・除外できますか？",
@@ -211,8 +203,7 @@ const N_ROW_RULINGS = [
         "environments": [
           "1103"
         ],
-        "managementId": "R-7PFSEVJRS7",
-        "groupHeading": "複数のモンスターが特殊召喚された場合"
+        "managementId": "R-7PFSEVJRS7"
       },
       {
         "question": "相手が攻撃力１５００と１４００のモンスターを１体ずつ同時に特殊召喚しました。このカードにチェーンして《突進》を発動し、攻撃力１４００のモンスターを２１００にした場合、２体とも破壊・除外されますか？",
@@ -220,8 +211,7 @@ const N_ROW_RULINGS = [
         "environments": [
           "1103"
         ],
-        "managementId": "R-56QUVVZKBE",
-        "groupHeading": "複数のモンスターが特殊召喚された場合"
+        "managementId": "R-56QUVVZKBE"
       },
       {
         "question": "このカードにチェーンした《リビングデッドの呼び声》で、別の攻撃力１５００以上のモンスターが特殊召喚されました。そのモンスターも破壊・除外されますか？",
@@ -229,8 +219,7 @@ const N_ROW_RULINGS = [
         "environments": [
           "1103"
         ],
-        "managementId": "R-7VMMJRUGWL",
-        "groupHeading": "複数のモンスターが特殊召喚された場合"
+        "managementId": "R-7VMMJRUGWL"
       },
       {
         "question": "相手が《手札抹殺》や《陽気な葬儀屋》で「暗黒界」モンスターを３体同時に捨て、それぞれの効果を発動しました。このカードでどのモンスターを破壊・除外できますか？",
@@ -242,8 +231,7 @@ const N_ROW_RULINGS = [
         "managementIdAliases": [
           "R-I9Z51XDI",
           "R-2P8KJFXMGA"
-        ],
-        "groupHeading": "「暗黒界」モンスターとの処理"
+        ]
       },
       {
         "question": "自分のカードの効果で相手の《暗黒界の軍神 シルバ》を捨てました。その効果で特殊召喚された《暗黒界の軍神 シルバ》に、自分はこのカードを発動できますか？",
@@ -251,8 +239,7 @@ const N_ROW_RULINGS = [
         "environments": [
           "1103"
         ],
-        "managementId": "R-DNE4RLELBA",
-        "groupHeading": "「暗黒界」モンスターとの処理"
+        "managementId": "R-DNE4RLELBA"
       }
     ], environments: ["1103"], source: "ユーザー提供資料"
   },

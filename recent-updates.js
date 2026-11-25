@@ -1,6 +1,13 @@
 window.RECENT_UPDATES = [
   {
     "date": "2026-11-25",
+    "batch": "2026-11-25-v286",
+    "card": "奈落の落とし穴",
+    "change": "QA表記修正",
+    "summary": "実装担当：igaiundine。QAの小見出し４つを削除。"
+  },
+  {
+    "date": "2026-11-25",
     "batch": "2026-11-25-v285",
     "card": "禁止令",
     "change": "QA表記修正",

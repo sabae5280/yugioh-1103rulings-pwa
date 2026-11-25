@@ -653,7 +653,7 @@ function qaPanel(item, entriesOverride = null) {
         <h3>Q&amp;A</h3>
         <div class="qa-list">
           ${entries.map((entry, index) => `
-            ${entry.groupHeading && entry.groupHeading !== entries[index - 1]?.groupHeading ? `<h4 class="overview-heading-row">${escapeHtml(entry.groupHeading)}</h4>` : ""}<details class="qa-item" data-qa-id="${escapeHtml(entry.managementId || '')}"${activeQaSearchItem === item && activeQaSearchId ? " open" : ""}>
+            <details class="qa-item" data-qa-id="${escapeHtml(entry.managementId || '')}"${activeQaSearchItem === item && activeQaSearchId ? " open" : ""}>
               <summary><span class="qa-marker">Q</span>${entry.difficult ? '<span class="qa-difficult-badge" title="難解な裁定" aria-label="難解な裁定">!</span>' : ""}<span class="qa-question">${linkedQaText(entry.question)}</span></summary>
               ${(entry.answers && entry.answers.length ? entry.answers : [entry]).map((answerEntry) => `
                 <div class="answer"><span>A</span><div class="answer-body">${renderAnswer(answerEntry.answer)}</div></div>
