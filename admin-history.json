@@ -1,6 +1,29 @@
 {
-  "sourceCommit": "3e43e4cbca82a391c84d511303dfe02ff35acf83",
+  "sourceCommit": "b3867ac767b862ce8e5dd70e6aff8fc1b9401ae0",
   "entries": [
+    {
+      "sha": "b3867ac767b862ce8e5dd70e6aff8fc1b9401ae0",
+      "author": "igaiundine",
+      "committer": "GitHub",
+      "authoredAt": "2026-11-25T00:14:23+09:00",
+      "date": "2026-11-25T00:14:23+09:00",
+      "message": "ナイトアサシン、ウォルフ",
+      "files": [
+        "admin-history.json",
+        "card-readings.js",
+        "index.html",
+        "night-assailant-1103.jpg",
+        "recent-updates.js",
+        "rulings-n-row.js",
+        "rulings-r-row.js",
+        "rulings-ra-bk-20261022.js",
+        "rulings-s-row-remaining.js",
+        "s-row-overview-fixes.js",
+        "site-release.js",
+        "sw.js",
+        "wulf-lightsworn-beast-1103.jpg"
+      ]
+    },
     {
       "sha": "3e43e4cbca82a391c84d511303dfe02ff35acf83",
       "author": "igaiundine",

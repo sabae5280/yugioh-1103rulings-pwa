@@ -4,7 +4,7 @@ window.RECENT_UPDATES = [
     "batch": "2026-11-25-lightsworn-assailant-xyz",
     "card": "ライトロード・ビースト ウォルフ",
     "change": "カード追加",
-    "summary": "実装担当：Codex。画像・概要・QA３件を追加し、ライトロードタグを設定",
+    "summary": "実装担当：igaiundine。画像・概要・QA３件を追加し、ライトロードタグを設定",
     "qaIds": [
       "R-WULF271BURIAL",
       "R-WULF271MILL",
@@ -16,7 +16,7 @@ window.RECENT_UPDATES = [
     "batch": "2026-11-25-lightsworn-assailant-xyz",
     "card": "深淵の暗殺者",
     "change": "カード追加",
-    "summary": "実装担当：Codex。画像・ルビ・エラッタ表示・旧テキストとQA３件を追加",
+    "summary": "実装担当：igaiundine。画像・ルビ・エラッタ表示・旧テキストとQA３件を追加",
     "qaIds": [
       "R-NIGHT271SELF",
       "R-NIGHT271SAME",
@@ -28,7 +28,7 @@ window.RECENT_UPDATES = [
     "batch": "2026-11-25-lightsworn-assailant-xyz",
     "card": "発条機甲ゼンマイスター",
     "change": "裁定整理",
-    "summary": "実装担当：Codex。素材による攻撃力アップ、表示形式変更、エンドフェイズの処理と既存QA４件を整理",
+    "summary": "実装担当：igaiundine。素材による攻撃力アップ、表示形式変更、エンドフェイズの処理と既存QA４件を整理",
     "qaIds": [
       "R-6GWQRNR88T",
       "R-WQUG4VP4BB",
@@ -41,7 +41,7 @@ window.RECENT_UPDATES = [
     "batch": "2026-11-25-lightsworn-assailant-xyz",
     "card": "No.16 色の支配者ショック・ルーラー",
     "change": "裁定整理",
-    "summary": "実装担当：Codex。宣言別の発動制限と適用期間を明記し、概要に入っていた３件をQAに戻して全７件を整理",
+    "summary": "実装担当：igaiundine。宣言別の発動制限と適用期間を明記し、概要に入っていた３件をQAに戻して全７件を整理",
     "qaIds": [
       "R-G3NN8US2JH",
       "R-WJT93P6YGW",
@@ -57,56 +57,56 @@ window.RECENT_UPDATES = [
     "batch": "2026-11-25-lightsworn-assailant-xyz",
     "card": "ライトロード・アーク ミカエル",
     "change": "タグ追加",
-    "summary": "実装担当：Codex。ライトロードタグを設定"
+    "summary": "実装担当：igaiundine。ライトロードタグを設定"
   },
   {
     "date": "2026-11-25",
     "batch": "2026-11-25-lightsworn-assailant-xyz",
     "card": "ライトロード・アーチャー フェリス",
     "change": "タグ追加",
-    "summary": "実装担当：Codex。ライトロードタグを設定"
+    "summary": "実装担当：igaiundine。ライトロードタグを設定"
   },
   {
     "date": "2026-11-25",
     "batch": "2026-11-25-lightsworn-assailant-xyz",
     "card": "ライトロード・アサシン ライデン",
     "change": "タグ追加",
-    "summary": "実装担当：Codex。ライトロードタグを設定"
+    "summary": "実装担当：igaiundine。ライトロードタグを設定"
   },
   {
     "date": "2026-11-25",
     "batch": "2026-11-25-lightsworn-assailant-xyz",
     "card": "ライトロード・ハンター ライコウ",
     "change": "タグ追加",
-    "summary": "実装担当：Codex。ライトロードタグを設定"
+    "summary": "実装担当：igaiundine。ライトロードタグを設定"
   },
   {
     "date": "2026-11-25",
     "batch": "2026-11-25-lightsworn-assailant-xyz",
     "card": "ライトロード・マジシャン ライラ",
     "change": "タグ追加",
-    "summary": "実装担当：Codex。ライトロードタグを設定"
+    "summary": "実装担当：igaiundine。ライトロードタグを設定"
   },
   {
     "date": "2026-11-25",
     "batch": "2026-11-25-lightsworn-assailant-xyz",
     "card": "ライトロード・メイデン ミネルバ",
     "change": "タグ追加",
-    "summary": "実装担当：Codex。ライトロードタグを設定"
+    "summary": "実装担当：igaiundine。ライトロードタグを設定"
   },
   {
     "date": "2026-11-25",
     "batch": "2026-11-25-lightsworn-assailant-xyz",
     "card": "ライトロード・モンク　エイリン",
     "change": "タグ追加",
-    "summary": "実装担当：Codex。ライトロードタグを設定"
+    "summary": "実装担当：igaiundine。ライトロードタグを設定"
   },
   {
     "date": "2026-11-24",
     "batch": "2026-11-24-chalice-blast-sphere-reincarnation",
     "card": "禁じられた聖杯",
     "change": "裁定整理",
-    "summary": "実装担当：Codex。概要・QAを整理。ライコウの対象選択と発動タイミングをDS表で示し、直接攻撃と２回目の攻撃のQAを掲載",
+    "summary": "実装担当：igaiundine。概要・QAを整理。ライコウの対象選択と発動タイミングをDS表で示し、直接攻撃と２回目の攻撃のQAを掲載",
     "qaIds": [
       "R-T2KGR",
       "R-54YAX",
@@ -118,7 +118,7 @@ window.RECENT_UPDATES = [
     "batch": "2026-11-24-chalice-blast-sphere-reincarnation",
     "card": "D・ラジカッセン",
     "change": "裁定整理",
-    "summary": "実装担当：Codex。聖杯で２回攻撃の効果が無効になるQAを、バトルステップとダメージステップの１件に統合",
+    "summary": "実装担当：igaiundine。聖杯で２回攻撃の効果が無効になるQAを、バトルステップとダメージステップの１件に統合",
     "qaIds": [
       "R-TWZ8PGJQ"
     ]
@@ -128,7 +128,7 @@ window.RECENT_UPDATES = [
     "batch": "2026-11-24-chalice-blast-sphere-reincarnation",
     "card": "スフィア・ボム 球体時限爆弾",
     "change": "カード追加",
-    "summary": "実装担当：Codex。カード画像・ルビ・概要・装備と破壊に関するQA４件を追加",
+    "summary": "実装担当：igaiundine。カード画像・ルビ・概要・装備と破壊に関するQA４件を追加",
     "qaIds": [
       "R-BLAST270DDWL",
       "R-BLAST270HORUS",
@@ -141,7 +141,7 @@ window.RECENT_UPDATES = [
     "batch": "2026-11-24-chalice-blast-sphere-reincarnation",
     "card": "異次元の女戦士",
     "change": "裁定整理",
-    "summary": "実装担当：Codex。スフィア・ボムとの処理をDS表に沿って記載し、同じQAに含まれていた伝説の柔術家の例を削除",
+    "summary": "実装担当：igaiundine。スフィア・ボムとの処理をDS表に沿って記載し、同じQAに含まれていた伝説の柔術家の例を削除",
     "qaIds": [
       "R-S6T5J87HQU"
     ]
@@ -151,7 +151,7 @@ window.RECENT_UPDATES = [
     "batch": "2026-11-24-chalice-blast-sphere-reincarnation",
     "card": "死者転生",
     "change": "カード追加",
-    "summary": "実装担当：Codex。カード画像・ルビ・概要と、捨てたカードを対象にする場合のQA３件を追加",
+    "summary": "実装担当：igaiundine。カード画像・ルビ・概要と、捨てたカードを対象にする場合のQA３件を追加",
     "qaIds": [
       "R-MR270EMPTY",
       "R-MR270TARGET",
@@ -163,7 +163,7 @@ window.RECENT_UPDATES = [
     "batch": "2026-11-24-chalice-blast-sphere-reincarnation",
     "card": "転生の予言",
     "change": "裁定修正",
-    "summary": "実装担当：Codex。クリッター、キャシー、ダンディライオンのQAを統合し、共通項目と回答・検証結果を統一",
+    "summary": "実装担当：igaiundine。クリッター、キャシー、ダンディライオンのQAを統合し、共通項目と回答・検証結果を統一",
     "qaIds": [
       "R-BC4NCT9YHH"
     ]
@@ -173,7 +173,7 @@ window.RECENT_UPDATES = [
     "batch": "2026-11-24-skull-meister-and-graveyard",
     "card": "スカル・マイスター",
     "change": "カード追加",
-    "summary": "実装担当：Codex。添付画像と1209・1402向けの概要、ダメージ計算時のQAを追加",
+    "summary": "実装担当：igaiundine。添付画像と1209・1402向けの概要、ダメージ計算時のQAを追加",
     "qaIds": [
       "R-SKME269DS"
     ]
@@ -183,7 +183,7 @@ window.RECENT_UPDATES = [
     "batch": "2026-11-24-skull-meister-and-graveyard",
     "card": "墓地に送られた場合に発動する強制効果",
     "change": "裁定解説の整理",
-    "summary": "実装担当：Codex。2011年9月のスカル・マイスターの裁定記録とTF6検証結果を難解QAの根拠に追記し、カードへのリンクを追加",
+    "summary": "実装担当：igaiundine。2011年9月のスカル・マイスターの裁定記録とTF6検証結果を難解QAの根拠に追記し、カードへのリンクを追加",
     "qaIds": [
       "R-JXZJUYHSLH",
       "R-HZKL4",
@@ -195,98 +195,98 @@ window.RECENT_UPDATES = [
     "batch": "2026-11-24-card-ruby-and-tg-links",
     "card": "TG サイバー・マジシャン",
     "change": "ルビ・リンク修正",
-    "summary": "実装担当：Codex。カード名の「ＴＧ」に「テックジーナス」のルビを追加し、概要の共通効果への案内をリンク化"
+    "summary": "実装担当：igaiundine。カード名の「ＴＧ」に「テックジーナス」のルビを追加し、概要の共通効果への案内をリンク化"
   },
   {
     "date": "2026-11-24",
     "batch": "2026-11-24-card-ruby-and-tg-links",
     "card": "TG ラッシュ・ライノ",
     "change": "リンク修正",
-    "summary": "実装担当：Codex。概要の《ＴＧ》共通効果への案内をリンク化"
+    "summary": "実装担当：igaiundine。概要の《ＴＧ》共通効果への案内をリンク化"
   },
   {
     "date": "2026-11-24",
     "batch": "2026-11-24-card-ruby-and-tg-links",
     "card": "TG ワーウルフ",
     "change": "リンク修正",
-    "summary": "実装担当：Codex。概要の《ＴＧ》共通効果への案内をリンク化"
+    "summary": "実装担当：igaiundine。概要の《ＴＧ》共通効果への案内をリンク化"
   },
   {
     "date": "2026-11-24",
     "batch": "2026-11-24-card-ruby-and-tg-links",
     "card": "魔轟神獣キャシー",
     "change": "ルビ追加",
-    "summary": "実装担当：Codex。カード名のルビと読みを登録"
+    "summary": "実装担当：igaiundine。カード名のルビと読みを登録"
   },
   {
     "date": "2026-11-24",
     "batch": "2026-11-24-card-ruby-and-tg-links",
     "card": "機械複製術",
     "change": "ルビ追加",
-    "summary": "実装担当：Codex。カード名のルビと読みを登録"
+    "summary": "実装担当：igaiundine。カード名のルビと読みを登録"
   },
   {
     "date": "2026-11-24",
     "batch": "2026-11-24-card-ruby-and-tg-links",
     "card": "緊急テレポート",
     "change": "ルビ追加",
-    "summary": "実装担当：Codex。カード名のルビと読みを登録"
+    "summary": "実装担当：igaiundine。カード名のルビと読みを登録"
   },
   {
     "date": "2026-11-24",
     "batch": "2026-11-24-card-ruby-and-tg-links",
     "card": "精霊の鏡",
     "change": "ルビ追加",
-    "summary": "実装担当：Codex。カード名のルビと読みを登録"
+    "summary": "実装担当：igaiundine。カード名のルビと読みを登録"
   },
   {
     "date": "2026-11-24",
     "batch": "2026-11-24-card-ruby-and-tg-links",
     "card": "暗黒界の術師 スノウ",
     "change": "ルビ追加",
-    "summary": "実装担当：Codex。カード名のルビと読みを登録"
+    "summary": "実装担当：igaiundine。カード名のルビと読みを登録"
   },
   {
     "date": "2026-11-24",
     "batch": "2026-11-24-card-ruby-and-tg-links",
     "card": "封印の黄金櫃",
     "change": "ルビ追加",
-    "summary": "実装担当：Codex。カード名のルビと読みを登録"
+    "summary": "実装担当：igaiundine。カード名のルビと読みを登録"
   },
   {
     "date": "2026-11-24",
     "batch": "2026-11-24-card-ruby-and-tg-links",
     "card": "デーモンの宣告",
     "change": "ルビ追加",
-    "summary": "実装担当：Codex。カード名のルビと読みを登録"
+    "summary": "実装担当：igaiundine。カード名のルビと読みを登録"
   },
   {
     "date": "2026-11-24",
     "batch": "2026-11-24-card-ruby-and-tg-links",
     "card": "水晶の占い師",
     "change": "ルビ追加",
-    "summary": "実装担当：Codex。カード名のルビと読みを登録"
+    "summary": "実装担当：igaiundine。カード名のルビと読みを登録"
   },
   {
     "date": "2026-11-24",
     "batch": "2026-11-24-card-ruby-and-tg-links",
     "card": "フレムベル・ウルキサス",
     "change": "読み登録",
-    "summary": "実装担当：Codex。カード名のカタカナ表記に合わせて読みを登録"
+    "summary": "実装担当：igaiundine。カード名のカタカナ表記に合わせて読みを登録"
   },
   {
     "date": "2026-11-24",
     "batch": "2026-11-24-card-ruby-and-tg-links",
     "card": "カードガード",
     "change": "読み登録",
-    "summary": "実装担当：Codex。カード名のカタカナ表記に合わせて読みを登録"
+    "summary": "実装担当：igaiundine。カード名のカタカナ表記に合わせて読みを登録"
   },
   {
     "date": "2026-11-24",
     "batch": "2026-11-24-graveyard-qa-polish",
     "card": "墓地に送られた場合に発動する強制効果",
     "change": "裁定解説の整理",
-    "summary": "実装担当：Codex。QAの不要な補足２枠を削除し、1103向け補足のタイトルとQAの文体を統一",
+    "summary": "実装担当：igaiundine。QAの不要な補足２枠を削除し、1103向け補足のタイトルとQAの文体を統一",
     "qaIds": [
       "R-BYDO1",
       "R-JXZJUYHSLH",
@@ -299,7 +299,7 @@ window.RECENT_UPDATES = [
     "batch": "2026-11-24-graveyard-qa-foldouts",
     "card": "墓地に送られた場合に発動する強制効果",
     "change": "裁定解説の整理",
-    "summary": "実装担当：Codex。概要を簡潔にし、Wikiの裁定記録とTF6での検証理由・結果を各QAの折りたたみ補足に移動。1103の発動場所を明記",
+    "summary": "実装担当：igaiundine。概要を簡潔にし、Wikiの裁定記録とTF6での検証理由・結果を各QAの折りたたみ補足に移動。1103の発動場所を明記",
     "qaIds": [
       "R-BYDO1",
       "R-JXZJUYHSLH",
@@ -312,7 +312,7 @@ window.RECENT_UPDATES = [
     "batch": "2026-11-24-graveyard-mandatory-and-rulings",
     "card": "墓地に送られた場合に発動する強制効果",
     "change": "テーマ追加",
-    "summary": "実装担当：Codex。TF6検証と旧裁定を基に、発動前に墓地から移動した場合の処理と環境別QA５件を掲載",
+    "summary": "実装担当：igaiundine。TF6検証と旧裁定を基に、発動前に墓地から移動した場合の処理と環境別QA５件を掲載",
     "qaIds": [
       "R-BYDO1",
       "R-JXZJUYHSLH",
@@ -326,14 +326,14 @@ window.RECENT_UPDATES = [
     "batch": "2026-11-24-graveyard-mandatory-and-rulings",
     "card": "墓地に送られた場合に発動する強制効果",
     "change": "画像更新",
-    "summary": "実装担当：Codex。提供された５枚のイラストを使ったテーマカバーを掲載"
+    "summary": "実装担当：igaiundine。提供された５枚のイラストを使ったテーマカバーを掲載"
   },
   {
     "date": "2026-11-24",
     "batch": "2026-11-24-graveyard-mandatory-and-rulings",
     "card": "魔轟神獣キャシー",
     "change": "カード追加",
-    "summary": "実装担当：Codex。カード画像、概要、手札調整のQA、共通裁定へのリンクを掲載",
+    "summary": "実装担当：igaiundine。カード画像、概要、手札調整のQA、共通裁定へのリンクを掲載",
     "qaIds": [
       "R-CATHY265HANDSIZE"
     ]
@@ -343,28 +343,28 @@ window.RECENT_UPDATES = [
     "batch": "2026-11-24-graveyard-mandatory-and-rulings",
     "card": "クリッター",
     "change": "裁定修正",
-    "summary": "実装担当：Codex。発動前に墓地から移動した場合のQAを共通項目へ統合"
+    "summary": "実装担当：igaiundine。発動前に墓地から移動した場合のQAを共通項目へ統合"
   },
   {
     "date": "2026-11-24",
     "batch": "2026-11-24-graveyard-mandatory-and-rulings",
     "card": "ダンディライオン",
     "change": "裁定修正",
-    "summary": "実装担当：Codex。発動前に墓地から移動した場合のQAを共通項目へ統合"
+    "summary": "実装担当：igaiundine。発動前に墓地から移動した場合のQAを共通項目へ統合"
   },
   {
     "date": "2026-11-24",
     "batch": "2026-11-24-graveyard-mandatory-and-rulings",
     "card": "【魔轟神】共通効果",
     "change": "裁定修正",
-    "summary": "実装担当：Codex。墓地から移動した場合の裁定を新しい共通項目へ統合"
+    "summary": "実装担当：igaiundine。墓地から移動した場合の裁定を新しい共通項目へ統合"
   },
   {
     "date": "2026-11-24",
     "batch": "2026-11-24-graveyard-mandatory-and-rulings",
     "card": "アマゾネス訓練生",
     "change": "裁定修正",
-    "summary": "実装担当：Codex。戦闘破壊後にデッキへ戻す処理と、戻ったカードの効果に関するQA４件を掲載",
+    "summary": "実装担当：igaiundine。戦闘破壊後にデッキへ戻す処理と、戻ったカードの効果に関するQA４件を掲載",
     "qaIds": [
       "R-AMZT265MAIN",
       "R-AMZT265EXTRA",
@@ -377,7 +377,7 @@ window.RECENT_UPDATES = [
     "batch": "2026-11-24-graveyard-mandatory-and-rulings",
     "card": "王宮の弾圧",
     "change": "裁定修正",
-    "summary": "実装担当：Codex。特殊召喚を無効にできる例と、墓地で発動した《ネフティスの鳳凰神》の処理を整理",
+    "summary": "実装担当：igaiundine。特殊召喚を無効にできる例と、墓地で発動した《ネフティスの鳳凰神》の処理を整理",
     "qaIds": [
       "R-RWVNX37SKG"
     ]
@@ -387,7 +387,7 @@ window.RECENT_UPDATES = [
     "batch": "2026-11-24-graveyard-mandatory-and-rulings",
     "card": "フレムベル・ウルキサス",
     "change": "カード追加",
-    "summary": "実装担当：Codex。カード画像、フレムベルタグ、貫通と攻撃力上昇の概要・QAを掲載",
+    "summary": "実装担当：igaiundine。カード画像、フレムベルタグ、貫通と攻撃力上昇の概要・QAを掲載",
     "qaIds": [
       "R-FU265BOOST"
     ]
