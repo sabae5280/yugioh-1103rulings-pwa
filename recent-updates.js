@@ -1,6 +1,70 @@
 window.RECENT_UPDATES = [
   {
     "date": "2026-11-25",
+    "batch": "2026-11-25-crevice-assailant-royal-curse",
+    "card": "異次元への隙間",
+    "change": "カード追加",
+    "summary": "実装担当：igaiundine。画像・ルビと、対象の選び方や除外処理の概要・QA４件を追加",
+    "qaIds": [
+      "R-4LI1E",
+      "R-ULWCF",
+      "R-KMANG",
+      "R-AMOYH"
+    ]
+  },
+  {
+    "date": "2026-11-25",
+    "batch": "2026-11-25-crevice-assailant-royal-curse",
+    "card": "D.D.アサイラント",
+    "change": "カード追加",
+    "summary": "実装担当：igaiundine。画像・ルビと、発動タイミング、相打ち、《スキルドレイン》《イビリチュア・メロウガイスト》のQA３件を追加",
+    "qaIds": [
+      "R-UX01J",
+      "R-4WLQI",
+      "R-EW7FH"
+    ]
+  },
+  {
+    "date": "2026-11-25",
+    "batch": "2026-11-25-crevice-assailant-royal-curse",
+    "card": "王家の呪い",
+    "change": "裁定修正",
+    "summary": "実装担当：igaiundine。TF6の検証結果に基づき、《Ｒ－ライトジャスティス》への発動可否を３環境とも発動不可に修正し、検証の経緯を難解QAに記載",
+    "qaIds": [
+      "R-IV7VELHA"
+    ]
+  },
+  {
+    "date": "2026-11-25",
+    "batch": "2026-11-25-crevice-assailant-royal-curse",
+    "card": "Ｒ－ライトジャスティス",
+    "change": "裁定整理",
+    "summary": "実装担当：igaiundine。表側表示の「Ｅ・ＨＥＲＯ」が１枚の場合に《王家の呪い》をチェーンできない難解QAを追加",
+    "qaIds": [
+      "R-RJROYAL"
+    ]
+  },
+  {
+    "date": "2026-11-25",
+    "batch": "2026-11-25-crevice-assailant-royal-curse",
+    "card": "ヒーロー・ブラスト",
+    "change": "裁定整理",
+    "summary": "実装担当：igaiundine。発動条件、墓地からの回収と破壊の処理を整理し、既存QA３件を処理順に整理",
+    "qaIds": [
+      "R-COYOY",
+      "R-QGQ9MH3DYN",
+      "R-8DCS9RQLTH"
+    ]
+  },
+  {
+    "date": "2026-11-25",
+    "batch": "2026-11-25-crevice-assailant-royal-curse",
+    "card": "スノーマンイーター",
+    "change": "概要更新",
+    "summary": "実装担当：igaiundine。発動条件、対象の選び方、ダメージステップの発動タイミングと破壊処理を整理"
+  },
+  {
+    "date": "2026-11-25",
     "batch": "2026-11-25-battle-fusion-royal-curse",
     "card": "罰則金",
     "change": "カード追加",

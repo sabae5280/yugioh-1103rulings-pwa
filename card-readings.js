@@ -1952,3 +1952,9 @@ window.CARD_TITLE_READINGS["罰則金"] = "ばっそくきん";
 
 window.CARD_TITLE_RUBY["沼地の魔神王"] = [["沼地", "ぬまち"], ["の"], ["魔神王", "ましんおう"]];
 window.CARD_TITLE_READINGS["沼地の魔神王"] = "ぬまちのましんおう";
+
+window.CARD_TITLE_RUBY["異次元への隙間"] = [["異次元", "いじげん"], ["への"], ["隙間", "すきま"]];
+window.CARD_TITLE_READINGS["異次元への隙間"] = "いじげんへのすきま";
+
+window.CARD_TITLE_RUBY["D.D.アサイラント"] = [["D.D.", "ディー．ディー"], ["アサイラント"]];
+window.CARD_TITLE_READINGS["D.D.アサイラント"] = "ディーディーアサイラント";

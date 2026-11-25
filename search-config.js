@@ -1,6 +1,6 @@
 // Display order follows this array. Definitions are supplied by the site owner.
 window.RULING_SEARCH_CONFIG = {
-  aliases: { 'ダメステ': 'ダメージステップ' },
+  aliases: { 'ダメステ': 'ダメージステップ', 'DDアサイラント': 'D.D.アサイラント' },
   terms: [
     { label: '召喚ルール効果', aliases: ['召喚ルール'], description: '条件によるCBを作らない特殊召喚を可能にする分類されない効果を指す俗称。' },
     { label: '手札誘発', description: '手札に存在する状態で発動する誘発効果・誘発即時効果の俗称。通常の優先権のルールに従い発動するなど、特殊なルールが存在。' },

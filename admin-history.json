@@ -1,6 +1,35 @@
 {
-  "sourceCommit": "1e85fe781ff03ba044ecd66568a4cf6f8b525fcb",
+  "sourceCommit": "27405b36a51f44677894c01f0f4e9d7bc5d8a3fa",
   "entries": [
+    {
+      "sha": "27405b36a51f44677894c01f0f4e9d7bc5d8a3fa",
+      "author": "igaiundine",
+      "committer": "GitHub",
+      "authoredAt": "2026-11-25T10:34:56+09:00",
+      "date": "2026-11-25T10:34:56+09:00",
+      "message": "沼地、罰則金、R整理",
+      "files": [
+        "admin-history.json",
+        "card-readings.js",
+        "index.html",
+        "king-of-the-swamp-1103.jpg",
+        "penalty-box-1103.jpg",
+        "r-righteous-justice-starlight-road-example.jpg",
+        "recent-updates.js",
+        "rulings-a-row-batch-05.js",
+        "rulings-aoj-justice-20261108.js",
+        "rulings-birdman-theme-20261108.js",
+        "rulings-fusion-cards-20261102.js",
+        "rulings-h-row.js",
+        "rulings-ha-20261022.js",
+        "rulings-hero-ancient-overviews-20261118.js",
+        "rulings-n-row.js",
+        "rulings-psychicker-rulings-20261123.js",
+        "rulings-t-row.js",
+        "site-release.js",
+        "sw.js"
+      ]
+    },
     {
       "sha": "1e85fe781ff03ba044ecd66568a4cf6f8b525fcb",
       "author": "igaiundine",
