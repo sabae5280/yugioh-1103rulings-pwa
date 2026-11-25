@@ -1967,3 +1967,12 @@ window.CARD_TITLE_READINGS["お注射天使リリー"] = "おちゅうしゃて�
 
 window.CARD_TITLE_RUBY["マシュマロン"] = [["マシュマロン"]];
 window.CARD_TITLE_READINGS["マシュマロン"] = "マシュマロン";
+
+window.CARD_TITLE_RUBY["ヒーローアライブ"] = [["ヒーローアライブ"]];
+window.CARD_TITLE_READINGS["ヒーローアライブ"] = "ヒーローアライブ";
+
+window.CARD_TITLE_RUBY["ドラグニティ－ファランクス"] = [["ドラグニティ－ファランクス"]];
+window.CARD_TITLE_READINGS["ドラグニティ－ファランクス"] = "ドラグニティファランクス";
+
+window.CARD_TITLE_RUBY["マジック・ドレイン"] = [["マジック・ドレイン"]];
+window.CARD_TITLE_READINGS["マジック・ドレイン"] = "マジックドレイン";

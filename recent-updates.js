@@ -1,6 +1,140 @@
 window.RECENT_UPDATES = [
   {
     "date": "2026-11-25",
+    "batch": "2026-11-25-v277",
+    "card": "竜の渓谷",
+    "change": "タグ追加",
+    "summary": "実装担当：igaiundine。ドラグニティモンスターと共通の「【ドラグニティ】」タグを追加"
+  },
+  {
+    "date": "2026-11-25",
+    "batch": "2026-11-25-v277",
+    "card": "マジック・ドレイン",
+    "change": "カード追加",
+    "summary": "実装担当：igaiundine。カード画像、発動条件と効果処理の概要、魔法カードを捨てるタイミングと《豊穣のアルテミス》のQAを追加",
+    "qaIds": [
+      "R-MDRAINTIMING",
+      "R-MDRAINARTEMIS"
+    ]
+  },
+  {
+    "date": "2026-11-25",
+    "batch": "2026-11-25-v277",
+    "card": "ドラグニティ－ファランクス",
+    "change": "カード追加",
+    "summary": "実装担当：igaiundine。カード画像、装備状態からの特殊召喚の概要とQA３件、ドラグニティタグを追加",
+    "qaIds": [
+      "R-PHLMULTI",
+      "R-PHLSET",
+      "R-PHLVOID"
+    ]
+  },
+  {
+    "date": "2026-11-25",
+    "batch": "2026-11-25-v277",
+    "card": "《ドラグニティ》共通効果",
+    "change": "裁定整理",
+    "summary": "実装担当：igaiundine。墓地から装備する処理、装備中の効果、装備効果が無効になった場合の概要・QAを整理",
+    "qaIds": [
+      "R-7SSK5JZN3R",
+      "R-K9CU8YWY8B",
+      "R-FU4M92TGSR",
+      "R-ZCEV48ZJD9",
+      "R-M7QMGUHFLW"
+    ]
+  },
+  {
+    "date": "2026-11-25",
+    "batch": "2026-11-25-v277",
+    "card": "ドラグニティ-アキュリス",
+    "change": "裁定整理",
+    "summary": "実装担当：igaiundine。特殊召喚・装備・破壊の概要とQAを整理し、発動前の墓地移動について強制効果の共通項目へのリンクを追加。ドラグニティタグを追加",
+    "qaIds": [
+      "R-TQ6GUGTDZG",
+      "R-GG6CU4ZV65",
+      "R-XZANH97EE4",
+      "R-MUGAAN4RBV",
+      "R-VZCLUWT6ZH",
+      "R-7AUK4CXR2R",
+      "R-Y8C5S86SHE",
+      "R-J6D5JJ5RRJ",
+      "R-FAM27G2WR5",
+      "R-JWPF38Q4PD"
+    ]
+  },
+  {
+    "date": "2026-11-25",
+    "batch": "2026-11-25-v277",
+    "card": "ドラグニティアームズ－ミスティル",
+    "change": "裁定整理",
+    "summary": "実装担当：igaiundine。チェーンブロックを作らない特殊召喚の手順と、墓地のモンスターを装備する効果の概要・QAを整理。ドラグニティタグを追加",
+    "qaIds": [
+      "R-K3D9CRJPK9",
+      "R-5SP4MNVG4V",
+      "R-9SU9PGK6XA"
+    ]
+  },
+  {
+    "date": "2026-11-25",
+    "batch": "2026-11-25-v277",
+    "card": "ドラグニティナイト-ヴァジュランダ",
+    "change": "裁定整理",
+    "summary": "実装担当：igaiundine。シンクロ素材、装備効果、攻撃力を倍にする効果の概要・QAを整理し、チューナータグを修正。ドラグニティタグを追加",
+    "qaIds": [
+      "R-9CERQ5QRL3",
+      "R-KT4T9QN3ZT"
+    ]
+  },
+  {
+    "date": "2026-11-25",
+    "batch": "2026-11-25-v277",
+    "card": "ドラグニティナイト-ガジャルグ",
+    "change": "裁定整理",
+    "summary": "実装担当：igaiundine。シンクロ素材、手札に加えてから捨てる処理、《ライオウ》適用時の概要・QAを整理し、チューナータグを修正。ドラグニティタグを追加",
+    "qaIds": [
+      "R-EPUYKVRS8G",
+      "R-JVDW74RYFH",
+      "R-4CLWZSD7NV",
+      "R-97GUKKYX7A"
+    ]
+  },
+  {
+    "date": "2026-11-25",
+    "batch": "2026-11-25-v277",
+    "card": "TG1-EM1",
+    "change": "裁定整理",
+    "summary": "実装担当：igaiundine。《ジェネレーション・チェンジ》の対象モンスターのコントロールを入れ替えた場合の難解QAとTF6での検証結果を追加",
+    "qaIds": [
+      "R-TG1GC"
+    ]
+  },
+  {
+    "date": "2026-11-25",
+    "batch": "2026-11-25-v277",
+    "card": "ジェネレーション・チェンジ",
+    "change": "裁定整理",
+    "summary": "実装担当：igaiundine。概要の整理、破壊と手札に加える処理などのQA５件を追加し、《TG1－EM1》に関する難解QAにTF6検証結果を追記",
+    "qaIds": [
+      "R-GCORDER",
+      "R-GCZOMA",
+      "R-GCPROTO",
+      "R-GCSET",
+      "R-G8RV7",
+      "R-GCBARON"
+    ]
+  },
+  {
+    "date": "2026-11-25",
+    "batch": "2026-11-25-v277",
+    "card": "ヒーローアライブ",
+    "change": "カード追加",
+    "summary": "実装担当：igaiundine。カード画像と、発動条件・ＬＰコストの概要、効果処理時に表側表示モンスターが存在する場合のQAを追加",
+    "qaIds": [
+      "R-HLV1"
+    ]
+  },
+  {
+    "date": "2026-11-25",
     "batch": "2026-11-25-v276",
     "card": "大天使クリスティア",
     "change": "裁定整理",

@@ -688,6 +688,7 @@ window.R_ROW_RULINGS = [
   {
     "name": "竜の渓谷",
     "type": "spell",
+    "specialTags": ["【ドラグニティ】"],
     "reading": "りゅうのけいこく",
     "image": "./images/r-row/r-08.png",
     "environments": [

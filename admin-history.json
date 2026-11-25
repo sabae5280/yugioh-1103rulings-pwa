@@ -1,6 +1,33 @@
 {
-  "sourceCommit": "6bf89c0e2410338f349531952ad82f770fbb72a7",
+  "sourceCommit": "41b1955f62de41305a489963f81cd4d1bd1c8dd5",
   "entries": [
+    {
+      "sha": "41b1955f62de41305a489963f81cd4d1bd1c8dd5",
+      "author": "igaiundine",
+      "committer": "GitHub",
+      "authoredAt": "2026-11-25T12:50:31+09:00",
+      "date": "2026-11-25T12:50:31+09:00",
+      "message": "HERO関連調整、リリー、ミラクル、マシュマロン",
+      "files": [
+        "admin-history.json",
+        "card-readings.js",
+        "index.html",
+        "injection-fairy-lily-1103.jpg",
+        "marshmallon-1103.jpg",
+        "miracle-fusion-1103.jpg",
+        "recent-updates.js",
+        "rulings-a-row-batch-04.js",
+        "rulings-econ-squirrel-20261104.js",
+        "rulings-m-row.js",
+        "rulings-macro-trap-eater-20261106.js",
+        "rulings-pachy-vanity-zephyros-20261116.js",
+        "rulings-prison-apprentice-20261104.js",
+        "rulings-s-row-remaining.js",
+        "s-row-overview-fixes.js",
+        "site-release.js",
+        "sw.js"
+      ]
+    },
     {
       "sha": "6bf89c0e2410338f349531952ad82f770fbb72a7",
       "author": "igaiundine",
