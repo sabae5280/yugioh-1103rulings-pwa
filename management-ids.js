@@ -119,6 +119,7 @@ window.STANDARD_MANAGEMENT_IDS = {
     "E・HERO アナザー・ネオス": "38435",
     "E・HERO アブソルートZero": "19057",
     "E・HERO エアーマン": "54811",
+    "E・HERO オーシャン": "94557",
     "E・HERO ガイア": "92788",
     "E・HERO Great TORNADO": "55940",
     "E・HERO The シャイニング": "86896",
