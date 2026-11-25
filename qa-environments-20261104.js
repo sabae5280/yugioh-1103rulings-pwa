@@ -43,6 +43,7 @@
   }
   const cache = new WeakMap();
   window.supportedQaEnvironments = function (entry, item) {
+    if (entry.supportedEnvironments?.length) return entry.supportedEnvironments;
     const original = entry.environments || item.environments || ['1103'];
     // 時代別の回答は親QA・個別回答とも指定をそのまま維持する。
     if (entry.answers?.length || splitAnswers.has(entry)) return original;

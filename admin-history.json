@@ -1,6 +1,30 @@
 {
-  "sourceCommit": "41b1955f62de41305a489963f81cd4d1bd1c8dd5",
+  "sourceCommit": "e8307ec0a82b130b9be599dd63621930c29825ae",
   "entries": [
+    {
+      "sha": "e8307ec0a82b130b9be599dd63621930c29825ae",
+      "author": "igaiundine",
+      "committer": "GitHub",
+      "authoredAt": "2026-11-25T14:01:25+09:00",
+      "date": "2026-11-25T14:01:25+09:00",
+      "message": "アライブ、ファランクス、マジックドレイン追加、ドラグ整理",
+      "files": [
+        "a-hero-lives-1103.jpg",
+        "admin-history.json",
+        "card-readings.js",
+        "dragunity-phalanx-1103.jpg",
+        "index.html",
+        "magic-drain-1103.jpg",
+        "recent-updates.js",
+        "rulings-h-row.js",
+        "rulings-m-row.js",
+        "rulings-r-row.js",
+        "rulings-s-row.js",
+        "rulings-t-row.js",
+        "site-release.js",
+        "sw.js"
+      ]
+    },
     {
       "sha": "41b1955f62de41305a489963f81cd4d1bd1c8dd5",
       "author": "igaiundine",
