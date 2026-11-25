@@ -1,6 +1,22 @@
 {
-  "sourceCommit": "b3867ac767b862ce8e5dd70e6aff8fc1b9401ae0",
+  "sourceCommit": "1e85fe781ff03ba044ecd66568a4cf6f8b525fcb",
   "entries": [
+    {
+      "sha": "1e85fe781ff03ba044ecd66568a4cf6f8b525fcb",
+      "author": "igaiundine",
+      "committer": "GitHub",
+      "authoredAt": "2026-11-25T09:01:42+09:00",
+      "date": "2026-11-25T09:01:42+09:00",
+      "message": "実装担当変更",
+      "files": [
+        "AGENTS.md",
+        "admin-history.json",
+        "index.html",
+        "recent-updates.js",
+        "site-release.js",
+        "sw.js"
+      ]
+    },
     {
       "sha": "b3867ac767b862ce8e5dd70e6aff8fc1b9401ae0",
       "author": "igaiundine",

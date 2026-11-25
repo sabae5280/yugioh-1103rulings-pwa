@@ -1946,3 +1946,9 @@ window.CARD_TITLE_READINGS["ライトロード・ビースト ウォルフ"] = "
 window.CARD_READINGS["深淵の暗殺者"] = "ナイトアサシン";
 window.CARD_TITLE_RUBY["深淵の暗殺者"] = [["深淵の暗殺者", "ナイト・アサシン"]];
 window.CARD_TITLE_READINGS["深淵の暗殺者"] = "ナイト・アサシン";
+
+window.CARD_TITLE_RUBY["罰則金"] = [["罰", "ばっ"], ["則", "そく"], ["金", "きん"]];
+window.CARD_TITLE_READINGS["罰則金"] = "ばっそくきん";
+
+window.CARD_TITLE_RUBY["沼地の魔神王"] = [["沼地", "ぬまち"], ["の"], ["魔神王", "ましんおう"]];
+window.CARD_TITLE_READINGS["沼地の魔神王"] = "ぬまちのましんおう";

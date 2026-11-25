@@ -1,6 +1,126 @@
 window.RECENT_UPDATES = [
   {
     "date": "2026-11-25",
+    "batch": "2026-11-25-battle-fusion-royal-curse",
+    "card": "罰則金",
+    "change": "カード追加",
+    "summary": "実装担当：igaiundine。カード画像・ルビ、発動条件と手札が１枚になった場合のQAを追加",
+    "qaIds": [
+      "R-K8NF8"
+    ]
+  },
+  {
+    "date": "2026-11-25",
+    "batch": "2026-11-25-battle-fusion-royal-curse",
+    "card": "沼地の魔神王",
+    "change": "カード追加",
+    "summary": "実装担当：igaiundine。カード画像・ルビ、融合素材の代用と《融合》のサーチの概要、QA２件を追加",
+    "qaIds": [
+      "R-38NBN",
+      "R-D890M"
+    ]
+  },
+  {
+    "date": "2026-11-25",
+    "batch": "2026-11-25-battle-fusion-royal-curse",
+    "card": "王家の呪い",
+    "change": "裁定整理",
+    "summary": "実装担当：igaiundine。１枚破壊に対する2016年10月の裁定変更を追記。《Ｒ－ライトジャスティス》と《大嵐》の根拠、《我が身を盾に》の事例を掲載し、《マジック・ドレイン》を独立したQAに整理",
+    "qaIds": [
+      "R-ROYALMYBODY",
+      "R-ROYALMDRAIN",
+      "R-IV7VELHA",
+      "R-4QGPT8TE6L"
+    ]
+  },
+  {
+    "date": "2026-11-25",
+    "batch": "2026-11-25-battle-fusion-royal-curse",
+    "card": "Ｒ－ライトジャスティス",
+    "change": "裁定・資料更新",
+    "summary": "実装担当：igaiundine。発動条件と破壊処理を整理し、《スターライト・ロード》を発動できる盤面の写真をQAに追加",
+    "qaIds": [
+      "R-7R7JV"
+    ]
+  },
+  {
+    "date": "2026-11-25",
+    "batch": "2026-11-25-battle-fusion-royal-curse",
+    "card": "超融合",
+    "change": "裁定整理",
+    "summary": "実装担当：igaiundine。発動条件、チェーン制限、融合素材の選び方を整理し、QAを処理順に並べ替え",
+    "qaIds": [
+      "R-RR7ZG6NRFK",
+      "R-FE5DKZT57Q",
+      "R-ZNNJPA4EE3"
+    ]
+  },
+  {
+    "date": "2026-11-25",
+    "batch": "2026-11-25-battle-fusion-royal-curse",
+    "card": "ジュラック・グアイバ",
+    "change": "裁定整理",
+    "summary": "実装担当：igaiundine。戦闘相手ごとの補足とQAを整理し、同様の発動条件を持つ主なカードの例を追記",
+    "qaIds": [
+      "R-7MHN9",
+      "R-PC2590402",
+      "R-TOH6E",
+      "R-PC2590404",
+      "R-3O2VD",
+      "R-9P9SG"
+    ]
+  },
+  {
+    "date": "2026-11-25",
+    "batch": "2026-11-25-battle-fusion-royal-curse",
+    "card": "アーマード・サイキッカー",
+    "change": "概要更新",
+    "summary": "実装担当：igaiundine。戦闘破壊後の処理から《ジュラック・グアイバ》のQAへの案内を追加"
+  },
+  {
+    "date": "2026-11-25",
+    "batch": "2026-11-25-battle-fusion-royal-curse",
+    "card": "極戦機王ヴァルバロイド",
+    "change": "概要更新",
+    "summary": "実装担当：igaiundine。戦闘破壊後の処理から《ジュラック・グアイバ》のQAへの案内を追加"
+  },
+  {
+    "date": "2026-11-25",
+    "batch": "2026-11-25-battle-fusion-royal-curse",
+    "card": "コアキメイル・クルセイダー",
+    "change": "概要更新",
+    "summary": "実装担当：igaiundine。戦闘破壊後の処理から《ジュラック・グアイバ》のQAへの案内を追加"
+  },
+  {
+    "date": "2026-11-25",
+    "batch": "2026-11-25-battle-fusion-royal-curse",
+    "card": "ヒュグロの魔導書",
+    "change": "概要更新",
+    "summary": "実装担当：igaiundine。戦闘破壊後の処理から《ジュラック・グアイバ》のQAへの案内を追加"
+  },
+  {
+    "date": "2026-11-25",
+    "batch": "2026-11-25-battle-fusion-royal-curse",
+    "card": "E・HERO ガイア",
+    "change": "概要更新",
+    "summary": "実装担当：igaiundine。特殊召喚の条件の表記を統一"
+  },
+  {
+    "date": "2026-11-25",
+    "batch": "2026-11-25-battle-fusion-royal-curse",
+    "card": "E・HERO Great TORNADO",
+    "change": "概要更新",
+    "summary": "実装担当：igaiundine。特殊召喚の条件の表記を統一"
+  },
+  {
+    "date": "2026-11-25",
+    "batch": "2026-11-25-battle-fusion-royal-curse",
+    "card": "E・HERO バブルマン",
+    "change": "概要更新",
+    "summary": "実装担当：igaiundine。ドロー効果の発動タイミングに関する補足１項目を削除"
+  },
+  {
+    "date": "2026-11-25",
     "batch": "2026-11-25-lightsworn-assailant-xyz",
     "card": "ライトロード・ビースト ウォルフ",
     "change": "カード追加",
