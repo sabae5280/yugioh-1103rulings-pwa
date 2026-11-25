@@ -158,6 +158,7 @@ const allRulings = window.RULINGS
   .sort((a, b) => japaneseCollator.compare(kanaSortKey(a), kanaSortKey(b)));
 
 // Keep Q&A IDs stable across reloads and reserve IDs already assigned to entries.
+const previousManagementIds = new WeakMap();
 const usedManagementIds = new Set();
 const usedQaIds = new Set();
 for (const item of allRulings) {
@@ -228,23 +229,30 @@ function normalizedManagementId(value) {
 }
 function itemByManagementId(value) {
   const wanted = normalizedManagementId(value);
-  return allRulings.find((item) => [item.id, item.managementId, item.overviewManagementId]
+  return allRulings.find((item) => [item.id, item.managementId, item.overviewManagementId, previousManagementIds.get(item)]
     .some((id) => normalizedManagementId(id) === wanted)) || null;
 }
 function rulingByManagementId(value) {
-  const item = itemByManagementId(value);
-  if (item) return { item, entry: null };
-  const wanted = normalizedManagementId(value);
+  const raw = String(value || "").trim().replace(/^ID\s*:\s*/i, "");
+  if (!/^R-/i.test(raw)) {
+    const item = itemByManagementId(raw);
+    if (item) return { item, entry: null };
+  }
+  const wanted = normalizedManagementId(raw);
   for (const card of allRulings) {
     for (const entry of card.qa || []) {
-      if ([entry.managementId, ...(entry.managementIdAliases || [])].some(id => normalizedManagementId(id) === wanted)) return { item: card, entry };
+      if ([entry.managementId, previousManagementIds.get(entry), ...(entry.managementIdAliases || [])].some(id => normalizedManagementId(id) === wanted)) return { item: card, entry };
     }
   }
   return null;
 }
+function qaManagementSetting(settings, entry) {
+  return settings?.[entry.managementId] || settings?.[previousManagementIds.get(entry)] || [];
+}
+
 function directManagementIdQuery(value) {
-  const raw = String(value || "").trim();
-  if (/^(?:ID\s*:\s*)?R-[A-Z0-9-]{5,}$/i.test(raw) || /^\d{5}$/.test(raw)) {
+  const raw = String(value || "").trim().replace(/^ID\s*:\s*/i, "");
+  if (/^R-[A-Z0-9-]{4,}$/i.test(raw) || /^\d{5}$/.test(raw)) {
     return rulingByManagementId(raw);
   }
   return null;
@@ -312,6 +320,13 @@ for (const update of window.SAMURAI_OVERVIEW_QA_UPDATES_20261106 || []) {
   if (!target) throw new Error("Missing updated card: " + update.name);
   Object.assign(target, JSON.parse(JSON.stringify(update)));
 }
+
+window.assignStandardManagementIds?.(
+  allRulings,
+  new Set(missingQaIds.map(({ entry }) => entry)),
+  previousManagementIds,
+  normalizedManagementId
+);
 
 const referencePopularity = new Map();
 
@@ -602,7 +617,7 @@ function orderedQa(item) {
   const outsideReference = referencedCardName === item.name && !environmentMatches(item.environments);
   const entries = (item.qa || []).filter((entry) => outsideReference || environmentMatches(qaEnvironments(entry, item)));
   const pinnedFirst = entries.filter((entry) => entry.pinFirst);
-  const pinnedLast = entries.filter((entry) => entry.managementId === "R-W79LJTECPZ" && !entry.pinFirst);
+  const pinnedLast = entries.filter((entry) => (previousManagementIds.get(entry) ?? entry.managementId) === "R-W79LJTECPZ" && !entry.pinFirst);
   const pinnedFirstSet = new Set(pinnedFirst);
   const pinnedLastSet = new Set(pinnedLast);
   return [
@@ -1247,7 +1262,7 @@ function firstCardEnvironment(item) {
 
 function newRulingsFor(item, environment) {
   return (item.qa || []).filter(entry => {
-    const marked = [...(entry.newInEnvironments || []), ...(searchConfig.newRulings?.[entry.managementId] || []), ...(entry.environments || [])];
+    const marked = [...(entry.newInEnvironments || []), ...qaManagementSetting(searchConfig.newRulings, entry), ...(entry.environments || [])];
     return marked.includes(environment);
   });
 }
@@ -1781,7 +1796,7 @@ function filterTagsFor(item) {
   const tags = new Set([...tagsFor(item), ...(item.tags || []), ...(item.rulingTags || []), ...(searchConfig.cardTags[item.name] || [])]);
   if (item.errataNotice) tags.add('エラッタ');
   for (const entry of orderedQa(item)) {
-    for (const tag of [...(entry.tags || []), ...(entry.specialTags || []), ...(searchConfig.qaTags[entry.managementId] || [])]) tags.add(tag);
+    for (const tag of [...(entry.tags || []), ...(entry.specialTags || []), ...qaManagementSetting(searchConfig.qaTags, entry)]) tags.add(tag);
   }
   for (const term of searchConfig.terms) {
     if ((term.aliases || []).some(alias => tags.has(alias))) tags.add(term.label);
