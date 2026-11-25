@@ -1,6 +1,31 @@
 {
-  "sourceCommit": "27405b36a51f44677894c01f0f4e9d7bc5d8a3fa",
+  "sourceCommit": "f614c06ae75e96181c4beb580daff67e3b575c63",
   "entries": [
+    {
+      "sha": "f614c06ae75e96181c4beb580daff67e3b575c63",
+      "author": "igaiundine",
+      "committer": "GitHub",
+      "authoredAt": "2026-11-25T11:23:29+09:00",
+      "date": "2026-11-25T11:23:29+09:00",
+      "message": "隙間、アサイ",
+      "files": [
+        "admin-history.json",
+        "card-readings.js",
+        "crevice-into-the-different-dimension-1103.jpg",
+        "dd-assailant-1103.jpg",
+        "index.html",
+        "recent-updates.js",
+        "rulings-a-row-batch-04.js",
+        "rulings-a-row-batch-05.js",
+        "rulings-aoj-justice-20261108.js",
+        "rulings-h-row.js",
+        "rulings-s-row-remaining.js",
+        "rulings-t-row.js",
+        "search-config.js",
+        "site-release.js",
+        "sw.js"
+      ]
+    },
     {
       "sha": "27405b36a51f44677894c01f0f4e9d7bc5d8a3fa",
       "author": "igaiundine",

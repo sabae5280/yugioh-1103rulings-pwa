@@ -1,6 +1,28 @@
 window.RECENT_UPDATES = [
   {
     "date": "2026-11-25",
+    "batch": "2026-11-25-future-fusion-zephyros",
+    "card": "未来融合－フューチャー・フュージョン",
+    "change": "裁定整理",
+    "summary": "実装担当：igaiundine。発動時に素材を送る処理と２回目のスタンバイフェイズに融合召喚する処理を整理し、《禁止令》の重複QAを統合",
+    "qaIds": [
+      "R-8OOZZ",
+      "R-YP3B0"
+    ]
+  },
+  {
+    "date": "2026-11-25",
+    "batch": "2026-11-25-future-fusion-zephyros",
+    "card": "BF－精鋭のゼピュロス",
+    "change": "裁定整理",
+    "summary": "実装担当：igaiundine。発動コスト、特殊召喚と４００ダメージの処理を整理。ダメージのQAを先頭に移し、難解QAに2026年10月のOCG事務局回答を採用した経緯を追記",
+    "qaIds": [
+      "R-6GLEKQ7YQK",
+      "R-Z5CMDWIM"
+    ]
+  },
+  {
+    "date": "2026-11-25",
     "batch": "2026-11-25-crevice-assailant-royal-curse",
     "card": "異次元への隙間",
     "change": "カード追加",
