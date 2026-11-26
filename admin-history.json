@@ -1,6 +1,26 @@
 {
-  "sourceCommit": "468f6d3bf0fe2ae872d99c7e0fa5ec6890afad36",
+  "sourceCommit": "0a1b35261f6fa7c6e468a67865ecb938ee2cfa3a",
   "entries": [
+    {
+      "sha": "0a1b35261f6fa7c6e468a67865ecb938ee2cfa3a",
+      "author": "sabae5280",
+      "committer": "GitHub",
+      "authoredAt": "2026-11-26T14:25:45+09:00",
+      "date": "2026-11-26T14:25:45+09:00",
+      "message": "黒基調の配色と1103監修者ギャラリーを公開（v289）\n\n実装担当：Codex（さばえ氏の依頼）\r\n変更内容：電光掲示板の対角のシアン照明、トップ画像の自動切り替え、監修バナーの角丸と段間、ガンメタルのリンクボタンを反映。墓守村3名の個別リンク、以外氏の2枠、1103の大会リンクを追加。",
+      "files": [
+        "admin-history.json",
+        "charcoal.css",
+        "contributors.js",
+        "hero-background.js",
+        "index.html",
+        "manifest.webmanifest",
+        "menu-content.js",
+        "menu-update.css",
+        "site-release.js",
+        "sw.js"
+      ]
+    },
     {
       "sha": "468f6d3bf0fe2ae872d99c7e0fa5ec6890afad36",
       "author": "sabae5280",
