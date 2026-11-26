@@ -1,6 +1,25 @@
 {
-  "sourceCommit": "1cff8ffe577480e566ae95f706797c3bfb8a3295",
+  "sourceCommit": "9c6964ba9f6ed34d838e373af1132e4ddb605cf1",
   "entries": [
+    {
+      "sha": "9c6964ba9f6ed34d838e373af1132e4ddb605cf1",
+      "author": "igaiundine",
+      "committer": "GitHub",
+      "authoredAt": "2026-11-26T23:19:42+09:00",
+      "date": "2026-11-26T23:19:42+09:00",
+      "message": "銀幕",
+      "files": [
+        "admin-history.json",
+        "index.html",
+        "recent-updates.js",
+        "rulings-crane-assault-mirror-20261110.js",
+        "rulings-disigma-relinquished-fire-20261116.js",
+        "rulings-gale-shrink-stat-fixing-20261121.js",
+        "rulings-w-row.js",
+        "site-release.js",
+        "sw.js"
+      ]
+    },
     {
       "sha": "1cff8ffe577480e566ae95f706797c3bfb8a3295",
       "author": "igaiundine",

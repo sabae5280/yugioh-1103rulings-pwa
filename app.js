@@ -328,6 +328,19 @@ window.assignStandardManagementIds?.(
   normalizedManagementId
 );
 
+// 《禁止令》では概要に案内があるため、個別QAへの追記は不要。
+const difficultRulingNotice = "※この裁定は難解なルールを含むため、大会当日のジャッジの判断を優先してください。";
+for (const item of allRulings) {
+  if (item.name === "禁止令") continue;
+  for (const entry of item.qa || []) {
+    if (!entry.difficult) continue;
+    const answers = entry.answers?.length ? entry.answers : [entry];
+    if (answers.some(part => part.answer?.includes(difficultRulingNotice))) continue;
+    const last = answers[answers.length - 1];
+    last.answer = [last.answer, difficultRulingNotice].filter(Boolean).join("\n\n");
+  }
+}
+
 const referencePopularity = new Map();
 
 for (const item of allRulings) {
