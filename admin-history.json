@@ -1,6 +1,26 @@
 {
-  "sourceCommit": "0a1b35261f6fa7c6e468a67865ecb938ee2cfa3a",
+  "sourceCommit": "1cff8ffe577480e566ae95f706797c3bfb8a3295",
   "entries": [
+    {
+      "sha": "1cff8ffe577480e566ae95f706797c3bfb8a3295",
+      "author": "igaiundine",
+      "committer": "GitHub",
+      "authoredAt": "2026-11-26T22:05:55+09:00",
+      "date": "2026-11-26T22:05:55+09:00",
+      "message": "ワームゼクス、ウォーロード",
+      "files": [
+        "admin-history.json",
+        "card-readings.js",
+        "index.html",
+        "management-ids.js",
+        "recent-updates.js",
+        "rulings-w-row.js",
+        "site-release.js",
+        "sw.js",
+        "worm-warlord-1103.jpg",
+        "worm-xex-1103.jpg"
+      ]
+    },
     {
       "sha": "0a1b35261f6fa7c6e468a67865ecb938ee2cfa3a",
       "author": "sabae5280",
