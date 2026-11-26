@@ -56,9 +56,25 @@ body.menu-open .notice-track{animation-play-state:paused}
 
 /* v241: LED sign sits above, not over, the artwork. */
 @font-face{font-family:'Notice Dot';src:url('./fonts/DotGothic16-Regular.ttf') format('truetype');font-weight:400;font-display:swap}
-.site-notice{margin:0;padding:calc(6px + env(safe-area-inset-top,0px)) 7px 6px;border:3px solid #727c86;border-radius:7px;background:radial-gradient(circle,#483521 1px,transparent 1.5px) 0 0/4px 4px,#100e10;box-shadow:inset 0 0 0 2px #222a31,inset 0 0 10px #000,0 2px 5px #0008;color:#ffb434}
-.site-notice::before,.site-notice::after{content:'';position:absolute;left:7px;right:7px;height:4px;background:linear-gradient(90deg,#ef6aff,#75daff,#a6ff8b,#ffe79b,#ff878d,#b59bff,#75e8ff);-webkit-mask:radial-gradient(circle,#000 1.8px,transparent 2.1px) 0 0/7px 4px;mask:radial-gradient(circle,#000 1.8px,transparent 2.1px) 0 0/7px 4px;filter:drop-shadow(0 0 3px #a3f3ff);pointer-events:none}
-.site-notice::before{top:calc(2px + env(safe-area-inset-top,0px))}.site-notice::after{bottom:2px}
+/* Amber marquee with two restrained cyan corner lights. */
+.site-notice {
+  padding: calc(5px + env(safe-area-inset-top, 0px)) 10px 5px;
+  border: 1px solid #4b5b64;
+  border-radius: 4px;
+  color: #ffcc78;
+  background: radial-gradient(circle, #283036 .8px, transparent 1.1px) 0 0/4px 4px, #0c1215;
+}
+.site-notice::before, .site-notice::after {
+  content: "";
+  position: absolute;
+  width: 23px;
+  height: 8px;
+  pointer-events: none;
+  border: solid #83dce2;
+  filter: drop-shadow(0 0 2px #59bdc477);
+}
+.site-notice::before { top: env(safe-area-inset-top, 0px); left: 0; border-width: 2px 0 0 2px; border-radius: 3px 0 0; }
+.site-notice::after { bottom: 0; right: 0; border-width: 0 2px 2px 0; border-radius: 0 0 3px; }
 #noticeOpen{height:35px}
 .notice-track{font-family:'Notice Dot',monospace;font-size:18px;font-weight:400;line-height:35px;letter-spacing:.1em;text-shadow:0 0 4px currentColor;animation-duration:65s}
 .led-accent-1{color:#ff8dce}.led-accent-3{color:#83e8ff}.led-accent-5{color:#b0ef8b}.led-release{color:#82e7df}
@@ -160,7 +176,7 @@ body.menu-open .notice-track{animation-play-state:paused}
 .credit-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 14px 8px;
+  gap: clamp(22px, 3vw, 28px) 8px;
 }
 .credit-tile {
   display: flex;
@@ -192,8 +208,8 @@ body.menu-open .notice-track{animation-play-state:paused}
   aspect-ratio: 16 / 9;
   object-fit: contain;
   margin-top: auto;
-  border-radius: 3px;
-  background: #fff;
+  border-radius: 6px;
+  background: #11171b;
   box-shadow: 0 0 0 1px #17243d24;
 }
 @media (hover: hover) {
@@ -244,7 +260,7 @@ body.menu-open .notice-track{animation-play-state:paused}
   letter-spacing: .06em;
   border-inline-start: 2px solid #b39a62;
 }
-.credit-art img { width: 100%; height: auto; align-self: center; display: block; }
+.credit-art img { border-radius: 6px; width: 100%; height: auto; align-self: center; display: block; }
 .credit-signature, .credit-links { padding: 0 16px; }
 .credit-signature { margin: 13px 0 6px; }
 .credit-signature strong { font-size: clamp(21px, 4vw, 29px); }
@@ -275,3 +291,31 @@ body.menu-open .notice-track{animation-play-state:paused}
   .site-menu__page:has(#contributorDirectory) { padding-inline: 6px; border-left: 0; }
   .credit-grid { column-gap: 6px; }
 }
+
+.credit-row-start { grid-column-start: 1; }
+.credit-tile.is-opening img { animation: credit-open 180ms ease-out both; }
+@keyframes credit-open {
+  0% { box-shadow: 0 0 0 1px #83dce288; }
+  40%, 100% { box-shadow: 0 0 0 2px #83dce2, 0 0 9px #83dce266; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .credit-tile.is-opening img { animation: none; }
+}
+.credit-links a {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 54px;
+  padding: 5px 7px;
+  color: #e7eff2;
+  border: 1px solid #798995;
+  border-radius: 5px;
+  background: linear-gradient(140deg, #41505b, #303d47 46%, #262f37 47%, #1d252b);
+  box-shadow: inset 0 -2px #12171c;
+}
+.credit-links a:hover { border-color: #b5d3dc; }
+.credit-links svg { display: block; width: 21px; height: 21px; }
+.credit-links a span { font-size: 11px; line-height: 1.2; }
+.credit-member { width: 100%; }
+#menuPageBody .credit-member h3 { margin: 8px 0 5px; }
+.credit-member > div { display: flex; flex-wrap: wrap; gap: 6px; }

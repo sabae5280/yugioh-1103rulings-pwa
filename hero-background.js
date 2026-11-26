@@ -2,11 +2,10 @@
   const frames = [...document.querySelectorAll('.hero-frame')];
   if (frames.length !== 2) return;
   const hero = document.querySelector('.hero');
-  const button = document.querySelector('#heroMotion');
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
-  let bag = [], last = 0, active = -1, timer, paused = false, visible = true, pending, revision = 0;
+  let bag = [], last = 0, active = -1, timer, visible = true, pending, revision = 0;
   const animations = [];
-  const running = () => !paused && !document.hidden && visible && !reduced.matches;
+  const running = () => !document.hidden && visible && !reduced.matches;
   function next() {
     if (!bag.length) {
       bag = Array.from({length:19}, (_, i) => i + 1);
@@ -59,16 +58,8 @@
   }
   function sync() {
     animations.forEach(a => running() ? a?.play() : a?.pause());
-    button.hidden = reduced.matches;
     schedule();
   }
-  button.addEventListener('click', () => {
-    paused = !paused;
-    button.setAttribute('aria-pressed',String(paused));
-    button.setAttribute('aria-label',paused ? '背景の動きと切り替えを再開' : '背景の動きと切り替えを一時停止');
-    button.textContent = paused ? '▶' : 'Ⅱ';
-    sync();
-  });
   document.addEventListener('visibilitychange',sync);
   reduced.addEventListener('change',sync);
   if ('IntersectionObserver' in window) new IntersectionObserver(entries => {

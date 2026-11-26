@@ -1,6 +1,39 @@
 {
-  "sourceCommit": "68ffefe8f540f1e04611a6dad67e23045e5c702a",
+  "sourceCommit": "468f6d3bf0fe2ae872d99c7e0fa5ec6890afad36",
   "entries": [
+    {
+      "sha": "468f6d3bf0fe2ae872d99c7e0fa5ec6890afad36",
+      "author": "sabae5280",
+      "committer": "GitHub",
+      "authoredAt": "2026-11-26T14:23:49+09:00",
+      "date": "2026-11-26T14:23:49+09:00",
+      "message": "1103監修協力者のバナー5枚を追加\n\n実装担当：Codex（さばえ氏の依頼）\r\n変更内容：くりすま氏、みらーふぉーす氏、以外氏の2デッキと墓守村の画像を追加。",
+      "files": [
+        "images/links/ayumirrorforce.webp",
+        "images/links/hakamorimura.webp",
+        "images/links/igai-d.webp",
+        "images/links/igai-worm.webp",
+        "images/links/xmas8787.webp"
+      ]
+    },
+    {
+      "sha": "d42738ba854ef5034b3e0203932f8cae7ce3203c",
+      "author": "sabae5280",
+      "committer": "GitHub",
+      "authoredAt": "2026-11-26T12:18:36+09:00",
+      "date": "2026-11-26T12:18:36+09:00",
+      "message": "監修協力者一覧を環境別のバナーと名刺に更新（v288）\n\n実装担当：Codex（さばえ氏の依頼）\r\n変更内容：1103の監修者6名を2列のバナーで紹介し、個別名刺とリンクを表示。1209・1402のタブには「後日追加予定です。」を表示。",
+      "files": [
+        "admin-history.json",
+        "app.js",
+        "contributors.js",
+        "index.html",
+        "menu-content.js",
+        "menu-update.css",
+        "site-release.js",
+        "sw.js"
+      ]
+    },
     {
       "sha": "68ffefe8f540f1e04611a6dad67e23045e5c702a",
       "author": "igaiundine",

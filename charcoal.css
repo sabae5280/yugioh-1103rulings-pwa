@@ -1,0 +1,80 @@
+/* Site palette. Keep layout, banner artwork, and interaction styles independent. */
+:root {
+  color-scheme: dark;
+  --paper: #101316;
+  --card: #1a2025;
+  --ink: #eef1f3;
+  --muted: #bac4cd;
+  --line: #3e4953;
+  --navy: #13191e;
+  --surface-raised: #252d34;
+  --accent-link: #a6d9f2;
+  --accent-frame: #83dce2;
+}
+body { background: var(--paper); }
+.hero { border-bottom: 1px solid var(--line); }
+.hero .menu-button { background: #11181de0; border-color: #81929d; }
+.search-panel, .site-menu__page, .ruling-card, .reference-dialog, .credit-dialog,
+#noticeDialog, .reference-dialog header, .reference-footer {
+  background: var(--card);
+  color: var(--ink);
+  border-color: var(--line);
+}
+.search-box { background: #0d1115; border-color: #53616d; }
+.search-box input::placeholder { color: #a6b2bd; }
+.search-box:focus-within { border-color: var(--accent-frame); box-shadow: 0 0 0 2px #80dce227; }
+.filter-section, #formatPicker, #formatPicker .environment-option,
+.filter, .site-menu__nav button, .site-menu__close, .menu-header-actions #shareButton,
+.menu-disclosure, #recentUpdates, .credits-notice, .credit-tabs,
+.reference-dialog button, .reference-tools a, .contact-service,
+.environment-picker-toggle, .active-conditions button, .filter-actions button,
+.reference-notice button, .row-navigation a, .row-navigation span {
+  background: var(--surface-raised);
+  color: var(--ink);
+  border-color: var(--line);
+}
+.filter-section--monsterTags { border-left: 3px solid #b97e57; }
+.filter-section--spellType { border-left: 3px solid #659f86; }
+.filter-section--trapType { border-left: 3px solid #af7d9e; }
+#formatPicker .environment-option span { text-shadow: 0 1px 3px #0b1016; }
+#formatPicker .environment-option::before { opacity: .51; }
+#formatPicker .environment-option.is-primary { border-color: var(--accent-frame); }
+.filter.is-active, .site-menu__nav button.is-active, .credit-tabs button[aria-selected="true"],
+.filter-actions #showResults {
+  background: #2d4147; color: #edfafa; border-color: #6ba4ab; box-shadow: inset 0 -2px #7ac4c9;
+}
+#referenceOpen, .advanced-toggle, .term-help, .link-tile, #recentUpdates .update-heading,
+.menu-disclosure summary::after, .card-reference, .related-ruling .card-reference,
+.related-ruling-card__items .card-reference, .related-ruling-card__name .card-reference,
+.external-article-card__content small, .qa-search-preview strong, .environment-mode-status, .overview-heading-label, .overview-disclosure > summary,
+.site-menu__page :where(p,li) a { color: var(--accent-link); }
+.filter-section > summary, .advanced-filter-group legend, .environment-filter legend,
+.environment-picker > p:first-child, .card-section h3, .site-menu__header,
+.recent-updates h2, .site-menu__page h2, .credit-tile, .credit-tabs button,
+.external-article-card__content strong { color: var(--ink); }
+#recentUpdates li, .credit-paging, .related-ruling-card { border-color: var(--line); }
+#recentUpdates time, #recentUpdates .update-detail, .updates-hint, .selection-summary,
+.environment-option small, .qa-search-preview small, .card-reference.is-pending, .filter-help, #menuPageBody .credit-hint, #menuPageBody .credit-empty,
+.credit-caption span, .existing-rulings-section .row-section__title small,
+.overview-disclosure > summary::after { color: var(--muted); }
+.row-section__title, .search-group__title, .overview-section blockquote,
+.qa-item, .related-ruling, .answer-disclosure, .qa-search-preview, .existing-rulings-empty,
+.ios-tip, .reference-notice, .supplemental-image, .category-cover, .external-article-card {
+  background: var(--surface-raised); color: var(--ink); border-color: var(--line);
+}
+.qa-item summary .qa-marker { background: #42505b; }
+.card-inquiry__button, .related-list .card-reference, .related-list .card-reference.is-pending,
+.related-ruling-card__items .card-reference.card-reference--current, .damage-step-reference__link {
+  background: var(--surface-raised); color: var(--accent-link); border-color: var(--line);
+}
+.row-navigation span[aria-disabled="true"] { color: #89949c; background: #1b2025; border-color: var(--line); }
+.row-navigation a:hover, .row-navigation a:focus-visible { background: #34444b; }
+.menu-guide__bubble, .menu-guide__bubble::after { background: #242b31; border-color: #9b8452; }
+.credit-art, .credit-dialog-head { background: #11171c; }
+.credit-spine { border-color: #57626b; }
+.credit-dialog .credit-paging button { color: var(--ink); background: var(--surface-raised); border-color: var(--line); }
+.credit-dialog::backdrop { background: #06090dcf; }
+#contributorDirectory :focus-visible { outline-color: var(--accent-frame); }
+#menuPageBody .admin-note { color: var(--muted); }
+.admin-panel .admin-history-list { background: var(--surface-raised); color: var(--ink); border-color: var(--line); }
+.admin-panel .admin-history-list a { color: var(--accent-link); }
