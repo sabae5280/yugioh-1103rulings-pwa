@@ -126,3 +126,152 @@ body.menu-open .notice-track{animation-play-state:paused}
 .menu-guide__measure,.menu-guide__typed{white-space:pre-wrap;overflow-wrap:normal;min-height:0}
 .menu-guide__bubble::after{right:-8px;top:32px;bottom:auto;transform:rotate(45deg)}
 @media(max-width:360px){.menu-guide{gap:8px}.menu-guide__bubble{font-size:12px;padding:10px 7px}.menu-guide__portrait{flex-basis:44%;width:44%}}
+
+/* Contributor gallery and player cards */
+.credit-tabs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3px;
+  padding: 3px;
+  margin-bottom: 12px;
+  border: 1px solid #cfc5a8;
+  border-radius: 10px;
+  background: #eee8d9;
+}
+.credit-tabs button, .credit-dialog button {
+  min-height: 44px;
+  border: 0;
+  border-radius: 7px;
+  font: inherit;
+  font-weight: 700;
+  color: #293750;
+  background: transparent;
+  cursor: pointer;
+}
+.credit-tabs button[aria-selected="true"] {
+  background: #1d2c44;
+  color: #fff8e8;
+  box-shadow: inset 0 -3px #bfa264;
+}
+#menuPageBody .credit-hint, #menuPageBody .credit-empty {
+  margin: 10px 0 14px;
+  color: #4a5666;
+}
+.credit-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px 8px;
+}
+.credit-tile {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: #17243d;
+  text-align: start;
+  font: inherit;
+  cursor: pointer;
+}
+.credit-caption {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 .25em;
+  line-height: 1.45;
+}
+.credit-caption strong { font-size: clamp(13px, 2.6vw, 16px); }
+.credit-caption span { max-width: 100%; font-size: 12px; color: #475363; }
+.credit-tile img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: contain;
+  margin-top: auto;
+  border-radius: 3px;
+  background: #fff;
+  box-shadow: 0 0 0 1px #17243d24;
+}
+@media (hover: hover) {
+  .credit-tile:hover img { box-shadow: 0 0 0 2px #997c3d; }
+}
+#contributorDirectory :focus-visible { outline: 3px solid #336e9d; outline-offset: 2px; }
+.credit-dialog {
+  width: min(94vw, 640px);
+  max-width: calc(100vw - 12px);
+  max-height: 90vh;
+  max-height: 90dvh;
+  box-sizing: border-box;
+  margin: auto;
+  padding: 0 0 14px;
+  overflow: auto;
+  overscroll-behavior: contain;
+  border: 1px solid #b6a275;
+  border-radius: 10px;
+  background: #fffdf8;
+  color: #192942;
+  box-shadow: 0 10px 48px #0b12274d;
+}
+.credit-dialog::backdrop { background: #0c1628bf; }
+.credit-dialog-head, .credit-paging {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 2px 14px;
+}
+.credit-dialog-head { background: #1d2c44; color: #fff9e9; }
+.credit-era { font-size: 14px; font-weight: 700; letter-spacing: .06em; }
+.credit-dialog .credit-close { color: #fff; padding: 0 10px; }
+.credit-art {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: stretch;
+  background: #f1eadb;
+}
+.credit-spine {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  justify-self: stretch;
+  align-content: center;
+  text-align: center;
+  padding: 5px;
+  font-size: clamp(15px, 3.5vw, 22px);
+  letter-spacing: .06em;
+  border-inline-start: 2px solid #b39a62;
+}
+.credit-art img { width: 100%; height: auto; align-self: center; display: block; }
+.credit-signature, .credit-links { padding: 0 16px; }
+.credit-signature { margin: 13px 0 6px; }
+.credit-signature strong { font-size: clamp(21px, 4vw, 29px); }
+.credit-signature span { font-size: 14px; }
+.credit-links { display: flex; flex-wrap: wrap; gap: 6px; }
+.credit-links a, .credit-paging button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0 12px;
+  box-sizing: border-box;
+  border: 1px solid #cac4b6;
+  border-radius: 6px;
+  background: #fff;
+  color: #243b54;
+  font-size: 14px;
+  text-decoration: none;
+}
+.credit-links a { background: #21334d; color: #fff; border-color: #21334d; font-weight: 700; }
+.credit-paging { margin: 12px 16px 0; border-top: 1px solid #e3dece; padding: 10px 0 0; }
+#contributorDirectory [hidden] { display: none; }
+
+@media (max-width: 699px) {
+  .site-menu:has(#contributorDirectory) { grid-template-columns: 10px minmax(0, 1fr); }
+  .site-menu:has(#contributorDirectory) .site-menu__drawer { width: 100%; padding-inline: 8px; }
+  .site-menu__page:has(#contributorDirectory) { padding-inline: 6px; border-left: 0; }
+  .credit-grid { column-gap: 6px; }
+}

@@ -1,6 +1,144 @@
 {
-  "sourceCommit": "e8307ec0a82b130b9be599dd63621930c29825ae",
+  "sourceCommit": "68ffefe8f540f1e04611a6dad67e23045e5c702a",
   "entries": [
+    {
+      "sha": "68ffefe8f540f1e04611a6dad67e23045e5c702a",
+      "author": "igaiundine",
+      "committer": "GitHub",
+      "authoredAt": "2026-11-26T07:45:21+09:00",
+      "date": "2026-11-26T07:45:21+09:00",
+      "message": "禁止令４",
+      "files": [
+        "index.html",
+        "recent-updates.js",
+        "rulings-k-row.js",
+        "site-release.js",
+        "sw.js"
+      ]
+    },
+    {
+      "sha": "3dd84ec48e03ff962d20a8de3e5feb2442f2129c",
+      "author": "igaiundine",
+      "committer": "GitHub",
+      "authoredAt": "2026-11-25T23:17:45+09:00",
+      "date": "2026-11-25T23:17:45+09:00",
+      "message": "奈落修正",
+      "files": [
+        "app.js",
+        "index.html",
+        "recent-updates.js",
+        "rulings-n-row.js",
+        "site-release.js",
+        "sw.js"
+      ]
+    },
+    {
+      "sha": "663055b47bcc3e011264eb2144a107331036a875",
+      "author": "igaiundine",
+      "committer": "GitHub",
+      "authoredAt": "2026-11-25T23:12:04+09:00",
+      "date": "2026-11-25T23:12:04+09:00",
+      "message": "禁止令３",
+      "files": [
+        "index.html",
+        "recent-updates.js",
+        "rulings-k-row.js",
+        "site-release.js",
+        "sw.js"
+      ]
+    },
+    {
+      "sha": "34954d4212cd969d0ab870f0aac7419fd512f101",
+      "author": "igaiundine",
+      "committer": "GitHub",
+      "authoredAt": "2026-11-25T23:09:01+09:00",
+      "date": "2026-11-25T23:09:01+09:00",
+      "message": "かかし、奈落整理",
+      "files": [
+        "app.js",
+        "index.html",
+        "recent-updates.js",
+        "rulings-k-row.js",
+        "rulings-n-row.js",
+        "site-release.js",
+        "sw.js"
+      ]
+    },
+    {
+      "sha": "cc1d243c980b785b7909d1ee4680b5dfb7d91897",
+      "author": "igaiundine",
+      "committer": "GitHub",
+      "authoredAt": "2026-11-25T22:45:29+09:00",
+      "date": "2026-11-25T22:45:29+09:00",
+      "message": "オーシャン",
+      "files": [
+        "card-readings.js",
+        "elemental-hero-ocean-1103.jpg",
+        "index.html",
+        "management-ids.js",
+        "recent-updates.js",
+        "rulings-a-row-batch-04.js",
+        "site-release.js",
+        "sw.js"
+      ]
+    },
+    {
+      "sha": "5f296d3b0ed389e26b12f96f1aa5b901f1ffba5f",
+      "author": "igaiundine",
+      "committer": "GitHub",
+      "authoredAt": "2026-11-25T22:27:16+09:00",
+      "date": "2026-11-25T22:27:16+09:00",
+      "message": "禁止令２",
+      "files": [
+        "index.html",
+        "prohibition-copy-environments.webp",
+        "prohibition-zone-effects.webp",
+        "recent-updates.js",
+        "rulings-h-row.js",
+        "rulings-k-row.js",
+        "site-release.js",
+        "sw.js"
+      ]
+    },
+    {
+      "sha": "2e9900077faa689215405c912dc25e81388856f1",
+      "author": "igaiundine",
+      "committer": "GitHub",
+      "authoredAt": "2026-11-25T21:56:54+09:00",
+      "date": "2026-11-25T21:56:54+09:00",
+      "message": "禁止令",
+      "files": [
+        "admin-history.json",
+        "index.html",
+        "management-ids.js",
+        "prohibition-copy-environments.webp",
+        "prohibition-play-actions.webp",
+        "prohibition-zone-effects.webp",
+        "qa-environments-20261104.js",
+        "recent-updates.js",
+        "rulings-h-row.js",
+        "rulings-hero-ancient-overviews-20261118.js",
+        "rulings-k-row.js",
+        "rulings-phantom-alien-and-more-20261105.js",
+        "site-release.js",
+        "sw.js"
+      ]
+    },
+    {
+      "sha": "b4282b7cdbc3d248c55aeab3397777bc9fae938f",
+      "author": "igaiundine",
+      "committer": "GitHub",
+      "authoredAt": "2026-11-25T15:11:17+09:00",
+      "date": "2026-11-25T15:11:17+09:00",
+      "message": "管理ID桁統一",
+      "files": [
+        "app.js",
+        "index.html",
+        "management-ids.js",
+        "site-release.js",
+        "sw.js"
+      ]
+    },
     {
       "sha": "e8307ec0a82b130b9be599dd63621930c29825ae",
       "author": "igaiundine",

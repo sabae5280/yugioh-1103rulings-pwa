@@ -1241,6 +1241,7 @@ function openMenu(page = "about") {
   const content = sitePages[page] || sitePages.about;
   menuPageTitle.textContent = content.title;
   menuPageBody.innerHTML = content.html;
+  if (page === "credits") window.openContributorDirectory(menuPageBody.querySelector("#contributorDirectory"));
   siteMenu.hidden = false;
   document.body.classList.add("menu-open");
   siteMenu.querySelectorAll("[data-menu-page]").forEach((button) => {
