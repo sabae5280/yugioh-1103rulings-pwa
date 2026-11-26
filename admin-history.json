@@ -1,6 +1,23 @@
 {
-  "sourceCommit": "9c6964ba9f6ed34d838e373af1132e4ddb605cf1",
+  "sourceCommit": "94d6c66a203cce52a1ad4133600245f39e02b50d",
   "entries": [
+    {
+      "sha": "94d6c66a203cce52a1ad4133600245f39e02b50d",
+      "author": "igaiundine",
+      "committer": "GitHub",
+      "authoredAt": "2026-11-26T23:38:46+09:00",
+      "date": "2026-11-26T23:38:46+09:00",
+      "message": "銀幕２",
+      "files": [
+        "admin-history.json",
+        "app.js",
+        "index.html",
+        "recent-updates.js",
+        "rulings-crane-assault-mirror-20261110.js",
+        "site-release.js",
+        "sw.js"
+      ]
+    },
     {
       "sha": "9c6964ba9f6ed34d838e373af1132e4ddb605cf1",
       "author": "igaiundine",
