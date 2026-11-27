@@ -1,6 +1,27 @@
 {
-  "sourceCommit": "94d6c66a203cce52a1ad4133600245f39e02b50d",
+  "sourceCommit": "8d607460bc162c3229d2ec1cd0b7907cd7a900f0",
   "entries": [
+    {
+      "sha": "8d607460bc162c3229d2ec1cd0b7907cd7a900f0",
+      "author": "igaiundine",
+      "committer": "GitHub",
+      "authoredAt": "2026-11-27T07:48:48+09:00",
+      "date": "2026-11-27T07:48:48+09:00",
+      "message": "ヴァルキュリア、クロキシアン",
+      "files": [
+        "admin-history.json",
+        "dark-valkyria-1103.jpg",
+        "index.html",
+        "locomotion-r-genex-1103.jpg",
+        "management-ids.js",
+        "recent-updates.js",
+        "rulings-gozen-zephyros-gorz-20261117.js",
+        "rulings-r-row.js",
+        "rulings-t-row.js",
+        "site-release.js",
+        "sw.js"
+      ]
+    },
     {
       "sha": "94d6c66a203cce52a1ad4133600245f39e02b50d",
       "author": "igaiundine",
