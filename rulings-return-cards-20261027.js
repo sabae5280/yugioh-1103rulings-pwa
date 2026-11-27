@@ -52,7 +52,10 @@
     "qa": [],
     "related": [],
     "source": "ユーザー提供資料",
-    "details": []
+    "details": [],
+    "specialTags": [
+      "ガエル"
+    ]
   },
   {
     "name": "異次元の生還者",

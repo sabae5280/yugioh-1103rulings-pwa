@@ -1997,6 +1997,9 @@ window.R_ROW_RULINGS.push({
       ],
       "managementId": "R-7LYCXVHZ"
     }
+  ],
+  "specialTags": [
+    "ガエル"
   ]
 });
 

@@ -1983,3 +1983,9 @@ window.CARD_TITLE_READINGS["ドラグニティ－ファランクス"] = "ドラ�
 
 window.CARD_TITLE_RUBY["マジック・ドレイン"] = [["マジック・ドレイン"]];
 window.CARD_TITLE_READINGS["マジック・ドレイン"] = "マジックドレイン";
+
+window.CARD_TITLE_RUBY["Ａ・ジェネクス・クラッシャー"] = [["Ａ", "アーリー"], ["・ジェネクス・クラッシャー"]];
+window.CARD_TITLE_READINGS["Ａ・ジェネクス・クラッシャー"] = "アーリー・ジェネクス・クラッシャー";
+
+window.CARD_TITLE_RUBY["粋カエル"] = [["粋", "いき"], ["カエル"]];
+window.CARD_TITLE_READINGS["粋カエル"] = "いきカエル";

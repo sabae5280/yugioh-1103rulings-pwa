@@ -1,6 +1,32 @@
 {
-  "sourceCommit": "459dee1d6775b4f3c7f65e7e6090c18639b52a1f",
+  "sourceCommit": "ebcb3aa80f7b2696216b140e6816e8ab5813330f",
   "entries": [
+    {
+      "sha": "ebcb3aa80f7b2696216b140e6816e8ab5813330f",
+      "author": "igaiundine",
+      "committer": "GitHub",
+      "authoredAt": "2026-11-27T23:23:45+09:00",
+      "date": "2026-11-27T23:23:45+09:00",
+      "message": "エーリアン追加＆整理、一族の結束、セフィロン",
+      "files": [
+        "admin-history.json",
+        "alien-ammonite-1103.jpg",
+        "alien-brain-1103.jpg",
+        "alien-telepath-1103.jpg",
+        "alien-warrior-1103.jpg",
+        "divine-wind-of-mist-valley-1103.jpg",
+        "index.html",
+        "management-ids.js",
+        "recent-updates.js",
+        "rulings-alien-mist-valley-20261127.js",
+        "rulings-crane-assault-mirror-20261110.js",
+        "rulings-phantom-alien-and-more-20261105.js",
+        "sephylon-the-ultimate-timelord-1103.jpg",
+        "site-release.js",
+        "solidarity-1103.jpg",
+        "sw.js"
+      ]
+    },
     {
       "sha": "459dee1d6775b4f3c7f65e7e6090c18639b52a1f",
       "author": "igaiundine",
