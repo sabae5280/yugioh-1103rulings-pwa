@@ -1,6 +1,28 @@
 {
-  "sourceCommit": "8d607460bc162c3229d2ec1cd0b7907cd7a900f0",
+  "sourceCommit": "459dee1d6775b4f3c7f65e7e6090c18639b52a1f",
   "entries": [
+    {
+      "sha": "459dee1d6775b4f3c7f65e7e6090c18639b52a1f",
+      "author": "igaiundine",
+      "committer": "GitHub",
+      "authoredAt": "2026-11-27T21:50:09+09:00",
+      "date": "2026-11-27T21:50:09+09:00",
+      "message": "コードA、スクラップ整理",
+      "files": [
+        "admin-history.json",
+        "app.js",
+        "code-a-ancient-ruins-1103.jpg",
+        "index.html",
+        "management-ids.js",
+        "recent-updates.js",
+        "rulings-k-row.js",
+        "rulings-s-row-remaining.js",
+        "s-row-overview-fixes.js",
+        "scrap-beast-1103.jpg",
+        "site-release.js",
+        "sw.js"
+      ]
+    },
     {
       "sha": "8d607460bc162c3229d2ec1cd0b7907cd7a900f0",
       "author": "igaiundine",
