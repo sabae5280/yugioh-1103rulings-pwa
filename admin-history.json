@@ -1,6 +1,32 @@
 {
-  "sourceCommit": "ebcb3aa80f7b2696216b140e6816e8ab5813330f",
+  "sourceCommit": "7fb3f53d6e375107d824d60fff4ffa82964c4548",
   "entries": [
+    {
+      "sha": "7fb3f53d6e375107d824d60fff4ffa82964c4548",
+      "author": "igaiundine",
+      "committer": "GitHub",
+      "authoredAt": "2026-11-28T00:29:16+09:00",
+      "date": "2026-11-28T00:29:16+09:00",
+      "message": "クラッシャー、粋カエル、その他整理",
+      "files": [
+        "admin-history.json",
+        "card-readings.js",
+        "genex-ally-crusher-1103.jpg",
+        "index.html",
+        "management-ids.js",
+        "recent-updates.js",
+        "ronintoadin-1103.jpg",
+        "rulings-a-o-j-row.js",
+        "rulings-crane-assault-mirror-20261110.js",
+        "rulings-frogs-genex-20261128.js",
+        "rulings-k-row.js",
+        "rulings-m-row-fixes.js",
+        "rulings-r-row.js",
+        "rulings-return-cards-20261027.js",
+        "site-release.js",
+        "sw.js"
+      ]
+    },
     {
       "sha": "ebcb3aa80f7b2696216b140e6816e8ab5813330f",
       "author": "igaiundine",

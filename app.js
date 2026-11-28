@@ -334,7 +334,8 @@ for (const item of allRulings) {
   if (item.name === "禁止令") continue;
   for (const entry of item.qa || []) {
     if (!entry.difficult) continue;
-    const answers = entry.answers?.length ? entry.answers : [entry];
+    const answers = entry.answers?.length ? [...entry.answers] : [entry];
+    if (entry.sharedAnswerNote) answers.push(entry);
     if (answers.some(part => part.answer?.includes(difficultRulingNotice))) continue;
     const last = answers[answers.length - 1];
     last.answer = [last.answer, difficultRulingNotice].filter(Boolean).join("\n\n");
@@ -673,6 +674,7 @@ function qaPanel(item, entriesOverride = null) {
                 <div class="answer"><span>A</span><div class="answer-body">${renderAnswer(answerEntry.answer)}</div></div>
                 <p class="qa-environment">対応：${escapeHtml(environmentLabel(qaEnvironments(answerEntry, item)))}</p>
               `).join("")}
+              ${entry.sharedAnswerNote ? renderAnswer(entry.answer) : ""}
               ${qaImagesPanel(entry, item)}
               ${entry.managementId ? `<p class="qa-management-id"><span>管理ID：${escapeHtml(entry.managementId)}</span>${copyIconButton(`ID: ${entry.managementId}`, "管理IDをコピー")}</p>` : ""}
             </details>
